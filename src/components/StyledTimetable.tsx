@@ -1,12 +1,16 @@
-import React from "react"
 import styled from "styled-components"
 import { stringToLightColour } from "./utils/colour"
+
+export const StyledTimetableContainer = styled.div`
+    width: 100vw;
+    overflow-x: scroll;
+`
 
 export const StyledTimetable = styled.table`
     /* background-color: red; */
     display: table;
     width: calc(100vw - 2rem);
-    min-width: 800px;
+    min-width: 900px;
     margin: 2rem;
     border-collapse: collapse;
     /* table-layout: fixed; */
@@ -28,25 +32,27 @@ export const StyledTh = styled.th`
     }
 `
 
-export const StyledTr = styled.tr`
+export const StyledTr = styled.tr<{ size: number; resolution: number }>`
     /* height: 100%;
     min-height: 100%; */
 
     & .time {
         text-align: right;
         color: transparent;
+        font-size: 1.4rem;
         &::after {
             content: "-";
-            color: rgba(0, 0, 0, 0.3);
+            color: rgba(0, 0, 0, 0.2);
         }
     }
 
     /* set line height for noninteger times */
     & td {
-        line-height: 0.5rem;
+        line-height: ${({ size = 20 }: { size?: number }) =>
+            (size / 100) * 2 + "rem"};
     }
 
-    &:nth-child(${({ resolution = 15 }: { resolution: number }) =>
+    &:nth-child(${({ resolution = 15 }: { resolution?: number }) =>
                 `${60 / resolution}n - ${60 / resolution - 1}`}) {
         & td {
             line-height: var(--chakra-lineHeights-base);
@@ -63,24 +69,19 @@ export const StyledTr = styled.tr`
     }
 `
 
-export const StyledTbody = styled.tbody`
-    /* background-color: red; */
-`
+export const StyledTbody = styled.tbody``
 
 export const StyledTimeLabelTd = styled.td`
     width: 1px;
     font-variant-numeric: proportional-nums;
-    font-family: monospace;
-    padding-right: 2rem;
+    font-family: interstate-mono, monospace;
+    padding-right: 1rem;
     border-right: 1px solid #e2e8f0;
     position: relative;
     top: -1rem;
 
-    &:last-of-type {
-        border-right: none;
-    }
-
     font-size: 1.4rem;
+    line-height: 1.4rem;
 `
 
 export const MeetingTimeCell = styled.td`
@@ -94,9 +95,18 @@ export const MeetingTimeCell = styled.td`
 
 export const MeetingTime = styled.div<{ meeting: string }>`
     position: absolute;
-    top: 0.1rem;
+    top: 0.3rem;
     right: 0.4rem;
-    bottom: 0.1rem;
+    &,
+    & > * {
+        word-break: keep-all;
+        /* white-space: nowrap; */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* bottom: 0.15rem; */
+    /* bottom: -0.1rem; */
+    bottom: 0;
     left: 0.4rem;
     font-weight: 500;
     /* min-height: 400%; */
@@ -108,6 +118,11 @@ export const MeetingTime = styled.div<{ meeting: string }>`
         stringToLightColour(meeting)};
 
     /* border: 1px solid #e2e8f0; */
+`
+
+export const MeetingTitle = styled.span`
+    font-weight: 700;
+    font-size: 1.5rem;
 `
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``

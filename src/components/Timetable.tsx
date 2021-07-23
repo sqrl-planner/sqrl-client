@@ -1,14 +1,16 @@
-import { Box, Flex, Grid, useToast } from "@chakra-ui/react"
-import React, { FunctionComponent, useEffect } from "react"
+import { Box, Flex, Tooltip, useToast } from "@chakra-ui/react"
+import React, { FunctionComponent, useEffect, useState } from "react"
 import { Day, Meeting, meetings } from "./Meeting"
 import {
     MeetingTime,
     MeetingTimeCell,
+    MeetingTitle,
     StyledHead,
     StyledTbody,
     StyledTh,
     StyledTimeLabelTd,
     StyledTimetable,
+    StyledTimetableContainer,
     StyledTr,
 } from "./StyledTimetable"
 
@@ -33,6 +35,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     maxTime = Meeting.timeToMinuteOffset(22),
     resolution = 15,
 }) => {
+    const [size, setSize] = useState(1)
+
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
 
@@ -126,12 +130,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     const tableRows: Array<React.ReactNode> = []
     for (let timeIndex = 0; timeIndex < grid.length; timeIndex++) {
         const currentTime = minTime + timeIndex * resolution
-        const hour = Math.floor(currentTime / 60)
-        const minute = currentTime % 60
-        const timeLabel =
-            hour.toString().padStart(2, "0") +
-            ":" +
-            minute.toString().padStart(2, "0")
+        const timeLabel = Meeting.minuteOffsetToTime(currentTime)
         const cells = [
             <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
         ]
@@ -146,14 +145,45 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                         const rowspan = Math.ceil(
                             (meeting.endTime - meeting.startTime) / resolution
                         )
+                        const startTime = Meeting.minuteOffsetToTime(
+                            meeting.startTime
+                        )
+                        const endTime = Meeting.minuteOffsetToTime(
+                            meeting.endTime
+                        )
                         cells.push(
                             <MeetingTimeCell
                                 days={DAYS.length}
                                 rowSpan={rowspan}
                             >
-                                <MeetingTime meeting={meeting.title}>
-                                    {meeting.title}
-                                </MeetingTime>
+                                <Tooltip
+                                    hasArrow
+                                    label={`${meeting.title}: ${startTime}-${endTime}`}
+                                    fontSize="1.4rem"
+                                >
+                                    <MeetingTime meeting={meeting.title}>
+                                        <MeetingTitle>
+                                            {meeting.title}{" "}
+                                        </MeetingTitle>
+                                        <span
+                                            style={{
+                                                whiteSpace: "nowrap",
+                                                overflow: "hidden",
+                                            }}
+                                        >
+                                            {startTime}
+                                        </span>
+                                        -
+                                        <span
+                                            style={{
+                                                whiteSpace: "nowrap",
+                                                overflow: "hidden",
+                                            }}
+                                        >
+                                            {endTime}
+                                        </span>
+                                    </MeetingTime>
+                                </Tooltip>
                             </MeetingTimeCell>
                         )
                     }
@@ -161,7 +191,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                 const day = DAYS[dayIndex]
                 if (gapsByDay.has(day)) {
                     for (const gap of gapsByDay.get(day)) {
-                        if (gap[0][0] !== currentTime || gap[1].length == 1)
+                        if (gap[0][0] !== currentTime || gap[1].length === 1)
                             continue
                         const gapStartTime = gap[0][0],
                             gapEndTime = gap[0][1]
@@ -179,29 +209,71 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     100
 
                                 const percent = 100 / allMeetings.length
+
+                                const startTime = Meeting.minuteOffsetToTime(
+                                    meeting.startTime
+                                )
+                                const endTime = Meeting.minuteOffsetToTime(
+                                    meeting.endTime
+                                )
+
                                 items.push(
-                                    <Box
-                                        key={index}
-                                        position="absolute"
-                                        width={`calc(${percent}% - 0.4rem)`}
-                                        height={`calc(${height}% - 0.1rem)`}
-                                        left={`calc(${
-                                            index * percent
-                                        }% + 0.4rem)`}
-                                        top={`calc(${
-                                            ((meeting.startTime -
-                                                gapStartTime) /
-                                                (gapEndTime - gapStartTime)) *
-                                            100
-                                        }% + 0.1rem)`}
-                                        p={"0.8rem"}
-                                        boxShadow="1px 1px 4px -2px rgba(0, 0, 0, 0.4)"
-                                        bg="red.700"
-                                        color="#fff"
-                                        fontWeight="600"
+                                    <Tooltip
+                                        hasArrow
+                                        label={`${meeting.title}: ${startTime}-${endTime}`}
+                                        fontSize="1.4rem"
                                     >
-                                        {meeting.title}
-                                    </Box>
+                                        <Box
+                                            key={index}
+                                            position="absolute"
+                                            width={`calc(${percent}% - 0.4rem)`}
+                                            height={`calc(${height}% - 0.1rem)`}
+                                            left={`calc(${
+                                                index * percent
+                                            }% + 0.4rem)`}
+                                            top={`calc(${
+                                                ((meeting.startTime -
+                                                    gapStartTime) /
+                                                    (gapEndTime -
+                                                        gapStartTime)) *
+                                                100
+                                            }% + 0.2rem)`}
+                                            p={"0.8rem"}
+                                            boxShadow="1px 1px 4px -2px rgba(0, 0, 0, 0.4)"
+                                            bg="red.700"
+                                            color="#fff"
+                                            fontWeight="600"
+                                            wordBreak="keep-all"
+                                            // whiteSpace="nowrap"
+                                            overflow="hidden"
+                                            textOverflow="ellipsis"
+                                        >
+                                            <MeetingTitle>
+                                                {meeting.title}{" "}
+                                            </MeetingTitle>
+                                            <span
+                                                style={{
+                                                    whiteSpace: "nowrap",
+                                                    overflow: "hidden",
+                                                }}
+                                            >
+                                                {Meeting.minuteOffsetToTime(
+                                                    meeting.startTime
+                                                )}
+                                            </span>
+                                            -
+                                            <span
+                                                style={{
+                                                    whiteSpace: "nowrap",
+                                                    overflow: "hidden",
+                                                }}
+                                            >
+                                                {Meeting.minuteOffsetToTime(
+                                                    meeting.endTime
+                                                )}
+                                            </span>
+                                        </Box>
+                                    </Tooltip>
                                 )
                             }
                         )
@@ -219,7 +291,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                 cells.push(<MeetingTimeCell days={DAYS.length} />)
             }
         }
-        tableRows.push(<StyledTr resolution={resolution}>{cells}</StyledTr>)
+        tableRows.push(
+            <StyledTr size={size} resolution={resolution}>
+                {cells}
+            </StyledTr>
+        )
     }
 
     const toast = useToast()
@@ -229,18 +305,27 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     }, [toast])
 
     return (
-        <StyledTimetable>
-            <thead>
-                <StyledHead>
-                    <StyledTh></StyledTh>
-                    {DAYS.map((day) => (
-                        // <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
-                        <StyledTh>{day}</StyledTh>
-                    ))}
-                </StyledHead>
-            </thead>
-            <StyledTbody>{tableRows}</StyledTbody>
-        </StyledTimetable>
+        <StyledTimetableContainer>
+            <input
+                type="range"
+                min="20"
+                max="100"
+                value={size}
+                onChange={(e: any) => setSize(e.target.value)}
+            />
+            <StyledTimetable>
+                <thead>
+                    <StyledHead>
+                        <StyledTh></StyledTh>
+                        {DAYS.map((day) => (
+                            // <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
+                            <StyledTh>{day}</StyledTh>
+                        ))}
+                    </StyledHead>
+                </thead>
+                <StyledTbody>{tableRows}</StyledTbody>
+            </StyledTimetable>
+        </StyledTimetableContainer>
     )
 }
 

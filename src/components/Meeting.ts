@@ -57,6 +57,16 @@ export class Meeting {
         return hour * 60 + minute
     }
 
+    static minuteOffsetToTime(time: number): string {
+        const hour = Math.floor(time / 60)
+        const minute = time % 60
+        return (
+            hour.toString().padStart(2, "0") +
+            ":" +
+            minute.toString().padStart(2, "0")
+        )
+    }
+
     // static timeToMinuteOffset2(h: any, m: any, resolution: any = 15) {
     //    (Math.round(minute / resolution) * resolution) % 60
     // }
@@ -66,141 +76,106 @@ export class Meeting {
 export const meetings = [
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(8),
-        Meeting.timeToMinuteOffset(11),
-        "conflict eh"
-    ),
-    new Meeting(
-        Day.MONDAY,
         Meeting.timeToMinuteOffset(10),
         Meeting.timeToMinuteOffset(11),
-        "conflict alpha"
+        "CSC258"
     ),
     new Meeting(
         Day.MONDAY,
         Meeting.timeToMinuteOffset(11),
         Meeting.timeToMinuteOffset(12),
-        "MAT238"
+        "MAT237"
     ),
     new Meeting(
         Day.MONDAY,
         Meeting.timeToMinuteOffset(12),
         Meeting.timeToMinuteOffset(13),
-        "MAT239"
+        "CSC236"
+    ),
+    new Meeting(
+        Day.MONDAY,
+        Meeting.timeToMinuteOffset(13),
+        Meeting.timeToMinuteOffset(14),
+        "Fake course"
     ),
     // begin conflicting time
     new Meeting(
         Day.MONDAY,
         Meeting.timeToMinuteOffset(14),
         Meeting.timeToMinuteOffset(16),
-        "conflict 1"
+        "CSC207"
     ),
     new Meeting(
         Day.MONDAY,
         Meeting.timeToMinuteOffset(15),
         Meeting.timeToMinuteOffset(17),
-        "conflict i"
+        "STA247"
     ),
-    // new Meeting(
-    //     Day.MONDAY,
-    //     Meeting.timeToMinuteOffset(15),
-    //     Meeting.timeToMinuteOffset(17),
-    //     "same conflict i"
-    // ),
-    new Meeting(
-        Day.MONDAY,
-        Meeting.timeToMinuteOffset(16),
-        Meeting.timeToMinuteOffset(21),
-        "conflict I"
-    ),
-    new Meeting(
-        Day.MONDAY,
-        Meeting.timeToMinuteOffset(20),
-        Meeting.timeToMinuteOffset(22),
-        "conflict I"
-    ),
-    // new Meeting(
-    //     Day.MONDAY,
-    //     Meeting.timeToMinuteOffset(16),
-    //     Meeting.timeToMinuteOffset(19),
-    //     "CONFLICT\nJDJFKASDJFDASJKLDFS"
-    // ),
     // end conflicting time
     new Meeting(
         Day.TUESDAY,
         Meeting.timeToMinuteOffset(11),
         Meeting.timeToMinuteOffset(12),
-        "Titled meeting"
+        "MAT237"
     ),
     new Meeting(
         Day.TUESDAY,
         Meeting.timeToMinuteOffset(12),
         Meeting.timeToMinuteOffset(13),
-        "David Liu"
+        "MAT237"
     ),
     new Meeting(
         Day.TUESDAY,
         Meeting.timeToMinuteOffset(15),
         Meeting.timeToMinuteOffset(16),
-        "Davi Liu"
-    ),
-    // begin conflict
-    new Meeting(
-        Day.TUESDAY,
-        Meeting.timeToMinuteOffset(18),
-        Meeting.timeToMinuteOffset(21),
-        "conflict 2"
+        "CSC207"
     ),
     new Meeting(
         Day.TUESDAY,
         Meeting.timeToMinuteOffset(18),
         Meeting.timeToMinuteOffset(21),
-        "conflict II"
+        "CSC258"
     ),
-    // end conflict
     new Meeting(
         Day.WEDNESDAY,
         Meeting.timeToMinuteOffset(10),
         Meeting.timeToMinuteOffset(11),
-        "MAT247"
+        "CSC258"
     ),
-    // begin conflict
     new Meeting(
         Day.WEDNESDAY,
         Meeting.timeToMinuteOffset(12),
-        Meeting.timeToMinuteOffset(15),
-        "conflict 3"
+        Meeting.timeToMinuteOffset(13),
+        "CSC236"
     ),
-    new Meeting(
-        Day.WEDNESDAY,
-        Meeting.timeToMinuteOffset(14),
-        Meeting.timeToMinuteOffset(22),
-        "conflict III"
-    ),
-    // end conflict
     new Meeting(
         Day.THURSDAY,
         Meeting.timeToMinuteOffset(11),
-        Meeting.timeToMinuteOffset(12)
+        Meeting.timeToMinuteOffset(12),
+        "MAT237"
     ),
     new Meeting(
         Day.THURSDAY,
         Meeting.timeToMinuteOffset(15),
-        Meeting.timeToMinuteOffset(16)
+        Meeting.timeToMinuteOffset(16),
+        "CSC207"
     ),
     new Meeting(
         Day.THURSDAY,
         Meeting.timeToMinuteOffset(18),
-        Meeting.timeToMinuteOffset(20)
-    ),
-    new Meeting(
-        Day.FRIDAY,
-        Meeting.timeToMinuteOffset(10),
-        Meeting.timeToMinuteOffset(11)
+        Meeting.timeToMinuteOffset(20),
+        "STA247"
     ),
     new Meeting(
         Day.FRIDAY,
         Meeting.timeToMinuteOffset(12),
-        Meeting.timeToMinuteOffset(13)
+        Meeting.timeToMinuteOffset(13),
+        "CSC236"
+    ),
+    new Meeting(
+        Day.FRIDAY,
+        Meeting.timeToMinuteOffset(10),
+        Meeting.timeToMinuteOffset(11),
+        "CSC258"
     ),
 ]
