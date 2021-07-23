@@ -2,7 +2,7 @@ import { Flex, Tooltip, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
 import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
 import ConflictMeeting from "./ConflictMeeting"
-import { Meeting } from "./Meeting"
+import { Meeting, MeetingGroup } from "./Meeting"
 import {
     MeetingTime,
     MeetingTimeCell,
@@ -100,38 +100,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         meetingsByDay.get(meeting.day).push(meeting)
     }
 
-    const gapsByDay = new Map()
+    const groupsByDay = new Map()
     for (const key of Array.from(meetingsByDay.keys())) {
-        const meetingsToday = meetingsByDay.get(key)
-        // Make sure there is at least one meeting!
-        if (meetingsToday.length === 0) continue
-        // Sort in increasing order of start time
-        meetingsToday.sort((a: any, b: any) =>
-            a.startTime >= b.startTime ? 1 : -1
-        )
-        // Merge overlapping meetings
-        const meetingStack = [
-            [meetingsToday[0].getTimeBounds(), [meetingsToday[0]]],
-        ]
-        for (let i = 1; i < meetingsToday.length; i++) {
-            const top = meetingStack[meetingStack.length - 1]
-            if (top[0][1] <= meetingsToday[i].startTime) {
-                meetingStack.push([
-                    meetingsToday[i].getTimeBounds(),
-                    [meetingsToday[i]],
-                ])
-            } else if (top[0][1] < meetingsToday[i].endTime) {
-                top[0][1] = meetingsToday[i].endTime
-                top[1].push(meetingsToday[i])
-                meetingStack.pop()
-                meetingStack.push(top)
-            } else {
-                top[1].push(meetingsToday[i])
-            }
-        }
-        gapsByDay.set(key, meetingStack)
+        groupsByDay.set(key, MeetingGroup.partition(meetingsByDay.get(key)))
     }
-    console.log(gapsByDay)
+    console.log(groupsByDay)
 
     const tableRows: Array<React.ReactNode> = []
     for (let timeIndex = 0; timeIndex < grid.length; timeIndex++) {
@@ -195,26 +168,24 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     }
                 }
                 const day = DAYS[dayIndex]
-                if (gapsByDay.has(day)) {
-                    for (const gap of gapsByDay.get(day)) {
-                        if (gap[0][0] !== currentTime || gap[1].length === 1)
+                if (groupsByDay.has(day)) {
+                    for (const group of groupsByDay.get(day)) {
+                        const groupStartTime = group.getMinStartTime()
+                        if (groupStartTime !== currentTime || group.meetings.length === 1)
                             continue
-                        const gapStartTime = gap[0][0],
-                            gapEndTime = gap[0][1]
+                        const groupEndTime = group.getMaxEndTime()
                         const rowspan = Math.ceil(
-                            (gapEndTime - gapStartTime) / resolution
+                            (groupEndTime - groupStartTime) / resolution
                         )
-                        const allMeetings = gap[1]
+                        const percent = 100 / group.meetings.length
 
                         const items: Array<React.ReactNode> = []
-                        allMeetings.forEach(
+                        group.meetings.forEach(
                             (meeting: Meeting, index: number) => {
                                 const height =
                                     ((meeting.endTime - meeting.startTime) /
-                                        (gapEndTime - gapStartTime)) *
+                                        (groupEndTime - groupStartTime)) *
                                     100
-
-                                const percent = 100 / allMeetings.length
 
                                 const startTime = minuteOffsetToTime(
                                     meeting.startTime
@@ -229,8 +200,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         percent={percent}
                                         startTime={startTime}
                                         endTime={endTime}
-                                        gapStartTime={gapStartTime}
-                                        gapEndTime={gapEndTime}
+                                        gapStartTime={groupStartTime}
+                                        gapEndTime={groupEndTime}
                                         index={index}
                                         key={index}
                                         height={height}
