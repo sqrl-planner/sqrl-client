@@ -6,11 +6,11 @@ import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ColorModeScript />
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root"),
+    <React.StrictMode>
+        <ColorModeScript />
+        <App />
+    </React.StrictMode>,
+    document.getElementById("root")
 )
 
 // If you want your app to work offline and load faster, you can change

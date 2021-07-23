@@ -1,9 +1,13 @@
+@import url("https://use.typekit.net/nir0kax.css");
 html {
     font-size: 62.5%;
 }
 
 body {
     font-size: 1.6rem;
+    background-color: #eee;
+
+    font-family: museo-sans, sans-serif;
 }
 
 * {

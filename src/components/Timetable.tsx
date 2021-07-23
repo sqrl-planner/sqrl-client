@@ -1,4 +1,4 @@
-import { useToast } from "@chakra-ui/react"
+import { Box, Flex, Grid, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect } from "react"
 import { Day, Meeting, meetings } from "./Meeting"
 import {
@@ -33,6 +33,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     maxTime = Meeting.timeToMinuteOffset(22),
     resolution = 15,
 }) => {
+    // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
 
     // For now, let's only support week days! Fuck the kids who want to do classes on the weekends.
@@ -43,70 +44,178 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         Day.THURSDAY,
         Day.FRIDAY,
     ]
-    const tableRows: Array<any> = []
-    const occupiedTimes = new Map()
-    for (
-        let currentTime = minTime;
-        currentTime <= maxTime;
-        currentTime += resolution
-    ) {
-        // Find all meetings that start on/near the current time
-        // Map meetings AT the current time by day
-        const meetingsRightNowByDay = new Map()
-        for (const meeting of meetings) {
-            if (meeting.startTime !== currentTime) continue
-            if (!meetingsRightNowByDay.has(meeting.day)) {
-                meetingsRightNowByDay.set(meeting.day, [])
-            }
-            meetingsRightNowByDay.get(meeting.day).push(meeting)
-        }
 
+    const grid: Array<any> = []
+    for (let i = 0; i <= (maxTime - minTime) / resolution; i++) {
+        grid.push(Array.apply(null, Array(DAYS.length)).map(() => []))
+    }
+
+    // Compute grid
+    for (const meeting of meetings) {
+        const dayIndex = DAYS.indexOf(meeting.day)
+        for (
+            let currentTime = Math.max(meeting.startTime, minTime);
+            currentTime < Math.min(meeting.endTime, maxTime);
+            currentTime += resolution
+        ) {
+            const timeIndex = Math.floor((currentTime - minTime) / resolution)
+            grid[timeIndex][dayIndex].push(meeting)
+        }
+    }
+
+    // Compute conflicts
+    const conflicts = new Map()
+    for (const meeting of meetings) {
+        const dayIndex = DAYS.indexOf(meeting.day)
+        let timeIndex = Math.floor((meeting.startTime - minTime) / resolution)
+        const currentConflicts = new Set()
+        while (grid[timeIndex][dayIndex].indexOf(meeting) !== -1) {
+            for (const x of grid[timeIndex][dayIndex]) {
+                if (x !== meeting) {
+                    currentConflicts.add(x)
+                }
+            }
+            timeIndex += 1
+        }
+        if (currentConflicts.size > 0) {
+            conflicts.set(meeting, currentConflicts)
+        }
+    }
+
+    const meetingsByDay = new Map()
+    for (const meeting of meetings) {
+        if (!meetingsByDay.has(meeting.day)) {
+            meetingsByDay.set(meeting.day, [])
+        }
+        meetingsByDay.get(meeting.day).push(meeting)
+    }
+
+    const gapsByDay = new Map()
+    for (const key of Array.from(meetingsByDay.keys())) {
+        const meetingsToday = meetingsByDay.get(key)
+        // Make sure there is at least one meeting!
+        if (meetingsToday.length === 0) continue
+        // Sort in increasing order of start time
+        meetingsToday.sort((a: any, b: any) =>
+            a.startTime >= b.startTime ? 1 : -1
+        )
+        // Merge overlapping meetings
+        const meetingStack = [
+            [meetingsToday[0].getTimeBounds(), [meetingsToday[0]]],
+        ]
+        for (let i = 1; i < meetingsToday.length; i++) {
+            const top = meetingStack[meetingStack.length - 1]
+            if (top[0][1] <= meetingsToday[i].startTime) {
+                meetingStack.push([
+                    meetingsToday[i].getTimeBounds(),
+                    [meetingsToday[i]],
+                ])
+            } else if (top[0][1] < meetingsToday[i].endTime) {
+                top[0][1] = meetingsToday[i].endTime
+                top[1].push(meetingsToday[i])
+                meetingStack.pop()
+                meetingStack.push(top)
+            } else {
+                top[1].push(meetingsToday[i])
+            }
+        }
+        gapsByDay.set(key, meetingStack)
+    }
+    console.log(gapsByDay)
+
+    const tableRows: Array<React.ReactNode> = []
+    for (let timeIndex = 0; timeIndex < grid.length; timeIndex++) {
+        const currentTime = minTime + timeIndex * resolution
         const hour = Math.floor(currentTime / 60)
         const minute = currentTime % 60
         const timeLabel =
             hour.toString().padStart(2, "0") +
             ":" +
             minute.toString().padStart(2, "0")
-        // const cells = [
-        //     minute === 0 ? (
-        //         <StyledTimeLabelTd>{timeLabel}</StyledTimeLabelTd>
-        //     ) : (
-        //         <StyledTimeLabelTd />
-        //     ),
-        // ]
         const cells = [
             <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
         ]
-        for (const day of DAYS) {
-            // Initialize occupied times
-            if (!occupiedTimes.has(day)) {
-                occupiedTimes.set(day, new Set())
-            }
-            // Check for meeting
-            const hasMeetings =
-                meetingsRightNowByDay.has(day) &&
-                meetingsRightNowByDay.get(day).length > 0
-            if (hasMeetings) {
-                // Compute rowspan lmao
-                // Assume there is only one meeting for now
-                const meeting = meetingsRightNowByDay.get(day)[0]
-                const rowspan = Math.ceil(
-                    (meeting.endTime - meeting.startTime) / resolution
-                )
-                cells.push(
-                    <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
-                        <MeetingTime>{meeting.title}</MeetingTime>
-                    </MeetingTimeCell>
-                )
-                // Update occupied times
-                for (
-                    let occupiedTime = meeting.startTime;
-                    occupiedTime < meeting.endTime;
-                    occupiedTime += resolution
-                ) {
-                    occupiedTimes.get(meeting.day).add(occupiedTime)
+
+        for (let dayIndex = 0; dayIndex < DAYS.length; dayIndex++) {
+            const meetingsAtThisTime = grid[timeIndex][dayIndex]
+            if (meetingsAtThisTime.length > 0) {
+                for (const meeting of meetingsAtThisTime) {
+                    if (!conflicts.has(meeting)) {
+                        // Case A: No conflicts
+                        if (meeting.startTime !== currentTime) continue
+                        const rowspan = Math.ceil(
+                            (meeting.endTime - meeting.startTime) / resolution
+                        )
+                        cells.push(
+                            <MeetingTimeCell
+                                days={DAYS.length}
+                                rowSpan={rowspan}
+                            >
+                                <MeetingTime meeting={meeting.title}>
+                                    {meeting.title}
+                                </MeetingTime>
+                            </MeetingTimeCell>
+                        )
+                    }
                 }
-            } else if (!occupiedTimes.get(day).has(currentTime)) {
+                const day = DAYS[dayIndex]
+                if (gapsByDay.has(day)) {
+                    for (const gap of gapsByDay.get(day)) {
+                        if (gap[0][0] !== currentTime || gap[1].length == 1)
+                            continue
+                        const gapStartTime = gap[0][0],
+                            gapEndTime = gap[0][1]
+                        const rowspan = Math.ceil(
+                            (gapEndTime - gapStartTime) / resolution
+                        )
+                        const allMeetings = gap[1]
+
+                        const items: Array<React.ReactNode> = []
+                        allMeetings.forEach(
+                            (meeting: Meeting, index: number) => {
+                                const height =
+                                    ((meeting.endTime - meeting.startTime) /
+                                        (gapEndTime - gapStartTime)) *
+                                    100
+
+                                const percent = 100 / allMeetings.length
+                                items.push(
+                                    <Box
+                                        key={index}
+                                        position="absolute"
+                                        width={`calc(${percent}% - 0.4rem)`}
+                                        height={`calc(${height}% - 0.1rem)`}
+                                        left={`calc(${
+                                            index * percent
+                                        }% + 0.4rem)`}
+                                        top={`calc(${
+                                            ((meeting.startTime -
+                                                gapStartTime) /
+                                                (gapEndTime - gapStartTime)) *
+                                            100
+                                        }% + 0.1rem)`}
+                                        p={"0.8rem"}
+                                        boxShadow="1px 1px 4px -2px rgba(0, 0, 0, 0.4)"
+                                        bg="red.700"
+                                        color="#fff"
+                                        fontWeight="600"
+                                    >
+                                        {meeting.title}
+                                    </Box>
+                                )
+                            }
+                        )
+                        cells.push(
+                            <MeetingTimeCell
+                                days={DAYS.length}
+                                rowSpan={rowspan}
+                            >
+                                <Flex>{items}</Flex>
+                            </MeetingTimeCell>
+                        )
+                    }
+                }
+            } else {
                 cells.push(<MeetingTimeCell days={DAYS.length} />)
             }
         }
@@ -116,18 +225,23 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     const toast = useToast()
 
     useEffect(() => {
-        if (Math.random() < 0.2) toast({ title: "nut" })
+        if (Math.random() < 0.2) toast({ title: "nut", status: "success" })
     }, [toast])
 
     return (
         <StyledTimetable>
-            <StyledHead>
-                <StyledTh></StyledTh>
-                {DAYS.map((day) => (
-                    <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
-                ))}
-            </StyledHead>
+            <thead>
+                <StyledHead>
+                    <StyledTh></StyledTh>
+                    {DAYS.map((day) => (
+                        // <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
+                        <StyledTh>{day}</StyledTh>
+                    ))}
+                </StyledHead>
+            </thead>
             <StyledTbody>{tableRows}</StyledTbody>
         </StyledTimetable>
     )
 }
+
+// yellow dog
