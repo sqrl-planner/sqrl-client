@@ -1,13 +1,8 @@
-export enum Day {
-    MONDAY = "Monday",
-    TUESDAY = "Tuesday",
-    WEDNESDAY = "Wednesday",
-    THURSDAY = "Thursday",
-    FRIDAY = "Friday",
-    // SATURDAY = 'Saturday',
-    // SUNDAY = 'Sunday'
-}
+import { Day, timeToMinuteOffset } from "./utils/time"
 
+/**
+ * A class representing a single meeting on the timetable.
+ */
 export class Meeting {
     /**
      * The title of the meeting.
@@ -45,142 +40,114 @@ export class Meeting {
     getTimeBounds(): [number, number] {
         return [this.startTime, this.endTime]
     }
-
-    /**
-     * Convert a HH:MM time to minutes from midnight.
-     * @param hour Hour component of time
-     * @param minute Minute component of time
-     * @returns The time given as an offset in minutes from midnight.
-     */
-    static timeToMinuteOffset(
-        hour: number,
-        minute: number = 0,
-        resolution: number = 15
-    ): number {
-        minute = Math.min(Math.round(minute / resolution) * resolution, 60)
-        return hour * 60 + minute
-    }
-
-    /**
-     * 
-     * @param time Convert a minute offset (from midnight) to an HH:MM time.
-     * @returns A string representing the given time in the format HH:MM.
-     */
-    static minuteOffsetToTime(time: number): string {
-        const hour = Math.floor(time / 60)
-        const minute = time % 60
-        return (
-            hour.toString().padStart(2, "0") +
-            ":" +
-            minute.toString().padStart(2, "0")
-        )
-    }
 }
 
-// Sample data
+/**
+ * Example data of meetings for testing the timetable.
+ */
 export const EXAMPLE_MEETINGS = [
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(10),
-        Meeting.timeToMinuteOffset(11),
+        timeToMinuteOffset(10),
+        timeToMinuteOffset(11),
         "CSC258"
     ),
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(11),
-        Meeting.timeToMinuteOffset(12),
+        timeToMinuteOffset(11),
+        timeToMinuteOffset(12),
         "MAT237"
     ),
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(12),
-        Meeting.timeToMinuteOffset(13),
+        timeToMinuteOffset(12),
+        timeToMinuteOffset(13),
         "CSC236"
     ),
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(13),
-        Meeting.timeToMinuteOffset(14),
+        timeToMinuteOffset(13),
+        timeToMinuteOffset(14),
         "Fake course"
     ),
     // begin conflicting time
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(14),
-        Meeting.timeToMinuteOffset(16),
+        timeToMinuteOffset(14),
+        timeToMinuteOffset(16),
         "CSC207"
     ),
     new Meeting(
         Day.MONDAY,
-        Meeting.timeToMinuteOffset(15),
-        Meeting.timeToMinuteOffset(17),
+        timeToMinuteOffset(15),
+        timeToMinuteOffset(17),
         "STA247"
     ),
     // end conflicting time
     new Meeting(
         Day.TUESDAY,
-        Meeting.timeToMinuteOffset(11),
-        Meeting.timeToMinuteOffset(12),
+        timeToMinuteOffset(11),
+        timeToMinuteOffset(12),
         "MAT237"
     ),
     new Meeting(
         Day.TUESDAY,
-        Meeting.timeToMinuteOffset(12),
-        Meeting.timeToMinuteOffset(13),
+        timeToMinuteOffset(12),
+        timeToMinuteOffset(13),
         "MAT237"
     ),
     new Meeting(
         Day.TUESDAY,
-        Meeting.timeToMinuteOffset(15),
-        Meeting.timeToMinuteOffset(16),
+        timeToMinuteOffset(15),
+        timeToMinuteOffset(16),
         "CSC207"
     ),
     new Meeting(
         Day.TUESDAY,
-        Meeting.timeToMinuteOffset(18),
-        Meeting.timeToMinuteOffset(21),
+        timeToMinuteOffset(18),
+        timeToMinuteOffset(21),
         "CSC258"
     ),
     new Meeting(
         Day.WEDNESDAY,
-        Meeting.timeToMinuteOffset(10),
-        Meeting.timeToMinuteOffset(11),
+        timeToMinuteOffset(10),
+        timeToMinuteOffset(11),
         "CSC258"
     ),
     new Meeting(
         Day.WEDNESDAY,
-        Meeting.timeToMinuteOffset(12),
-        Meeting.timeToMinuteOffset(13),
+        timeToMinuteOffset(12),
+        timeToMinuteOffset(13),
         "CSC236"
     ),
     new Meeting(
         Day.THURSDAY,
-        Meeting.timeToMinuteOffset(11),
-        Meeting.timeToMinuteOffset(12),
+        timeToMinuteOffset(11),
+        timeToMinuteOffset(12),
         "MAT237"
     ),
     new Meeting(
         Day.THURSDAY,
-        Meeting.timeToMinuteOffset(15),
-        Meeting.timeToMinuteOffset(16),
+        timeToMinuteOffset(15),
+        timeToMinuteOffset(16),
         "CSC207"
     ),
     new Meeting(
         Day.THURSDAY,
-        Meeting.timeToMinuteOffset(18),
-        Meeting.timeToMinuteOffset(20),
+        timeToMinuteOffset(18),
+        timeToMinuteOffset(20),
         "STA247"
     ),
     new Meeting(
         Day.FRIDAY,
-        Meeting.timeToMinuteOffset(12),
-        Meeting.timeToMinuteOffset(13),
+        timeToMinuteOffset(12),
+        timeToMinuteOffset(13),
         "CSC236"
     ),
     new Meeting(
         Day.FRIDAY,
-        Meeting.timeToMinuteOffset(10),
-        Meeting.timeToMinuteOffset(11),
+        timeToMinuteOffset(10),
+        timeToMinuteOffset(11),
         "CSC258"
     ),
 ]

@@ -1,6 +1,7 @@
-import { Box, Flex, Tooltip, useToast } from "@chakra-ui/react"
+import { Flex, Tooltip, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
-import { Day, Meeting } from "./Meeting"
+import { Meeting } from "./Meeting"
+import { Conflict } from "./meetings"
 import {
     MeetingTime,
     MeetingTimeCell,
@@ -11,9 +12,9 @@ import {
     StyledTimeLabelTd,
     StyledTimetable,
     StyledTimetableContainer,
-    StyledTr,
+    StyledTr
 } from "./StyledTimetable"
-import { Conflict } from "./meetings"
+import { Day, minuteOffsetToTime, timeToMinuteOffset } from "./utils/time"
 
 type TimetableProps = {
     /**
@@ -36,8 +37,8 @@ type TimetableProps = {
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
     meetings,
-    minTime = Meeting.timeToMinuteOffset(8),
-    maxTime = Meeting.timeToMinuteOffset(22),
+    minTime = timeToMinuteOffset(8),
+    maxTime = timeToMinuteOffset(22),
     resolution = 15,
 }) => {
     const [size, setSize] = useState(1)
@@ -135,7 +136,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     const tableRows: Array<React.ReactNode> = []
     for (let timeIndex = 0; timeIndex < grid.length; timeIndex++) {
         const currentTime = minTime + timeIndex * resolution
-        const timeLabel = Meeting.minuteOffsetToTime(currentTime)
+        const timeLabel = minuteOffsetToTime(currentTime)
         const cells = [
             <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
         ]
@@ -150,10 +151,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                         const rowspan = Math.ceil(
                             (meeting.endTime - meeting.startTime) / resolution
                         )
-                        const startTime = Meeting.minuteOffsetToTime(
+                        const startTime = minuteOffsetToTime(
                             meeting.startTime
                         )
-                        const endTime = Meeting.minuteOffsetToTime(
+                        const endTime = minuteOffsetToTime(
                             meeting.endTime
                         )
                         cells.push(
@@ -215,10 +216,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
                                 const percent = 100 / allMeetings.length
 
-                                const startTime = Meeting.minuteOffsetToTime(
+                                const startTime = minuteOffsetToTime(
                                     meeting.startTime
                                 )
-                                const endTime = Meeting.minuteOffsetToTime(
+                                const endTime = minuteOffsetToTime(
                                     meeting.endTime
                                 )
 

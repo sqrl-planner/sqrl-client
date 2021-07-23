@@ -1,18 +1,10 @@
-import { Box, Flex, Tooltip, useToast } from "@chakra-ui/react"
-import React, { FunctionComponent, useEffect, useState } from "react"
-import { Day, Meeting } from "./Meeting"
+import { Box, Tooltip } from "@chakra-ui/react"
+import React from "react"
+import { Meeting } from "./Meeting"
 import {
-    MeetingTime,
-    MeetingTimeCell,
-    MeetingTitle,
-    StyledHead,
-    StyledTbody,
-    StyledTh,
-    StyledTimeLabelTd,
-    StyledTimetable,
-    StyledTimetableContainer,
-    StyledTr,
+    MeetingTitle
 } from "./StyledTimetable"
+import { minuteOffsetToTime } from "./utils/time"
 
 interface ConflictProps {
     meeting: Meeting
@@ -68,7 +60,7 @@ export const Conflict = ({
                         overflow: "hidden",
                     }}
                 >
-                    {Meeting.minuteOffsetToTime(meeting.startTime)}
+                    {minuteOffsetToTime(meeting.startTime)}
                 </span>
                 -
                 <span
@@ -77,7 +69,7 @@ export const Conflict = ({
                         overflow: "hidden",
                     }}
                 >
-                    {Meeting.minuteOffsetToTime(meeting.endTime)}
+                    {minuteOffsetToTime(meeting.endTime)}
                 </span>
             </Box>
         </Tooltip>
