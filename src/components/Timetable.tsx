@@ -1,88 +1,133 @@
+import { useToast } from "@chakra-ui/react"
+import React, { FunctionComponent, useEffect } from "react"
+import { Day, Meeting, meetings } from "./Meeting"
 import {
-    Box,
-    Center, Table, Tbody, Td, Th, Thead, Tr, useToast
-} from "@chakra-ui/react";
-import React, { FunctionComponent, useEffect } from 'react';
-import { Meeting, Day, meetings } from "./Meeting"
-
+    MeetingTime,
+    MeetingTimeCell,
+    StyledHead,
+    StyledTbody,
+    StyledTh,
+    StyledTimeLabelTd,
+    StyledTimetable,
+    StyledTr,
+} from "./StyledTimetable"
 
 type TimetableProps = {
     // meetings: Meeting[];
     /**
-     * The earliest hour displayed on the timetable (between 0 and 24).
+     * The earliest time displayed on the timetable, given in minutes offset from midnight.
      */
-    minHour?: number;
+    minTime?: number
     /**
-     * The latest hour displayed on the timetable (between 0 and 24).
+     * The latest time displayed on the timetable, given in minutes offset from midnight.
      */
-    maxHour?: number;
+    maxTime?: number
     /**
      * The minute resolution of the timetable (in the range (0, 60]).
      */
-    resolution?: number;
+    resolution?: number
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
-    minHour = 8,
-    maxHour = 22,
-    resolution = 15
+    minTime = Meeting.timeToMinuteOffset(8),
+    maxTime = Meeting.timeToMinuteOffset(22),
+    resolution = 15,
 }) => {
-    // TODO: Ensure that 0 <= minHour < maxHour <= 24
     // TODO: Ensure that 0 < resolution <= 60
 
     // For now, let's only support week days! Fuck the kids who want to do classes on the weekends.
-    const DAYS = [Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY, Day.FRIDAY];
-    let tableRows: Array<any> = [];
-    for (let hour = minHour; hour <= maxHour; hour++) {
-        const hourLabel = hour.toString().padStart(2, '0');
-        for (let minute = 0; minute < 60; minute += resolution) {
-            // Find all meetings that start on/near the current time
-            const currentTime = Meeting.timeToMinuteOffset(hour, minute, resolution);
-            const timeLabel = hourLabel + ':' + minute.toString().padStart(2, '0');
-            console.log(timeLabel, currentTime);
-
-            // Map meetings by day
-            const meetingsByDay = new Map();
-            for (const meeting of meetings) {
-                if (meeting.startTime !== currentTime) continue;
-                if (!meetingsByDay.has(meeting.day)) {
-                    meetingsByDay.set(meeting.day, []);
-                }
-                meetingsByDay.get(meeting.day).push(meeting);
+    const DAYS = [
+        Day.MONDAY,
+        Day.TUESDAY,
+        Day.WEDNESDAY,
+        Day.THURSDAY,
+        Day.FRIDAY,
+    ]
+    const tableRows: Array<any> = []
+    const occupiedTimes = new Map()
+    for (
+        let currentTime = minTime;
+        currentTime <= maxTime;
+        currentTime += resolution
+    ) {
+        // Find all meetings that start on/near the current time
+        // Map meetings AT the current time by day
+        const meetingsRightNowByDay = new Map()
+        for (const meeting of meetings) {
+            if (meeting.startTime !== currentTime) continue
+            if (!meetingsRightNowByDay.has(meeting.day)) {
+                meetingsRightNowByDay.set(meeting.day, [])
             }
-
-            let cells = [(<td>{timeLabel}</td>)];
-            for (const day of DAYS) {
-                const hasMeetings = meetingsByDay.has(day) && meetingsByDay.get(day).length > 0;
-                if (hasMeetings) {
-                    // Compute rowspan lmao
-                    // Assume there is only one meeting for now
-                    const meeting = meetingsByDay.get(day)[0];
-                    const rowspan = Math.ceil((meeting.endTime - meeting.startTime) / resolution);
-                    cells.push((<td rowSpan={rowspan}><div>test</div></td>));
-                } else {
-                    cells.push((<td />));
-                }
-            }
-            tableRows.push((<tr>{cells}</tr>))
+            meetingsRightNowByDay.get(meeting.day).push(meeting)
         }
+
+        const hour = Math.floor(currentTime / 60)
+        const minute = currentTime % 60
+        const timeLabel =
+            hour.toString().padStart(2, "0") +
+            ":" +
+            minute.toString().padStart(2, "0")
+        // const cells = [
+        //     minute === 0 ? (
+        //         <StyledTimeLabelTd>{timeLabel}</StyledTimeLabelTd>
+        //     ) : (
+        //         <StyledTimeLabelTd />
+        //     ),
+        // ]
+        const cells = [
+            <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
+        ]
+        for (const day of DAYS) {
+            // Initialize occupied times
+            if (!occupiedTimes.has(day)) {
+                occupiedTimes.set(day, new Set())
+            }
+            // Check for meeting
+            const hasMeetings =
+                meetingsRightNowByDay.has(day) &&
+                meetingsRightNowByDay.get(day).length > 0
+            if (hasMeetings) {
+                // Compute rowspan lmao
+                // Assume there is only one meeting for now
+                const meeting = meetingsRightNowByDay.get(day)[0]
+                const rowspan = Math.ceil(
+                    (meeting.endTime - meeting.startTime) / resolution
+                )
+                cells.push(
+                    <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
+                        <MeetingTime>{meeting.title}</MeetingTime>
+                    </MeetingTimeCell>
+                )
+                // Update occupied times
+                for (
+                    let occupiedTime = meeting.startTime;
+                    occupiedTime < meeting.endTime;
+                    occupiedTime += resolution
+                ) {
+                    occupiedTimes.get(meeting.day).add(occupiedTime)
+                }
+            } else if (!occupiedTimes.get(day).has(currentTime)) {
+                cells.push(<MeetingTimeCell days={DAYS.length} />)
+            }
+        }
+        tableRows.push(<StyledTr resolution={resolution}>{cells}</StyledTr>)
     }
 
     const toast = useToast()
 
     useEffect(() => {
         if (Math.random() < 0.2) toast({ title: "nut" })
-    }, [])
+    }, [toast])
 
     return (
-        <table style={{ tableLayout: "fixed" }}>
-            <thead>
-                <th></th>
-                {DAYS.map(day => <th>{day.toString().substr(0, 3)}</th>)}
-            </thead>
-            <tbody>
-                {tableRows}
-            </tbody>
-        </table>
+        <StyledTimetable>
+            <StyledHead>
+                <StyledTh></StyledTh>
+                {DAYS.map((day) => (
+                    <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
+                ))}
+            </StyledHead>
+            <StyledTbody>{tableRows}</StyledTbody>
+        </StyledTimetable>
     )
-};
+}
