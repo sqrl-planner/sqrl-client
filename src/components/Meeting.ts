@@ -38,6 +38,10 @@ export class Meeting {
         this.title = title
     }
 
+    /**
+     * Get the time bounds of this meeting.
+     * @returns An array containing two numbers: the start and end time.
+     */
     getTimeBounds(): [number, number] {
         return [this.startTime, this.endTime]
     }
@@ -57,6 +61,11 @@ export class Meeting {
         return hour * 60 + minute
     }
 
+    /**
+     * 
+     * @param time Convert a minute offset (from midnight) to an HH:MM time.
+     * @returns A string representing the given time in the format HH:MM.
+     */
     static minuteOffsetToTime(time: number): string {
         const hour = Math.floor(time / 60)
         const minute = time % 60
@@ -66,14 +75,10 @@ export class Meeting {
             minute.toString().padStart(2, "0")
         )
     }
-
-    // static timeToMinuteOffset2(h: any, m: any, resolution: any = 15) {
-    //    (Math.round(minute / resolution) * resolution) % 60
-    // }
 }
 
 // Sample data
-export const meetings = [
+export const EXAMPLE_MEETINGS = [
     new Meeting(
         Day.MONDAY,
         Meeting.timeToMinuteOffset(10),

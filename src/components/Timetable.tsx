@@ -1,6 +1,6 @@
 import { Box, Flex, Tooltip, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
-import { Day, Meeting, meetings } from "./Meeting"
+import { Day, Meeting } from "./Meeting"
 import {
     MeetingTime,
     MeetingTimeCell,
@@ -16,7 +16,10 @@ import {
 import { Conflict } from "./meetings"
 
 type TimetableProps = {
-    // meetings: Meeting[];
+    /**
+     * The meetings to display on the timetable.
+     */
+    meetings: Meeting[];
     /**
      * The earliest time displayed on the timetable, given in minutes offset from midnight.
      */
@@ -32,6 +35,7 @@ type TimetableProps = {
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
+    meetings,
     minTime = Meeting.timeToMinuteOffset(8),
     maxTime = Meeting.timeToMinuteOffset(22),
     resolution = 15,
