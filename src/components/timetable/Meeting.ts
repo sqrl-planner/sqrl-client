@@ -50,7 +50,7 @@ export class MeetingGroup {
      * The meetings in this group.
      */
     meetings: Meeting[]
-    
+
     constructor(meetings: Meeting[]) {
         this.meetings = meetings
     }
@@ -148,6 +148,12 @@ export const EXAMPLE_MEETINGS = [
         Day.MONDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(17),
+        "STA247"
+    ),
+    new Meeting(
+        Day.MONDAY,
+        timeToMinuteOffset(15),
+        timeToMinuteOffset(16),
         "STA247"
     ),
     // end conflicting time

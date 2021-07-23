@@ -9,12 +9,12 @@ export const StyledTimetableContainer = styled.div`
 export const StyledTimetable = styled.table`
     /* background-color: red; */
     display: table;
-    width: calc(100vw - 2rem);
-    min-width: 900px;
+    width: calc(100% - 2rem);
+    min-width: 700px;
     margin: 2rem;
     border-collapse: collapse;
     /* table-layout: fixed; */
-    /* max-width: 100vw; */
+    /* max-width: 100%; */
 `
 
 export const StyledHead = styled.tr`
@@ -24,18 +24,15 @@ export const StyledHead = styled.tr`
 export const StyledTh = styled.th`
     border-right: 1px solid #e2e8f0;
     padding-bottom: 2rem;
-    /* width: calc(100vw / 4); */
+    /* width: calc(100% / 4); */
     /* width: 100rem; */
     &:first-of-type:not() {
         width: ${({ days = 5 }: { days?: number }) =>
-            `calc((100vw - 4rem) / ${days})`};
+            `calc((100% - 4rem) / ${days})`};
     }
 `
 
 export const StyledTr = styled.tr<{ size: number; resolution: number }>`
-    /* height: 100%;
-    min-height: 100%; */
-
     & .time {
         text-align: right;
         color: transparent;
@@ -88,15 +85,17 @@ export const MeetingTimeCell = styled.td`
     padding: 0.3rem 0.8rem;
     position: relative;
     font-size: 1.2rem;
-    width: ${({ days = 5 }: { days: number }) =>
-        `calc((100vw - 8rem) / ${days})`};
+    width: ${({ days = 5 }: { days: number }) => `calc((100%)  / ${days})`};
     border-right: 1px solid #e2e8f0;
 `
 
 export const MeetingTime = styled.div<{ meeting: string }>`
     position: absolute;
-    top: 0.3rem;
+    top: 0.2rem;
     right: 0.4rem;
+    bottom: 0;
+    left: 0.4rem;
+
     &,
     & > * {
         word-break: keep-all;
@@ -104,23 +103,37 @@ export const MeetingTime = styled.div<{ meeting: string }>`
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    /* bottom: 0.15rem; */
-    /* bottom: -0.1rem; */
-    bottom: 0;
-    left: 0.4rem;
+
     font-weight: 500;
-    /* min-height: 400%; */
+    line-height: 1.4rem;
+
     padding: 0.8rem;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
     background-color: ${({ meeting = "1" }: { meeting: string }) =>
         stringToLightColour(meeting)};
 
-    /* border: 1px solid #e2e8f0; */
+    @media print {
+        font-size: 10pt;
+        line-height: 10pt;
+        border: 1px solid black;
+        box-shadow: none;
+
+        &,
+        & > * {
+            /* white-space: nowrap; */
+            overflow: visible;
+        }
+    }
 `
 
 export const MeetingTitle = styled.span`
     font-weight: 700;
     font-size: 1.5rem;
+
+    @media print {
+        font-size: 12pt;
+        line-height: 10pt;
+    }
 `
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``

@@ -2,10 +2,7 @@ import { Box, Tooltip } from "@chakra-ui/react"
 import React from "react"
 import { minuteOffsetToTime } from "../../utils/time"
 import { Meeting } from "./Meeting"
-import {
-    MeetingTime,
-    MeetingTitle
-} from "./StyledTimetable"
+import { MeetingTime, MeetingTitle } from "./StyledTimetable"
 
 interface ConflictMeetingProps {
     meeting: Meeting
@@ -46,6 +43,7 @@ export const ConflictMeeting = ({
                         100
                     }% + 0.3rem)`,
                     backgroundColor: "#c53030",
+                    border: "1px solid #c53030",
                     color: "#fff",
                 }}
                 meeting={meeting.title}

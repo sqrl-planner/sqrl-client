@@ -13,14 +13,14 @@ import {
     StyledTimeLabelTd,
     StyledTimetable,
     StyledTimetableContainer,
-    StyledTr
+    StyledTr,
 } from "./StyledTimetable"
 
 type TimetableProps = {
     /**
      * The meetings to display on the timetable.
      */
-    meetings: Meeting[];
+    meetings: Meeting[]
     /**
      * The earliest time displayed on the timetable, given in minutes offset from midnight.
      */
@@ -74,7 +74,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     console.log(groupsByDay)
 
     const tableRows: Array<React.ReactNode> = []
-    for (let currentTime = minTime; currentTime <= maxTime; currentTime += resolution) {
+    for (
+        let currentTime = minTime;
+        currentTime <= maxTime;
+        currentTime += resolution
+    ) {
         const timeLabel = minuteOffsetToTime(currentTime)
         const cells = [
             <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
@@ -85,31 +89,31 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             for (const group of groupsByDay.get(DAYS[dayIndex])) {
                 const groupStartTime = group.getMinStartTime()
                 const groupEndTime = group.getMaxEndTime()
-                if (groupStartTime <= currentTime && currentTime < groupEndTime) {
+                if (
+                    groupStartTime <= currentTime &&
+                    currentTime < groupEndTime
+                ) {
                     isOccupied = true
-                    console.log(`${DAYS[dayIndex]} - ${minuteOffsetToTime(currentTime)} (${currentTime})`, group)
+                    console.log(
+                        `${DAYS[dayIndex]} - ${minuteOffsetToTime(
+                            currentTime
+                        )} (${currentTime})`,
+                        group
+                    )
                 }
 
-                if (groupStartTime !== currentTime)
-                    continue
-                
+                if (groupStartTime !== currentTime) continue
+
                 if (group.meetings.length === 1) {
                     // No conflicts
                     const meeting = group.meetings[0]
                     const rowspan = Math.ceil(
                         (meeting.endTime - meeting.startTime) / resolution
                     )
-                    const startTime = minuteOffsetToTime(
-                        meeting.startTime
-                    )
-                    const endTime = minuteOffsetToTime(
-                        meeting.endTime
-                    )
+                    const startTime = minuteOffsetToTime(meeting.startTime)
+                    const endTime = minuteOffsetToTime(meeting.endTime)
                     cells.push(
-                        <MeetingTimeCell
-                            days={DAYS.length}
-                            rowSpan={rowspan}
-                        >
+                        <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
                             <Tooltip
                                 hasArrow
                                 label={`${meeting.title}: ${startTime}-${endTime}`}
@@ -158,9 +162,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                             const startTime = minuteOffsetToTime(
                                 meeting.startTime
                             )
-                            const endTime = minuteOffsetToTime(
-                                meeting.endTime
-                            )
+                            const endTime = minuteOffsetToTime(meeting.endTime)
 
                             items.push(
                                 <ConflictMeeting
@@ -178,10 +180,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                         }
                     )
                     cells.push(
-                        <MeetingTimeCell
-                            days={DAYS.length}
-                            rowSpan={rowspan}
-                        >
+                        <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
                             <Flex>{items}</Flex>
                         </MeetingTimeCell>
                     )
@@ -190,7 +189,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             }
 
             if (!isOccupied) {
-                console.log(`${DAYS[dayIndex]} - ${minuteOffsetToTime(currentTime)}: empty`)
+                console.log(
+                    `${DAYS[dayIndex]} - ${minuteOffsetToTime(
+                        currentTime
+                    )}: empty`
+                )
                 cells.push(<MeetingTimeCell days={DAYS.length} />)
             }
         }
