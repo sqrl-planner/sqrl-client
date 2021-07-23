@@ -1,7 +1,7 @@
 import { ChakraProvider, extendTheme, Heading } from "@chakra-ui/react"
 import * as React from "react"
-import { EXAMPLE_MEETINGS } from "./components/Meeting"
-import { Timetable } from "./components/Timetable"
+import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
+import { Timetable } from "./components/timetable/Timetable"
 import "./global.css"
 
 const theme = extendTheme({

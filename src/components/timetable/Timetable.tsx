@@ -1,7 +1,8 @@
 import { Flex, Tooltip, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
+import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
+import ConflictMeeting from "./ConflictMeeting"
 import { Meeting } from "./Meeting"
-import { Conflict } from "./meetings"
 import {
     MeetingTime,
     MeetingTimeCell,
@@ -14,7 +15,6 @@ import {
     StyledTimetableContainer,
     StyledTr
 } from "./StyledTimetable"
-import { Day, minuteOffsetToTime, timeToMinuteOffset } from "./utils/time"
 
 type TimetableProps = {
     /**
@@ -224,7 +224,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 )
 
                                 items.push(
-                                    <Conflict
+                                    <ConflictMeeting
                                         meeting={meeting}
                                         percent={percent}
                                         startTime={startTime}

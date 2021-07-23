@@ -1,12 +1,12 @@
 import { Box, Tooltip } from "@chakra-ui/react"
 import React from "react"
+import { minuteOffsetToTime } from "../../utils/time"
 import { Meeting } from "./Meeting"
 import {
     MeetingTitle
 } from "./StyledTimetable"
-import { minuteOffsetToTime } from "./utils/time"
 
-interface ConflictProps {
+interface ConflictMeetingProps {
     meeting: Meeting
     startTime: string
     endTime: string
@@ -17,7 +17,7 @@ interface ConflictProps {
     height: number
 }
 
-export const Conflict = ({
+export const ConflictMeeting = ({
     meeting,
     startTime,
     endTime,
@@ -26,7 +26,7 @@ export const Conflict = ({
     gapEndTime,
     index,
     height,
-}: ConflictProps) => {
+}: ConflictMeetingProps) => {
     return (
         <Tooltip
             hasArrow
@@ -76,4 +76,4 @@ export const Conflict = ({
     )
 }
 
-export default Conflict
+export default ConflictMeeting

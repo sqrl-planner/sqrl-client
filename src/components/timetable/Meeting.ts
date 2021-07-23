@@ -1,4 +1,4 @@
-import { Day, timeToMinuteOffset } from "./utils/time"
+import { Day, timeToMinuteOffset } from "../../utils/time"
 
 /**
  * A class representing a single meeting on the timetable.

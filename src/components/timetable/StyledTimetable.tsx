@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { stringToLightColour } from "./utils/colour"
+import { stringToLightColour } from "../../utils/colour"
 
 export const StyledTimetableContainer = styled.div`
     width: 100vw;
