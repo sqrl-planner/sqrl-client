@@ -110,8 +110,6 @@ export const MeetingTime = styled.div<{ meeting: string }>`
     left: 0.4rem;
     font-weight: 500;
     /* min-height: 400%; */
-    /* border-radius: 0.5rem; */
-    border-radius: 0;
     padding: 0.8rem;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
     background-color: ${({ meeting = "1" }: { meeting: string }) =>
