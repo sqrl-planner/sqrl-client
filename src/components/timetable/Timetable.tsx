@@ -55,43 +55,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         Day.FRIDAY,
     ]
 
-    const grid: Array<any> = []
-    for (let i = 0; i <= (maxTime - minTime) / resolution; i++) {
-        grid.push(Array.apply(null, Array(DAYS.length)).map(() => []))
-    }
-
-    // Compute grid
-    for (const meeting of meetings) {
-        const dayIndex = DAYS.indexOf(meeting.day)
-        for (
-            let currentTime = Math.max(meeting.startTime, minTime);
-            currentTime < Math.min(meeting.endTime, maxTime);
-            currentTime += resolution
-        ) {
-            const timeIndex = Math.floor((currentTime - minTime) / resolution)
-            grid[timeIndex][dayIndex].push(meeting)
-        }
-    }
-
-    // Compute conflicts
-    const conflicts = new Map()
-    for (const meeting of meetings) {
-        const dayIndex = DAYS.indexOf(meeting.day)
-        let timeIndex = Math.floor((meeting.startTime - minTime) / resolution)
-        const currentConflicts = new Set()
-        while (grid[timeIndex][dayIndex].indexOf(meeting) !== -1) {
-            for (const x of grid[timeIndex][dayIndex]) {
-                if (x !== meeting) {
-                    currentConflicts.add(x)
-                }
-            }
-            timeIndex += 1
-        }
-        if (currentConflicts.size > 0) {
-            conflicts.set(meeting, currentConflicts)
-        }
-    }
-
     const meetingsByDay = new Map()
     for (const meeting of meetings) {
         if (!meetingsByDay.has(meeting.day)) {
@@ -101,125 +64,133 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     }
 
     const groupsByDay = new Map()
-    for (const key of Array.from(meetingsByDay.keys())) {
-        groupsByDay.set(key, MeetingGroup.partition(meetingsByDay.get(key)))
+    for (const day of DAYS) {
+        if (meetingsByDay.has(day)) {
+            groupsByDay.set(day, MeetingGroup.partition(meetingsByDay.get(day)))
+        } else {
+            groupsByDay.set(day, [])
+        }
     }
     console.log(groupsByDay)
 
     const tableRows: Array<React.ReactNode> = []
-    for (let timeIndex = 0; timeIndex < grid.length; timeIndex++) {
-        const currentTime = minTime + timeIndex * resolution
+    for (let currentTime = minTime; currentTime <= maxTime; currentTime += resolution) {
         const timeLabel = minuteOffsetToTime(currentTime)
         const cells = [
             <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
         ]
 
         for (let dayIndex = 0; dayIndex < DAYS.length; dayIndex++) {
-            const meetingsAtThisTime = grid[timeIndex][dayIndex]
-            if (meetingsAtThisTime.length > 0) {
-                for (const meeting of meetingsAtThisTime) {
-                    if (!conflicts.has(meeting)) {
-                        // Case A: No conflicts
-                        if (meeting.startTime !== currentTime) continue
-                        const rowspan = Math.ceil(
-                            (meeting.endTime - meeting.startTime) / resolution
-                        )
-                        const startTime = minuteOffsetToTime(
-                            meeting.startTime
-                        )
-                        const endTime = minuteOffsetToTime(
-                            meeting.endTime
-                        )
-                        cells.push(
-                            <MeetingTimeCell
-                                days={DAYS.length}
-                                rowSpan={rowspan}
-                            >
-                                <Tooltip
-                                    hasArrow
-                                    label={`${meeting.title}: ${startTime}-${endTime}`}
-                                    fontSize="1.4rem"
-                                >
-                                    <MeetingTime meeting={meeting.title}>
-                                        <MeetingTitle>
-                                            {meeting.title}{" "}
-                                        </MeetingTitle>
-                                        <span
-                                            style={{
-                                                whiteSpace: "nowrap",
-                                                overflow: "hidden",
-                                            }}
-                                        >
-                                            {startTime}
-                                        </span>
-                                        -
-                                        <span
-                                            style={{
-                                                whiteSpace: "nowrap",
-                                                overflow: "hidden",
-                                            }}
-                                        >
-                                            {endTime}
-                                        </span>
-                                    </MeetingTime>
-                                </Tooltip>
-                            </MeetingTimeCell>
-                        )
-                    }
+            let isOccupied = false
+            for (const group of groupsByDay.get(DAYS[dayIndex])) {
+                const groupStartTime = group.getMinStartTime()
+                const groupEndTime = group.getMaxEndTime()
+                if (groupStartTime <= currentTime && currentTime < groupEndTime) {
+                    isOccupied = true
+                    console.log(`${DAYS[dayIndex]} - ${minuteOffsetToTime(currentTime)} (${currentTime})`, group)
                 }
-                const day = DAYS[dayIndex]
-                if (groupsByDay.has(day)) {
-                    for (const group of groupsByDay.get(day)) {
-                        const groupStartTime = group.getMinStartTime()
-                        if (groupStartTime !== currentTime || group.meetings.length === 1)
-                            continue
-                        const groupEndTime = group.getMaxEndTime()
-                        const rowspan = Math.ceil(
-                            (groupEndTime - groupStartTime) / resolution
-                        )
-                        const percent = 100 / group.meetings.length
 
-                        const items: Array<React.ReactNode> = []
-                        group.meetings.forEach(
-                            (meeting: Meeting, index: number) => {
-                                const height =
-                                    ((meeting.endTime - meeting.startTime) /
-                                        (groupEndTime - groupStartTime)) *
-                                    100
-
-                                const startTime = minuteOffsetToTime(
-                                    meeting.startTime
-                                )
-                                const endTime = minuteOffsetToTime(
-                                    meeting.endTime
-                                )
-
-                                items.push(
-                                    <ConflictMeeting
-                                        meeting={meeting}
-                                        percent={percent}
-                                        startTime={startTime}
-                                        endTime={endTime}
-                                        gapStartTime={groupStartTime}
-                                        gapEndTime={groupEndTime}
-                                        index={index}
-                                        key={index}
-                                        height={height}
-                                    />
-                                )
-                            }
-                        )
-                        cells.push(
-                            <MeetingTimeCell
-                                days={DAYS.length}
-                                rowSpan={rowspan}
+                if (groupStartTime !== currentTime)
+                    continue
+                
+                if (group.meetings.length === 1) {
+                    // No conflicts
+                    const meeting = group.meetings[0]
+                    const rowspan = Math.ceil(
+                        (meeting.endTime - meeting.startTime) / resolution
+                    )
+                    const startTime = minuteOffsetToTime(
+                        meeting.startTime
+                    )
+                    const endTime = minuteOffsetToTime(
+                        meeting.endTime
+                    )
+                    cells.push(
+                        <MeetingTimeCell
+                            days={DAYS.length}
+                            rowSpan={rowspan}
+                        >
+                            <Tooltip
+                                hasArrow
+                                label={`${meeting.title}: ${startTime}-${endTime}`}
+                                fontSize="1.4rem"
                             >
-                                <Flex>{items}</Flex>
-                            </MeetingTimeCell>
-                        )
-                    }
+                                <MeetingTime meeting={meeting.title}>
+                                    <MeetingTitle>
+                                        {meeting.title}{" "}
+                                    </MeetingTitle>
+                                    <span
+                                        style={{
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                        }}
+                                    >
+                                        {startTime}
+                                    </span>
+                                    -
+                                    <span
+                                        style={{
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                        }}
+                                    >
+                                        {endTime}
+                                    </span>
+                                </MeetingTime>
+                            </Tooltip>
+                        </MeetingTimeCell>
+                    )
+                } else {
+                    // Conflicts
+                    const rowspan = Math.ceil(
+                        (groupEndTime - groupStartTime) / resolution
+                    )
+                    const percent = 100 / group.meetings.length
+
+                    const items: Array<React.ReactNode> = []
+                    group.meetings.forEach(
+                        (meeting: Meeting, index: number) => {
+                            const height =
+                                ((meeting.endTime - meeting.startTime) /
+                                    (groupEndTime - groupStartTime)) *
+                                100
+
+                            const startTime = minuteOffsetToTime(
+                                meeting.startTime
+                            )
+                            const endTime = minuteOffsetToTime(
+                                meeting.endTime
+                            )
+
+                            items.push(
+                                <ConflictMeeting
+                                    meeting={meeting}
+                                    percent={percent}
+                                    startTime={startTime}
+                                    endTime={endTime}
+                                    gapStartTime={groupStartTime}
+                                    gapEndTime={groupEndTime}
+                                    index={index}
+                                    key={index}
+                                    height={height}
+                                />
+                            )
+                        }
+                    )
+                    cells.push(
+                        <MeetingTimeCell
+                            days={DAYS.length}
+                            rowSpan={rowspan}
+                        >
+                            <Flex>{items}</Flex>
+                        </MeetingTimeCell>
+                    )
                 }
-            } else {
+                break
+            }
+
+            if (!isOccupied) {
+                console.log(`${DAYS[dayIndex]} - ${minuteOffsetToTime(currentTime)}: empty`)
                 cells.push(<MeetingTimeCell days={DAYS.length} />)
             }
         }
