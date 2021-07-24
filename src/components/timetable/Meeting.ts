@@ -117,110 +117,110 @@ export const EXAMPLE_MEETINGS = [
         Day.MONDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258"
+        "CSC258Y1"
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
-        "MAT237"
+        "MAT237H1"
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236"
+        "CSC236H1"
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(13),
         timeToMinuteOffset(14),
-        "Fake course "
+        "FAKE123F9"
     ),
     // begin conflicting time
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(14),
         timeToMinuteOffset(16),
-        "CSC207"
-    ),
-    new Meeting(
-        Day.MONDAY,
-        timeToMinuteOffset(15),
-        timeToMinuteOffset(17),
-        "STA247"
+        "CSC207H1"
     ),
     // new Meeting(
     //     Day.MONDAY,
     //     timeToMinuteOffset(15),
-    //     timeToMinuteOffset(16),
-    //     "STA247"
+    //     timeToMinuteOffset(17),
+    //     "STA247H5"
     // ),
+    new Meeting(
+        Day.MONDAY,
+        timeToMinuteOffset(15),
+        timeToMinuteOffset(16),
+        "STA247H1"
+    ),
     // end conflicting time
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
-        "MAT237"
+        "MAT237H1"
     ),
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "MAT237"
+        "MAT237H1"
     ),
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(16),
-        "CSC207"
+        "CSC207H1"
     ),
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(18),
         timeToMinuteOffset(21),
-        "CSC258"
+        "CSC258H1"
     ),
     new Meeting(
         Day.WEDNESDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258"
+        "CSC258H1"
     ),
     new Meeting(
         Day.WEDNESDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236"
+        "CSC236H1"
     ),
     new Meeting(
         Day.THURSDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
-        "MAT237"
+        "MAT237H1"
     ),
     new Meeting(
         Day.THURSDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(16),
-        "CSC207"
+        "CSC207H1"
     ),
     new Meeting(
         Day.THURSDAY,
         timeToMinuteOffset(18),
         timeToMinuteOffset(20),
-        "STA247"
+        "STA247H1"
     ),
     new Meeting(
         Day.FRIDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236"
+        "CSC236H1"
     ),
     new Meeting(
         Day.FRIDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258"
+        "CSC258H1"
     ),
 ]

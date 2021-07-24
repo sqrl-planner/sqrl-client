@@ -8,11 +8,15 @@ export const StyledTimetableContainer = styled.div`
 
 export const StyledTimetable = styled.table`
     display: table;
-    width: calc(100% - 2rem);
-    /* min-width: 700px; */
-    margin: 2rem;
+    width: calc(100% - 1rem);
+    min-width: 500px;
+    margin: 1rem;
     border-collapse: collapse;
     /* table-layout: fixed; */
+    @media print {
+        width: 100vw;
+        margin: 0;
+    }
 `
 
 export const StyledHead = styled.tr`
@@ -93,12 +97,13 @@ export const MeetingTime = styled.div<{ meeting?: string }>`
     left: 0.4rem;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-content: flex-start;
-    align-items: baseline;
+    /* align-items: baseline; */
+    justify-content: flex-start;
     flex-wrap: wrap;
 
-    /* flex-wrap: no-wrap; */
+    /* border-radius: 0.3rem; */
 
     &,
     & > * {
@@ -112,14 +117,15 @@ export const MeetingTime = styled.div<{ meeting?: string }>`
     font-weight: 500;
     /* line-height: 1.5rem; */
 
-    padding: 0.8rem;
+    padding: 0.7rem;
+    padding-right: 0.2rem;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
     background-color: ${({ meeting = "1" }: { meeting?: string }) =>
         stringToLightColour(meeting)};
 
     @media print {
         font-size: 10pt;
-        line-height: 10pt;
+        line-height: 12pt;
         border: 1px solid black;
         box-shadow: none;
 
@@ -129,25 +135,6 @@ export const MeetingTime = styled.div<{ meeting?: string }>`
             overflow: visible;
         }
     }
-`
-export const MeetingTitle = styled.div`
-    padding-right: 0.5rem;
-    &,
-    & > * {
-        font-weight: 700;
-        font-size: 1.5rem;
-        /* font-family: monospace; */
-
-        @media print {
-            font-size: 12pt;
-            line-height: 10pt;
-        }
-    }
-`
-
-export const MeetingDepartment = styled.span`
-    /* color: #333; */
-    font-weight: 400;
 `
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``

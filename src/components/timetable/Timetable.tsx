@@ -40,7 +40,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     maxTime = timeToMinuteOffset(22),
     resolution = 15,
 }) => {
-    const [size, setSize] = useState(1)
+    const [size, setSize] = useState(48)
 
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -113,7 +113,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     cells.push(
                         <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
                             <MeetingTime>
-                                <MeetingComponent meeting={meeting} />
+                                <MeetingComponent
+                                    plural={false}
+                                    meeting={meeting}
+                                />
                             </MeetingTime>
                         </MeetingTimeCell>
                     )
@@ -138,6 +141,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         left: `calc(${
                                             index * percent
                                         }% + 0.4rem)`,
+                                        // top position is percent of meeting starttime of group starttime
                                         top: `calc(${
                                             ((meeting.startTime -
                                                 groupStartTime) /
@@ -151,7 +155,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     }}
                                     meeting={meeting.title}
                                 >
-                                    <MeetingComponent meeting={meeting} />
+                                    <MeetingComponent
+                                        plural={true}
+                                        meeting={meeting}
+                                    />
                                 </MeetingTime>
                             )
                         }
