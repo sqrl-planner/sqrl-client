@@ -1,12 +1,11 @@
-import { Flex, Tooltip, useToast } from "@chakra-ui/react"
+import { Flex, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
 import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
-import ConflictMeeting from "./ConflictMeeting"
 import { Meeting, MeetingGroup } from "./Meeting"
+import MeetingComponent from "./MeetingComponent"
 import {
     MeetingTime,
     MeetingTimeCell,
-    MeetingTitle,
     StyledHead,
     StyledTbody,
     StyledTh,
@@ -102,53 +101,24 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     )
                 }
 
+                const rowspan = Math.ceil(
+                    (groupEndTime - groupStartTime) / resolution
+                )
+
                 if (groupStartTime !== currentTime) continue
 
                 if (group.meetings.length === 1) {
                     // No conflicts
                     const meeting = group.meetings[0]
-                    const rowspan = Math.ceil(
-                        (meeting.endTime - meeting.startTime) / resolution
-                    )
-                    const startTime = minuteOffsetToTime(meeting.startTime)
-                    const endTime = minuteOffsetToTime(meeting.endTime)
                     cells.push(
                         <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
-                            <Tooltip
-                                hasArrow
-                                label={`${meeting.title}: ${startTime}-${endTime}`}
-                                fontSize="1.4rem"
-                            >
-                                <MeetingTime meeting={meeting.title}>
-                                    <MeetingTitle>
-                                        {meeting.title}{" "}
-                                    </MeetingTitle>
-                                    <span
-                                        style={{
-                                            whiteSpace: "nowrap",
-                                            overflow: "hidden",
-                                        }}
-                                    >
-                                        {startTime}
-                                    </span>
-                                    -
-                                    <span
-                                        style={{
-                                            whiteSpace: "nowrap",
-                                            overflow: "hidden",
-                                        }}
-                                    >
-                                        {endTime}
-                                    </span>
-                                </MeetingTime>
-                            </Tooltip>
+                            <MeetingTime>
+                                <MeetingComponent meeting={meeting} />
+                            </MeetingTime>
                         </MeetingTimeCell>
                     )
                 } else {
                     // Conflicts
-                    const rowspan = Math.ceil(
-                        (groupEndTime - groupStartTime) / resolution
-                    )
                     const percent = 100 / group.meetings.length
 
                     const items: Array<React.ReactNode> = []
@@ -159,23 +129,30 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     (groupEndTime - groupStartTime)) *
                                 100
 
-                            const startTime = minuteOffsetToTime(
-                                meeting.startTime
-                            )
-                            const endTime = minuteOffsetToTime(meeting.endTime)
-
                             items.push(
-                                <ConflictMeeting
-                                    meeting={meeting}
-                                    percent={percent}
-                                    startTime={startTime}
-                                    endTime={endTime}
-                                    gapStartTime={groupStartTime}
-                                    gapEndTime={groupEndTime}
-                                    index={index}
-                                    key={index}
-                                    height={height}
-                                />
+                                <MeetingTime
+                                    style={{
+                                        position: "absolute",
+                                        width: `calc(${percent}% - 0.4rem)`,
+                                        height: `calc(${height}% - 0.1rem)`,
+                                        left: `calc(${
+                                            index * percent
+                                        }% + 0.4rem)`,
+                                        top: `calc(${
+                                            ((meeting.startTime -
+                                                groupStartTime) /
+                                                (groupEndTime -
+                                                    groupStartTime)) *
+                                            100
+                                        }% + 0.3rem)`,
+                                        backgroundColor: "#c53030",
+                                        border: "1px solid #c53030",
+                                        color: "#fff",
+                                    }}
+                                    meeting={meeting.title}
+                                >
+                                    <MeetingComponent meeting={meeting} />
+                                </MeetingTime>
                             )
                         }
                     )

@@ -7,14 +7,12 @@ export const StyledTimetableContainer = styled.div`
 `
 
 export const StyledTimetable = styled.table`
-    /* background-color: red; */
     display: table;
     width: calc(100% - 2rem);
-    min-width: 700px;
+    /* min-width: 700px; */
     margin: 2rem;
     border-collapse: collapse;
     /* table-layout: fixed; */
-    /* max-width: 100%; */
 `
 
 export const StyledHead = styled.tr`
@@ -24,8 +22,6 @@ export const StyledHead = styled.tr`
 export const StyledTh = styled.th`
     border-right: 1px solid #e2e8f0;
     padding-bottom: 2rem;
-    /* width: calc(100% / 4); */
-    /* width: 100rem; */
     &:first-of-type:not() {
         width: ${({ days = 5 }: { days?: number }) =>
             `calc((100% - 4rem) / ${days})`};
@@ -89,15 +85,24 @@ export const MeetingTimeCell = styled.td`
     border-right: 1px solid #e2e8f0;
 `
 
-export const MeetingTime = styled.div<{ meeting: string }>`
+export const MeetingTime = styled.div<{ meeting?: string }>`
     position: absolute;
     top: 0.2rem;
     right: 0.4rem;
     bottom: 0;
     left: 0.4rem;
 
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: baseline;
+    flex-wrap: wrap;
+
+    /* flex-wrap: no-wrap; */
+
     &,
     & > * {
+        /* flex: 1; */
         word-break: keep-all;
         /* white-space: nowrap; */
         overflow: hidden;
@@ -105,11 +110,11 @@ export const MeetingTime = styled.div<{ meeting: string }>`
     }
 
     font-weight: 500;
-    line-height: 1.4rem;
+    /* line-height: 1.5rem; */
 
     padding: 0.8rem;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
-    background-color: ${({ meeting = "1" }: { meeting: string }) =>
+    background-color: ${({ meeting = "1" }: { meeting?: string }) =>
         stringToLightColour(meeting)};
 
     @media print {
@@ -125,15 +130,24 @@ export const MeetingTime = styled.div<{ meeting: string }>`
         }
     }
 `
+export const MeetingTitle = styled.div`
+    padding-right: 0.5rem;
+    &,
+    & > * {
+        font-weight: 700;
+        font-size: 1.5rem;
+        /* font-family: monospace; */
 
-export const MeetingTitle = styled.span`
-    font-weight: 700;
-    font-size: 1.5rem;
-
-    @media print {
-        font-size: 12pt;
-        line-height: 10pt;
+        @media print {
+            font-size: 12pt;
+            line-height: 10pt;
+        }
     }
+`
+
+export const MeetingDepartment = styled.span`
+    /* color: #333; */
+    font-weight: 400;
 `
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``

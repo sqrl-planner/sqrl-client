@@ -135,7 +135,7 @@ export const EXAMPLE_MEETINGS = [
         Day.MONDAY,
         timeToMinuteOffset(13),
         timeToMinuteOffset(14),
-        "Fake course"
+        "Fake course "
     ),
     // begin conflicting time
     new Meeting(
@@ -150,12 +150,12 @@ export const EXAMPLE_MEETINGS = [
         timeToMinuteOffset(17),
         "STA247"
     ),
-    new Meeting(
-        Day.MONDAY,
-        timeToMinuteOffset(15),
-        timeToMinuteOffset(16),
-        "STA247"
-    ),
+    // new Meeting(
+    //     Day.MONDAY,
+    //     timeToMinuteOffset(15),
+    //     timeToMinuteOffset(16),
+    //     "STA247"
+    // ),
     // end conflicting time
     new Meeting(
         Day.TUESDAY,

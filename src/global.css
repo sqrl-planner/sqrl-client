@@ -14,3 +14,9 @@ body {
 * {
     box-sizing: border-box;
 }
+
+@page {
+    size: auto;
+    margin: 0mm;
+    /* padding: 2rem; */
+}
