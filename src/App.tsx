@@ -1,4 +1,4 @@
-import { ChakraProvider, extendTheme, Heading } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme, Flex, Heading } from "@chakra-ui/react"
 import * as React from "react"
 import { createContext } from "react"
 import Header from "./components/Header"
@@ -6,6 +6,7 @@ import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
 import "./global.css"
 import { PreferencesProvider } from "./PreferencesContext"
+import Sqrl from "./Sqrl"
 
 const theme = extendTheme({
     fonts: {
@@ -22,8 +23,7 @@ export const App = () => (
             {/* <Box textAlign="center" fontSize="xl"> */}
             {/* <Grid minH="100vh" p={3}> */}
             {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
-            <Header />
-            <Timetable meetings={EXAMPLE_MEETINGS} />
+            <Sqrl />
         </PreferencesProvider>
         {/* </Grid> */}
         {/* </Box> */}

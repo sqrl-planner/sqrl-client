@@ -33,6 +33,10 @@ type TimetableProps = {
      * The minute resolution of the timetable (in the range (0, 60]).
      */
     resolution?: number
+    /**
+     * The scale of the timetable
+     */
+    scale?: number
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
@@ -40,28 +44,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     minTime = timeToMinuteOffset(8),
     maxTime = timeToMinuteOffset(22),
     resolution = 15,
+    scale = 48,
 }) => {
-    const [size, setSize] = useState(48)
-    const {
-        state: { palette, scale },
-        dispatch,
-    } = usePreferences()
-
-    useEffect(() => {
-        let size: number = 48
-
-        if (scale === "compact") size = 20
-        if (scale === "normal") size = 48
-        if (scale === "tall") size = 100
-
-        setSize(size)
-    }, [size, setSize, scale])
-
-    // dispatch demo
-    // useEffect(() => {
-    //     dispatch({ type: "SET_SCALE", payload: "compact" })
-    // }, [dispatch])
-
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
 
@@ -160,7 +144,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         height: `calc(${height}% - 0.1rem)`,
                                         left: `calc(${
                                             index * percent
-                                        }% + 0.4rem)`,
+                                        }% + 0.3rem)`,
                                         // top position is percent of meeting starttime of group starttime
                                         top: `calc(${
                                             ((meeting.startTime -
@@ -202,7 +186,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             }
         }
         tableRows.push(
-            <StyledTr size={size} resolution={resolution}>
+            <StyledTr size={scale} resolution={resolution}>
                 {cells}
             </StyledTr>
         )
@@ -210,26 +194,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
     return (
         <StyledTimetableContainer>
-            {/* <input
-                type="range"
-                min="20"
-                max="100"
-                value={size}
-                onChange={(e: any) => setSize(e.target.value)}
-            /> */}
-            <Button
-                onClick={() => {
-                    dispatch({
-                        type: "SET_SCALE",
-                        payload: scale === "compact" ? "normal" : "compact",
-                    })
-                }}
-                // fontSize="1.6rem"
-                // p={8}
-                m={2}
-            >
-                {scale === "compact" ? "normal" : "compact"}
-            </Button>
             <StyledTimetable>
                 <thead>
                     <StyledHead>

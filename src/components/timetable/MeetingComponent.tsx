@@ -1,5 +1,6 @@
 import React, { Fragment } from "react"
 import styled from "styled-components"
+import { usePreferences } from "../../PreferencesContext"
 import { minuteOffsetToTime } from "../../utils/time"
 import { Meeting } from "./Meeting"
 
@@ -9,7 +10,7 @@ interface MeetingProps {
 }
 
 const MeetingTitle = styled.div`
-    padding-right: 0.5em;
+    padding-right: 0.3em;
     &,
     & > * {
         font-weight: 700;
@@ -30,6 +31,7 @@ const MeetingSuffix = styled.span<{ plural: boolean }>`
     }};
     font-size: 0.8em;
     font-weight: 500;
+    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
 const MeetingInformation = styled.div`
@@ -46,9 +48,14 @@ const MeetingInformation = styled.div`
 const MeetingTimes = styled.div`
     position: relative;
     top: 0.2rem;
+    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
 const MeetingComponent = ({ meeting, plural }: MeetingProps) => {
+    const {
+        state: { showTimeInMeeting, showCourseSuffix },
+    } = usePreferences()
+
     const meetingTitle = meeting.title
 
     const firstDigitContent = meeting.title.match(/\d{3,}/g)
@@ -76,9 +83,21 @@ const MeetingComponent = ({ meeting, plural }: MeetingProps) => {
             <MeetingTitle>
                 {department + "\u200b"}
                 {numeral + "\u200b"}
-                <MeetingSuffix plural={plural}>{suffix}</MeetingSuffix>
+                <MeetingSuffix
+                    style={{
+                        opacity: showCourseSuffix ? 1 : 0,
+                        display: showCourseSuffix ? "initial" : "none",
+                    }}
+                    plural={plural}
+                >
+                    {suffix}
+                </MeetingSuffix>
             </MeetingTitle>
-            <MeetingTimes>
+            <MeetingTimes
+                style={{
+                    opacity: showTimeInMeeting ? 1 : 0,
+                }}
+            >
                 {startTime + "\u200b"}-{"\u200b" + endTime}
             </MeetingTimes>
         </MeetingInformation>

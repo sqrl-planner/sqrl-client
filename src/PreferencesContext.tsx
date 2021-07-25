@@ -10,12 +10,18 @@ interface Preferences {
     palette: "default" | "accessible" | "monochrome"
     scale: "compact" | "normal" | "tall"
     showTimeInMeeting: boolean
+    showCourseSuffix: boolean
+    start: number
+    end: number
 }
 
 type Action =
     | { type: "SET_PALETTE"; payload: "default" | "accessible" | "monochrome" }
     | { type: "SET_SCALE"; payload: "compact" | "normal" | "tall" }
     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
+    | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }
+    | { type: "SET_START"; payload: number }
+    | { type: "SET_END"; payload: number }
 
 type Dispatch = (action: Action) => void
 
@@ -43,6 +49,18 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             return { ...state, showTimeInMeeting: action.payload }
         }
 
+        case "SET_SHOW_COURSE_SUFFIX": {
+            return { ...state, showCourseSuffix: action.payload }
+        }
+
+        case "SET_START": {
+            return { ...state, start: action.payload }
+        }
+
+        case "SET_END": {
+            return { ...state, end: action.payload }
+        }
+
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
         }
@@ -54,6 +72,9 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
         palette: "default",
         scale: "normal",
         showTimeInMeeting: true,
+        showCourseSuffix: true,
+        start: 9,
+        end: 22,
     })
 
     // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context

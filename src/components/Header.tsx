@@ -1,7 +1,14 @@
 import { SettingsIcon } from "@chakra-ui/icons"
-import { Heading, Input, useToast } from "@chakra-ui/react"
+import {
+    Button,
+    Heading,
+    Input,
+    useDisclosure,
+    useToast,
+} from "@chakra-ui/react"
 import React, { useEffect } from "react"
 import styled from "styled-components"
+import PreferencesDrawer from "./PreferencesDrawer"
 
 const HeaderComponent = styled.header`
     display: flex;
@@ -11,7 +18,7 @@ const HeaderComponent = styled.header`
     width: 100vw;
     background-color: #fff;
     z-index: 10;
-    box-shadow: 0px 1px 8px -7px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 1px 8px -5px rgba(0, 0, 0, 0.4);
 `
 
 const Program = styled.div`
@@ -22,19 +29,40 @@ const Program = styled.div`
         font-size: 0.8em;
         font-weight: 800;
         color: #555;
-        top: 1.5em;
+        top: -1.2em;
     }
+    position: relative;
+    top: 0.4rem;
 `
 
 const Header = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <HeaderComponent>
-            <Heading m={6} as="h1" size="xl">
+            <Heading
+                m={4}
+                ml={6}
+                as="h1"
+                size="xl"
+                _before={{
+                    content: '"for U of T"',
+                    fontSize: "0.7rem",
+                    width: "100%",
+                    textAlign: "center",
+                    textTransform: "uppercase",
+                    position: "absolute",
+                    bottom: "-0.8rem",
+                    whiteSpace: "nowrap",
+                    color: "#555",
+                }}
+                position="relative"
+                bottom="0.5rem"
+            >
                 Sqrl
             </Heading>
             <Program>
-                Computer Science specialist + Mathematics minor + Cognitive
-                Psychology major
+                Gender Studies specialist + Gender Studies major + Fine Arts
+                major
             </Program>
             <Input
                 width="40%"
@@ -45,8 +73,24 @@ const Header = () => {
                 placeholder="Search for a course"
             />
             <div>
-                <SettingsIcon w={8} h={8} mr={4} />
+                <Button
+                    colorScheme="blue"
+                    variant="link"
+                    onClick={onOpen}
+                    outline="none"
+                    mr={4}
+                >
+                    <SettingsIcon w={6} h={6} />
+                </Button>
             </div>
+            <PreferencesDrawer
+                disclosure={{ isOpen, onOpen, onClose }}
+                drawerprops={{
+                    isOpen,
+                    placement: "right",
+                    onClose,
+                }}
+            />
         </HeaderComponent>
     )
 }

@@ -10,9 +10,11 @@ export const StyledTimetableContainer = styled.div`
 
 export const StyledTimetable = styled.table`
     display: table;
-    width: calc(100% - 1rem);
+    width: calc(100% - 0.25rem);
     min-width: 500px;
     margin: 1rem;
+    margin-left: 0;
+    padding: 0;
     border-collapse: collapse;
     /* table-layout: fixed; */
     @media print {
@@ -28,7 +30,7 @@ export const StyledHead = styled.tr`
 export const StyledTh = styled.th`
     border-right: 1px solid #e2e8f0;
     font-size: 1rem;
-    padding-bottom: 2em;
+    padding-bottom: 0.8em;
     &:first-of-type:not() {
         width: ${({ days = 5 }: { days?: number }) =>
             `calc((100% - 4em) / ${days})`};
@@ -95,7 +97,7 @@ export const StyledTimeLabelTd = styled.td`
     padding-right: 1em;
     border-right: 1px solid #e2e8f0;
     position: relative;
-    top: -1em;
+    top: -0.6em;
 
     font-size: 1.4em;
     line-height: 1.4em;
