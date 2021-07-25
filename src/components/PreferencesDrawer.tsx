@@ -171,9 +171,11 @@ const PreferencesDrawer = (props: {
                                         })
                                     }}
                                 >
-                                    {[...Array(15)].map((_, i) => (
-                                        <option value={8 + i}>
-                                            {8 + i}:00
+                                    {[...Array(22 - start)].map((_, i) => (
+                                        <option
+                                            value={parseInt(start + "") + 1 + i}
+                                        >
+                                            {parseInt(start + "") + 1 + i}:00
                                         </option>
                                     ))}
                                 </Select>

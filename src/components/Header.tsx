@@ -61,8 +61,7 @@ const Header = () => {
                 Sqrl
             </Heading>
             <Program>
-                Gender Studies specialist + Gender Studies major + Fine Arts
-                major
+                Fine arts specialist + Poker dealing major + Air Rifle minor
             </Program>
             <Input
                 width="40%"
