@@ -25,7 +25,7 @@ const HeaderComponent = styled.header`
 
 const Program = styled.div`
     &::before {
-        content: "program of study";
+        /* content: "program of study"; */
         position: absolute;
         font-variant: small-caps;
         font-size: 0.8em;
@@ -34,7 +34,11 @@ const Program = styled.div`
         top: -1.2em;
     }
     position: relative;
-    top: 0.4rem;
+    max-height: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    /* top: 0.4rem; */
 `
 
 const Header = () => {

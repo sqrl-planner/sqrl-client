@@ -38,51 +38,70 @@ const PreferencesContext = createContext<
 type PreferencesProviderProps = { children: React.ReactNode }
 
 const preferencesReducer = (state: Preferences, action: Action) => {
+    let newPreferences: Preferences
     switch (action.type) {
         case "SET_PALETTE": {
-            return { ...state, palette: action.payload }
+            newPreferences = { ...state, palette: action.payload }
+            break
         }
 
         case "SET_SCALE": {
-            return { ...state, scale: action.payload }
+            newPreferences = { ...state, scale: action.payload }
+            break
         }
 
         case "SET_SHOW_TIME_IN_MEETING": {
-            return { ...state, showTimeInMeeting: action.payload }
+            newPreferences = { ...state, showTimeInMeeting: action.payload }
+            break
         }
 
         case "SET_SHOW_COURSE_SUFFIX": {
-            return { ...state, showCourseSuffix: action.payload }
+            newPreferences = { ...state, showCourseSuffix: action.payload }
+            break
         }
 
         case "SET_START": {
-            return { ...state, start: action.payload }
+            newPreferences = { ...state, start: action.payload }
+            break
         }
 
         case "SET_END": {
-            return { ...state, end: action.payload }
+            newPreferences = { ...state, end: action.payload }
+            break
         }
 
         case "SET_HIGHLIGHT_CONFLICTS": {
-            return { ...state, highlightConflicts: action.payload }
+            newPreferences = { ...state, highlightConflicts: action.payload }
+            break
         }
 
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
         }
     }
+
+    localStorage.setItem("preferences", JSON.stringify(newPreferences))
+
+    return newPreferences
 }
 
 const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
-    const [state, dispatch] = React.useReducer(preferencesReducer, {
-        palette: "default",
-        scale: "normal",
-        showTimeInMeeting: true,
-        showCourseSuffix: true,
-        start: 9,
-        end: 22,
-        highlightConflicts: true,
-    })
+    const lsPreferences = localStorage.getItem("preferences")
+    let preferences: Preferences
+    if (lsPreferences) preferences = JSON.parse(lsPreferences) as Preferences
+    else {
+        preferences = {
+            palette: "default",
+            scale: "normal",
+            showTimeInMeeting: true,
+            showCourseSuffix: true,
+            start: 9,
+            end: 22,
+            highlightConflicts: true,
+        }
+    }
+
+    const [state, dispatch] = React.useReducer(preferencesReducer, preferences)
 
     // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
 
