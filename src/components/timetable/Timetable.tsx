@@ -1,5 +1,6 @@
 import { Flex, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
+import { usePreferences } from "../../PreferencesContext"
 import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
 import { Meeting, MeetingGroup } from "./Meeting"
 import MeetingComponent from "./MeetingComponent"
@@ -41,6 +42,25 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     resolution = 15,
 }) => {
     const [size, setSize] = useState(48)
+    const {
+        state: { palette, scale },
+        dispatch,
+    } = usePreferences()
+
+    useEffect(() => {
+        let size: number = 48
+
+        if (scale === "compact") size = 20
+        if (scale === "normal") size = 48
+        if (scale === "tall") size = 100
+
+        setSize(size)
+    }, [size, setSize, scale])
+
+    // dispatch demo
+    useEffect(() => {
+        dispatch({ type: "SET_SCALE", payload: "compact" })
+    }, [dispatch])
 
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -70,7 +90,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             groupsByDay.set(day, [])
         }
     }
-    console.log(groupsByDay)
+    // console.log(groupsByDay)
 
     const tableRows: Array<React.ReactNode> = []
     for (
@@ -93,12 +113,12 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     currentTime < groupEndTime
                 ) {
                     isOccupied = true
-                    console.log(
-                        `${DAYS[dayIndex]} - ${minuteOffsetToTime(
-                            currentTime
-                        )} (${currentTime})`,
-                        group
-                    )
+                    // console.log(
+                    //     `${DAYS[dayIndex]} - ${minuteOffsetToTime(
+                    //         currentTime
+                    //     )} (${currentTime})`,
+                    //     group
+                    // )
                 }
 
                 const rowspan = Math.ceil(
@@ -112,7 +132,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     const meeting = group.meetings[0]
                     cells.push(
                         <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
-                            <MeetingTime>
+                            <MeetingTime courseKey={meeting.courseKey}>
                                 <MeetingComponent
                                     plural={false}
                                     meeting={meeting}
@@ -148,12 +168,12 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 (groupEndTime -
                                                     groupStartTime)) *
                                             100
-                                        }% + 0.3rem)`,
+                                        }% + 0.2rem)`,
                                         backgroundColor: "#c53030",
                                         border: "1px solid #c53030",
                                         color: "#fff",
                                     }}
-                                    meeting={meeting.title}
+                                    courseKey={meeting.courseKey}
                                 >
                                     <MeetingComponent
                                         plural={true}
@@ -173,11 +193,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             }
 
             if (!isOccupied) {
-                console.log(
-                    `${DAYS[dayIndex]} - ${minuteOffsetToTime(
-                        currentTime
-                    )}: empty`
-                )
+                // console.log(
+                //     `${DAYS[dayIndex]} - ${minuteOffsetToTime(
+                //         currentTime
+                //     )}: empty`
+                // )
                 cells.push(<MeetingTimeCell days={DAYS.length} />)
             }
         }

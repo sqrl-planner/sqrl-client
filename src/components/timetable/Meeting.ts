@@ -20,17 +20,23 @@ export class Meeting {
      * The end time of the meeting, given in minutes from midnight.
      */
     endTime: number
+    /**
+     * The enumerated key of the meeting parent, i.e. course
+     */
+    courseKey: number
 
     constructor(
         day: Day,
         startTime: number,
         endTime: number,
-        title: string = "Untitled meeting"
+        title: string = "Untitled meeting",
+        courseKey: number = 0
     ) {
         this.day = day
         this.startTime = startTime
         this.endTime = endTime
         this.title = title
+        this.courseKey = courseKey
     }
 
     /**
@@ -117,32 +123,37 @@ export const EXAMPLE_MEETINGS = [
         Day.MONDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258Y1"
+        "CSC258Y1",
+        1
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
-        "MAT237H1"
+        "MAT237H1",
+        2
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236H1"
+        "CSC236H1",
+        3
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(13),
         timeToMinuteOffset(14),
-        "FAKE123F9"
+        "FAKE123F9",
+        4
     ),
     // begin conflicting time
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(14),
         timeToMinuteOffset(16),
-        "CSC207H1"
+        "CSC207H1",
+        5
     ),
     // new Meeting(
     //     Day.MONDAY,
@@ -154,44 +165,49 @@ export const EXAMPLE_MEETINGS = [
         Day.MONDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(16),
-        "STA247H1"
+        "STA247H1",
+        5
     ),
     // end conflicting time
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
-        "MAT237H1"
+        "MAT237H1",
+        2
     ),
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "MAT237H1"
+        "MAT237H1",
+        2
     ),
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(16),
-        "CSC207H1"
+        "CSC207H1",
+        5
     ),
     new Meeting(
         Day.TUESDAY,
         timeToMinuteOffset(18),
         timeToMinuteOffset(21),
-        "CSC258H1"
+        "CSC258H1",
+        1
     ),
     new Meeting(
         Day.WEDNESDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258H1"
+        "CSC258Y1"
     ),
     new Meeting(
         Day.WEDNESDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236H1"
+        "CSC236Y1"
     ),
     new Meeting(
         Day.THURSDAY,

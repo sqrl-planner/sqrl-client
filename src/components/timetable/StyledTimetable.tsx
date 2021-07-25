@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { stringToLightColour } from "../../utils/colour"
+import { courseKeyToColour } from "../../utils/colour"
 
 export const StyledTimetableContainer = styled.div`
     width: 100vw;
@@ -82,14 +82,15 @@ export const StyledTimeLabelTd = styled.td`
 `
 
 export const MeetingTimeCell = styled.td`
-    padding: 0.3rem 0.8rem;
+    /* padding: 0.3rem 0.8rem; */
+    padding: 0;
     position: relative;
     font-size: 1.2rem;
     width: ${({ days = 5 }: { days: number }) => `calc((100%)  / ${days})`};
     border-right: 1px solid #e2e8f0;
 `
 
-export const MeetingTime = styled.div<{ meeting?: string }>`
+export const MeetingTime = styled.div`
     position: absolute;
     top: 0.2rem;
     right: 0.4rem;
@@ -120,8 +121,8 @@ export const MeetingTime = styled.div<{ meeting?: string }>`
     padding: 0.7rem;
     padding-right: 0.2rem;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
-    background-color: ${({ meeting = "1" }: { meeting?: string }) =>
-        stringToLightColour(meeting)};
+    background-color: ${({ courseKey = 0 }: { courseKey: number }) =>
+        courseKeyToColour(courseKey)};
 
     @media print {
         font-size: 10pt;

@@ -1,71 +1,22 @@
-// interface Hsl {
-//     h?: number
-//     s?: number
-//     l?: number
-// }
-
-// // Adapted from https://gist.github.com/xenozauros/f6e185c8de2a04cdfecf
-// export const hexToHSL = (hex: string): Hsl => {
-//     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-//     let r = parseInt(result![1], 16)
-//     let g = parseInt(result![2], 16)
-//     let b = parseInt(result![3], 16)
-//     r /= 255
-//     g /= 255
-//     b /= 255
-
-//     const max = Math.max(r, g, b),
-//         min = Math.min(r, g, b)
-//     let h,
-//         s,
-//         l = (max + min) / 2
-//     if (max === min) {
-//         h = s = 0 // achromatic
-//     } else {
-//         const d = max - min
-//         s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
-//         switch (max) {
-//             case r:
-//                 h = (g - b) / d + (g < b ? 6 : 0)
-//                 break
-//             case g:
-//                 h = (b - r) / d + 2
-//                 break
-//             case b:
-//                 h = (r - g) / d + 4
-//                 break
-//         }
-//         ;(h as number) /= 6
-//     }
-//     const HSL: Hsl = {}
-
-//     HSL["h"] = h
-//     HSL["s"] = s
-//     HSL["l"] = l
-
-//     return HSL
-// }
-
-// export const stringToColour = (str: string): string => {
-//     let hash = 0
-//     for (let i = 0; i < str.length; i++) {
-//         hash = str.charCodeAt(i) + ((hash << 5) - hash)
-//     }
-//     let colour = "#"
-//     for (let i = 0; i < 3; i++) {
-//         const value = (hash >> (i * 8)) & 0xff
-//         colour += ("00" + value.toString(16)).substr(-2)
-//     }
-//     return colour
-// }
-
-export const stringToLightColour = (str: string) => {
-    // const hsl = hexToHSL(stringToColour(str))
-    // hsl["s"] = hsl["s"]! / 1.5
-    // hsl["l"] = Math.min(hsl["l"]! * 1.8, 0.7)
-
-    // return `hsl(${(hsl.h as number) * 100}, ${(hsl.s as number) * 100}%, ${
-    //     (hsl.l as number) * 100
-    // }%)`
-    return "#efefef"
+export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
+    const defaultColours = [
+        "efefef",
+        "c9ebab",
+        "d6e2eb",
+        "fce4d1",
+        "d1dbf5",
+        "c9f7f7",
+        "eeead6",
+        "e6f9d9",
+        "c0dcf3",
+        "c1f1e7",
+        "dbcfed",
+    ]
+    colours = colours || defaultColours
+    return `#${colours[courseKey % colours.length]}`
 }
+
+// https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-541388-d90368-2e294e-f7f7ff-279af1
+// https://coolors.co/f6f7eb-e94f37-393e41-3f88c5-44bba4-758ecd-7189ff-bea7e5-4f772d-28afb0
+// https://coolors.co/eed2cc-db5a42-393e41-3f88c5-44bba4-758ecd-afa98d-4f772d-28afb0-8c7aa9
+// https://coolors.co/f1a66a-abe188-393e41-3f88c5-44bba4-758ecd-afa98d-4f772d-28afb0-8c7aa9
