@@ -136,7 +136,7 @@ export const MeetingTime = styled.div`
     bottom: 0;
     left: 0.4em;
 
-    /* border-radius: 0.3em; */
+    /* border-radius: 0.5em; */
 
     &,
     & > * {
@@ -151,6 +151,11 @@ export const MeetingTime = styled.div`
     /* line-height: 1.5em; */
 
     padding: 0.6rem;
+
+    @media (max-width: 600px) {
+        padding: 0.3rem;
+        padding-left: 0.4rem;
+    }
     padding-right: 0em;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
     transition: background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);

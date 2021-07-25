@@ -17,6 +17,7 @@ const HeaderComponent = styled.header`
     align-items: center;
     position: fixed;
     width: 100vw;
+    height: 4.5rem;
     background-color: #fff;
     z-index: 10;
     box-shadow: 0px 1px 8px -5px rgba(0, 0, 0, 0.4);

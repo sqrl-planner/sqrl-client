@@ -14,6 +14,7 @@ import {
     Select,
     Stack,
     Switch,
+    useColorMode,
     UseDisclosureProps,
 } from "@chakra-ui/react"
 import React, { useRef } from "react"
@@ -39,6 +40,8 @@ const PreferencesDrawer = (props: {
         dispatch,
     } = usePreferences()
 
+    const { colorMode, toggleColorMode } = useColorMode()
+
     return (
         <Drawer {...props.drawerprops} size="md">
             <DrawerOverlay />
@@ -56,6 +59,7 @@ const PreferencesDrawer = (props: {
                                 placeholder="Please enter user name"
                             />
                         </Box> */}
+
                         <Box>
                             <FormControl
                                 display="flex"
@@ -226,6 +230,41 @@ const PreferencesDrawer = (props: {
                                 </Select>
                             </Box>
                         </Flex>
+
+                        <Box>
+                            <FormControl
+                                display="flex"
+                                alignItems="center"
+                                width="100%"
+                                justifyContent="space-between"
+                                mt={3}
+                            >
+                                <FormLabel htmlFor="toggle-mode" mb="0">
+                                    Dark mode?
+                                </FormLabel>
+                                <Switch
+                                    size="lg"
+                                    id="toggle-mode"
+                                    isChecked={colorMode !== "light"}
+                                    onChange={(e) => {
+                                        // const payload = e.target.checked
+
+                                        // dispatch({
+                                        //     type: "SET_SHOW_TIME_IN_MEETING",
+                                        //     payload,
+                                        // })
+                                        toggleColorMode()
+                                    }}
+                                />
+                                {/* <Button
+                                    size="sm"
+                                    colorScheme="blue"
+                                    onClick={toggleColorMode}
+                                >
+                                    Toggle Mode
+                                </Button> */}
+                            </FormControl>
+                        </Box>
                     </Stack>
                 </DrawerBody>
 

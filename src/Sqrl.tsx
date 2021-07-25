@@ -37,7 +37,7 @@ const Sqrl = () => {
             <div
                 style={{
                     position: "relative",
-                    top: "5rem",
+                    top: "4.5rem",
                 }}
             >
                 <Timetable
