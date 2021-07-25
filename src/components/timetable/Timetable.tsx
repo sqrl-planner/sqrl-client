@@ -171,7 +171,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                             : "",
                                         border: highlightConflicts
                                             ? "1px solid #c53030"
-                                            : "1px solid transparent",
+                                            : "",
                                         color: highlightConflicts ? "#fff" : "",
                                         transition:
                                             "all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)",
