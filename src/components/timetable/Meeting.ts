@@ -201,42 +201,49 @@ export const EXAMPLE_MEETINGS = [
         Day.WEDNESDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258Y1"
+        "CSC258Y1",
+        1
     ),
     new Meeting(
         Day.WEDNESDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236Y1"
+        "CSC236Y1",
+        3
     ),
     new Meeting(
         Day.THURSDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
-        "MAT237H1"
+        "MAT237H1",
+        2
     ),
     new Meeting(
         Day.THURSDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(16),
-        "CSC207H1"
+        "CSC207H1",
+        5
     ),
     new Meeting(
         Day.THURSDAY,
         timeToMinuteOffset(18),
         timeToMinuteOffset(20),
-        "STA247H1"
+        "STA247H1",
+        6
     ),
     new Meeting(
         Day.FRIDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
-        "CSC236H1"
+        "CSC236H1",
+        3
     ),
     new Meeting(
         Day.FRIDAY,
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
-        "CSC258H1"
+        "CSC258H1",
+        1
     ),
 ]

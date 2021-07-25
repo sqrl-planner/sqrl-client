@@ -106,7 +106,15 @@ const Header = () => {
                     variant="link"
                     onClick={onOpen}
                     outline="none"
+                    border="none"
                     mr={4}
+                    _hover={{
+                        transform: "rotate(90deg) scale(1.2)",
+                    }}
+                    _focus={{
+                        border: "none",
+                        outline: "none",
+                    }}
                 >
                     <SettingsIcon w={6} h={6} />
                 </Button>
