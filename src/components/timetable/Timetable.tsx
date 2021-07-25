@@ -37,6 +37,10 @@ type TimetableProps = {
      * The scale of the timetable
      */
     scale?: number
+    /**
+     * The palette of the timetable
+     */
+    palette?: string
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
@@ -45,6 +49,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     maxTime = timeToMinuteOffset(22),
     resolution = 15,
     scale = 48,
+    palette = "default",
 }) => {
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -116,7 +121,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     const meeting = group.meetings[0]
                     cells.push(
                         <MeetingTimeCell days={DAYS.length} rowSpan={rowspan}>
-                            <MeetingTime courseKey={meeting.courseKey}>
+                            <MeetingTime
+                                courseKey={meeting.courseKey}
+                                palette={palette}
+                            >
                                 <MeetingComponent
                                     plural={false}
                                     meeting={meeting}
@@ -158,6 +166,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         color: "#fff",
                                     }}
                                     courseKey={meeting.courseKey}
+                                    palette={palette}
                                 >
                                     <MeetingComponent
                                         plural={true}

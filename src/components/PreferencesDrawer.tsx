@@ -33,7 +33,14 @@ const PreferencesDrawer = (props: {
     const firstField = useRef() as React.MutableRefObject<HTMLInputElement>
 
     const {
-        state: { scale, start, end, showTimeInMeeting, showCourseSuffix },
+        state: {
+            scale,
+            start,
+            end,
+            showTimeInMeeting,
+            showCourseSuffix,
+            palette,
+        },
         dispatch,
     } = usePreferences()
 
@@ -122,10 +129,21 @@ const PreferencesDrawer = (props: {
 
                         <Box>
                             <FormLabel htmlFor="palette">Palette</FormLabel>
-                            <Select id="palette" defaultValue="default">
+                            <Select
+                                id="palette"
+                                value={palette}
+                                onChange={(e) => {
+                                    const payload = e.target.value as any
+
+                                    dispatch({
+                                        type: "SET_PALETTE",
+                                        payload,
+                                    })
+                                }}
+                            >
                                 <option value="default">Default</option>
-                                {/* <option value="monochrome">Monochrome</option>
-                                <option value="accessible">
+                                <option value="monochrome">Monochrome</option>
+                                {/* <option value="accessible">
                                     High contrast
                                 </option> */}
                             </Select>

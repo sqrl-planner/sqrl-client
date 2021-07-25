@@ -8,7 +8,7 @@ import { timeToMinuteOffset } from "./utils/time"
 
 const Sqrl = () => {
     const {
-        state: { scale, start, end, showTimeInMeeting },
+        state: { scale, start, end, showTimeInMeeting, palette },
         dispatch,
     } = usePreferences()
 
@@ -38,6 +38,7 @@ const Sqrl = () => {
                     scale={timetableSize}
                     minTime={timeToMinuteOffset(start)}
                     maxTime={timeToMinuteOffset(end)}
+                    palette={palette}
                 />
             </div>
         </div>

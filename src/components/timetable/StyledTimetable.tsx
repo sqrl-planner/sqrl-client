@@ -1,5 +1,22 @@
 import styled from "styled-components"
-import { courseKeyToColour } from "../../utils/colour"
+
+export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
+    const defaultColours = [
+        "eaeaea",
+        "c9ebab",
+        "d6e2eb",
+        "fce4d1",
+        "d1dbf5",
+        "c9f7f7",
+        "eeead6",
+        "e6f9d9",
+        "c0dcf3",
+        "c1f1e7",
+        "dbcfed",
+    ]
+    colours = colours || defaultColours
+    return `#${colours[courseKey % colours.length]}`
+}
 
 export const StyledTimetableContainer = styled.div`
     width: 100vw;
@@ -53,7 +70,7 @@ export const StyledTr = styled.tr<{ size: number; resolution: number }>`
         line-height: ${({ size = 20 }: { size?: number }) =>
             (size / 100) * 2 + "em"};
 
-        transition: line-height 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: line-height 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 
     &:nth-child(${({ resolution = 15 }: { resolution?: number }) =>
@@ -136,8 +153,14 @@ export const MeetingTime = styled.div`
     padding: 0.6rem;
     padding-right: 0em;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
-    background-color: ${({ courseKey = 0 }: { courseKey: number }) =>
-        courseKeyToColour(courseKey)};
+    transition: background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-color: ${({
+        courseKey = 0,
+        palette,
+    }: {
+        courseKey: number
+        palette: string
+    }) => courseKeyToColour(courseKey, palettes[palette])};
 
     @media print {
         font-size: 10pt;
@@ -154,3 +177,20 @@ export const MeetingTime = styled.div`
 `
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``
+
+const palettes = {
+    default: [
+        "eaeaea",
+        "c9ebab",
+        "d6e2eb",
+        "fce4d1",
+        "d1dbf5",
+        "c9f7f7",
+        "eeead6",
+        "e6f9d9",
+        "c0dcf3",
+        "c1f1e7",
+        "dbcfed",
+    ],
+    monochrome: ["eaeaea"],
+}
