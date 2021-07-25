@@ -1,11 +1,6 @@
 @import url("https://use.typekit.net/nir0kax.css");
 
-html {
-    font-size: 62.5%;
-}
-
 body {
-    font-size: 1.6rem;
     background-color: #eee;
 
     font-family: museo-sans, sans-serif;
@@ -18,4 +13,10 @@ body {
 @page {
     size: auto;
     margin: 2rem;
+}
+
+a,
+button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
 }

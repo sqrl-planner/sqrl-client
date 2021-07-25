@@ -9,12 +9,13 @@ import { createContext } from "react"
 interface Preferences {
     palette: "default" | "accessible" | "monochrome"
     scale: "compact" | "normal" | "tall"
+    showTimeInMeeting: boolean
 }
 
 type Action =
     | { type: "SET_PALETTE"; payload: "default" | "accessible" | "monochrome" }
     | { type: "SET_SCALE"; payload: "compact" | "normal" | "tall" }
-// | any
+    | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
 
 type Dispatch = (action: Action) => void
 
@@ -38,6 +39,10 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             return { ...state, scale: action.payload }
         }
 
+        case "SET_SHOW_TIME_IN_MEETING": {
+            return { ...state, showTimeInMeeting: action.payload }
+        }
+
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
         }
@@ -48,11 +53,10 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
     const [state, dispatch] = React.useReducer(preferencesReducer, {
         palette: "default",
         scale: "normal",
+        showTimeInMeeting: true,
     })
 
-    // NOTE: you *might* need to memoize this value
-
-    // Learn more in http://kcd.im/optimize-context
+    // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
 
     const value = { state, dispatch }
 

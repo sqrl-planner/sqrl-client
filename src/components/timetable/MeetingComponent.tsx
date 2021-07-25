@@ -9,12 +9,13 @@ interface MeetingProps {
 }
 
 const MeetingTitle = styled.div`
-    padding-right: 0.5rem;
+    padding-right: 0.5em;
     &,
     & > * {
         font-weight: 700;
-        font-size: 1.5rem;
-        font-family: monospace;
+        font-size: 1.2em;
+        /* line-height: 2em; */
+        font-family: interstate-mono, monospace;
 
         @media print {
             font-size: 12pt;
@@ -27,7 +28,7 @@ const MeetingSuffix = styled.span<{ plural: boolean }>`
     color: ${({ plural }) => {
         return plural ? `#eee` : `#545454`
     }};
-    font-size: 1.2rem;
+    font-size: 0.8em;
     font-weight: 500;
 `
 
@@ -35,22 +36,16 @@ const MeetingInformation = styled.div`
     display: flex;
     flex-direction: column;
     align-content: flex-start;
-    /* align-items: baseline; */
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
 
     width: 100%;
-    height: auto;
-    /* font-size: 1.2rem;
-    font-weight: 500; */
-    /* line-height: 2.4rem; */
-    /* display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-content: flex-start;
-    align-items: baseline;
-    justify-content: center;
-    flex-wrap: wrap; */
+    height: 100%;
+`
+
+const MeetingTimes = styled.div`
+    position: relative;
+    top: 0.2rem;
 `
 
 const MeetingComponent = ({ meeting, plural }: MeetingProps) => {
@@ -83,7 +78,9 @@ const MeetingComponent = ({ meeting, plural }: MeetingProps) => {
                 {numeral + "\u200b"}
                 <MeetingSuffix plural={plural}>{suffix}</MeetingSuffix>
             </MeetingTitle>
-            {startTime + "\u200b"}-{"\u200b" + endTime}
+            <MeetingTimes>
+                {startTime + "\u200b"}-{"\u200b" + endTime}
+            </MeetingTimes>
         </MeetingInformation>
     )
 }

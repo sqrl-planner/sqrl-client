@@ -1,4 +1,4 @@
-import { Flex, useToast } from "@chakra-ui/react"
+import { Button, Flex, useToast } from "@chakra-ui/react"
 import React, { FunctionComponent, useEffect, useState } from "react"
 import { usePreferences } from "../../PreferencesContext"
 import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
@@ -58,9 +58,9 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     }, [size, setSize, scale])
 
     // dispatch demo
-    useEffect(() => {
-        dispatch({ type: "SET_SCALE", payload: "compact" })
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch({ type: "SET_SCALE", payload: "compact" })
+    // }, [dispatch])
 
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -208,21 +208,28 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         )
     }
 
-    const toast = useToast()
-
-    useEffect(() => {
-        if (Math.random() < 0.2) toast({ title: "nut", status: "success" })
-    }, [toast])
-
     return (
         <StyledTimetableContainer>
-            <input
+            {/* <input
                 type="range"
                 min="20"
                 max="100"
                 value={size}
                 onChange={(e: any) => setSize(e.target.value)}
-            />
+            /> */}
+            <Button
+                onClick={() => {
+                    dispatch({
+                        type: "SET_SCALE",
+                        payload: scale === "compact" ? "normal" : "compact",
+                    })
+                }}
+                // fontSize="1.6rem"
+                // p={8}
+                m={2}
+            >
+                {scale === "compact" ? "normal" : "compact"}
+            </Button>
             <StyledTimetable>
                 <thead>
                     <StyledHead>

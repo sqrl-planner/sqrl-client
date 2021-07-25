@@ -1,6 +1,6 @@
 export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
     const defaultColours = [
-        "efefef",
+        "eaeaea",
         "c9ebab",
         "d6e2eb",
         "fce4d1",

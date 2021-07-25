@@ -1,6 +1,7 @@
 import { ChakraProvider, extendTheme, Heading } from "@chakra-ui/react"
 import * as React from "react"
 import { createContext } from "react"
+import Header from "./components/Header"
 import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
 import "./global.css"
@@ -21,9 +22,7 @@ export const App = () => (
             {/* <Box textAlign="center" fontSize="xl"> */}
             {/* <Grid minH="100vh" p={3}> */}
             {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
-            <Heading m={6} as="h1" size="3xl">
-                Sqrl
-            </Heading>
+            <Header />
             <Timetable meetings={EXAMPLE_MEETINGS} />
         </PreferencesProvider>
         {/* </Grid> */}
