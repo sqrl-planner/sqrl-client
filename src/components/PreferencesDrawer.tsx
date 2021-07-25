@@ -22,7 +22,7 @@ import {
     Textarea,
     UseDisclosureProps,
 } from "@chakra-ui/react"
-import React from "react"
+import React, { useRef } from "react"
 import { usePreferences } from "../PreferencesContext"
 
 const PreferencesDrawer = (props: {
@@ -30,8 +30,7 @@ const PreferencesDrawer = (props: {
     drawerprops: any
 }) => {
     const { isOpen, onOpen, onClose } = props.disclosure
-    const firstField =
-        React.useRef() as React.MutableRefObject<HTMLInputElement>
+    const firstField = useRef() as React.MutableRefObject<HTMLInputElement>
 
     const {
         state: { scale, start, end, showTimeInMeeting, showCourseSuffix },

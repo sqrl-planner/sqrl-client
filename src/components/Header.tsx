@@ -6,7 +6,7 @@ import {
     useDisclosure,
     useToast,
 } from "@chakra-ui/react"
-import React, { useEffect } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
 import PreferencesDrawer from "./PreferencesDrawer"
 
@@ -36,6 +36,34 @@ const Program = styled.div`
 `
 
 const Header = () => {
+    const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>
+    const keydownListener = useCallback((keydownEvent) => {
+        const { key, metaKey, ctrlKey, target, repeat } = keydownEvent
+        if (repeat) return
+
+        if ((metaKey || ctrlKey) && key === "k") {
+            keydownEvent.preventDefault()
+            searchRef.current.focus()
+        }
+
+        // if (blacklistedTargets.includes(target.tagName)) return
+        // if (!shortcutKeys.includes(key)) return
+
+        // if (!keys[key]) setKeys({ type: "set-key-down", key })
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener("keydown", keydownListener, true)
+        console.log(navigator.userAgent)
+        return () =>
+            window.removeEventListener("keydown", keydownListener, true)
+    }, [keydownListener])
+
+    let osModifier: string = ""
+
+    if (navigator.userAgent.indexOf("Mac OS X") !== -1) osModifier = "⌘"
+    if (navigator.userAgent.indexOf("Windows") !== -1) osModifier = "Ctrl + "
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <HeaderComponent>
@@ -69,7 +97,8 @@ const Header = () => {
                 autoFocus
                 ml={6}
                 mr={6}
-                placeholder="Search for a course"
+                placeholder={`Search for a course (${osModifier}K)`}
+                ref={searchRef}
             />
             <div>
                 <Button
