@@ -25,7 +25,7 @@ const Sqrl = () => {
         let size: number = 48
 
         if (scale === "compact") size = 20
-        if (scale === "normal") size = 48
+        if (scale === "normal") size = 40
         if (scale === "tall") size = 100
 
         setTimetableSize(size)

@@ -52,7 +52,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     minTime = timeToMinuteOffset(8),
     maxTime = timeToMinuteOffset(22),
     resolution = 15,
-    scale = 48,
+    scale = 45,
     palette = "default",
     highlightConflicts = true,
 }) => {
@@ -155,9 +155,9 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         position: "absolute",
                                         width: `calc(${percent}% - 0.4rem)`,
                                         height: `calc(${height}% - 0.1rem)`,
-                                        left: `calc(${
-                                            index * percent
-                                        }% + 0.3rem)`,
+                                        left: `calc(${index * percent}% + ${
+                                            !index ? "0.3rem" : "0.1rem"
+                                        })`,
                                         // top position is percent of meeting starttime of group starttime
                                         top: `calc(${
                                             ((meeting.startTime -

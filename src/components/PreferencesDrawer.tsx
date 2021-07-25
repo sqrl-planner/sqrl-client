@@ -60,6 +60,8 @@ const PreferencesDrawer = (props: {
                             <FormControl
                                 display="flex"
                                 alignItems="center"
+                                width="100%"
+                                justifyContent="space-between"
                                 mt={3}
                             >
                                 <FormLabel htmlFor="show-times" mb="0">
@@ -82,7 +84,12 @@ const PreferencesDrawer = (props: {
                         </Box>
 
                         <Box>
-                            <FormControl display="flex" alignItems="center">
+                            <FormControl
+                                display="flex"
+                                alignItems="center"
+                                width="100%"
+                                justifyContent="space-between"
+                            >
                                 <FormLabel htmlFor="show-suffix" mb="0">
                                     Show course suffix? (Y1, H1, H5, etc.)
                                 </FormLabel>
@@ -103,7 +110,12 @@ const PreferencesDrawer = (props: {
                         </Box>
 
                         <Box>
-                            <FormControl display="flex" alignItems="center">
+                            <FormControl
+                                display="flex"
+                                alignItems="center"
+                                width="100%"
+                                justifyContent="space-between"
+                            >
                                 <FormLabel htmlFor="highlight-conflicts" mb="0">
                                     Highlight conflicts?
                                 </FormLabel>

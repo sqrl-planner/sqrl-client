@@ -164,7 +164,7 @@ export const EXAMPLE_MEETINGS = [
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(15),
-        timeToMinuteOffset(16),
+        timeToMinuteOffset(17),
         "STA247H1",
         6
     ),

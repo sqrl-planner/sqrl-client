@@ -10,8 +10,10 @@ import Sqrl from "./Sqrl"
 
 const theme = extendTheme({
     fonts: {
-        heading: "museo-sans, sans-serif",
-        body: "museo-sans, sans-serif",
+        // heading: "museo-sans, sans-serif",
+        // body: "museo-sans, sans-serif",
+        body: "Inter, sans-serif",
+        heading: "Inter, sans-serif",
         mono: "interstate-mono, monospace",
     },
     components: {
