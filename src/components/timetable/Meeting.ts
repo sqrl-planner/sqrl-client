@@ -166,7 +166,7 @@ export const EXAMPLE_MEETINGS = [
         timeToMinuteOffset(15),
         timeToMinuteOffset(16),
         "STA247H1",
-        5
+        6
     ),
     // end conflicting time
     new Meeting(

@@ -13,6 +13,7 @@ interface Preferences {
     showCourseSuffix: boolean
     start: number
     end: number
+    highlightConflicts: boolean
 }
 
 type Action =
@@ -22,6 +23,7 @@ type Action =
     | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }
     | { type: "SET_START"; payload: number }
     | { type: "SET_END"; payload: number }
+    | { type: "SET_HIGHLIGHT_CONFLICTS"; payload: boolean }
 
 type Dispatch = (action: Action) => void
 
@@ -61,6 +63,10 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             return { ...state, end: action.payload }
         }
 
+        case "SET_HIGHLIGHT_CONFLICTS": {
+            return { ...state, highlightConflicts: action.payload }
+        }
+
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
         }
@@ -75,6 +81,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
         showCourseSuffix: true,
         start: 9,
         end: 22,
+        highlightConflicts: true,
     })
 
     // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context

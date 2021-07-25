@@ -8,18 +8,12 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    DrawerProps,
     Flex,
     FormControl,
     FormLabel,
-    Input,
-    InputGroup,
-    InputLeftAddon,
-    InputRightAddon,
     Select,
     Stack,
     Switch,
-    Textarea,
     UseDisclosureProps,
 } from "@chakra-ui/react"
 import React, { useRef } from "react"
@@ -40,6 +34,7 @@ const PreferencesDrawer = (props: {
             showTimeInMeeting,
             showCourseSuffix,
             palette,
+            highlightConflicts,
         },
         dispatch,
     } = usePreferences()
@@ -100,6 +95,27 @@ const PreferencesDrawer = (props: {
 
                                         dispatch({
                                             type: "SET_SHOW_COURSE_SUFFIX",
+                                            payload,
+                                        })
+                                    }}
+                                />
+                            </FormControl>
+                        </Box>
+
+                        <Box>
+                            <FormControl display="flex" alignItems="center">
+                                <FormLabel htmlFor="highlight-conflicts" mb="0">
+                                    Highlight conflicts?
+                                </FormLabel>
+                                <Switch
+                                    size="lg"
+                                    id="highlight-conflicts"
+                                    isChecked={highlightConflicts}
+                                    onChange={(e) => {
+                                        const payload = e.target.checked
+
+                                        dispatch({
+                                            type: "SET_HIGHLIGHT_CONFLICTS",
                                             payload,
                                         })
                                     }}

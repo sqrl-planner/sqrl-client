@@ -41,6 +41,10 @@ type TimetableProps = {
      * The palette of the timetable
      */
     palette?: string
+    /**
+     * Whether to highlight conflicts
+     */
+    highlightConflicts?: boolean
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
@@ -50,6 +54,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     resolution = 15,
     scale = 48,
     palette = "default",
+    highlightConflicts = true,
 }) => {
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -161,15 +166,21 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                     groupStartTime)) *
                                             100
                                         }% + 0.2rem)`,
-                                        backgroundColor: "#c53030",
-                                        border: "1px solid #c53030",
-                                        color: "#fff",
+                                        backgroundColor: highlightConflicts
+                                            ? "#c53030"
+                                            : "",
+                                        border: highlightConflicts
+                                            ? "1px solid #c53030"
+                                            : "1px solid transparent",
+                                        color: highlightConflicts ? "#fff" : "",
+                                        transition:
+                                            "all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}
                                 >
                                     <MeetingComponent
-                                        plural={true}
+                                        plural={highlightConflicts}
                                         meeting={meeting}
                                     />
                                 </MeetingTime>
