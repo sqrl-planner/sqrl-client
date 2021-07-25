@@ -1,7 +1,13 @@
 @import url("https://use.typekit.net/nir0kax.css");
 
+html {
+    min-height: 100vh;
+    background-color: #fafafa;
+}
+
 body {
-    background-color: #eee;
+    min-height: 100%;
+    background-color: #fafafa;
 
     font-family: museo-sans, sans-serif;
 }

@@ -48,7 +48,7 @@ const MeetingInformation = styled.div`
 const MeetingTimes = styled.div`
     position: relative;
     top: 0.2rem;
-    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
 const MeetingComponent = ({ meeting, plural }: MeetingProps) => {

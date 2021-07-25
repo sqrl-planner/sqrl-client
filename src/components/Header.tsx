@@ -4,6 +4,7 @@ import {
     Heading,
     Input,
     useDisclosure,
+    Text,
     useToast,
 } from "@chakra-ui/react"
 import React, { useCallback, useEffect, useRef } from "react"
@@ -14,7 +15,7 @@ const HeaderComponent = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    position: fixed;
     width: 100vw;
     background-color: #fff;
     z-index: 10;
@@ -100,6 +101,7 @@ const Header = () => {
                 placeholder={`Search for a course (${osModifier}K)`}
                 ref={searchRef}
             />
+            <Text>Help</Text>
             <div>
                 <Button
                     colorScheme="blue"
@@ -107,7 +109,10 @@ const Header = () => {
                     onClick={onOpen}
                     outline="none"
                     border="none"
+                    m={0}
                     mr={4}
+                    position="relative"
+                    top="0.2rem"
                     _hover={{
                         transform: "rotate(90deg) scale(1.2)",
                     }}

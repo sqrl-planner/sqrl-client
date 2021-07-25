@@ -14,18 +14,20 @@ const theme = extendTheme({
         body: "museo-sans, sans-serif",
         mono: "interstate-mono, monospace",
     },
+    components: {
+        FormLabel: {
+            baseStyle: {
+                fontWeight: 600,
+            },
+        },
+    },
 })
 export default theme
 
 export const App = () => (
     <ChakraProvider theme={theme}>
         <PreferencesProvider>
-            {/* <Box textAlign="center" fontSize="xl"> */}
-            {/* <Grid minH="100vh" p={3}> */}
-            {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
             <Sqrl />
         </PreferencesProvider>
-        {/* </Grid> */}
-        {/* </Box> */}
     </ChakraProvider>
 )

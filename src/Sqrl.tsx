@@ -27,35 +27,19 @@ const Sqrl = () => {
     return (
         <div>
             <Header />
-            {/* <Button
-                onClick={() => {
-                    dispatch({
-                        type: "SET_SCALE",
-                        payload: scale === "compact" ? "normal" : "compact",
-                    })
+            <div
+                style={{
+                    position: "relative",
+                    top: "5rem",
                 }}
-                m={2}
             >
-                {scale === "compact" ? "normal" : "compact"}
-            </Button>
-
-            <Button
-                onClick={() => {
-                    dispatch({
-                        type: "SET_SHOW_TIME_IN_MEETING",
-                        payload: showTimeInMeeting ? false : true,
-                    })
-                }}
-                m={2}
-            >
-                show time in meeting
-            </Button> */}
-            <Timetable
-                meetings={EXAMPLE_MEETINGS}
-                scale={timetableSize}
-                minTime={timeToMinuteOffset(start)}
-                maxTime={timeToMinuteOffset(end)}
-            />
+                <Timetable
+                    meetings={EXAMPLE_MEETINGS}
+                    scale={timetableSize}
+                    minTime={timeToMinuteOffset(start)}
+                    maxTime={timeToMinuteOffset(end)}
+                />
+            </div>
         </div>
     )
 }
