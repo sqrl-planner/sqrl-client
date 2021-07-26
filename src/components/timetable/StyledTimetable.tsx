@@ -3,14 +3,15 @@ import styled from "styled-components"
 export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
     const defaultColours = [
         "eaeaea",
-        "c9ebab",
-        "d6e2eb",
-        "fce4d1",
-        "d1dbf5",
-        "c9f7f7",
-        "eeead6",
-        "e6f9d9",
+        "fce8b1",
+        "e0f2ff",
+        "c0fac7",
+        // "c9f7f7",
+        "d6d5f2",
         "c0dcf3",
+        "ffe6de",
+        "d1dbf5",
+        "e6f9d9",
         "c1f1e7",
         "dbcfed",
     ]
@@ -19,7 +20,7 @@ export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
 }
 
 export const StyledTimetableContainer = styled.div`
-    width: 100vw;
+    width: 100%;
     overflow-x: scroll;
     font-size: 0.625rem;
     background: #fafafa;
@@ -33,7 +34,6 @@ export const StyledTimetable = styled.table`
     margin-left: 0;
     padding: 0;
     border-collapse: collapse;
-    /* table-layout: fixed; */
     @media print {
         width: 100vw;
         margin: 0;
@@ -48,10 +48,15 @@ export const StyledTh = styled.th`
     border-right: 1px solid #e2e8f0;
     font-size: 1rem;
     padding-bottom: 0.8em;
+
     &:first-of-type:not() {
         width: ${({ days = 5 }: { days?: number }) =>
             `calc((100% - 4em) / ${days})`};
     }
+
+    /* &:last-of-type {
+        border-right: none;
+    } */
 `
 
 export const StyledTr = styled.tr<{ size: number; resolution: number }>`
@@ -121,22 +126,25 @@ export const StyledTimeLabelTd = styled.td`
 `
 
 export const MeetingTimeCell = styled.td`
-    /* padding: 0.3em 0.8em; */
     padding: 0;
     position: relative;
     font-size: 1.2em;
     width: ${({ days = 5 }: { days: number }) => `calc((100%)  / ${days})`};
     border-right: 1px solid #e2e8f0;
+
+    /* &:last-child {
+        border-right: none;
+    } */
 `
 
 export const MeetingTime = styled.div`
     position: absolute;
     top: 0.2em;
-    right: 0.4em;
+    right: 0.3em;
     bottom: 0;
-    left: 0.4em;
+    left: 0.3em;
 
-    /* border-radius: 0.5em; */
+    /* border-radius: 0.3em; */
 
     &,
     & > * {
@@ -165,7 +173,8 @@ export const MeetingTime = styled.div`
     }: {
         courseKey: number
         palette: string
-    }) => courseKeyToColour(courseKey, palettes[palette])};
+    }) => courseKeyToColour(courseKey, palettes[palette] as any)};
+    /* color: ${({ palette }) => (palette === "accessible" ? "#fff" : "")}; */
 
     @media print {
         font-size: 10pt;
@@ -186,16 +195,31 @@ export const MeetingTime = styled.div`
 const palettes = {
     default: [
         "eaeaea",
-        "c9ebab",
-        "d6e2eb",
-        "fce4d1",
-        "d1dbf5",
-        "c9f7f7",
-        "eeead6",
-        "e6f9d9",
+        "fce8b1",
+        "e0f2ff",
+        "c0fac7",
+        // "c9f7f7",
+        "d6d5f2",
         "c0dcf3",
+        "ffe6de",
+        "d1dbf5",
+        "e6f9d9",
         "c1f1e7",
         "dbcfed",
     ],
+    // default: [
+    //     "eaeaea",
+    //     "c9ebab",
+    //     "d6e2eb",
+    //     "fce4d1",
+    //     "d1dbf5",
+    //     "c9f7f7",
+    //     "eeead6",
+    //     "e6f9d9",
+    //     "c0dcf3",
+    //     "c1f1e7",
+    //     "dbcfed",
+    // ],
+    accessible: ["70ff63", "6863ff"],
     monochrome: ["eaeaea"],
 }

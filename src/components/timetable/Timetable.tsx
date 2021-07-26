@@ -131,7 +131,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 palette={palette}
                             >
                                 <MeetingComponent
-                                    plural={false}
+                                    darkText={false}
                                     meeting={meeting}
                                 />
                             </MeetingTime>
@@ -180,7 +180,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     palette={palette}
                                 >
                                     <MeetingComponent
-                                        plural={highlightConflicts}
+                                        darkText={highlightConflicts}
                                         meeting={meeting}
                                     />
                                 </MeetingTime>

@@ -22,13 +22,7 @@ const Sqrl = () => {
     const [timetableSize, setTimetableSize] = useState(48)
 
     useEffect(() => {
-        let size: number = 48
-
-        if (scale === "compact") size = 20
-        if (scale === "normal") size = 40
-        if (scale === "tall") size = 100
-
-        setTimetableSize(size)
+        setTimetableSize(scale)
     }, [timetableSize, setTimetableSize, scale])
 
     return (
@@ -38,8 +32,19 @@ const Sqrl = () => {
                 style={{
                     position: "relative",
                     top: "4.5rem",
+                    display: "flex",
+                    // width: "50vw",
+                    // overflow: "hidden",
                 }}
             >
+                {/* <Timetable
+                    meetings={EXAMPLE_MEETINGS}
+                    scale={timetableSize}
+                    minTime={timeToMinuteOffset(start)}
+                    maxTime={timeToMinuteOffset(end)}
+                    palette={palette}
+                    highlightConflicts={highlightConflicts}
+                /> */}
                 <Timetable
                     meetings={EXAMPLE_MEETINGS}
                     scale={timetableSize}

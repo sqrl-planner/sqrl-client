@@ -6,7 +6,7 @@ import { Meeting } from "./Meeting"
 
 interface MeetingProps {
     meeting: Meeting
-    plural: boolean
+    darkText?: boolean
 }
 
 const MeetingTitle = styled.div`
@@ -25,9 +25,9 @@ const MeetingTitle = styled.div`
     }
 `
 
-const MeetingSuffix = styled.span<{ plural: boolean }>`
-    color: ${({ plural }) => {
-        return plural ? `#eee` : `#545454`
+const MeetingSuffix = styled.span<{ darkText: boolean }>`
+    color: ${({ darkText }) => {
+        return darkText ? `#eee` : `#545454`
     }};
     font-size: 0.8em;
     font-weight: 500;
@@ -51,7 +51,7 @@ const MeetingTimes = styled.div`
     transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
-const MeetingComponent = ({ meeting, plural }: MeetingProps) => {
+const MeetingComponent = ({ meeting, darkText = true }: MeetingProps) => {
     const {
         state: { showTimeInMeeting, showCourseSuffix },
     } = usePreferences()
@@ -88,7 +88,7 @@ const MeetingComponent = ({ meeting, plural }: MeetingProps) => {
                         opacity: showCourseSuffix ? 1 : 0,
                         display: showCourseSuffix ? "initial" : "none",
                     }}
-                    plural={plural}
+                    darkText={darkText}
                 >
                     {suffix}
                 </MeetingSuffix>

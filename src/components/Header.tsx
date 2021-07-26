@@ -18,7 +18,7 @@ const HeaderComponent = styled.header`
     position: fixed;
     width: 100vw;
     height: 4.5rem;
-    background-color: #fff;
+    /* background-color: #fff; */
     z-index: 10;
     box-shadow: 0px 1px 8px -5px rgba(0, 0, 0, 0.4);
 `
@@ -87,7 +87,8 @@ const Header = () => {
                     position: "absolute",
                     bottom: "-0.8rem",
                     whiteSpace: "nowrap",
-                    color: "#555",
+                    // color: "#555",
+                    opacity: 0.7,
                 }}
                 position="relative"
                 bottom="0.5rem"

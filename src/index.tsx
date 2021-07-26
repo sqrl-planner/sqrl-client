@@ -1,15 +1,16 @@
 import { ColorModeScript } from "@chakra-ui/react"
 import * as React from "react"
+import { Fragment } from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 
 ReactDOM.render(
-    <React.StrictMode>
+    <Fragment>
         <ColorModeScript />
         <App />
-    </React.StrictMode>,
+    </Fragment>,
     document.getElementById("root")
 )
 

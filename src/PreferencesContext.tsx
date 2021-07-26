@@ -8,7 +8,7 @@ import { createContext } from "react"
 
 interface Preferences {
     palette: "default" | "accessible" | "monochrome"
-    scale: "compact" | "normal" | "tall"
+    scale: number
     showTimeInMeeting: boolean
     showCourseSuffix: boolean
     start: number
@@ -18,7 +18,7 @@ interface Preferences {
 
 type Action =
     | { type: "SET_PALETTE"; payload: "default" | "accessible" | "monochrome" }
-    | { type: "SET_SCALE"; payload: "compact" | "normal" | "tall" }
+    | { type: "SET_SCALE"; payload: number }
     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
     | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }
     | { type: "SET_START"; payload: number }
@@ -76,6 +76,7 @@ const preferencesReducer = (state: Preferences, action: Action) => {
         }
 
         default: {
+            // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
         }
     }
@@ -92,7 +93,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
     else {
         preferences = {
             palette: "default",
-            scale: "normal",
+            scale: 40,
             showTimeInMeeting: true,
             showCourseSuffix: true,
             start: 9,

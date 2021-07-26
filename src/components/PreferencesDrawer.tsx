@@ -47,7 +47,13 @@ const PreferencesDrawer = (props: {
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader borderBottomWidth="1px">Preferences</DrawerHeader>
+                <DrawerHeader
+                    // background="gray.100"
+
+                    boxShadow="1px 1px 6px -4px rgba(0,0,0,0.5)"
+                >
+                    Preferences
+                </DrawerHeader>
 
                 <DrawerBody>
                     <Stack spacing="24px">
@@ -145,7 +151,7 @@ const PreferencesDrawer = (props: {
                                 id="scale"
                                 value={scale}
                                 onChange={(e) => {
-                                    const payload = e.target.value as any
+                                    const payload = parseInt(e.target.value)
 
                                     dispatch({
                                         type: "SET_SCALE",
@@ -153,9 +159,9 @@ const PreferencesDrawer = (props: {
                                     })
                                 }}
                             >
-                                <option value="compact">Compact</option>
-                                <option value="normal">Normal</option>
-                                <option value="tall">Tall</option>
+                                <option value="20">Compact</option>
+                                <option value="40">Normal</option>
+                                <option value="100">Tall</option>
                             </Select>
                         </Box>
 
@@ -175,9 +181,9 @@ const PreferencesDrawer = (props: {
                             >
                                 <option value="default">Default</option>
                                 <option value="monochrome">Monochrome</option>
-                                {/* <option value="accessible">
+                                <option value="accessible">
                                     High contrast
-                                </option> */}
+                                </option>
                             </Select>
                         </Box>
 
@@ -268,7 +274,10 @@ const PreferencesDrawer = (props: {
                     </Stack>
                 </DrawerBody>
 
-                <DrawerFooter borderTopWidth="1px">
+                <DrawerFooter
+                    boxShadow="1px -1px 6px -4px rgba(0,0,0,0.5)"
+                    // borderTopWidth="1px"
+                >
                     <Button colorScheme="blue" mr={3} onClick={onClose}>
                         Close
                     </Button>
