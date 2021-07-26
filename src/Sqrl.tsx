@@ -31,6 +31,7 @@ const Sqrl = () => {
             <div
                 style={{
                     position: "relative",
+                    // backgroundColor: "inherit",
                     top: "4.5rem",
                     display: "flex",
                     // width: "50vw",

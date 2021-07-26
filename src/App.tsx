@@ -16,6 +16,13 @@ const theme = extendTheme({
         heading: "Inter, sans-serif",
         mono: "interstate-mono, monospace",
     },
+    styles: {
+        global: {
+            body: {
+                bg: "gray.50",
+            },
+        },
+    },
     components: {
         FormLabel: {
             baseStyle: {

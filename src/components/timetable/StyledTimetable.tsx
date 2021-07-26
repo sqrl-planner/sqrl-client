@@ -23,7 +23,7 @@ export const StyledTimetableContainer = styled.div`
     width: 100%;
     overflow-x: scroll;
     font-size: 0.625rem;
-    background: #fafafa;
+    /* background: #fafafa; */
 `
 
 export const StyledTimetable = styled.table`

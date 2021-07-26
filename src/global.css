@@ -4,12 +4,10 @@
 
 html {
     min-height: 100vh;
-    background-color: #fafafa;
 }
 
 body {
     min-height: 100%;
-    background-color: #fafafa;
 
     /* font-family: museo-sans, sans-serif; */
     font-family: "Inter", sans-serif;
