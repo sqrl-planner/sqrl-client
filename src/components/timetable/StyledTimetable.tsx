@@ -1,23 +1,44 @@
 import styled from "styled-components"
 import { chakra } from "@chakra-ui/react"
 
-export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
+export const hexToRgb = (hex: string) => {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+  
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+export const courseKeyToColour = (courseKey: number, colours?: string[], alpha: number = 1, lightenPercent: number = 0) => {
     const defaultColours = [
         "eaeaea",
-        "fce8b1",
-        "e0f2ff",
-        "c0fac7",
-        // "c9f7f7",
-        "d6d5f2",
-        "c0dcf3",
-        "ffe6de",
+        "c9ebab",
+        "d6e2eb",
+        "fce4d1",
         "d1dbf5",
+        "c9f7f7",
+        "eeead6",
         "e6f9d9",
+        "c0dcf3",
         "c1f1e7",
         "dbcfed",
     ]
     colours = colours || defaultColours
-    return `#${colours[courseKey % colours.length]}`
+    const hex = `#${colours[courseKey % colours.length]}`
+    const rgb = hexToRgb(hex)
+    // Darken
+    let r = Math.min(rgb.r * (100 + lightenPercent) / 100, 255)
+    let g = Math.min(rgb.g * (100 + lightenPercent) / 100, 255)
+    let b = Math.min(rgb.b * (100 + lightenPercent) / 100, 255)
+    // Format to css rgba value
+    return `rgba(${r}, ${g}, ${b}, ${alpha})` 
 }
 
 export const StyledTimetableContainer = styled(chakra.div)`
