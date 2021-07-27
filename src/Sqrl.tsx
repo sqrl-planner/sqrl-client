@@ -15,6 +15,7 @@ const Sqrl = () => {
             showTimeInMeeting,
             palette,
             highlightConflicts,
+            twentyFour,
         },
         dispatch,
     } = usePreferences()
@@ -40,14 +41,6 @@ const Sqrl = () => {
                 }}
                 background={useColorModeValue("gray.50", "gray.800")}
             >
-                {/* <Timetable
-                    meetings={EXAMPLE_MEETINGS}
-                    scale={timetableSize}
-                    minTime={timeToMinuteOffset(start)}
-                    maxTime={timeToMinuteOffset(end)}
-                    palette={palette}
-                    highlightConflicts={highlightConflicts}
-                /> */}
                 <Timetable
                     meetings={EXAMPLE_MEETINGS}
                     scale={timetableSize}
@@ -55,6 +48,7 @@ const Sqrl = () => {
                     maxTime={timeToMinuteOffset(end)}
                     palette={palette}
                     highlightConflicts={highlightConflicts}
+                    twentyFour={twentyFour}
                 />
             </chakra.div>
         </div>

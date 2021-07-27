@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 import React, { useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
-import PreferencesDrawer from "./PreferencesDrawer"
+import PreferencesDrawer from "./preferences/PreferencesDrawer"
 
 const HeaderComponent = styled(chakra.header)`
     display: flex;

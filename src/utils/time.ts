@@ -14,17 +14,26 @@ export function timeToMinuteOffset(
 }
 
 /**
- * 
+ *
  * @param time Convert a minute offset (from midnight) to an HH:MM time.
  * @returns A string representing the given time in the format HH:MM.
  */
-export function minuteOffsetToTime(time: number): string {
+export function minuteOffsetToTime(time: number, twentyFour: boolean): string {
     const hour = Math.floor(time / 60)
+    let h = hour
+    let suffix: string = ""
+
+    if (!twentyFour) {
+        h = hour % 12 || 12
+        suffix = hour < 12 || hour === 24 ? "\u00a0AM" : "\u00a0PM"
+    }
+
     const minute = time % 60
     return (
-        hour.toString().padStart(2, "0") +
+        h.toString().padStart(2, "0") +
         ":" +
-        minute.toString().padStart(2, "0")
+        minute.toString().padStart(2, "0") +
+        suffix
     )
 }
 

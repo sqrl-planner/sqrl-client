@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import { minuteOffsetToTime } from "../../utils/time"
@@ -7,6 +7,7 @@ import { Meeting } from "./Meeting"
 interface MeetingProps {
     meeting: Meeting
     darkText?: boolean
+    twentyFour: boolean
 }
 
 const MeetingTitle = styled.div`
@@ -55,7 +56,11 @@ const MeetingTimes = styled.div`
     transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
-const MeetingComponent = ({ meeting, darkText = true }: MeetingProps) => {
+const MeetingComponent = ({
+    meeting,
+    darkText = true,
+    twentyFour,
+}: MeetingProps) => {
     const {
         state: { showTimeInMeeting, showCourseSuffix },
     } = usePreferences()
@@ -79,8 +84,8 @@ const MeetingComponent = ({ meeting, darkText = true }: MeetingProps) => {
           )
         : ""
 
-    const startTime = minuteOffsetToTime(meeting.startTime)
-    const endTime = minuteOffsetToTime(meeting.endTime)
+    const startTime = minuteOffsetToTime(meeting.startTime, twentyFour)
+    const endTime = minuteOffsetToTime(meeting.endTime, twentyFour)
 
     return (
         <MeetingInformation>

@@ -14,6 +14,7 @@ interface Preferences {
     start: number
     end: number
     highlightConflicts: boolean
+    twentyFour: boolean
 }
 
 type Action =
@@ -24,6 +25,7 @@ type Action =
     | { type: "SET_START"; payload: number }
     | { type: "SET_END"; payload: number }
     | { type: "SET_HIGHLIGHT_CONFLICTS"; payload: boolean }
+    | { type: "SET_TWENTY_FOUR"; payload: boolean }
 
 type Dispatch = (action: Action) => void
 
@@ -75,6 +77,11 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             break
         }
 
+        case "SET_TWENTY_FOUR": {
+            newPreferences = { ...state, twentyFour: action.payload }
+            break
+        }
+
         default: {
             // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -99,6 +106,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
             start: 9,
             end: 22,
             highlightConflicts: true,
+            twentyFour: true,
         }
     }
 

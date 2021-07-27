@@ -45,6 +45,10 @@ type TimetableProps = {
      * Whether to highlight conflicts
      */
     highlightConflicts?: boolean
+    /**
+     * Clock: 12 or 24?
+     */
+    twentyFour?: boolean
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
@@ -55,6 +59,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     scale = 45,
     palette = "default",
     highlightConflicts = true,
+    twentyFour,
 }) => {
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -92,7 +97,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         currentTime <= maxTime;
         currentTime += resolution
     ) {
-        const timeLabel = minuteOffsetToTime(currentTime)
+        const timeLabel = minuteOffsetToTime(currentTime, twentyFour)
         const cells = [
             <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
         ]
@@ -133,6 +138,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 <MeetingComponent
                                     darkText={false}
                                     meeting={meeting}
+                                    twentyFour={twentyFour}
                                 />
                             </MeetingTime>
                         </MeetingTimeCell>
@@ -182,6 +188,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     <MeetingComponent
                                         darkText={highlightConflicts}
                                         meeting={meeting}
+                                        twentyFour={twentyFour}
                                     />
                                 </MeetingTime>
                             )
