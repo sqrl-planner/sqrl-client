@@ -43,6 +43,7 @@ import styled from "styled-components"
 import React, { useRef } from "react"
 import { usePreferences } from "../../PreferencesContext"
 import PreferencesSection from "./PreferencesSection"
+import PreferencesToggle from "./PreferencesToggle"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;
@@ -95,149 +96,59 @@ const PreferencesDrawer = (props: {
 
                 <DrawerBody>
                     <PreferencesSection>
-                        <FormControl>
-                            <Flex
-                                alignItems="center"
-                                width="100%"
-                                justifyContent="space-between"
-                            >
-                                <FormLabel htmlFor="show-suffix" mb="0">
-                                    <IconWrapper>
-                                        <Icon
-                                            transform="rotate(180deg) scale(1.2)"
-                                            as={BiArrowFromRight}
-                                        />
-                                    </IconWrapper>
-                                    Course suffix
-                                </FormLabel>
-                                <Switch
-                                    size="lg"
-                                    id="show-suffix"
-                                    isChecked={showCourseSuffix}
-                                    onChange={(e) => {
-                                        const payload = e.target.checked
-
-                                        dispatch({
-                                            type: "SET_SHOW_COURSE_SUFFIX",
-                                            payload,
-                                        })
-                                    }}
-                                />
-                            </Flex>
-                            <FormHelperText>
-                                Show course credit designator (Y1, H1, H5, etc.)
-                            </FormHelperText>
-                        </FormControl>
-
-                        <FormControl>
-                            <Flex
-                                alignItems="center"
-                                width="100%"
-                                justifyContent="space-between"
-                            >
-                                <FormLabel htmlFor="show-times" mb="0">
-                                    <IconWrapper>
-                                        <Icon as={FaClock} />
-                                    </IconWrapper>
-                                    Meeting times
-                                </FormLabel>
-                                <Switch
-                                    size="lg"
-                                    id="show-times"
-                                    isChecked={showTimeInMeeting}
-                                    onChange={(e) => {
-                                        const payload = e.target.checked
-
-                                        dispatch({
-                                            type: "SET_SHOW_TIME_IN_MEETING",
-                                            payload,
-                                        })
-                                    }}
-                                />
-                            </Flex>
-                        </FormControl>
-
-                        <FormControl
-                            display="flex"
-                            alignItems="center"
-                            width="100%"
-                            justifyContent="space-between"
+                        <PreferencesToggle
+                            isChecked={showCourseSuffix}
+                            actionType="SET_SHOW_COURSE_SUFFIX"
+                            iconProps={{
+                                as: BiArrowFromRight,
+                                transform: "rotate(180deg) scale(1.2)",
+                            }}
+                            helperText="Show course credit designator (Y1, H1, H5, etc.)"
                         >
-                            <FormLabel htmlFor="highlight-conflicts" mb="0">
-                                <IconWrapper>
-                                    <WarningTwoIcon />
-                                </IconWrapper>
-                                Highlight conflicts
-                            </FormLabel>
-                            <Switch
-                                size="lg"
-                                id="highlight-conflicts"
-                                isChecked={highlightConflicts}
-                                onChange={(e) => {
-                                    const payload = e.target.checked
+                            Course suffix
+                        </PreferencesToggle>
 
-                                    dispatch({
-                                        type: "SET_HIGHLIGHT_CONFLICTS",
-                                        payload,
-                                    })
-                                }}
-                            />
-                        </FormControl>
+                        <PreferencesToggle
+                            isChecked={showTimeInMeeting}
+                            actionType="SET_SHOW_TIME_IN_MEETING"
+                            iconProps={{
+                                as: FaClock,
+                            }}
+                        >
+                            Meeting times
+                        </PreferencesToggle>
+
+                        <PreferencesToggle
+                            isChecked={highlightConflicts}
+                            actionType="SET_HIGHLIGHT_CONFLICTS"
+                            iconProps={{
+                                as: WarningTwoIcon,
+                            }}
+                        >
+                            Highlight conflicts
+                        </PreferencesToggle>
                     </PreferencesSection>
 
                     <PreferencesSection>
-                        <FormControl
-                            display="flex"
-                            alignItems="center"
-                            width="100%"
-                            justifyContent="space-between"
-                            // pb={3}
+                        <PreferencesToggle
+                            isChecked={colorMode === "dark"}
+                            onToggle={toggleColorMode}
+                            iconProps={{
+                                as: colorMode === "light" ? MoonIcon : FaSun,
+                            }}
                         >
-                            <FormLabel htmlFor="toggle-mode" mb="0">
-                                <IconWrapper>
-                                    {colorMode === "light" ? (
-                                        <MoonIcon />
-                                    ) : (
-                                        <Icon as={FaSun} />
-                                    )}
-                                </IconWrapper>
-                                Dark mode
-                            </FormLabel>
-                            <Switch
-                                size="lg"
-                                id="toggle-mode"
-                                isChecked={colorMode !== "light"}
-                                onChange={() => {
-                                    toggleColorMode()
-                                }}
-                            />
-                        </FormControl>
-                        <FormControl
-                            display="flex"
-                            alignItems="center"
-                            width="100%"
-                            justifyContent="space-between"
-                        >
-                            <FormLabel htmlFor="toggle-twenty-four" mb="0">
-                                <IconWrapper>
-                                    <Icon as={Ri24HoursLine} />
-                                </IconWrapper>
-                                24-hour time
-                            </FormLabel>
-                            <Switch
-                                size="lg"
-                                id="toggle-twenty-four"
-                                isChecked={twentyFour}
-                                onChange={(e) => {
-                                    const payload = e.target.checked
+                            Dark mode
+                        </PreferencesToggle>
 
-                                    dispatch({
-                                        type: "SET_TWENTY_FOUR",
-                                        payload,
-                                    })
-                                }}
-                            />
-                        </FormControl>
+                        <PreferencesToggle
+                            isChecked={twentyFour}
+                            actionType="SET_TWENTY_FOUR"
+                            iconProps={{
+                                as: Ri24HoursLine,
+                            }}
+                        >
+                            24-hour time
+                        </PreferencesToggle>
                     </PreferencesSection>
 
                     <PreferencesSection>

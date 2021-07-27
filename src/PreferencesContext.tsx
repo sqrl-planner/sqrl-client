@@ -17,7 +17,7 @@ interface Preferences {
     twentyFour: boolean
 }
 
-type Action =
+export type Action =
     | { type: "SET_PALETTE"; payload: "default" | "accessible" | "monochrome" }
     | { type: "SET_SCALE"; payload: number }
     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
