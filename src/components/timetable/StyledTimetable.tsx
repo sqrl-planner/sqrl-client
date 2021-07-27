@@ -16,6 +16,10 @@ export const hexToRgb = (hex: string) => {
     } : null;
 }
 
+export const rgbToHex = (r: number, g: number, b: number) => {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+}
+
 export const courseKeyToColour = (courseKey: number, colours?: string[], alpha: number = 1, lightenPercent: number = 0) => {
     const defaultColours = [
         "eaeaea",
@@ -31,8 +35,7 @@ export const courseKeyToColour = (courseKey: number, colours?: string[], alpha: 
         "dbcfed",
     ]
     colours = colours || defaultColours
-    const hex = `#${colours[courseKey % colours.length]}`
-    const rgb = hexToRgb(hex)
+    const rgb = hexToRgb(colours[courseKey % colours.length])
     // Darken
     let r = Math.min(rgb.r * (100 + lightenPercent) / 100, 255)
     let g = Math.min(rgb.g * (100 + lightenPercent) / 100, 255)
@@ -214,20 +217,30 @@ export const MeetingTime = styled.div`
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``
 
+const makeGreyscale = (colours: string[]) => {
+    let newColours = []
+    for (const hex of colours) {
+        const rgb = hexToRgb(hex)
+        const x = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b
+        newColours.push(rgbToHex(x, x, x))
+    }
+    return newColours
+}
+
 const palettes = {
     default: [
-        "eaeaea",
-        "fce8b1",
-        "e0f2ff",
-        "c0fac7",
+        "#eaeaea",
+        "#fce8b1",
+        "#e0f2ff",
+        "#c0fac7",
         // "c9f7f7",
-        "d6d5f2",
-        "c0dcf3",
-        "ffe6de",
-        "d1dbf5",
-        "e6f9d9",
-        "c1f1e7",
-        "dbcfed",
+        "#d6d5f2",
+        "#c0dcf3",
+        "#ffe6de",
+        "#d1dbf5",
+        "#e6f9d9",
+        "#c1f1e7",
+        "#dbcfed",
     ],
     // default: [
     //     "eaeaea",
@@ -242,6 +255,19 @@ const palettes = {
     //     "c1f1e7",
     //     "dbcfed",
     // ],
-    accessible: ["70ff63", "6863ff", "f00", "0f0", "00f", "0ff"],
-    monochrome: ["eaeaea"],
+    accessible: ["#70ff63", "#6863ff", "#f00", "#0f0", "#00f", "#0ff"],
+    monochrome: makeGreyscale([
+        "#eaeaea",
+        "#fce8b1",
+        "#e0f2ff",
+        "#c0fac7",
+        // "c9f7f7",
+        "#d6d5f2",
+        "#c0dcf3",
+        "#ffe6de",
+        "#d1dbf5",
+        "#e6f9d9",
+        "#c1f1e7",
+        "#dbcfed",
+    ])
 }
