@@ -86,6 +86,7 @@ const PreferencesDrawer = (props: {
                     fontSize="3xl"
                     fontWeight="700"
                     boxShadow="1px 1px 6px -4px rgba(0,0,0,0.5)"
+                    height="4.5rem"
                 >
                     Preferences
                 </DrawerHeader>
@@ -291,7 +292,7 @@ const PreferencesDrawer = (props: {
                             </Select>
                         </FormControl>
 
-                        <Grid gridTemplateColumns="1fr 1fr auto" gap={3}>
+                        <Grid gridTemplateColumns="1fr 1fr auto" gap={3} pb={2}>
                             <FormControl mr={3}>
                                 <FormLabel htmlFor="start">
                                     <IconWrapper>
@@ -353,7 +354,7 @@ const PreferencesDrawer = (props: {
                         </Grid>
                     </PreferencesSection>
                 </DrawerBody>
-
+                {/* 
                 <DrawerFooter
                     boxShadow="1px -1px 6px -4px rgba(0,0,0,0.5)"
                     // borderTopWidth="1px"
@@ -361,8 +362,7 @@ const PreferencesDrawer = (props: {
                     <Button colorScheme="blue" mr={3} onClick={onClose}>
                         Close
                     </Button>
-                    {/* <Button colorScheme="blue">Submit</Button> */}
-                </DrawerFooter>
+                </DrawerFooter> */}
             </DrawerContent>
         </Drawer>
     )

@@ -10,7 +10,7 @@ const PreferencesSection = ({ children }: PreferencesSectionProps) => {
             mt={3}
             mb={6}
             p={6}
-            py={4}
+            py={3}
             borderRadius={10}
             boxShadow="0px 1px 8px -5px rgba(0,0,0,0.5)"
             bg={useColorModeValue("gray.75", "gray.600")}
