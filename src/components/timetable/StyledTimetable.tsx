@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { chakra } from "@chakra-ui/react"
 
 export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
     const defaultColours = [
@@ -19,7 +20,7 @@ export const courseKeyToColour = (courseKey: number, colours?: string[]) => {
     return `#${colours[courseKey % colours.length]}`
 }
 
-export const StyledTimetableContainer = styled.div`
+export const StyledTimetableContainer = styled(chakra.div)`
     width: 100%;
     overflow-x: scroll;
     font-size: 0.625rem;
@@ -220,6 +221,6 @@ const palettes = {
     //     "c1f1e7",
     //     "dbcfed",
     // ],
-    accessible: ["70ff63", "6863ff"],
+    accessible: ["70ff63", "6863ff", "f00", "0f0", "00f", "0ff"],
     monochrome: ["eaeaea"],
 }

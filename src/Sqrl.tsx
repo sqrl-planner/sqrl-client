@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react"
+import { Button, chakra, useColorModeValue } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import Header from "./components/Header"
 import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
@@ -28,15 +28,17 @@ const Sqrl = () => {
     return (
         <div>
             <Header />
-            <div
+            <chakra.div
                 style={{
                     position: "relative",
-                    // backgroundColor: "inherit",
+                    // backgroundColor: "black",
                     top: "4.5rem",
                     display: "flex",
+                    minHeight: "calc(100vh - 4.5rem)",
                     // width: "50vw",
                     // overflow: "hidden",
                 }}
+                background={useColorModeValue("gray.50", "gray.800")}
             >
                 {/* <Timetable
                     meetings={EXAMPLE_MEETINGS}
@@ -54,7 +56,7 @@ const Sqrl = () => {
                     palette={palette}
                     highlightConflicts={highlightConflicts}
                 />
-            </div>
+            </chakra.div>
         </div>
     )
 }

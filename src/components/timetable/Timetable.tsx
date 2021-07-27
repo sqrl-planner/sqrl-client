@@ -219,8 +219,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     <StyledHead>
                         <StyledTh></StyledTh>
                         {DAYS.map((day) => (
-                            // <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
-                            <StyledTh>{day}</StyledTh>
+                            <StyledTh>{day.toString().substr(0, 3)}</StyledTh>
+                            // <StyledTh>{day}</StyledTh>
                         ))}
                     </StyledHead>
                 </thead>

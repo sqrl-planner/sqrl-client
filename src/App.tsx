@@ -19,14 +19,39 @@ const theme = extendTheme({
     styles: {
         global: {
             body: {
-                bg: "gray.50",
+                // bg: ["gray.50", "gray.800"],
             },
         },
+    },
+    colors: {
+        pinkish: {
+            50: "#ffc7c7",
+        },
+        gray: {
+            75: "#fafafa",
+            50: "#F7FAFC",
+        },
+    },
+    colorSchemes: {
+        pinkish: "#ffc7c7",
     },
     components: {
         FormLabel: {
             baseStyle: {
-                fontWeight: 600,
+                display: "flex",
+                alignItems: "center",
+                // fontWeight: 600,
+            },
+        },
+        Switch: {
+            defaultProps: {
+                // colorScheme: "pink",
+            },
+        },
+        Select: {
+            defaultProps: {
+                // border: "2px solid",
+                // bg: "red.50",
             },
         },
     },

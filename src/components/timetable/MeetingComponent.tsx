@@ -16,6 +16,10 @@ const MeetingTitle = styled.div`
         font-weight: 700;
         font-size: 1.2em;
         /* line-height: 2em; */
+        overflow-wrap: break-word;
+        text-align: left;
+
+        white-space: pre-wrap;
         font-family: interstate-mono, monospace;
 
         @media print {
@@ -81,8 +85,12 @@ const MeetingComponent = ({ meeting, darkText = true }: MeetingProps) => {
     return (
         <MeetingInformation>
             <MeetingTitle>
+                {/* <span style={{ fontSize: "inherit" }}> */}
                 {department + "\u200b"}
+                {/* </span>
+                <span style={{ fontSize: "inherit" }}> */}
                 {numeral + "\u200b"}
+                {/* </span> */}
                 <MeetingSuffix
                     style={{
                         opacity: showCourseSuffix ? 1 : 0,

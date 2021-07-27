@@ -94,7 +94,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
         preferences = {
             palette: "default",
             scale: 40,
-            showTimeInMeeting: true,
+            showTimeInMeeting: false,
             showCourseSuffix: true,
             start: 9,
             end: 22,
