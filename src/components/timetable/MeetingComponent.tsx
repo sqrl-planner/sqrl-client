@@ -17,10 +17,11 @@ const MeetingTitle = styled.div`
         font-weight: 700;
         font-size: 1.2em;
         /* line-height: 2em; */
-        overflow-wrap: break-word;
+        /* overflow-wrap: break-word; */
+        /* word-wrap: break-word; */
         text-align: left;
 
-        white-space: pre-wrap;
+        /* white-space: pre-wrap; */
         font-family: interstate-mono, monospace;
 
         @media print {

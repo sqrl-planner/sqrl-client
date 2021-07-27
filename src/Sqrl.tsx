@@ -39,7 +39,7 @@ const Sqrl = () => {
                     // width: "50vw",
                     // overflow: "hidden",
                 }}
-                background={useColorModeValue("gray.50", "gray.800")}
+                background={useColorModeValue("gray.75", "gray.800")}
             >
                 <Timetable
                     meetings={EXAMPLE_MEETINGS}

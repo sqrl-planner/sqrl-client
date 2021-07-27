@@ -1,48 +1,6 @@
 import styled from "styled-components"
 import { chakra } from "@chakra-ui/react"
-
-export const hexToRgb = (hex: string) => {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-  
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
-
-export const rgbToHex = (r: number, g: number, b: number) => {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
-}
-
-export const courseKeyToColour = (courseKey: number, colours?: string[], alpha: number = 1, lightenPercent: number = 0) => {
-    const defaultColours = [
-        "eaeaea",
-        "c9ebab",
-        "d6e2eb",
-        "fce4d1",
-        "d1dbf5",
-        "c9f7f7",
-        "eeead6",
-        "e6f9d9",
-        "c0dcf3",
-        "c1f1e7",
-        "dbcfed",
-    ]
-    colours = colours || defaultColours
-    const rgb = hexToRgb(colours[courseKey % colours.length])
-    // Darken
-    let r = Math.min(rgb.r * (100 + lightenPercent) / 100, 255)
-    let g = Math.min(rgb.g * (100 + lightenPercent) / 100, 255)
-    let b = Math.min(rgb.b * (100 + lightenPercent) / 100, 255)
-    // Format to css rgba value
-    return `rgba(${r}, ${g}, ${b}, ${alpha})` 
-}
+import Colour from "color"
 
 export const StyledTimetableContainer = styled(chakra.div)`
     width: 100%;
@@ -217,30 +175,95 @@ export const MeetingTime = styled.div`
 
 // export const TimeLabelCell = styled(MeetingTimeCell)``
 
-const makeGreyscale = (colours: string[]) => {
-    let newColours = []
-    for (const hex of colours) {
-        const rgb = hexToRgb(hex)
-        const x = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b
-        newColours.push(rgbToHex(x, x, x))
-    }
-    return newColours
+// export const hexToRgb = (hex: string) => {
+//     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+//     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
+//     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+//         return r + r + g + g + b + b
+//     })
+
+//     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+//     return result
+//         ? {
+//               r: parseInt(result[1], 16),
+//               g: parseInt(result[2], 16),
+//               b: parseInt(result[3], 16),
+//           }
+//         : null
+// }
+
+// export const rgbToHex = (r, g, b) =>
+//     "#" +
+//     [r, g, b]
+//         .map((x) => {
+//             const hex = x.toString(16)
+//             return hex.length === 1 ? "0" + hex : hex
+//         })
+//         .join("")
+
+export const courseKeyToColour = (
+    courseKey: number,
+    colours?: string[],
+    alpha: number = 1,
+    lightenPercent: number = 0
+) => {
+    const defaultColours = [
+        "eaeaea",
+        "c9ebab",
+        "d6e2eb",
+        "fce4d1",
+        "d1dbf5",
+        "c9f7f7",
+        "eeead6",
+        "e6f9d9",
+        "c0dcf3",
+        "c1f1e7",
+        "dbcfed",
+    ]
+    colours = colours || defaultColours
+
+    // const rgb = hexToRgb(colours[courseKey % colours.length])
+    // console.log(colours)
+
+    // Darken
+    // let r = Math.min((rgb.r * (100 + lightenPercent)) / 100, 255)
+    // let g = Math.min((rgb.g * (100 + lightenPercent)) / 100, 255)
+    // let b = Math.min((rgb.b * (100 + lightenPercent)) / 100, 255)
+    // Format to css rgba value
+    // return `rgba(${r}, ${g}, ${b}, ${alpha})`
+    return colours[courseKey % colours.length]
 }
+
+// const makeGreyscale = (colours: string[]) => {
+//     let newColours = []
+//     for (const hex of colours) {
+//         const rgb = hexToRgb(hex)
+
+//         const x = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b
+//         newColours.push(rgbToHex(x, x, x))
+//     }
+//     console.log(newColours)
+
+//     return newColours
+// }
+
+const HSLGrayscale = (colours: string[]) =>
+    colours.map((colour) => Colour(colour, "hsl").grayscale())
 
 const palettes = {
     default: [
-        "#eaeaea",
-        "#fce8b1",
-        "#e0f2ff",
-        "#c0fac7",
+        "hsl(0, 0%, 91.76470588235294%)",
+        "hsl(43.99999999999999, 92.59259259259261%, 84.11764705882354%)",
+        "hsl(205.16129032258067, 100%, 93.92156862745098%)",
+        "hsl(127.24137931034483, 85.29411764705883%, 86.66666666666667%)",
         // "c9f7f7",
-        "#d6d5f2",
-        "#c0dcf3",
-        "#ffe6de",
-        "#d1dbf5",
-        "#e6f9d9",
-        "#c1f1e7",
-        "#dbcfed",
+        "hsl(242.06896551724137, 52.72727272727269%, 89.21568627450979%)",
+        "hsl(207.05882352941174, 67.99999999999997%, 85.29411764705883%)",
+        "hsl(14.545454545454547, 100%, 93.52941176470588%)",
+        "hsl(223.33333333333334, 64.28571428571435%, 89.01960784313725%)",
+        "hsl(95.62499999999997, 72.72727272727275%, 91.37254901960785%)",
+        "hsl(167.50000000000003, 63.15789473684209%, 85.09803921568627%)",
+        "hsl(263.99999999999994, 45.45454545454547%, 87.05882352941177%)",
     ],
     // default: [
     //     "eaeaea",
@@ -255,19 +278,27 @@ const palettes = {
     //     "c1f1e7",
     //     "dbcfed",
     // ],
-    accessible: ["#70ff63", "#6863ff", "#f00", "#0f0", "#00f", "#0ff"],
-    monochrome: makeGreyscale([
-        "#eaeaea",
-        "#fce8b1",
-        "#e0f2ff",
-        "#c0fac7",
+    accessible: [
+        "hsl(115, 100%, 69.41176470588235%)",
+        "hsl(241.9230769230769, 100%, 69.41176470588235%)",
+        "hsl(0, 100%, 50%)",
+        "hsl(120, 100%, 50%)",
+        "hsl(240, 100%, 50%)",
+        "hsl(180, 100%, 50%)",
+    ],
+    // monochrome: ["hsl(0, 0%, 90%)", "hsl(0, 0%, 80%)"],
+    monochrome: HSLGrayscale([
+        "hsl(0, 0%, 91.76470588235294%)",
+        "hsl(43.99999999999999, 92.59259259259261%, 84.11764705882354%)",
+        "hsl(205.16129032258067, 100%, 93.92156862745098%)",
+        "hsl(127.24137931034483, 85.29411764705883%, 86.66666666666667%)",
         // "c9f7f7",
-        "#d6d5f2",
-        "#c0dcf3",
-        "#ffe6de",
-        "#d1dbf5",
-        "#e6f9d9",
-        "#c1f1e7",
-        "#dbcfed",
-    ])
+        "hsl(242.06896551724137, 52.72727272727269%, 89.21568627450979%)",
+        "hsl(207.05882352941174, 67.99999999999997%, 85.29411764705883%)",
+        "hsl(14.545454545454547, 100%, 93.52941176470588%)",
+        "hsl(223.33333333333334, 64.28571428571435%, 89.01960784313725%)",
+        "hsl(95.62499999999997, 72.72727272727275%, 91.37254901960785%)",
+        "hsl(167.50000000000003, 63.15789473684209%, 85.09803921568627%)",
+        "hsl(263.99999999999994, 45.45454545454547%, 87.05882352941177%)",
+    ]),
 }
