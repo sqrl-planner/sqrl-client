@@ -27,29 +27,33 @@ export const StyledHead = styled.tr`
     /* background-color: red; */
 `
 
-export const StyledTh = styled.th`
-    border-right: 1px solid #e2e8f0;
+export const StyledTh = styled.th<{ dark: boolean; days?: number }>`
+    border-left: 1px solid ${({ dark }) => (dark ? `#414141` : `#e2e8f0`)};
     font-size: 1rem;
     padding-bottom: 0.8em;
 
-    &:first-of-type:not() {
-        width: ${({ days = 5 }: { days?: number }) =>
-            `calc((100% - 4em) / ${days})`};
+    &:first-of-type {
+        border-left: none;
     }
 
-    /* &:last-of-type {
-        border-right: none;
-    } */
+    &:first-of-type:not() {
+        width: ${({ days = 5 }) => `calc((100% - 4em) / ${days})`};
+    }
 `
 
-export const StyledTr = styled.tr<{ size: number; resolution: number }>`
+export const StyledTr = styled.tr<{
+    size: number
+    resolution: number
+    dark: boolean
+}>`
     & .time {
         text-align: right;
         color: transparent;
         font-size: 1.4em;
         &::after {
             content: "-";
-            color: rgba(0, 0, 0, 0.2);
+            color: ${({ dark }) =>
+                dark ? `rgba(255,255,255, 0.2)` : `rgba(0, 0, 0, 0.2)`};
         }
     }
 
@@ -83,7 +87,7 @@ export const StyledTr = styled.tr<{ size: number; resolution: number }>`
         } */
 
         .time {
-            color: #333;
+            color: ${({ dark }) => (dark ? `#eee` : `#333`)};
             font-weight: 500;
 
             &::after {
@@ -100,7 +104,6 @@ export const StyledTimeLabelTd = styled.td`
     font-variant-numeric: proportional-nums;
     font-family: interstate-mono, monospace;
     padding-right: 1em;
-    border-right: 1px solid #e2e8f0;
     position: relative;
     top: -0.6em;
 
@@ -108,16 +111,17 @@ export const StyledTimeLabelTd = styled.td`
     line-height: 1.4em;
 `
 
-export const MeetingTimeCell = styled.td`
+export const MeetingTimeCell = styled.td<{ days: number; dark: boolean }>`
     padding: 0;
     position: relative;
     font-size: 1.2em;
     width: ${({ days = 5 }: { days: number }) => `calc((100%)  / ${days})`};
-    border-right: 1px solid #e2e8f0;
+    border-left: 1px solid
+        ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)};
 
-    /* &:last-child {
-        border-right: none;
-    } */
+    &:first-of-type {
+        border-left: none;
+    }
 `
 
 export const MeetingTime = styled.div`
@@ -153,10 +157,12 @@ export const MeetingTime = styled.div`
     background-color: ${({
         courseKey = 0,
         palette,
+        dark,
     }: {
         courseKey: number
         palette: string
-    }) => courseKeyToColour(courseKey, palettes[palette] as any)};
+        dark: boolean
+    }) => courseKeyToColour(courseKey, dark, palettes[palette] as any)};
     /* color: ${({ palette }) => (palette === "accessible" ? "#fff" : "")}; */
 
     @media print {
@@ -203,25 +209,15 @@ export const MeetingTime = styled.div`
 
 export const courseKeyToColour = (
     courseKey: number,
+    dark: boolean,
     colours?: string[],
     alpha: number = 1,
     lightenPercent: number = 0
 ) => {
-    const defaultColours = [
-        "eaeaea",
-        "c9ebab",
-        "d6e2eb",
-        "fce4d1",
-        "d1dbf5",
-        "c9f7f7",
-        "eeead6",
-        "e6f9d9",
-        "c0dcf3",
-        "c1f1e7",
-        "dbcfed",
-    ]
+    const defaultColours = palettes.default
     colours = colours || defaultColours
 
+    if (dark) colours = HSLDarken(colours)
     // const rgb = hexToRgb(colours[courseKey % colours.length])
     // console.log(colours)
 
@@ -249,6 +245,11 @@ export const courseKeyToColour = (
 
 const HSLGrayscale = (colours: string[]) =>
     colours.map((colour) => Colour(colour, "hsl").grayscale())
+
+const HSLDarken = (colours: string[]) =>
+    colours.map((colour) =>
+        Colour(colour, "hsl").darken(0.75).saturate(1.2).toString()
+    )
 
 const palettes = {
     default: [
@@ -289,16 +290,16 @@ const palettes = {
     // monochrome: ["hsl(0, 0%, 90%)", "hsl(0, 0%, 80%)"],
     monochrome: HSLGrayscale([
         "hsl(0, 0%, 91.76470588235294%)",
-        "hsl(43.99999999999999, 92.59259259259261%, 84.11764705882354%)",
+        "hsl(44, 92.59259259259261%, 84.11764705882354%)",
         "hsl(205.16129032258067, 100%, 93.92156862745098%)",
         "hsl(127.24137931034483, 85.29411764705883%, 86.66666666666667%)",
         // "c9f7f7",
         "hsl(242.06896551724137, 52.72727272727269%, 89.21568627450979%)",
-        "hsl(207.05882352941174, 67.99999999999997%, 85.29411764705883%)",
+        "hsl(207.05882352941174, 68%, 85.29411764705883%)",
         "hsl(14.545454545454547, 100%, 93.52941176470588%)",
         "hsl(223.33333333333334, 64.28571428571435%, 89.01960784313725%)",
-        "hsl(95.62499999999997, 72.72727272727275%, 91.37254901960785%)",
-        "hsl(167.50000000000003, 63.15789473684209%, 85.09803921568627%)",
-        "hsl(263.99999999999994, 45.45454545454547%, 87.05882352941177%)",
+        "hsl(95.625, 72.72727272727275%, 91.37254901960785%)",
+        "hsl(167.5, 63.15789473684209%, 85.09803921568627%)",
+        "hsl(264, 45.45454545454547%, 87.05882352941177%)",
     ]),
 }

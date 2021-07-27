@@ -22,6 +22,10 @@ const HeaderComponent = styled(chakra.header)`
     height: 4.5rem;
     z-index: 10;
     box-shadow: 0px 1px 8px -5px rgba(0, 0, 0, 0.4);
+
+    @media print {
+        display: none;
+    }
 `
 
 const Program = styled.div`

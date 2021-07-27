@@ -1,4 +1,9 @@
-import { Button, chakra, useColorModeValue } from "@chakra-ui/react"
+import {
+    Button,
+    chakra,
+    useColorMode,
+    useColorModeValue,
+} from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import Header from "./components/Header"
 import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
@@ -20,11 +25,13 @@ const Sqrl = () => {
         dispatch,
     } = usePreferences()
 
-    const [timetableSize, setTimetableSize] = useState(48)
+    const [timetableSize, setTimetableSize] = useState(40)
 
     useEffect(() => {
         setTimetableSize(scale)
     }, [timetableSize, setTimetableSize, scale])
+
+    const { colorMode, toggleColorMode } = useColorMode()
 
     return (
         <div>
@@ -49,6 +56,7 @@ const Sqrl = () => {
                     palette={palette}
                     highlightConflicts={highlightConflicts}
                     twentyFour={twentyFour}
+                    dark={colorMode === "dark"}
                 />
             </chakra.div>
         </div>

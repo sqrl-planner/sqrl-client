@@ -33,7 +33,7 @@ const MeetingTitle = styled.div`
 
 const MeetingSuffix = styled.span<{ darkText: boolean }>`
     color: ${({ darkText }) => {
-        return darkText ? `#eee` : `#545454`
+        return darkText ? `#545454` : `#eee`
     }};
     font-size: 0.8em;
     font-weight: 500;
