@@ -99,6 +99,7 @@ const PreferencesTimetable = () => {
                 <PreferencesToggle
                     isChecked={colorMode === "dark"}
                     onToggle={toggleColorMode}
+                    id="mode_toggle"
                     iconProps={{
                         as: colorMode === "light" ? MoonIcon : FaSun,
                     }}

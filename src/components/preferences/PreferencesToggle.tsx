@@ -25,6 +25,7 @@ interface PreferencesToggleProps {
     children: React.ReactNode
     helperText?: string
     onToggle?: (event: ChangeEvent<HTMLInputElement>) => void
+    id?: string
 }
 
 const PreferencesToggle = ({
@@ -34,6 +35,7 @@ const PreferencesToggle = ({
     children,
     helperText,
     onToggle,
+    id,
 }: PreferencesToggleProps) => {
     const { dispatch } = usePreferences()
     return (
@@ -43,7 +45,7 @@ const PreferencesToggle = ({
                 width="100%"
                 justifyContent="space-between"
             >
-                <FormLabel htmlFor={actionType} mb="0">
+                <FormLabel htmlFor={actionType ?? id} mb="0">
                     <IconWrapper>
                         <Icon {...iconProps} />
                     </IconWrapper>
@@ -51,7 +53,7 @@ const PreferencesToggle = ({
                 </FormLabel>
                 <Switch
                     size="lg"
-                    id={actionType}
+                    id={actionType ?? id}
                     isChecked={state}
                     onChange={
                         onToggle
