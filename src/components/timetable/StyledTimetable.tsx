@@ -105,7 +105,7 @@ export const StyledTimeLabelTd = styled.td`
     font-family: interstate-mono, monospace;
     padding-right: 1em;
     position: relative;
-    top: -0.6em;
+    top: -0.7em;
 
     font-size: 1.4em;
     line-height: 1.4em;
@@ -131,7 +131,7 @@ export const MeetingTime = styled.div`
     bottom: 0em;
     left: 0.3em;
 
-    /* border-radius: 0.3em; */
+    /* border-radius: 0.4em; */
 
     &,
     & > * {

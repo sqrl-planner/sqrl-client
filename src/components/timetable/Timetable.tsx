@@ -95,7 +95,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         }
     }
 
-    const tableRows: Array<HTMLTableRowElement> = []
+    const tableRows: Array<React.ReactNode> = []
     for (
         let currentTime = minTime;
         currentTime <= maxTime;
@@ -103,7 +103,9 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     ) {
         const timeLabel = minuteOffsetToTime(currentTime, twentyFour)
         const cells = [
-            <StyledTimeLabelTd className="time">{timeLabel}</StyledTimeLabelTd>,
+            <StyledTimeLabelTd key={currentTime} className="time">
+                {timeLabel}
+            </StyledTimeLabelTd>,
         ]
 
         for (let dayIndex = 0; dayIndex < DAYS.length; dayIndex++) {
@@ -129,6 +131,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     const meeting = group.meetings[0]
                     cells.push(
                         <MeetingTimeCell
+                            key={dayIndex}
                             days={DAYS.length}
                             rowSpan={rowspan}
                             dark={dark}
@@ -160,6 +163,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
                             items.push(
                                 <MeetingTime
+                                    key={index}
                                     style={{
                                         position: "absolute",
                                         width: `calc(${percent}% - 0.4em)`,
@@ -200,6 +204,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     )
                     cells.push(
                         <MeetingTimeCell
+                            key={dayIndex}
                             days={DAYS.length}
                             rowSpan={rowspan}
                             dark={dark}
@@ -212,11 +217,22 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             }
 
             if (!isOccupied) {
-                cells.push(<MeetingTimeCell days={DAYS.length} dark={dark} />)
+                cells.push(
+                    <MeetingTimeCell
+                        key={dayIndex}
+                        days={DAYS.length}
+                        dark={dark}
+                    />
+                )
             }
         }
         tableRows.push(
-            <StyledTr size={scale} resolution={resolution} dark={dark}>
+            <StyledTr
+                key={currentTime}
+                size={scale}
+                resolution={resolution}
+                dark={dark}
+            >
                 {cells}
             </StyledTr>
         )
@@ -228,8 +244,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                 <thead>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>
-                        {DAYS.map((day) => (
-                            <StyledTh dark={dark}>
+                        {DAYS.map((day, index) => (
+                            <StyledTh key={index} dark={dark}>
                                 {day.toString().substr(0, 3)}
                             </StyledTh>
                             // <StyledTh>{day}</StyledTh>
