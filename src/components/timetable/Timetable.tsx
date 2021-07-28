@@ -95,7 +95,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         }
     }
 
-    const tableRows: Array<React.ReactNode> = []
+    const tableRows: Array<HTMLTableRowElement> = []
     for (
         let currentTime = minTime;
         currentTime <= maxTime;
@@ -162,10 +162,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 <MeetingTime
                                     style={{
                                         position: "absolute",
-                                        width: `calc(${percent}% - 0.4rem)`,
-                                        height: `calc(${height}% - 0.1rem)`,
+                                        width: `calc(${percent}% - 0.4em)`,
+                                        height: `calc(${height}% - 0.2em)`,
                                         left: `calc(${index * percent}% + ${
-                                            !index ? "0.3rem" : "0.1rem"
+                                            !index ? "0.3em" : "0.1em"
                                         })`,
                                         // top position is percent of meeting starttime of group starttime
                                         top: `calc(${
@@ -174,13 +174,13 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 (groupEndTime -
                                                     groupStartTime)) *
                                             100
-                                        }% + 0.2rem)`,
+                                        }% + 0.2em)`,
                                         backgroundColor: highlightConflicts
                                             ? "#c53030"
                                             : "",
-                                        border: highlightConflicts
-                                            ? "1px solid #c53030"
-                                            : "",
+                                        // border: highlightConflicts
+                                        //     ? "1px solid #c53030"
+                                        //     : "",
                                         color: highlightConflicts ? "#fff" : "",
                                         transition:
                                             "all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)",
@@ -216,7 +216,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
             }
         }
         tableRows.push(
-            <StyledTr dark={dark} size={scale} resolution={resolution}>
+            <StyledTr size={scale} resolution={resolution} dark={dark}>
                 {cells}
             </StyledTr>
         )

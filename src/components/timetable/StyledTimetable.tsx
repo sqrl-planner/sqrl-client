@@ -87,7 +87,7 @@ export const StyledTr = styled.tr<{
         } */
 
         .time {
-            color: ${({ dark }) => (dark ? `#eee` : `#333`)};
+            color: ${({ dark }) => (dark ? `#dcdcdc` : `#333`)};
             font-weight: 500;
 
             &::after {
@@ -128,7 +128,7 @@ export const MeetingTime = styled.div`
     position: absolute;
     top: 0.2em;
     right: 0.3em;
-    bottom: 0;
+    bottom: 0em;
     left: 0.3em;
 
     /* border-radius: 0.3em; */
@@ -248,7 +248,8 @@ const HSLGrayscale = (colours: string[]) =>
 
 const HSLDarken = (colours: string[]) =>
     colours.map((colour) =>
-        Colour(colour, "hsl").darken(0.75).saturate(1.2).toString()
+        // Colour(colour, "hsl").darken(0.75).saturate(1.2).toString()
+        Colour(colour, "hsl").darken(0.8).desaturate(0.6)
     )
 
 const palettes = {
