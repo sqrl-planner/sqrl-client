@@ -1,8 +1,9 @@
+import { Tooltip } from "@chakra-ui/react"
 import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import { minuteOffsetToTime } from "../../utils/time"
-import { Meeting } from "./Meeting"
+import { CategoryType, DeliveryType, Meeting } from "./Meeting"
 
 interface MeetingProps {
     meeting: Meeting
@@ -10,12 +11,26 @@ interface MeetingProps {
     twentyFour: boolean
 }
 
+const deliveryAbbreviations = {
+    "online async": "OA",
+    "online sync": "OS",
+    "in person": "IP",
+}
+
+const categoryAbbreviations = {
+    tutorial: "TUT",
+    lecture: "LEC",
+}
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+
 const MeetingTitle = styled.div`
     padding-right: 0.3em;
     &,
     & > * {
         font-weight: 700;
         font-size: 1.2em;
+        line-height: 1.2em;
         /* line-height: 2em; */
         /* overflow-wrap: break-word; */
         /* word-wrap: break-word; */
@@ -53,8 +68,31 @@ const MeetingInformation = styled.div`
 
 const MeetingTimes = styled.div`
     position: relative;
-    top: 0.2rem;
+    top: 0.1rem;
+    font-size: 0.9em;
     transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+`
+
+const MeetingDelivery = styled.div`
+    font-size: 0.9em;
+    font-weight: 700;
+    font-family: interstate-mono, monospace;
+    opacity: 0.9;
+`
+
+const MeetingCategory = styled.div`
+    opacity: 0.8;
+    font-size: 0.9em;
+    font-weight: 700;
+`
+
+const MiscInfo = styled.div`
+    position: absolute;
+    bottom: 0.4rem;
+    right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 `
 
 const MeetingComponent = ({
@@ -63,7 +101,12 @@ const MeetingComponent = ({
     twentyFour,
 }: MeetingProps) => {
     const {
-        state: { showTimeInMeeting, showCourseSuffix },
+        state: {
+            showTimeInMeeting,
+            showCourseSuffix,
+            showCategory,
+            showDelivery,
+        },
     } = usePreferences()
 
     const meetingTitle = meeting.title
@@ -114,6 +157,29 @@ const MeetingComponent = ({
             >
                 {startTime + "\u200b"}-{"\u200b" + endTime}
             </MeetingTimes>
+            <MiscInfo>
+                {showDelivery && (
+                    <Tooltip hasArrow label={`${capitalize(meeting.delivery)}`}>
+                        <MeetingDelivery style={{ cursor: "default" }}>
+                            {deliveryAbbreviations[meeting.delivery]}
+                        </MeetingDelivery>
+                    </Tooltip>
+                )}
+
+                {showCategory && (
+                    <Tooltip
+                        hasArrow
+                        label={`${capitalize(meeting.category)} section ${
+                            meeting.section
+                        }`}
+                    >
+                        <MeetingCategory style={{ cursor: "default" }}>
+                            {categoryAbbreviations[meeting.category]}
+                            {meeting.section}
+                        </MeetingCategory>
+                    </Tooltip>
+                )}
+            </MiscInfo>
         </MeetingInformation>
     )
 }

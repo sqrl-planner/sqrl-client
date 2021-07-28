@@ -98,7 +98,7 @@ const PreferencesDrawer = (props: {
                     Preferences
                 </DrawerHeader>
 
-                <DrawerBody p={0}>
+                <DrawerBody p={0} userSelect="none">
                     <Tabs colorScheme="blue">
                         <TabList
                             px={2}

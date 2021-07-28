@@ -15,9 +15,10 @@ import {
 } from "@chakra-ui/react"
 import React, { Fragment } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
-import { FaClock, FaSun, FaPalette } from "react-icons/fa"
+import { FaClock, FaSun, FaPalette, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
 import { Ri24HoursLine } from "react-icons/ri"
+import { ImSection } from "react-icons/im"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import PreferencesSection from "./PreferencesSection"
@@ -38,6 +39,8 @@ const PreferencesTimetable = () => {
             end,
             showTimeInMeeting,
             showCourseSuffix,
+            showCategory,
+            showDelivery,
             palette,
             highlightConflicts,
             twentyFour,
@@ -50,6 +53,15 @@ const PreferencesTimetable = () => {
         <Fragment>
             <PreferencesSection>
                 <PreferencesToggle
+                    isChecked={showTimeInMeeting}
+                    actionType="SET_SHOW_TIME_IN_MEETING"
+                    iconProps={{
+                        as: FaClock,
+                    }}
+                >
+                    Meeting times
+                </PreferencesToggle>
+                <PreferencesToggle
                     isChecked={showCourseSuffix}
                     actionType="SET_SHOW_COURSE_SUFFIX"
                     iconProps={{
@@ -60,25 +72,26 @@ const PreferencesTimetable = () => {
                 >
                     Course suffix
                 </PreferencesToggle>
-
                 <PreferencesToggle
-                    isChecked={showTimeInMeeting}
-                    actionType="SET_SHOW_TIME_IN_MEETING"
+                    isChecked={showDelivery}
+                    actionType="SET_SHOW_DELIVERY"
                     iconProps={{
-                        as: FaClock,
+                        as: FaTruckMoving,
                     }}
+                    helperText="Show medium of delivery (OS, OA, IP)"
                 >
-                    Meeting times
+                    Delivery method
                 </PreferencesToggle>
 
                 <PreferencesToggle
-                    isChecked={highlightConflicts}
-                    actionType="SET_HIGHLIGHT_CONFLICTS"
+                    isChecked={showCategory}
+                    actionType="SET_SHOW_CATEGORY"
                     iconProps={{
-                        as: WarningTwoIcon,
+                        as: ImSection,
                     }}
+                    helperText="Show meeting type (TUT, LEC)"
                 >
-                    Highlight conflicts
+                    Meeting category
                 </PreferencesToggle>
             </PreferencesSection>
 
@@ -92,7 +105,15 @@ const PreferencesTimetable = () => {
                 >
                     Dark mode
                 </PreferencesToggle>
-
+                <PreferencesToggle
+                    isChecked={highlightConflicts}
+                    actionType="SET_HIGHLIGHT_CONFLICTS"
+                    iconProps={{
+                        as: WarningTwoIcon,
+                    }}
+                >
+                    Highlight conflicts
+                </PreferencesToggle>
                 <PreferencesToggle
                     isChecked={twentyFour}
                     actionType="SET_TWENTY_FOUR"

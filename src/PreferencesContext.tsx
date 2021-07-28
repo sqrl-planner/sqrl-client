@@ -11,6 +11,8 @@ interface Preferences {
     scale: number
     showTimeInMeeting: boolean
     showCourseSuffix: boolean
+    showCategory: boolean
+    showDelivery: boolean
     start: number
     end: number
     highlightConflicts: boolean
@@ -22,6 +24,8 @@ export type Action =
     | { type: "SET_SCALE"; payload: number }
     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
     | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }
+    | { type: "SET_SHOW_CATEGORY"; payload: boolean }
+    | { type: "SET_SHOW_DELIVERY"; payload: boolean }
     | { type: "SET_START"; payload: number }
     | { type: "SET_END"; payload: number }
     | { type: "SET_HIGHLIGHT_CONFLICTS"; payload: boolean }
@@ -59,6 +63,16 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 
         case "SET_SHOW_COURSE_SUFFIX": {
             newPreferences = { ...state, showCourseSuffix: action.payload }
+            break
+        }
+
+        case "SET_SHOW_CATEGORY": {
+            newPreferences = { ...state, showCategory: action.payload }
+            break
+        }
+
+        case "SET_SHOW_DELIVERY": {
+            newPreferences = { ...state, showDelivery: action.payload }
             break
         }
 
@@ -103,6 +117,8 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
             scale: 40,
             showTimeInMeeting: false,
             showCourseSuffix: true,
+            showCategory: true,
+            showDelivery: true,
             start: 9,
             end: 22,
             highlightConflicts: true,

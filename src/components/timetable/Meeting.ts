@@ -1,5 +1,8 @@
 import { Day, timeToMinuteOffset } from "../../utils/time"
 
+export type DeliveryType = "online async" | "online sync" | "in person"
+export type CategoryType = "tutorial" | "lecture"
+
 /**
  * A class representing a single meeting on the timetable.
  */
@@ -24,19 +27,37 @@ export class Meeting {
      * The enumerated key of the meeting parent, i.e. course
      */
     courseKey: number
+    /**
+     * Delivery method
+     */
+    delivery: DeliveryType
+    /**
+     * Meeting category
+     */
+    category: CategoryType
+    /**
+     * Meeting section
+     */
+    section: string
 
     constructor(
         day: Day,
         startTime: number,
         endTime: number,
         title: string = "Untitled meeting",
-        courseKey: number = 0
+        courseKey: number = 0,
+        delivery: DeliveryType = "in person",
+        category: CategoryType = "lecture",
+        section: string = "0101"
     ) {
         this.day = day
         this.startTime = startTime
         this.endTime = endTime
         this.title = title
         this.courseKey = courseKey
+        this.delivery = delivery
+        this.category = category
+        this.section = section
     }
 
     /**
@@ -124,29 +145,36 @@ export const EXAMPLE_MEETINGS = [
         timeToMinuteOffset(10),
         timeToMinuteOffset(11),
         "CSC258Y1",
-        1
+        1,
+        "in person",
+        "lecture",
+        "0905"
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(11),
         timeToMinuteOffset(12),
         "MAT237H1",
-        2
+        2,
+        "online async",
+        "tutorial"
     ),
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(12),
         timeToMinuteOffset(13),
         "CSC236H1",
-        3
+        3,
+        "online sync",
+        "tutorial"
     ),
-    new Meeting(
-        Day.MONDAY,
-        timeToMinuteOffset(13),
-        timeToMinuteOffset(14),
-        "FAKE123F9",
-        4
-    ),
+    // new Meeting(
+    //     Day.MONDAY,
+    //     timeToMinuteOffset(13),
+    //     timeToMinuteOffset(14),
+    //     "FAKE123F9",
+    //     4
+    // ),
     // begin conflicting time
     new Meeting(
         Day.MONDAY,

@@ -146,9 +146,9 @@ export const MeetingTime = styled.div`
     font-weight: 500;
     /* line-height: 1.5em; */
 
-    padding: 0.6rem;
+    padding: 0.5rem 0.6rem;
 
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
         padding: 0.3rem;
         padding-left: 0.4rem;
     }

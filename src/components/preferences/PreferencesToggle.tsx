@@ -67,7 +67,9 @@ const PreferencesToggle = ({
                     }
                 />
             </Flex>
-            {helperText && <FormHelperText>{helperText}</FormHelperText>}
+            {helperText && (
+                <FormHelperText fontSize="0.9em">{helperText}</FormHelperText>
+            )}
         </FormControl>
     )
 }
