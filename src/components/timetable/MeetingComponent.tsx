@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import { minuteOffsetToTime } from "../../utils/time"

@@ -1,6 +1,5 @@
-import { Button, Flex, useToast } from "@chakra-ui/react"
-import React, { FunctionComponent, useEffect, useState } from "react"
-import { usePreferences } from "../../PreferencesContext"
+import { Flex } from "@chakra-ui/react"
+import React, { FunctionComponent } from "react"
 import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
 import { Meeting, MeetingGroup } from "./Meeting"
 import MeetingComponent from "./MeetingComponent"

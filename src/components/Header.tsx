@@ -1,13 +1,12 @@
 import { SettingsIcon } from "@chakra-ui/icons"
 import {
     Button,
+    chakra,
     Heading,
     Input,
-    useDisclosure,
     Text,
-    useToast,
-    chakra,
     useColorModeValue,
+    useDisclosure,
 } from "@chakra-ui/react"
 import React, { useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
@@ -49,7 +48,7 @@ const Program = styled.div`
 const Header = () => {
     const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>
     const keydownListener = useCallback((keydownEvent) => {
-        const { key, metaKey, ctrlKey, target, repeat } = keydownEvent
+        const { key, metaKey, ctrlKey, repeat } = keydownEvent
         if (repeat) return
 
         if ((metaKey || ctrlKey) && key === "k") {
@@ -65,7 +64,6 @@ const Header = () => {
 
     useEffect(() => {
         window.addEventListener("keydown", keydownListener, true)
-        console.log(navigator.userAgent)
         return () =>
             window.removeEventListener("keydown", keydownListener, true)
     }, [keydownListener])

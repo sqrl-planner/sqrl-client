@@ -65,6 +65,19 @@ export const StyledTr = styled.tr<{
         transition: line-height 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 
+    /* &:hover::after {
+        content: "";
+        width: 100%;
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        top: 0.1em;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-top: 1px solid black;
+    } */
+
     &:nth-child(${({ resolution = 15 }: { resolution?: number }) =>
                 `${60 / resolution}n - ${60 / resolution - 1}`}) {
         & td {
@@ -72,19 +85,6 @@ export const StyledTr = styled.tr<{
         }
 
         position: relative;
-        /* 
-        &:hover::after {
-            content: "";
-            width: 100%;
-            display: block;
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 1px;
-            top: 0.1em;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-top: 1px solid black;
-        } */
 
         .time {
             color: ${({ dark }) => (dark ? `#dcdcdc` : `#333`)};
@@ -109,6 +109,7 @@ export const StyledTimeLabelTd = styled.td`
 
     font-size: 1.4em;
     line-height: 1.4em;
+    user-select: none;
 `
 
 export const MeetingTimeCell = styled.td<{ days: number; dark: boolean }>`
@@ -210,9 +211,9 @@ export const MeetingTime = styled.div`
 export const courseKeyToColour = (
     courseKey: number,
     dark: boolean,
-    colours?: string[],
-    alpha: number = 1,
-    lightenPercent: number = 0
+    colours?: string[]
+    // alpha: number = 1,
+    // lightenPercent: number = 0
 ) => {
     const defaultColours = palettes.default
     colours = colours || defaultColours
@@ -230,26 +231,13 @@ export const courseKeyToColour = (
     return colours[courseKey % colours.length]
 }
 
-// const makeGreyscale = (colours: string[]) => {
-//     let newColours = []
-//     for (const hex of colours) {
-//         const rgb = hexToRgb(hex)
-
-//         const x = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b
-//         newColours.push(rgbToHex(x, x, x))
-//     }
-//     console.log(newColours)
-
-//     return newColours
-// }
-
 const HSLGrayscale = (colours: string[]) =>
-    colours.map((colour) => Colour(colour, "hsl").grayscale())
+    colours.map((colour) => Colour(colour, "hsl").grayscale().toString())
 
 const HSLDarken = (colours: string[]) =>
     colours.map((colour) =>
         // Colour(colour, "hsl").darken(0.75).saturate(1.2).toString()
-        Colour(colour, "hsl").darken(0.8).desaturate(0.6)
+        Colour(colour, "hsl").darken(0.8).desaturate(0.6).toString()
     )
 
 const palettes = {

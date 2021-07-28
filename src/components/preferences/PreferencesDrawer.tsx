@@ -1,46 +1,31 @@
 import {
-    TimeIcon,
-    WarningTwoIcon,
-    InfoIcon,
+    MoonIcon,
     TriangleDownIcon,
     TriangleUpIcon,
-    MoonIcon,
-    SunIcon,
+    WarningTwoIcon,
 } from "@chakra-ui/icons"
-import { GiResize } from "react-icons/gi"
-import { BsClockFill } from "react-icons/bs"
-import { Ri24HoursLine } from "react-icons/ri"
-import { BiArrowFromRight } from "react-icons/bi"
-import { FaClock, FaPalette, FaSun } from "react-icons/fa"
 import {
-    Box,
     Button,
-    chakra,
-    Text,
     Drawer,
     DrawerBody,
     DrawerCloseButton,
     DrawerContent,
-    DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    Flex,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
-    Heading,
     Icon,
-    InputGroup,
     Select,
-    Stack,
-    Switch,
     useColorMode,
-    useColorModeValue,
     UseDisclosureProps,
 } from "@chakra-ui/react"
+import React from "react"
+import { BiArrowFromRight } from "react-icons/bi"
+import { FaClock, FaPalette, FaSun } from "react-icons/fa"
+import { GiResize } from "react-icons/gi"
+import { Ri24HoursLine } from "react-icons/ri"
 import styled from "styled-components"
-import React, { useRef } from "react"
 import { usePreferences } from "../../PreferencesContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
@@ -52,16 +37,12 @@ const IconWrapper = styled.div`
     align-items: center;
 `
 
-const PrefGroup = styled(Box)`
-    margin-bottom: 1rem;
-`
-
 const PreferencesDrawer = (props: {
     disclosure: UseDisclosureProps
     drawerprops: any
 }) => {
-    const { isOpen, onOpen, onClose } = props.disclosure
-    const firstField = useRef() as React.MutableRefObject<HTMLInputElement>
+    // const { isOpen, onOpen, onClose } = props.disclosure
+    // const firstField = useRef() as React.MutableRefObject<HTMLInputElement>
 
     const {
         state: {

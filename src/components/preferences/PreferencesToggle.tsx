@@ -1,5 +1,4 @@
 import {
-    As,
     Flex,
     FormControl,
     FormHelperText,
@@ -9,8 +8,6 @@ import {
     Switch,
 } from "@chakra-ui/react"
 import React, { ChangeEvent } from "react"
-import { IconType } from "react-icons"
-import { FaClock } from "react-icons/fa"
 import styled from "styled-components"
 import { Action, usePreferences } from "../../PreferencesContext"
 
