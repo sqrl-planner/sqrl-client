@@ -24,6 +24,7 @@ import {
     TabPanels,
     Tabs,
     useColorMode,
+    useColorModeValue,
     UseDisclosureProps,
     useToast,
 } from "@chakra-ui/react"
@@ -94,6 +95,7 @@ const PreferencesDrawer = (props: {
                     fontSize="3xl"
                     fontWeight="700"
                     height="4.5rem"
+                    zIndex="100"
                 >
                     Preferences
                 </DrawerHeader>
@@ -101,14 +103,18 @@ const PreferencesDrawer = (props: {
                 <DrawerBody p={0} userSelect="none">
                     <Tabs colorScheme="blue">
                         <TabList
+                            position="fixed"
+                            zIndex="1"
+                            width="100%"
+                            bg={useColorModeValue("white", "gray.700")}
                             px={2}
                             height="2.8rem"
-                            boxShadow="1px 1px 6px -4px rgba(0,0,0,0.5)"
+                            boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
                         >
                             <Tab>Appearance</Tab>
                             <Tab>Application</Tab>
                         </TabList>
-                        <TabPanels>
+                        <TabPanels position="relative" top="10" zIndex="0">
                             <TabPanel>
                                 <PreferencesTimetable />
                             </TabPanel>
