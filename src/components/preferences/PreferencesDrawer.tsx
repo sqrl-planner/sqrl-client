@@ -95,7 +95,7 @@ const PreferencesDrawer = (props: {
                     fontSize="3xl"
                     fontWeight="700"
                     height="4.5rem"
-                    zIndex="100"
+                    // zIndex="100"
                 >
                     Preferences
                 </DrawerHeader>
