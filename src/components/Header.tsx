@@ -130,7 +130,7 @@ const Header = () => {
                         outline: "none",
                     }}
                 >
-                    <SettingsIcon w={6} h={6} />
+                    <SettingsIcon w={7} h={7} />
                 </Button>
             </div>
             <PreferencesDrawer

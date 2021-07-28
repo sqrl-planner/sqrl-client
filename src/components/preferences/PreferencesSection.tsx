@@ -9,6 +9,7 @@ const PreferencesSection = ({ children }: PreferencesSectionProps) => {
         <Flex
             mt={3}
             mb={6}
+            mx={2}
             p={6}
             py={3}
             borderRadius={10}
