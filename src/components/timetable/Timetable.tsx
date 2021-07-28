@@ -52,6 +52,10 @@ type TimetableProps = {
      * Dark mode
      */
     dark?: boolean
+    /**
+     * Show time
+     */
+    showTime?: boolean
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
@@ -64,6 +68,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     highlightConflicts = true,
     twentyFour = true,
     dark = false,
+    showTime = true,
 }) => {
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -101,11 +106,17 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         currentTime += resolution
     ) {
         const timeLabel = minuteOffsetToTime(currentTime, twentyFour)
-        const cells = [
-            <StyledTimeLabelTd key={currentTime} className="time">
-                {timeLabel}
-            </StyledTimeLabelTd>,
-        ]
+        const cells = showTime
+            ? [
+                  <StyledTimeLabelTd key={currentTime} className="time">
+                      {timeLabel}
+                  </StyledTimeLabelTd>,
+              ]
+            : [
+                  <StyledTimeLabelTd style={{ padding: 0 }}>
+                      &nbsp;
+                  </StyledTimeLabelTd>,
+              ]
 
         for (let dayIndex = 0; dayIndex < DAYS.length; dayIndex++) {
             let isOccupied = false

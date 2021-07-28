@@ -77,16 +77,15 @@ const MeetingDelivery = styled.div`
     font-size: 0.9em;
     font-weight: 700;
     font-family: interstate-mono, monospace;
-    opacity: 0.9;
 `
 
 const MeetingCategory = styled.div`
-    opacity: 0.8;
     font-size: 0.9em;
     font-weight: 700;
 `
 
 const MiscInfo = styled.div`
+    opacity: 0.6;
     position: absolute;
     bottom: 0.4rem;
     right: 0.5rem;
