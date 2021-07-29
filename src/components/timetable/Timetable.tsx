@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react"
 import React, { FunctionComponent } from "react"
-import { Day, minuteOffsetToTime, timeToMinuteOffset } from "../../utils/time"
+import { Day, minuteOffsetToTime, timeToMinuteOffset, WEEK_DAYS } from "../../utils/time"
 import { Meeting, MeetingGroup } from "./Meeting"
 import MeetingComponent from "./MeetingComponent"
 import {
@@ -12,7 +12,7 @@ import {
     StyledTimeLabelTd,
     StyledTimetable,
     StyledTimetableContainer,
-    StyledTr,
+    StyledTr
 } from "./StyledTimetable"
 
 type TimetableProps = {
@@ -55,7 +55,11 @@ type TimetableProps = {
     /**
      * Show time
      */
-    showTime?: boolean
+    showTime?: boolean,
+    /**
+     * The days of the week to include on the timetable.
+     */
+    days?: Day[]
 }
 
 export const Timetable: FunctionComponent<TimetableProps> = ({
@@ -69,19 +73,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     twentyFour = true,
     dark = false,
     showTime = true,
+    days = WEEK_DAYS
 }) => {
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
-
-    // For now, let's only support week days! Fuck the kids who want to do classes on the weekends.
-    const DAYS = [
-        Day.MONDAY,
-        Day.TUESDAY,
-        Day.WEDNESDAY,
-        Day.THURSDAY,
-        Day.FRIDAY,
-    ]
-
     const meetingsByDay = new Map()
     for (const meeting of meetings) {
         if (!meetingsByDay.has(meeting.day)) {
@@ -91,7 +86,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     }
 
     const groupsByDay = new Map()
-    for (const day of DAYS) {
+    for (const day of days) {
         if (meetingsByDay.has(day)) {
             groupsByDay.set(day, MeetingGroup.partition(meetingsByDay.get(day)))
         } else {
@@ -118,9 +113,9 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                   </StyledTimeLabelTd>,
               ]
 
-        for (let dayIndex = 0; dayIndex < DAYS.length; dayIndex++) {
+        for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
             let isOccupied = false
-            for (const group of groupsByDay.get(DAYS[dayIndex])) {
+            for (const group of groupsByDay.get(days[dayIndex])) {
                 const groupStartTime = group.getMinStartTime()
                 const groupEndTime = group.getMaxEndTime()
                 if (
@@ -142,7 +137,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     cells.push(
                         <MeetingTimeCell
                             key={dayIndex}
-                            days={DAYS.length}
+                            days={days.length}
                             rowSpan={rowspan}
                             dark={dark}
                         >
@@ -215,7 +210,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     cells.push(
                         <MeetingTimeCell
                             key={dayIndex}
-                            days={DAYS.length}
+                            days={days.length}
                             rowSpan={rowspan}
                             dark={dark}
                         >
@@ -230,7 +225,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                 cells.push(
                     <MeetingTimeCell
                         key={dayIndex}
-                        days={DAYS.length}
+                        days={days.length}
                         dark={dark}
                     />
                 )
@@ -254,7 +249,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                 <thead>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>
-                        {DAYS.map((day, index) => (
+                        {days.map((day, index) => (
                             <StyledTh key={index} dark={dark}>
                                 {day.toString().substr(0, 3)}
                             </StyledTh>

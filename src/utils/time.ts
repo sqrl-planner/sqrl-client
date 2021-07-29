@@ -49,3 +49,14 @@ export enum Day {
     // SATURDAY = 'Saturday',
     // SUNDAY = 'Sunday'
 }
+
+/**
+ * An array containing the week days (Monday to Friday).
+ */
+export const WEEK_DAYS: Day[] = [
+    Day.MONDAY,
+    Day.TUESDAY,
+    Day.WEDNESDAY,
+    Day.THURSDAY,
+    Day.FRIDAY,
+]
