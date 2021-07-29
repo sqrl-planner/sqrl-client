@@ -3,7 +3,7 @@ import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import { minuteOffsetToTime } from "../../utils/time"
-import { CategoryType, DeliveryType, Meeting } from "./Meeting"
+import { Meeting } from "./Meeting"
 
 interface MeetingProps {
     meeting: Meeting
@@ -12,8 +12,8 @@ interface MeetingProps {
 }
 
 const deliveryAbbreviations = {
-    "online async": "OA",
-    "online sync": "OS",
+    "online asynchronous": "OA",
+    "online synchronous ": "OS",
     "in person": "IP",
 }
 

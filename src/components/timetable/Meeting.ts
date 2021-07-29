@@ -1,7 +1,21 @@
 import { Day, timeToMinuteOffset } from "../../utils/time"
 
-export type DeliveryType = "online async" | "online sync" | "in person"
-export type CategoryType = "tutorial" | "lecture"
+/**
+ * The delivery mode for a meeting.
+ */
+export enum MeetingDeliveryMode {
+    OnlineAsync = "online asynchronous",
+    OnlineSync = "online synchronous",
+    InPerson = "in person"
+}
+
+/**
+ * The type of meeting category.
+ */
+export enum MeetingCategoryType {
+    Tutorial = "tutorial",
+    Lecture = "lecture"
+}
 
 /**
  * A class representing a single meeting on the timetable.
@@ -30,11 +44,11 @@ export class Meeting {
     /**
      * Delivery method
      */
-    delivery: DeliveryType
+    delivery: MeetingDeliveryMode
     /**
      * Meeting category
      */
-    category: CategoryType
+    category: MeetingCategoryType
     /**
      * Meeting section
      */
@@ -46,8 +60,8 @@ export class Meeting {
         endTime: number,
         title: string = "Untitled meeting",
         courseKey: number = 0,
-        delivery: DeliveryType = "in person",
-        category: CategoryType = "lecture",
+        delivery: MeetingDeliveryMode = MeetingDeliveryMode.InPerson,
+        category: MeetingCategoryType = MeetingCategoryType.Lecture,
         section: string = "0101"
     ) {
         this.day = day
@@ -146,8 +160,8 @@ export const EXAMPLE_MEETINGS = [
         timeToMinuteOffset(11),
         "CSC258Y1",
         1,
-        "in person",
-        "lecture",
+        MeetingDeliveryMode.InPerson,
+        MeetingCategoryType.Lecture,
         "0905"
     ),
     new Meeting(
@@ -156,8 +170,8 @@ export const EXAMPLE_MEETINGS = [
         timeToMinuteOffset(12),
         "MAT237H1",
         2,
-        "online async",
-        "tutorial"
+        MeetingDeliveryMode.OnlineAsync,
+        MeetingCategoryType.Tutorial
     ),
     new Meeting(
         Day.MONDAY,
@@ -165,8 +179,8 @@ export const EXAMPLE_MEETINGS = [
         timeToMinuteOffset(13),
         "CSC236H1",
         3,
-        "online sync",
-        "tutorial"
+        MeetingDeliveryMode.OnlineSync,
+        MeetingCategoryType.Tutorial
     ),
     // new Meeting(
     //     Day.MONDAY,
