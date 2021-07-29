@@ -1,10 +1,4 @@
 import {
-    MoonIcon,
-    TriangleDownIcon,
-    TriangleUpIcon,
-    WarningTwoIcon,
-} from "@chakra-ui/icons"
-import {
     Button,
     Drawer,
     DrawerBody,
@@ -14,10 +8,6 @@ import {
     DrawerOverlay,
     Flex,
     FormControl,
-    FormLabel,
-    Grid,
-    Icon,
-    Select,
     Tab as ChakraTab,
     TabList,
     TabPanel,
@@ -29,15 +19,10 @@ import {
     useToast,
 } from "@chakra-ui/react"
 import React from "react"
-import { BiArrowFromRight } from "react-icons/bi"
-import { FaClock, FaPalette, FaSun } from "react-icons/fa"
-import { GiResize } from "react-icons/gi"
-import { Ri24HoursLine } from "react-icons/ri"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesTimetable from "./PreferencesTimetable"
-import PreferencesToggle from "./PreferencesToggle"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;

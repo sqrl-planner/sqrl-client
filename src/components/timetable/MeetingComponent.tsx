@@ -13,7 +13,7 @@ interface MeetingProps {
 
 const deliveryAbbreviations = {
     "online asynchronous": "OA",
-    "online synchronous ": "OS",
+    "online synchronous": "OS",
     "in person": "IP",
 }
 
@@ -77,6 +77,8 @@ const MeetingDelivery = styled.div`
     font-size: 0.9em;
     font-weight: 700;
     font-family: interstate-mono, monospace;
+    position: relative;
+    top: 0.2em;
 `
 
 const MeetingCategory = styled.div`
@@ -168,9 +170,13 @@ const MeetingComponent = ({
                 {showCategory && (
                     <Tooltip
                         hasArrow
-                        label={`${capitalize(meeting.category)} section ${
+                        label={
                             meeting.section
-                        }`}
+                                ? `${capitalize(meeting.category)} section ${
+                                      meeting.section
+                                  }`
+                                : `Unknown ${capitalize(meeting.category)}`
+                        }
                     >
                         <MeetingCategory style={{ cursor: "default" }}>
                             {categoryAbbreviations[meeting.category]}

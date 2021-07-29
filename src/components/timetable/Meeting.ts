@@ -6,7 +6,7 @@ import { Day, timeToMinuteOffset } from "../../utils/time"
 export enum MeetingDeliveryMode {
     OnlineAsync = "online asynchronous",
     OnlineSync = "online synchronous",
-    InPerson = "in person"
+    InPerson = "in person",
 }
 
 /**
@@ -14,7 +14,7 @@ export enum MeetingDeliveryMode {
  */
 export enum MeetingCategoryType {
     Tutorial = "tutorial",
-    Lecture = "lecture"
+    Lecture = "lecture",
 }
 
 /**
@@ -52,7 +52,7 @@ export class Meeting {
     /**
      * Meeting section
      */
-    section: string
+    section: string | null
 
     constructor(
         day: Day,
@@ -62,7 +62,7 @@ export class Meeting {
         courseKey: number = 0,
         delivery: MeetingDeliveryMode = MeetingDeliveryMode.InPerson,
         category: MeetingCategoryType = MeetingCategoryType.Lecture,
-        section: string = "0101"
+        section: string | null = null
     ) {
         this.day = day
         this.startTime = startTime
