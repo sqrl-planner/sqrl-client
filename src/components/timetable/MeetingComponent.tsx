@@ -26,11 +26,11 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 const MeetingTitle = styled.div`
     padding-right: 0.3em;
+    line-height: 1.2em;
     &,
     & > * {
         font-weight: 700;
         font-size: 1.2em;
-        line-height: 1.2em;
         /* line-height: 2em; */
         /* overflow-wrap: break-word; */
         /* word-wrap: break-word; */
@@ -56,6 +56,7 @@ const MeetingSuffix = styled.span<{ darkText: boolean }>`
 `
 
 const MeetingInformation = styled.div`
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     display: flex;
     flex-direction: column;
     align-content: flex-start;
@@ -74,26 +75,30 @@ const MeetingTimes = styled.div`
 `
 
 const MeetingDelivery = styled.div`
-    font-size: 0.9em;
-    font-weight: 700;
-    font-family: interstate-mono, monospace;
-    position: relative;
-    top: 0.2em;
+    /* font-size: 0.9em; */
+    /* font-weight: 700; */
+    /* position: relative; */
+    /* top: 0.2rem; */
 `
 
 const MeetingCategory = styled.div`
-    font-size: 0.9em;
-    font-weight: 700;
+    /* font-size: 0.9em; */
+    /* font-weight: 700; */
 `
 
 const MiscInfo = styled.div`
-    opacity: 0.6;
+    font-family: interstate-mono, monospace;
+    font-weight: 700;
+    font-size: 0.9em;
+
     position: absolute;
     bottom: 0.4rem;
     right: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    line-height: 1.2em;
+    opacity: 0.6;
 `
 
 const MeetingComponent = ({
@@ -175,7 +180,7 @@ const MeetingComponent = ({
                                 ? `${capitalize(meeting.category)} section ${
                                       meeting.section
                                   }`
-                                : `Unknown ${capitalize(meeting.category)}`
+                                : `${capitalize(meeting.category)}`
                         }
                     >
                         <MeetingCategory style={{ cursor: "default" }}>

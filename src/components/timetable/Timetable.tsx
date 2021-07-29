@@ -1,6 +1,11 @@
 import { Flex } from "@chakra-ui/react"
 import React, { FunctionComponent } from "react"
-import { Day, minuteOffsetToTime, timeToMinuteOffset, WEEK_DAYS } from "../../utils/time"
+import {
+    Day,
+    minuteOffsetToTime,
+    timeToMinuteOffset,
+    WEEK_DAYS,
+} from "../../utils/time"
 import { Meeting, MeetingGroup } from "./Meeting"
 import MeetingComponent from "./MeetingComponent"
 import {
@@ -12,7 +17,7 @@ import {
     StyledTimeLabelTd,
     StyledTimetable,
     StyledTimetableContainer,
-    StyledTr
+    StyledTr,
 } from "./StyledTimetable"
 
 type TimetableProps = {
@@ -55,7 +60,7 @@ type TimetableProps = {
     /**
      * Show time
      */
-    showTime?: boolean,
+    showTime?: boolean
     /**
      * The days of the week to include on the timetable.
      */
@@ -73,7 +78,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     twentyFour = true,
     dark = false,
     showTime = true,
-    days = WEEK_DAYS
+    days = WEEK_DAYS,
 }) => {
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
@@ -172,7 +177,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     style={{
                                         position: "absolute",
                                         width: `calc(${percent}% - 0.4em)`,
-                                        height: `calc(${height}% - 0.2em)`,
+                                        height: `calc(${height}% - 0.1em)`,
                                         left: `calc(${index * percent}% + ${
                                             !index ? "0.3em" : "0.1em"
                                         })`,
@@ -183,7 +188,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 (groupEndTime -
                                                     groupStartTime)) *
                                             100
-                                        }% + 0.2em)`,
+                                        }% - 0.2rem)`,
                                         backgroundColor: highlightConflicts
                                             ? "#c53030"
                                             : "",
@@ -191,6 +196,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         //     ? "1px solid #c53030"
                                         //     : "",
                                         color: highlightConflicts ? "#fff" : "",
+                                        lineHeight:
+                                            "var(--chakra-lineHeights-base)",
                                         transition:
                                             "all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)",
                                     }}

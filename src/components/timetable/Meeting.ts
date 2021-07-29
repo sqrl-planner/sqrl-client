@@ -190,25 +190,29 @@ export const EXAMPLE_MEETINGS = [
     //     4
     // ),
     // begin conflicting time
+    // new Meeting(
+    //     Day.MONDAY,
+    //     timeToMinuteOffset(16, 30),
+    //     timeToMinuteOffset(18, 30),
+    //     "STA247H5"
+    // ),
     new Meeting(
         Day.MONDAY,
-        timeToMinuteOffset(14),
-        timeToMinuteOffset(16),
+        timeToMinuteOffset(14, 30),
+        timeToMinuteOffset(15, 30),
         "CSC207H1",
         5
     ),
-    // new Meeting(
-    //     Day.MONDAY,
-    //     timeToMinuteOffset(15),
-    //     timeToMinuteOffset(17),
-    //     "STA247H5"
-    // ),
+
     new Meeting(
         Day.MONDAY,
         timeToMinuteOffset(15),
         timeToMinuteOffset(17),
         "STA247H1",
-        6
+        6,
+        MeetingDeliveryMode.OnlineAsync,
+        MeetingCategoryType.Tutorial,
+        "0905"
     ),
     // end conflicting time
     new Meeting(
