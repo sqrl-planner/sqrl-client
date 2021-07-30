@@ -161,7 +161,8 @@ const PreferencesTimetable = () => {
                     >
                         <option value="default">Default</option>
                         <option value="monochrome">Monochrome</option>
-                        <option value="accessible">High contrast</option>
+                        <option value="rainbow">Rainbow</option>
+                        {/* <option value="accessible">High contrast</option> */}
                     </Select>
                 </FormControl>
 

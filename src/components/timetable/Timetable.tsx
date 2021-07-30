@@ -240,7 +240,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                             "var(--chakra-lineHeights-base)",
                                         transition:
                                             "all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)",
-                                        transitionDelay: "10ms",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}

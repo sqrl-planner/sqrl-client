@@ -17,10 +17,21 @@ interface AppData {
 export type Action =
     | { type: "ADD_COURSE"; payload: Course }
     | { type: "REMOVE_COURSE"; payload: string }
-    | { type: "ADD_LECTURE"; payload: { course: string; lecture: string } }
-    | { type: "ADD_TUTORIAL"; payload: { course: string; tutorial: string } }
-    | { type: "REMOVE_LECTURE"; payload: { course: string; lecture: string } }
-    | { type: "REMOVE_TUTORIAL"; payload: { course: string; tutorial: string } }
+    | { type: "ADD_LECTURE"; payload: { courseId: string; lecture: string } }
+    | {
+          type: "ADD_LECTURE_BY_COURSE_NAME"
+          payload: { courseName: string; lecture: string }
+      }
+    | { type: "ADD_TUTORIAL"; payload: { courseId: string; tutorial: string } }
+    | {
+          type: "ADD_TUTORIAL_BY_COURSE_NAME"
+          payload: { courseName: string; tutorial: string }
+      }
+    | { type: "REMOVE_LECTURE"; payload: { courseId: string; lecture: string } }
+    | {
+          type: "REMOVE_TUTORIAL"
+          payload: { courseId: string; tutorial: string }
+      }
 
 type Dispatch = (action: Action) => void
 
@@ -57,13 +68,36 @@ const AppContextReducer = (state: AppData, action: Action) => {
             break
         }
 
-        case "ADD_LECTURE": {
+        case "ADD_LECTURE_BY_COURSE_NAME": {
+            let courseId: string | null = null
+
+            const course = courses.find(
+                (course) => course.code === action.payload.courseName
+            )
+            if (!course) break
+
+            courseId = course.courseId
             newContext = {
                 ...state,
                 userMeetings: {
                     ...userMeetings,
-                    [action.payload.course]: {
-                        ...userMeetings[action.payload.course],
+                    [courseId]: {
+                        ...userMeetings[courseId],
+                        lecture: action.payload.lecture,
+                    },
+                },
+            }
+            break
+        }
+
+        case "ADD_LECTURE": {
+            const courseId = action.payload.courseId
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [courseId]: {
+                        ...userMeetings[courseId],
                         lecture: action.payload.lecture,
                     },
                 },
@@ -76,8 +110,30 @@ const AppContextReducer = (state: AppData, action: Action) => {
                 ...state,
                 userMeetings: {
                     ...userMeetings,
-                    [action.payload.course]: {
-                        ...userMeetings[action.payload.course],
+                    [action.payload.courseId]: {
+                        ...userMeetings[action.payload.courseId],
+                        tutorial: action.payload.tutorial,
+                    },
+                },
+            }
+            break
+        }
+
+        case "ADD_TUTORIAL_BY_COURSE_NAME": {
+            let courseId: string | null = null
+
+            const course = courses.find(
+                (course) => course.code === action.payload.courseName
+            )
+            if (!course) break
+
+            courseId = course.courseId
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [courseId]: {
+                        ...userMeetings[courseId],
                         tutorial: action.payload.tutorial,
                     },
                 },
@@ -90,8 +146,8 @@ const AppContextReducer = (state: AppData, action: Action) => {
                 ...state,
                 userMeetings: {
                     ...userMeetings,
-                    [action.payload.course]: {
-                        ...userMeetings[action.payload.course],
+                    [action.payload.courseId]: {
+                        ...userMeetings[action.payload.courseId],
                         lecture: "",
                     },
                 },
@@ -104,8 +160,8 @@ const AppContextReducer = (state: AppData, action: Action) => {
                 ...state,
                 userMeetings: {
                     ...userMeetings,
-                    [action.payload.course]: {
-                        ...userMeetings[action.payload.course],
+                    [action.payload.courseId]: {
+                        ...userMeetings[action.payload.courseId],
                         tutorial: "",
                     },
                 },

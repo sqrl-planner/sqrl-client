@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import Header from "./components/Header"
 import { Meeting } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
-import { courseOne, courseTwo, courseThree } from "./Course"
+import { courses as sampleCourse } from "./sampleCourses"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
 import { useAppContext } from "./SqrlContext"
@@ -37,33 +37,44 @@ const Sqrl = () => {
     const { colorMode } = useColorMode()
 
     useEffect(() => {
-        disptachAppContext({ type: "ADD_COURSE", payload: courseOne })
-        disptachAppContext({ type: "ADD_COURSE", payload: courseTwo })
-        disptachAppContext({ type: "ADD_COURSE", payload: courseThree })
-        console.log("dispatched")
+        sampleCourse.forEach((course) => {
+            disptachAppContext({ type: "ADD_COURSE", payload: course })
+        })
     }, [disptachAppContext])
 
     useEffect(() => {
         disptachAppContext({
-            type: "ADD_LECTURE",
-            payload: { course: "51272", lecture: "LEC-9901" },
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "CSC258H1", lecture: "LEC-0101" },
         })
         disptachAppContext({
-            type: "ADD_TUTORIAL",
-            payload: { course: "51272", tutorial: "TUT-0101" },
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "MAT237Y1", lecture: "LEC-0201" },
         })
         disptachAppContext({
-            type: "ADD_LECTURE",
-            payload: { course: "52579", lecture: "LEC-5101" },
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "CSC236H1", lecture: "LEC-0201" },
         })
         disptachAppContext({
-            type: "ADD_TUTORIAL",
-            payload: { course: "54578", tutorial: "TUT-5202" },
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "STA247H1", lecture: "LEC-0101" },
         })
-        // disptachAppContext({
-        //     type: "ADD_TUTORIAL",
-        //     payload: { course: "54578", tutorial: "TUT-0101" },
-        // })
+        disptachAppContext({
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "CSC207H1", lecture: "LEC-0301" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL_BY_COURSE_NAME",
+            payload: { courseName: "CSC207H1", tutorial: "TUT-0301" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL_BY_COURSE_NAME",
+            payload: { courseName: "MAT237Y1", tutorial: "TUT-0301" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL_BY_COURSE_NAME",
+            payload: { courseName: "STA247H1", tutorial: "TUT-5103" },
+        })
     }, [disptachAppContext])
 
     useEffect(() => {

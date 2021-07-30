@@ -7,7 +7,7 @@ import { createContext } from "react"
 // type scaleType = "compact" | "normal" | "tall"
 
 interface Preferences {
-    palette: "default" | "accessible" | "monochrome"
+    palette: "default" | "accessible" | "monochrome" | "rainbow"
     scale: number
     showTimeInMeeting: boolean
     showCourseSuffix: boolean
@@ -21,7 +21,10 @@ interface Preferences {
 }
 
 export type Action =
-    | { type: "SET_PALETTE"; payload: "default" | "accessible" | "monochrome" }
+    | {
+          type: "SET_PALETTE"
+          payload: "default" | "accessible" | "monochrome" | "rainbow"
+      }
     | { type: "SET_SCALE"; payload: number }
     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
     | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }

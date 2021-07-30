@@ -1,4 +1,4 @@
-import { Tooltip } from "@chakra-ui/react"
+import { chakra, Tooltip } from "@chakra-ui/react"
 import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
@@ -186,7 +186,9 @@ const MeetingComponent = ({
                         }
                     >
                         <MeetingCategory style={{ cursor: "default" }}>
-                            {categoryAbbreviations[meeting.category]}
+                            <chakra.span pr="0.2em">
+                                {categoryAbbreviations[meeting.category]}
+                            </chakra.span>
                             {meeting.section}
                         </MeetingCategory>
                     </Tooltip>

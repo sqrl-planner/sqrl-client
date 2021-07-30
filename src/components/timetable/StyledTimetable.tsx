@@ -247,13 +247,16 @@ const HSLGrayscale = (colours: string[]) =>
 const HSLDarken = (colours: string[]) =>
     colours.map((colour) =>
         // Colour(colour, "hsl").darken(0.75).saturate(1.2).toString()
-        Colour(colour, "hsl").darken(0.8).desaturate(0.6).toString()
+        Colour(colour, "hsl").darken(0.3).alpha(0.2).toString()
     )
+
+const HSLAlpha = (colours: string[], alpha: number = 0.5) =>
+    colours.map((colour) => Colour(colour, "hsl").alpha(alpha))
 
 const palettes = {
     default: [
         "hsl(0, 0%, 91.76470588235294%)",
-        "hsl(43.99999999999999, 92.59259259259261%, 84.11764705882354%)",
+        "hsl(0, 100%, 89.01960784313725%)",
         "hsl(205.16129032258067, 100%, 93.92156862745098%)",
         "hsl(127.24137931034483, 85.29411764705883%, 86.66666666666667%)",
         // "c9f7f7",
@@ -301,4 +304,17 @@ const palettes = {
         "hsl(167.5, 63.15789473684209%, 85.09803921568627%)",
         "hsl(264, 45.45454545454547%, 87.05882352941177%)",
     ]),
+    rainbow: HSLAlpha(
+        [
+            "#ffc6ff",
+            "#ffadad",
+            "#ffd6a5",
+            "#fdffb6",
+            "#caffbf",
+            "#9bf6ff",
+            "#a0c4ff",
+            "#bdb2ff",
+        ],
+        0.7
+    ),
 }
