@@ -214,16 +214,21 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         }% - 0.1rem)`,
                                         backgroundColor:
                                             highlightConflicts &&
-                                            !(
+                                            (!(
                                                 hoverCourseKey ===
                                                 meeting.courseKey
-                                            )
+                                            ) ||
+                                                !emphasizeOnHover)
                                                 ? "#c53030"
                                                 : "",
                                         // border: highlightConflicts
                                         //     ? "1px solid #c53030"
                                         //     : "",
-                                        color: highlightConflicts ? "#fff" : "",
+                                        color:
+                                            highlightConflicts ||
+                                            !emphasizeOnHover
+                                                ? "#fff"
+                                                : "",
                                         opacity:
                                             hoverCourseKey === meeting.courseKey
                                                 ? ""
@@ -243,7 +248,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     <MeetingComponent
                                         darkText={
                                             !(dark || highlightConflicts) ||
-                                            (highlightConflicts &&
+                                            (emphasizeOnHover &&
                                                 hoverCourseKey ===
                                                     meeting.courseKey &&
                                                 !dark)
