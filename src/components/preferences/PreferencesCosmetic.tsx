@@ -1,23 +1,22 @@
 import {
-    WarningTwoIcon,
     MoonIcon,
     TriangleDownIcon,
     TriangleUpIcon,
+    WarningTwoIcon,
 } from "@chakra-ui/icons"
 import {
+    Button,
     FormControl,
     FormLabel,
+    Grid,
     Icon,
     Select,
-    Grid,
-    Button,
     useColorMode,
 } from "@chakra-ui/react"
 import React, { Fragment } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
-import { FaClock, FaSun, FaPalette, FaTruckMoving } from "react-icons/fa"
+import { FaClock, FaPalette, FaSun, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
-import { Ri24HoursLine } from "react-icons/ri"
 import { ImSection } from "react-icons/im"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
@@ -43,7 +42,6 @@ const PreferencesTimetable = () => {
             showDelivery,
             palette,
             highlightConflicts,
-            twentyFour,
         },
         dispatch,
     } = usePreferences()

@@ -58,8 +58,12 @@ const Sqrl = () => {
         })
         disptachAppContext({
             type: "ADD_TUTORIAL",
-            payload: { course: "54578", tutorial: "TUT-0101" },
+            payload: { course: "54578", tutorial: "TUT-5202" },
         })
+        // disptachAppContext({
+        //     type: "ADD_TUTORIAL",
+        //     payload: { course: "54578", tutorial: "TUT-0101" },
+        // })
     }, [disptachAppContext])
 
     useEffect(() => {
@@ -72,12 +76,9 @@ const Sqrl = () => {
             <chakra.div
                 style={{
                     position: "relative",
-                    // backgroundColor: "black",
                     top: "4.5rem",
                     display: "flex",
                     minHeight: "calc(100vh - 4.5rem)",
-                    // width: "50vw",
-                    // overflow: "hidden",
                 }}
                 background={useColorModeValue("gray.75", "gray.800")}
             >

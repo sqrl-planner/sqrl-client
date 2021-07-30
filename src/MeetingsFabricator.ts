@@ -37,16 +37,9 @@ const MeetingsFabricator = (
             console.log(course.code, userCourse)
             if (course.courseId !== userCourse) continue
 
-            for (const [meetingType, meetingName] of Object.entries(
-                userMeeting
-            )) {
+            for (const [, meetingName] of Object.entries(userMeeting)) {
                 const meeting = course.meetings[meetingName]
-                // meetings.push(new Meeting(
-                // ))
-                for (const [, schedule] of Object.entries(
-                    course.meetings[meetingName].schedule
-                )) {
-                    // console.log(schedule)
+                for (const [, schedule] of Object.entries(meeting.schedule)) {
                     const day =
                         standardMeetingDays[
                             schedule.meetingDay as
@@ -57,20 +50,18 @@ const MeetingsFabricator = (
                                 | "FR"
                         ]
                     // TODO Handle case where meetingStartTime is null
-                    const startTime = schedule.meetingStartTime.split(":")
-                    const endTime = schedule.meetingEndTime.split(":")
+                    const startTime = schedule.meetingStartTime
+                        .split(":")
+                        .map((time) => parseInt(time))
+                    const endTime = schedule.meetingEndTime
+                        .split(":")
+                        .map((time) => parseInt(time))
 
                     meetings.push(
                         new Meeting(
                             day,
-                            timeToMinuteOffset(
-                                parseInt(startTime[0]),
-                                parseInt(startTime[1])
-                            ),
-                            timeToMinuteOffset(
-                                parseInt(endTime[0]),
-                                parseInt(endTime[1])
-                            ),
+                            timeToMinuteOffset(startTime[0], startTime[1]),
+                            timeToMinuteOffset(endTime[0], endTime[1]),
                             course.code,
                             index + 1,
                             standardMeetingDeliveryMode[
