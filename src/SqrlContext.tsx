@@ -1,162 +1,159 @@
-// import React from "react"
-// import { createContext } from "react"
+import React from "react"
+import { createContext } from "react"
+import { Course } from "./Course"
 
-// // https://kentcdodds.com/blog/how-to-use-react-context-effectively
+// https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
-// // type paletteType = "default" | "accessible" | "monochrome"
-// // type scaleType = "compact" | "normal" | "tall"
+export interface UserMeeting {
+    lecture: string
+    tutorial?: string
+}
 
-// interface Preferences {
-//     courses: Course
-//     scale: number
-//     showTimeInMeeting: boolean
-//     showCourseSuffix: boolean
-//     showCategory: boolean
-//     showDelivery: boolean
-//     start: number
-//     end: number
-//     highlightConflicts: boolean
-//     twentyFour: boolean
-//     emphasize: boolean
-// }
+interface AppData {
+    courses: Course[]
+    userMeetings: { [key: string]: UserMeeting }
+}
 
-// export type Action =
-//     | { type: "SET_PALETTE"; payload: "default" | "accessible" | "monochrome" }
-//     | { type: "SET_SCALE"; payload: number }
-//     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
-//     | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }
-//     | { type: "SET_SHOW_CATEGORY"; payload: boolean }
-//     | { type: "SET_SHOW_DELIVERY"; payload: boolean }
-//     | { type: "SET_START"; payload: number }
-//     | { type: "SET_END"; payload: number }
-//     | { type: "SET_HIGHLIGHT_CONFLICTS"; payload: boolean }
-//     | { type: "SET_TWENTY_FOUR"; payload: boolean }
-//     | { type: "SET_EMPHASIZE"; payload: boolean }
+export type Action =
+    | { type: "ADD_COURSE"; payload: Course }
+    | { type: "REMOVE_COURSE"; payload: string }
+    | { type: "ADD_LECTURE"; payload: { course: string; lecture: string } }
+    | { type: "ADD_TUTORIAL"; payload: { course: string; tutorial: string } }
+    | { type: "REMOVE_LECTURE"; payload: { course: string; lecture: string } }
+    | { type: "REMOVE_TUTORIAL"; payload: { course: string; tutorial: string } }
 
-// type Dispatch = (action: Action) => void
+type Dispatch = (action: Action) => void
 
-// const PreferencesContext = createContext<
-//     | {
-//           state: Preferences
-//           dispatch: Dispatch
-//       }
-//     | undefined
-// >(undefined)
+const AppContext = createContext<
+    | {
+          state: AppData
+          dispatch: Dispatch
+      }
+    | undefined
+>(undefined)
 
-// type PreferencesProviderProps = { children: React.ReactNode }
+type AppContextProviderProps = { children: React.ReactNode }
 
-// const preferencesReducer = (state: Preferences, action: Action) => {
-//     let newPreferences: Preferences
-//     switch (action.type) {
-//         case "SET_PALETTE": {
-//             newPreferences = { ...state, palette: action.payload }
-//             break
-//         }
+const AppContextReducer = (state: AppData, action: Action) => {
+    let newContext: AppData
+    const { courses, userMeetings } = state
 
-//         case "SET_SCALE": {
-//             newPreferences = { ...state, scale: action.payload }
-//             break
-//         }
+    switch (action.type) {
+        case "ADD_COURSE": {
+            newContext = {
+                ...state,
+                courses: [...courses, action.payload],
+            }
+            break
+        }
 
-//         case "SET_SHOW_TIME_IN_MEETING": {
-//             newPreferences = { ...state, showTimeInMeeting: action.payload }
-//             break
-//         }
+        case "REMOVE_COURSE": {
+            newContext = {
+                ...state,
+                courses: courses.filter(
+                    (course: Course) => course.courseId !== action.payload
+                ),
+            }
+            break
+        }
 
-//         case "SET_SHOW_COURSE_SUFFIX": {
-//             newPreferences = { ...state, showCourseSuffix: action.payload }
-//             break
-//         }
+        case "ADD_LECTURE": {
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [action.payload.course]: {
+                        ...userMeetings[action.payload.course],
+                        lecture: action.payload.lecture,
+                    },
+                },
+            }
+            break
+        }
 
-//         case "SET_SHOW_CATEGORY": {
-//             newPreferences = { ...state, showCategory: action.payload }
-//             break
-//         }
+        case "ADD_TUTORIAL": {
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [action.payload.course]: {
+                        ...userMeetings[action.payload.course],
+                        tutorial: action.payload.tutorial,
+                    },
+                },
+            }
+            break
+        }
 
-//         case "SET_SHOW_DELIVERY": {
-//             newPreferences = { ...state, showDelivery: action.payload }
-//             break
-//         }
+        case "REMOVE_LECTURE": {
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [action.payload.course]: {
+                        ...userMeetings[action.payload.course],
+                        lecture: "",
+                    },
+                },
+            }
+            break
+        }
 
-//         case "SET_START": {
-//             newPreferences = { ...state, start: action.payload }
-//             break
-//         }
+        case "REMOVE_TUTORIAL": {
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [action.payload.course]: {
+                        ...userMeetings[action.payload.course],
+                        tutorial: "",
+                    },
+                },
+            }
+            break
+        }
 
-//         case "SET_END": {
-//             newPreferences = { ...state, end: action.payload }
-//             break
-//         }
+        default: {
+            // @ts-expect-error
+            throw new Error(`Unhandled action type: ${action.type}`)
+        }
+    }
 
-//         case "SET_HIGHLIGHT_CONFLICTS": {
-//             newPreferences = { ...state, highlightConflicts: action.payload }
-//             break
-//         }
+    localStorage.setItem("appContext", JSON.stringify(newContext))
 
-//         case "SET_TWENTY_FOUR": {
-//             newPreferences = { ...state, twentyFour: action.payload }
-//             break
-//         }
+    return newContext
+}
 
-//         case "SET_EMPHASIZE": {
-//             newPreferences = { ...state, emphasize: action.payload }
-//             break
-//         }
+const AppContextProvider = ({ children }: AppContextProviderProps) => {
+    // const lsAppContext = localStorage.getItem("appContext")
+    let appContext: AppData
+    // if (lsAppContext) appContext = JSON.parse(lsAppContext) as AppData
+    // else {
+    appContext = {
+        courses: [],
+        userMeetings: {},
+    }
+    // }
 
-//         default: {
-//             // @ts-expect-error
-//             throw new Error(`Unhandled action type: ${action.type}`)
-//         }
-//     }
+    const [state, dispatch] = React.useReducer(AppContextReducer, appContext)
 
-//     localStorage.setItem("preferences", JSON.stringify(newPreferences))
+    // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
 
-//     return newPreferences
-// }
+    const value = { state, dispatch }
 
-// const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
-//     const lsPreferences = localStorage.getItem("preferences")
-//     let preferences: Preferences
-//     if (lsPreferences) preferences = JSON.parse(lsPreferences) as Preferences
-//     else {
-//         preferences = {
-//             palette: "default",
-//             scale: 40,
-//             showTimeInMeeting: false,
-//             showCourseSuffix: true,
-//             showCategory: true,
-//             showDelivery: false,
-//             start: 9,
-//             end: 22,
-//             highlightConflicts: true,
-//             twentyFour: true,
-//             emphasize: true,
-//         }
-//     }
+    return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+}
 
-//     const [state, dispatch] = React.useReducer(preferencesReducer, preferences)
+const useAppContext = () => {
+    const context = React.useContext(AppContext)
 
-//     // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
+    if (context === undefined) {
+        throw new Error(
+            "useAppContext must be used within a AppContextProvider"
+        )
+    }
 
-//     const value = { state, dispatch }
+    return context
+}
 
-//     return (
-//         <PreferencesContext.Provider value={value}>
-//             {children}
-//         </PreferencesContext.Provider>
-//     )
-// }
-
-// const usePreferences = () => {
-//     const context = React.useContext(PreferencesContext)
-
-//     if (context === undefined) {
-//         throw new Error(
-//             "usePreferences must be used within a PreferencesProvider"
-//         )
-//     }
-
-//     return context
-// }
-
-// export { PreferencesProvider, usePreferences }
+export { AppContextProvider, useAppContext }

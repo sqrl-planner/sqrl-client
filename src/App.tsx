@@ -3,6 +3,7 @@ import * as React from "react"
 import "./global.css"
 import { PreferencesProvider } from "./PreferencesContext"
 import Sqrl from "./Sqrl"
+import { AppContextProvider } from "./SqrlContext"
 
 const theme = extendTheme({
     fonts: {
@@ -39,7 +40,9 @@ export default theme
 export const App = () => (
     <ChakraProvider theme={theme}>
         <PreferencesProvider>
-            <Sqrl />
+            <AppContextProvider>
+                <Sqrl />
+            </AppContextProvider>
         </PreferencesProvider>
     </ChakraProvider>
 )

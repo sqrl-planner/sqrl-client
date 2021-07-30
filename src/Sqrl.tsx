@@ -1,10 +1,13 @@
 import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import Header from "./components/Header"
-import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
+import { Meeting } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
+import { courseOne, courseTwo, courseThree } from "./Course"
+import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
-import { Day, timeToMinuteOffset, WEEK_DAYS } from "./utils/time"
+import { useAppContext } from "./SqrlContext"
+import { timeToMinuteOffset } from "./utils/time"
 
 const Sqrl = () => {
     const {
@@ -19,13 +22,49 @@ const Sqrl = () => {
         },
     } = usePreferences()
 
+    const {
+        state: { courses, userMeetings },
+        dispatch: disptachAppContext,
+    } = useAppContext()
+
     const [timetableSize, setTimetableSize] = useState(40)
+    const [meetings, setMeetings] = useState<Array<Meeting>>([])
 
     useEffect(() => {
         setTimetableSize(scale)
     }, [timetableSize, setTimetableSize, scale])
 
     const { colorMode } = useColorMode()
+
+    useEffect(() => {
+        disptachAppContext({ type: "ADD_COURSE", payload: courseOne })
+        disptachAppContext({ type: "ADD_COURSE", payload: courseTwo })
+        disptachAppContext({ type: "ADD_COURSE", payload: courseThree })
+        console.log("dispatched")
+    }, [disptachAppContext])
+
+    useEffect(() => {
+        disptachAppContext({
+            type: "ADD_LECTURE",
+            payload: { course: "51272", lecture: "LEC-9901" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL",
+            payload: { course: "51272", tutorial: "TUT-0101" },
+        })
+        disptachAppContext({
+            type: "ADD_LECTURE",
+            payload: { course: "52579", lecture: "LEC-5101" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL",
+            payload: { course: "54578", tutorial: "TUT-0101" },
+        })
+    }, [disptachAppContext])
+
+    useEffect(() => {
+        setMeetings(MeetingsFabricator(courses, userMeetings))
+    }, [setMeetings, courses, userMeetings])
 
     return (
         <div>
@@ -43,7 +82,7 @@ const Sqrl = () => {
                 background={useColorModeValue("gray.75", "gray.800")}
             >
                 <Timetable
-                    meetings={EXAMPLE_MEETINGS}
+                    meetings={meetings}
                     scale={timetableSize}
                     minTime={timeToMinuteOffset(start)}
                     maxTime={timeToMinuteOffset(end)}
