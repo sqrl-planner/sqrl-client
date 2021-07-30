@@ -153,11 +153,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 palette={palette}
                                 dark={dark}
                                 style={{
-                                    filter:
+                                    opacity:
                                         hoverCourseKey === meeting.courseKey
                                             ? ""
                                             : hoverCourseKey
-                                            ? "brightness(20%) saturate(50%)"
+                                            ? "0.6"
                                             : "",
                                 }}
                                 onMouseEnter={() =>
@@ -214,16 +214,16 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         //     ? "1px solid #c53030"
                                         //     : "",
                                         color: highlightConflicts ? "#fff" : "",
-                                        filter:
+                                        opacity:
                                             hoverCourseKey === meeting.courseKey
                                                 ? ""
                                                 : hoverCourseKey
-                                                ? "brightness(20%) saturate(50%)"
+                                                ? "0.6"
                                                 : "",
                                         lineHeight:
                                             "var(--chakra-lineHeights-base)",
                                         transition:
-                                            "all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)",
+                                            "all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}
