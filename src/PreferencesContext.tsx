@@ -118,7 +118,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
             showTimeInMeeting: false,
             showCourseSuffix: true,
             showCategory: true,
-            showDelivery: true,
+            showDelivery: false,
             start: 9,
             end: 22,
             highlightConflicts: true,

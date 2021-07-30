@@ -1,4 +1,5 @@
 import { Tooltip } from "@chakra-ui/react"
+import { motion } from "framer-motion"
 import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
@@ -47,9 +48,11 @@ const MeetingTitle = styled.div`
 `
 
 const MeetingSuffix = styled.span<{ darkText: boolean }>`
-    color: ${({ darkText }) => {
+    /* color: ${({ darkText }) => {
         return darkText ? `#545454` : `#eee`
-    }};
+    }}; */
+    opacity: 0.6;
+    /* opacity: 0; */
     font-size: 0.8em;
     font-weight: 500;
     transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -71,6 +74,7 @@ const MeetingTimes = styled.div`
     position: relative;
     top: 0.1rem;
     font-size: 0.9em;
+    opacity: 0.8;
     transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
@@ -148,7 +152,7 @@ const MeetingComponent = ({
                 {/* </span> */}
                 <MeetingSuffix
                     style={{
-                        opacity: showCourseSuffix ? 1 : 0,
+                        opacity: showCourseSuffix ? "" : 0,
                         display: showCourseSuffix ? "initial" : "none",
                     }}
                     darkText={darkText}
@@ -158,7 +162,7 @@ const MeetingComponent = ({
             </MeetingTitle>
             <MeetingTimes
                 style={{
-                    opacity: showTimeInMeeting ? 1 : 0,
+                    opacity: showTimeInMeeting ? "" : 0,
                 }}
             >
                 {startTime + "\u200b"}-{"\u200b" + endTime}

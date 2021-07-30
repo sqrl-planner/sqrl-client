@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react"
-import React, { FunctionComponent } from "react"
+import React, { FunctionComponent, useState } from "react"
 import {
     Day,
     minuteOffsetToTime,
@@ -80,6 +80,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     showTime = true,
     days = WEEK_DAYS,
 }) => {
+    const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
+
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
     const meetingsByDay = new Map()
@@ -150,6 +152,18 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 courseKey={meeting.courseKey}
                                 palette={palette}
                                 dark={dark}
+                                style={{
+                                    filter:
+                                        hoverCourseKey === meeting.courseKey
+                                            ? ""
+                                            : hoverCourseKey
+                                            ? "brightness(20%) saturate(50%)"
+                                            : "",
+                                }}
+                                onMouseEnter={() =>
+                                    setHoverCourseKey(meeting.courseKey)
+                                }
+                                onMouseLeave={() => setHoverCourseKey(null)}
                             >
                                 <MeetingComponent
                                     darkText={!dark}
@@ -174,6 +188,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                             items.push(
                                 <MeetingTime
                                     key={index}
+                                    onMouseEnter={() =>
+                                        setHoverCourseKey(meeting.courseKey)
+                                    }
+                                    onMouseLeave={() => setHoverCourseKey(null)}
                                     style={{
                                         position: "absolute",
                                         width: `calc(${percent}% - 0.4em)`,
@@ -188,7 +206,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 (groupEndTime -
                                                     groupStartTime)) *
                                             100
-                                        }% - 0.2rem)`,
+                                        }% - 0.1rem)`,
                                         backgroundColor: highlightConflicts
                                             ? "#c53030"
                                             : "",
@@ -196,6 +214,12 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         //     ? "1px solid #c53030"
                                         //     : "",
                                         color: highlightConflicts ? "#fff" : "",
+                                        filter:
+                                            hoverCourseKey === meeting.courseKey
+                                                ? ""
+                                                : hoverCourseKey
+                                                ? "brightness(20%) saturate(50%)"
+                                                : "",
                                         lineHeight:
                                             "var(--chakra-lineHeights-base)",
                                         transition:

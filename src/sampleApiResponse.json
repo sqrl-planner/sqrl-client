@@ -1,0 +1,270 @@
+{
+	"BMS100H1-F-20219": {
+		"courseId": "51272",
+		"org": "SMC",
+		"orgName": "St. Michael's College (SMC) (BMS) (CHC) (CLT) (JCA) (MST)",
+		"courseTitle": "Introduction to Book & Media Studies",
+		"code": "BMS100H1",
+		"courseDescription": "<p>Introduces the academic study of media in all its forms, including books and print media as well as modern electronic and digital media. Provides an overview of key theories of media, culture, and society and relates them to contemporary issues, enabling students to apply different critical approaches to their everyday experiences with media.<\/p>",
+		"prerequisite": "",
+		"corequisite": "",
+		"exclusion": "SMC219Y1",
+		"recommendedPreparation": "",
+		"section": "F",
+		"session": "20219",
+		"webTimetableInstructions": "",
+		"deliveryInstructions": "<p>Lectures and tutorials will be delivered online per the meeting schedule. Students are expected to attend online lectures and participate in active learning activities. Lectures will be also recorded and shared on Quercus for students to review on their own time. Slides and other learning materials, such as weekly readings and case studies will be posted on Quercus.<\/p>",
+		"breadthCategories": "Creative and Cultural Representations (1)",
+		"distributionCategories": "Humanities",
+		"meetings": {
+			"LEC-9901": {
+				"schedule": {
+					"WE-293917": {
+						"meetingDay": "WE",
+						"meetingStartTime": "10:00",
+						"meetingEndTime": "12:00",
+						"meetingScheduleId": "293917",
+						"assignedRoom1": "",
+						"assignedRoom2": null
+					}
+				},
+				"instructors": {
+					"7382610": {
+						"instructorId": "7382610",
+						"firstName": "P",
+						"lastName": "Granata"
+					}
+				},
+				"meetingId": "200095",
+				"teachingMethod": "LEC",
+				"sectionNumber": "9901",
+				"subtitle": "",
+				"cancel": "",
+				"waitlist": "Y",
+				"deliveryMode": "ONLSYNC",
+				"online": "Online - Synchronous (See Delivery Instructions.)",
+				"enrollmentCapacity": "100",
+				"actualEnrolment": "100",
+				"actualWaitlist": "116",
+				"enrollmentIndicator": null,
+				"meetingStatusNotes": "",
+				"enrollmentControls": []
+			},
+			"TUT-0101": {
+				"schedule": {
+					"TH-273101": {
+						"meetingDay": "TH",
+						"meetingStartTime": "12:00",
+						"meetingEndTime": "13:00",
+						"meetingScheduleId": "273101",
+						"assignedRoom1": "",
+						"assignedRoom2": null
+					}
+				},
+				"instructors": [],
+				"meetingId": "200583",
+				"teachingMethod": "TUT",
+				"sectionNumber": "0101",
+				"subtitle": "",
+				"cancel": "",
+				"waitlist": "N",
+				"deliveryMode": "ONLSYNC",
+				"online": "Online - Synchronous (See Delivery Instructions.)",
+				"enrollmentCapacity": "25",
+				"actualEnrolment": "25",
+				"actualWaitlist": "0",
+				"enrollmentIndicator": null,
+				"meetingStatusNotes": null,
+				"enrollmentControls": []
+			},
+			"TUT-0102": {
+				"schedule": {
+					"TH-295323": {
+						"meetingDay": "TH",
+						"meetingStartTime": "12:00",
+						"meetingEndTime": "13:00",
+						"meetingScheduleId": "295323",
+						"assignedRoom1": "",
+						"assignedRoom2": null
+					}
+				},
+				"instructors": [],
+				"meetingId": "200584",
+				"teachingMethod": "TUT",
+				"sectionNumber": "0102",
+				"subtitle": "",
+				"cancel": "",
+				"waitlist": "N",
+				"deliveryMode": "ONLSYNC",
+				"online": "Online - Synchronous (See Delivery Instructions.)",
+				"enrollmentCapacity": "25",
+				"actualEnrolment": "25",
+				"actualWaitlist": "0",
+				"enrollmentIndicator": null,
+				"meetingStatusNotes": "",
+				"enrollmentControls": []
+			},
+			"TUT-0103": {
+				"schedule": {
+					"TH-295324": {
+						"meetingDay": "TH",
+						"meetingStartTime": "12:00",
+						"meetingEndTime": "13:00",
+						"meetingScheduleId": "295324",
+						"assignedRoom1": "",
+						"assignedRoom2": null
+					}
+				},
+				"instructors": [],
+				"meetingId": "200585",
+				"teachingMethod": "TUT",
+				"sectionNumber": "0103",
+				"subtitle": "",
+				"cancel": "",
+				"waitlist": "N",
+				"deliveryMode": "ONLSYNC",
+				"online": "Online - Synchronous (See Delivery Instructions.)",
+				"enrollmentCapacity": "25",
+				"actualEnrolment": "24",
+				"actualWaitlist": "0",
+				"enrollmentIndicator": null,
+				"meetingStatusNotes": "",
+				"enrollmentControls": []
+			},
+			"TUT-0104": {
+				"schedule": {
+					"TH-295325": {
+						"meetingDay": "TH",
+						"meetingStartTime": "12:00",
+						"meetingEndTime": "13:00",
+						"meetingScheduleId": "295325",
+						"assignedRoom1": "",
+						"assignedRoom2": null
+					}
+				},
+				"instructors": [],
+				"meetingId": "200586",
+				"teachingMethod": "TUT",
+				"sectionNumber": "0104",
+				"subtitle": "",
+				"cancel": "",
+				"waitlist": "N",
+				"deliveryMode": "ONLSYNC",
+				"online": "Online - Synchronous (See Delivery Instructions.)",
+				"enrollmentCapacity": "25",
+				"actualEnrolment": "18",
+				"actualWaitlist": "0",
+				"enrollmentIndicator": null,
+				"meetingStatusNotes": "",
+				"enrollmentControls": []
+			}
+		}
+	},
+	"PSY497H1-F-20219": {
+		"courseId": "54897",
+		"org": "PSY",
+		"orgName": "Psychology (PSY) (JLP)",
+		"courseTitle": "Seminar in Biological Timing",
+		"code": "PSY497H1",
+		"courseDescription": "<p>This is an advanced seminar course that examines the mechanisms and significance of timing and timekeeping at several levels of organization in living organisms. Topics include the roles of clocks and oscillations in physiology and behaviour, and the importance of timing in sensorimotor integration, memory, decision making, and health. Course capacity is limited to 20 students and enrolment priority is given to PSY Specialists and Research Specialists.<\/p>",
+		"prerequisite": "PSY202H1\/ECO220Y1\/SOC252H1\/STA221H1\/PSY202H5\/STA221H5\/PSYC08H3\/STAB27H3\/STAC32H3, and PSY290H1\/PSY290H5\/PSYB64H3\/HMB200H1\/PSL300H1",
+		"corequisite": "",
+		"exclusion": "",
+		"recommendedPreparation": "PSY397H1",
+		"section": "F",
+		"session": "20219",
+		"webTimetableInstructions": "",
+		"deliveryInstructions": "",
+		"breadthCategories": "Living Things and Their Environment (4)",
+		"distributionCategories": "Science",
+		"meetings": {
+			"LEC-0101": {
+				"schedule": {
+					"WE-279694": {
+						"meetingDay": "WE",
+						"meetingStartTime": "12:00",
+						"meetingEndTime": "14:00",
+						"meetingScheduleId": "279694",
+						"assignedRoom1": "",
+						"assignedRoom2": null
+					}
+				},
+				"instructors": {
+					"7383762": {
+						"instructorId": "7383762",
+						"firstName": "M",
+						"lastName": "Ralph"
+					}
+				},
+				"meetingId": "198811",
+				"teachingMethod": "LEC",
+				"sectionNumber": "0101",
+				"subtitle": "The Temporal Dimension in Biology and Behaviour",
+				"cancel": "",
+				"waitlist": "Y",
+				"deliveryMode": "CLASS",
+				"online": "In Person",
+				"enrollmentCapacity": "20",
+				"actualEnrolment": "9",
+				"actualWaitlist": "0",
+				"enrollmentIndicator": "P",
+				"meetingStatusNotes": null,
+				"enrollmentControls": [{
+						"postId": "287",
+						"postCode": "ASSPE1160",
+						"postName": "SP PSYCHOLOGY",
+						"subjectId": null,
+						"subjectCode": null,
+						"subjectName": null,
+						"designationId": null,
+						"designationCode": null,
+						"designationName": null,
+						"yearOfStudy": "*",
+						"typeOfProgramId": null,
+						"typeOfProgramCode": null,
+						"typeOfProgramName": null,
+						"primaryOrgId": null,
+						"primaryOrgCode": null,
+						"primaryOrgName": null,
+						"secondaryOrgId": null,
+						"secondaryOrgCode": null,
+						"secondaryOrgName": null,
+						"assocOrgId": null,
+						"assocOrgCode": null,
+						"assocOrgName": null,
+						"adminOrgId": null,
+						"adminOrgCode": null,
+						"adminOrgName": null
+					},
+					{
+						"postId": "353",
+						"postCode": "ASSPE1958",
+						"postName": "SP PSYCHOLOGY RESEARCH(THESIS)",
+						"subjectId": null,
+						"subjectCode": null,
+						"subjectName": null,
+						"designationId": null,
+						"designationCode": null,
+						"designationName": null,
+						"yearOfStudy": "*",
+						"typeOfProgramId": null,
+						"typeOfProgramCode": null,
+						"typeOfProgramName": null,
+						"primaryOrgId": null,
+						"primaryOrgCode": null,
+						"primaryOrgName": null,
+						"secondaryOrgId": null,
+						"secondaryOrgCode": null,
+						"secondaryOrgName": null,
+						"assocOrgId": null,
+						"assocOrgCode": null,
+						"assocOrgName": null,
+						"adminOrgId": null,
+						"adminOrgCode": null,
+						"adminOrgName": null
+					}
+				]
+			}
+		}
+	}
+}
