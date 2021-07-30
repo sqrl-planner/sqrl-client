@@ -53,7 +53,8 @@ export const StyledTr = styled.tr<{
         transform: scale(0.8);
         transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
         &:hover {
-            color: rgba(0, 0, 0, 0.6);
+            color: ${({ dark }) =>
+                dark ? `rgba(230, 230, 230, 0.6)` : `rgba(0,0,0,0.6)`};
         }
         &::after {
             content: "-";

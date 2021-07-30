@@ -22,7 +22,8 @@ import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import PreferencesSection from "./PreferencesSection"
-import PreferencesTimetable from "./PreferencesTimetable"
+import PreferencesCosmetic from "./PreferencesCosmetic"
+import PreferencesApplication from "./PreferencesApplication"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;
@@ -101,58 +102,10 @@ const PreferencesDrawer = (props: {
                         </TabList>
                         <TabPanels position="relative" top="10" zIndex="0">
                             <TabPanel>
-                                <PreferencesTimetable />
+                                <PreferencesCosmetic />
                             </TabPanel>
                             <TabPanel>
-                                <PreferencesSection>
-                                    {/* <PreferencesToggle
-                                        isChecked={true}
-                                        onToggle={() => {
-                                            alert("toggled!")
-                                        }}
-                                        iconProps={{
-                                            as: BiArrowFromRight,
-                                            transform:
-                                                "rotate(180deg) scale(1.2)",
-                                        }}
-                                        helperText="Show course credit designator (Y1, H1, H5, etc.)"
-                                    >
-                                        Course suffix
-                                    </PreferencesToggle> */}
-                                    <FormControl>
-                                        <Flex
-                                            alignItems="center"
-                                            width="100%"
-                                            justifyContent="space-between"
-                                        >
-                                            <Button
-                                                onClick={() => {
-                                                    toast({
-                                                        title: "Toasted!",
-                                                        status: "success",
-                                                        duration: 1000,
-                                                    })
-                                                }}
-                                                bg="green.200"
-                                            >
-                                                Toast success
-                                            </Button>
-
-                                            <Button
-                                                onClick={() => {
-                                                    toast({
-                                                        title: "Toasted!",
-                                                        status: "error",
-                                                        duration: 1000,
-                                                    })
-                                                }}
-                                                bg="red.200"
-                                            >
-                                                Toast error
-                                            </Button>
-                                        </Flex>
-                                    </FormControl>
-                                </PreferencesSection>
+                                <PreferencesApplication />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

@@ -17,6 +17,7 @@ interface Preferences {
     end: number
     highlightConflicts: boolean
     twentyFour: boolean
+    emphasize: boolean
 }
 
 export type Action =
@@ -30,6 +31,7 @@ export type Action =
     | { type: "SET_END"; payload: number }
     | { type: "SET_HIGHLIGHT_CONFLICTS"; payload: boolean }
     | { type: "SET_TWENTY_FOUR"; payload: boolean }
+    | { type: "SET_EMPHASIZE"; payload: boolean }
 
 type Dispatch = (action: Action) => void
 
@@ -96,6 +98,11 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             break
         }
 
+        case "SET_EMPHASIZE": {
+            newPreferences = { ...state, emphasize: action.payload }
+            break
+        }
+
         default: {
             // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -123,6 +130,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
             end: 22,
             highlightConflicts: true,
             twentyFour: true,
+            emphasize: true,
         }
     }
 

@@ -115,15 +115,6 @@ const PreferencesTimetable = () => {
                 >
                     Highlight conflicts
                 </PreferencesToggle>
-                <PreferencesToggle
-                    isChecked={twentyFour}
-                    actionType="SET_TWENTY_FOUR"
-                    iconProps={{
-                        as: Ri24HoursLine,
-                    }}
-                >
-                    24-hour time
-                </PreferencesToggle>
             </PreferencesSection>
 
             <PreferencesSection>

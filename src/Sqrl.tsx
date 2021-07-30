@@ -8,7 +8,15 @@ import { timeToMinuteOffset } from "./utils/time"
 
 const Sqrl = () => {
     const {
-        state: { scale, start, end, palette, highlightConflicts, twentyFour },
+        state: {
+            scale,
+            start,
+            end,
+            palette,
+            highlightConflicts,
+            twentyFour,
+            emphasize,
+        },
     } = usePreferences()
 
     const [timetableSize, setTimetableSize] = useState(40)
@@ -43,6 +51,7 @@ const Sqrl = () => {
                     highlightConflicts={highlightConflicts}
                     twentyFour={twentyFour}
                     dark={colorMode === "dark"}
+                    emphasizeOnHover={emphasize}
                 />
             </chakra.div>
         </div>

@@ -62,6 +62,10 @@ type TimetableProps = {
      */
     showTime?: boolean
     /**
+     * Emphasize on hover
+     */
+    emphasizeOnHover?: boolean
+    /**
      * The days of the week to include on the timetable.
      */
     days?: Day[]
@@ -78,6 +82,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     twentyFour = true,
     dark = false,
     showTime = true,
+    emphasizeOnHover = true,
+
     days = WEEK_DAYS,
 }) => {
     const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
@@ -156,7 +162,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     opacity:
                                         hoverCourseKey === meeting.courseKey
                                             ? ""
-                                            : hoverCourseKey
+                                            : hoverCourseKey && emphasizeOnHover
                                             ? "0.6"
                                             : "",
                                 }}
@@ -217,7 +223,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         opacity:
                                             hoverCourseKey === meeting.courseKey
                                                 ? ""
-                                                : hoverCourseKey
+                                                : hoverCourseKey &&
+                                                  emphasizeOnHover
                                                 ? "0.6"
                                                 : "",
                                         lineHeight:
