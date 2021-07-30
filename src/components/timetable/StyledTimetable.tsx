@@ -48,10 +48,16 @@ export const StyledTr = styled.tr<{
 }>`
     & .time {
         text-align: right;
-        color: transparent;
+        color: rgba(0, 0, 0, 0);
         font-size: 1.4em;
+        transform: scale(0.8);
+        transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        &:hover {
+            color: rgba(0, 0, 0, 0.6);
+        }
         &::after {
             content: "-";
+            transform: scale(1);
             color: ${({ dark }) =>
                 dark ? `rgba(255,255,255, 0.2)` : `rgba(0, 0, 0, 0.2)`};
         }
@@ -87,6 +93,7 @@ export const StyledTr = styled.tr<{
         position: relative;
 
         .time {
+            transform: scale(1);
             color: ${({ dark }) => (dark ? `#dcdcdc` : `#333`)};
             font-weight: 500;
 
