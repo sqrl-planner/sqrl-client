@@ -83,7 +83,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     dark = false,
     showTime = true,
     emphasizeOnHover = true,
-
     days = WEEK_DAYS,
 }) => {
     const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
@@ -213,9 +212,14 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                     groupStartTime)) *
                                             100
                                         }% - 0.1rem)`,
-                                        backgroundColor: highlightConflicts
-                                            ? "#c53030"
-                                            : "",
+                                        backgroundColor:
+                                            highlightConflicts &&
+                                            !(
+                                                hoverCourseKey ===
+                                                meeting.courseKey
+                                            )
+                                                ? "#c53030"
+                                                : "",
                                         // border: highlightConflicts
                                         //     ? "1px solid #c53030"
                                         //     : "",
@@ -237,7 +241,13 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     dark={dark}
                                 >
                                     <MeetingComponent
-                                        darkText={!(dark || highlightConflicts)}
+                                        darkText={
+                                            !(dark || highlightConflicts) ||
+                                            (highlightConflicts &&
+                                                hoverCourseKey ===
+                                                    meeting.courseKey &&
+                                                !dark)
+                                        }
                                         meeting={meeting}
                                         twentyFour={twentyFour}
                                     />

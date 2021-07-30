@@ -4,7 +4,7 @@ import Header from "./components/Header"
 import { EXAMPLE_MEETINGS } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
 import { usePreferences } from "./PreferencesContext"
-import { timeToMinuteOffset } from "./utils/time"
+import { Day, timeToMinuteOffset, WEEK_DAYS } from "./utils/time"
 
 const Sqrl = () => {
     const {

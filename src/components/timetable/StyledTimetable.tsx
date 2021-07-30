@@ -16,6 +16,7 @@ export const StyledTimetable = styled.table`
     margin: 1rem;
     margin-left: 0;
     padding: 0;
+
     border-collapse: collapse;
     @media print {
         width: 100vw;
