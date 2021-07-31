@@ -211,7 +211,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 (groupEndTime -
                                                     groupStartTime)) *
                                             100
-                                        }% - 0.1rem)`,
+                                        }% + 0.1rem)`,
                                         backgroundColor:
                                             highlightConflicts &&
                                             (!(
