@@ -190,8 +190,8 @@ const PreferencesApplication = () => {
                     </FormLabel>
                     <PreferencesShowSections />
                     <FormHelperText mt={4}>
-                        Showing a single semester will also limit search to that
-                        semester.
+                        Showing a single semester will limit search to yearly
+                        and that semester.
                     </FormHelperText>
                 </FormControl>
             </PreferencesSection>

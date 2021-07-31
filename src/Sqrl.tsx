@@ -4,6 +4,7 @@ import {
     Heading,
     useColorMode,
     useColorModeValue,
+    useDisclosure,
 } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import Header from "./components/Header"
@@ -15,6 +16,7 @@ import { usePreferences } from "./PreferencesContext"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
 import { HoverContextProvider } from "./HoverContext"
+import DisclaimerModal from "./components/DisclaimerModal"
 
 const Sqrl = () => {
     const {
@@ -38,6 +40,9 @@ const Sqrl = () => {
     const [timetableSize, setTimetableSize] = useState(40)
     const [firstMeetings, setFirstMeetings] = useState<Array<Meeting>>([])
     const [secondMeetings, setSecondMeetings] = useState<Array<Meeting>>([])
+    const [disclaimed, setDisclaimed] = useState<boolean | null>(null)
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     useEffect(() => {
         setTimetableSize(scale)
@@ -115,8 +120,28 @@ const Sqrl = () => {
         setSecondMeetings(MeetingsFabricator(courses, userMeetings, "S"))
     }, [setFirstMeetings, setSecondMeetings, courses, userMeetings])
 
+    useEffect(() => {
+        const lsDisclaimed = localStorage.getItem("disclaimed")
+
+        if (lsDisclaimed) {
+            setDisclaimed(JSON.parse(lsDisclaimed) as boolean)
+        }
+    }, [disclaimed, setDisclaimed])
+
+    useEffect(() => {
+        if (!disclaimed) onOpen()
+        if (disclaimed) onClose()
+    }, [disclaimed, onOpen, onClose])
+
     return (
         <div>
+            <DisclaimerModal
+                disclosure={{ isOpen, onOpen, onClose }}
+                ModalProps={{
+                    isOpen,
+                    onClose,
+                }}
+            />
             <Header />
             <chakra.div
                 style={{
