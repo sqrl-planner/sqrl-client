@@ -194,8 +194,8 @@ const PreferencesApplication = () => {
                     </FormLabel>
                     <PreferencesShowSections />
                     <FormHelperText mt={4}>
-                        Showing a single semester will limit search to yearly
-                        and that semester.
+                        Showing a single semester will limit search to full
+                        section courses and courses in that semester.
                     </FormHelperText>
                 </FormControl>
             </PreferencesSection>
@@ -210,7 +210,7 @@ const PreferencesApplication = () => {
                         window.matchMedia("(hover: none)").matches
                             ? "tap"
                             : "hover"
-                    }`}
+                    }.`}
                 >
                     Emphasize on{" "}
                     {window.matchMedia("(hover: none)").matches

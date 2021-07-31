@@ -62,7 +62,7 @@ const PreferencesTimetable = () => {
                         as: BiArrowFromRight,
                         transform: "rotate(180deg) scale(1.2)",
                     }}
-                    helperText="Show course credit designator (Y1, H1, H5, etc.)"
+                    helperText="Show course credit designator (Y1, H1, H5, etc.)."
                 >
                     Course suffix
                 </PreferencesToggle>
@@ -72,7 +72,7 @@ const PreferencesTimetable = () => {
                     iconProps={{
                         as: FaTruckMoving,
                     }}
-                    helperText="Show medium of delivery (OS, OA, IP)"
+                    helperText="Show medium of delivery (OS, OA, IP)."
                 >
                     Delivery method
                 </PreferencesToggle>
@@ -83,7 +83,7 @@ const PreferencesTimetable = () => {
                     iconProps={{
                         as: ImSection,
                     }}
-                    helperText="Show meeting type (TUT, LEC)"
+                    helperText="Show meeting type (TUT, LEC)."
                 >
                     Meeting category
                 </PreferencesToggle>
