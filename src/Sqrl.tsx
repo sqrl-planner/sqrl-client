@@ -156,8 +156,16 @@ const Sqrl = () => {
             >
                 <HoverContextProvider>
                     {(showSemester === "first" || showSemester === "both") && (
-                        <Flex flexDirection="column" alignItems="center">
-                            <Heading as="h3" size="md" my={2} mt={4}>
+                        <Flex position="relative">
+                            <Heading
+                                as="h3"
+                                size="sm"
+                                color="blue.600"
+                                fontWeight="800"
+                                position="absolute"
+                                top={3}
+                                left={3}
+                            >
                                 1<sup>st</sup>
                             </Heading>
                             <Timetable
@@ -174,8 +182,16 @@ const Sqrl = () => {
                         </Flex>
                     )}
                     {(showSemester === "second" || showSemester === "both") && (
-                        <Flex flexDirection="column" alignItems="center">
-                            <Heading as="h3" size="md" my={2} mt={4}>
+                        <Flex position="relative">
+                            <Heading
+                                as="h3"
+                                size="sm"
+                                color="green.600"
+                                fontWeight="800"
+                                position="absolute"
+                                top={3}
+                                left={3}
+                            >
                                 2<sup>nd</sup>
                             </Heading>
                             <Timetable
