@@ -8,7 +8,7 @@ import {
     Select,
     Tooltip,
 } from "@chakra-ui/react"
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { MdHighlight } from "react-icons/md"
 import { Ri24HoursLine } from "react-icons/ri"
 import styled from "styled-components"
@@ -29,25 +29,42 @@ const IconWrapper = styled.div`
 
 const PreferencesApplication = () => {
     const {
-        state: {
-            scale,
-            start,
-            end,
-            showTimeInMeeting,
-            showCourseSuffix,
-            showCategory,
-            showDelivery,
-            palette,
-            highlightConflicts,
-            twentyFour,
-            emphasize,
-        },
+        state: { start, end, twentyFour, emphasize },
         dispatch,
     } = usePreferences()
 
     const {
         state: { courses, userMeetings },
     } = useAppContext()
+
+    const [meetingGroup, setMeetingGroup] = useState<MeetingGroup | null>(null)
+    const [times, setTimes] = useState<{ start: number; end: number } | null>(
+        null
+    )
+
+    useEffect(() => {
+        const meetings = new MeetingGroup(
+            MeetingsFabricator(courses, userMeetings)
+        )
+        setMeetingGroup(meetings)
+    }, [setMeetingGroup, courses, userMeetings])
+
+    useEffect(() => {
+        if (!meetingGroup) return
+
+        setTimes({
+            start: parseInt(
+                minuteOffsetToTime(meetingGroup.getMinStartTime(), true).split(
+                    ":"
+                )[0]
+            ),
+            end: parseInt(
+                minuteOffsetToTime(meetingGroup.getMaxEndTime(), true).split(
+                    ":"
+                )[0]
+            ),
+        })
+    }, [meetingGroup])
 
     return (
         <Fragment>
@@ -73,7 +90,7 @@ const PreferencesApplication = () => {
                             id="start"
                             value={start}
                             onChange={(e) => {
-                                const payload = e.target.value as any
+                                const payload = parseInt(e.target.value as any)
 
                                 dispatch({
                                     type: "SET_START",
@@ -102,7 +119,7 @@ const PreferencesApplication = () => {
                             id="end"
                             value={end}
                             onChange={(e) => {
-                                const payload = e.target.value as any
+                                const payload = parseInt(e.target.value as any)
 
                                 dispatch({
                                     type: "SET_END",
@@ -113,10 +130,10 @@ const PreferencesApplication = () => {
                             {[...Array(22 - start)].map((_, i) => (
                                 <option
                                     key={i}
-                                    value={parseInt(start + "") + 1 + i}
+                                    value={parseInt(start as any) + 1 + i}
                                 >
                                     {minuteOffsetToTime(
-                                        (parseInt(start + "") + 1 + i) * 60,
+                                        (parseInt(start as any) + 1 + i) * 60,
                                         twentyFour
                                     )}
                                 </option>
@@ -126,30 +143,22 @@ const PreferencesApplication = () => {
                     <FormControl display="flex" alignItems="flex-end">
                         <Tooltip label="Determine earliest start and latest end">
                             <Button
+                                colorScheme="green"
+                                disabled={
+                                    !!times &&
+                                    start === times.start &&
+                                    end === times.end
+                                }
                                 onClick={() => {
-                                    const meetings = new MeetingGroup(
-                                        MeetingsFabricator(
-                                            courses,
-                                            userMeetings
-                                        )
-                                    )
+                                    if (!meetingGroup || !times) return
+
                                     dispatch({
                                         type: "SET_START",
-                                        payload: parseInt(
-                                            minuteOffsetToTime(
-                                                meetings.getMinStartTime(),
-                                                true
-                                            ).split(":")[0]
-                                        ),
+                                        payload: times.start,
                                     })
                                     dispatch({
                                         type: "SET_END",
-                                        payload: parseInt(
-                                            minuteOffsetToTime(
-                                                meetings.getMaxEndTime(),
-                                                true
-                                            ).split(":")[0]
-                                        ),
+                                        payload: times.end,
                                     })
                                 }}
                             >

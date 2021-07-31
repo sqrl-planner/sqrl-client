@@ -120,8 +120,14 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
     const lsPreferences = localStorage.getItem("preferences")
     let preferences: Preferences
-    if (lsPreferences) preferences = JSON.parse(lsPreferences) as Preferences
-    else {
+    if (lsPreferences) {
+        preferences = JSON.parse(lsPreferences) as Preferences
+        preferences = {
+            ...preferences,
+            start: parseInt(preferences.start as any),
+            end: parseInt(preferences.end as any),
+        }
+    } else {
         preferences = {
             palette: "default",
             scale: 40,
