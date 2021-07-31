@@ -1,18 +1,16 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons"
 import {
-    Text,
-    useDisclosure,
     Button,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalCloseButton,
-    ModalBody,
-    ModalFooter,
     Checkbox,
-    Stack,
     Link,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Stack,
+    Text,
     UseDisclosureProps,
 } from "@chakra-ui/react"
 import React, { Fragment, useState } from "react"
@@ -26,7 +24,7 @@ const DisclaimerModal = (props: {
     const allChecked = checkedItems.every(Boolean)
     const isIndeterminate = checkedItems.some(Boolean) && !allChecked
 
-    const { isOpen, onOpen, onClose } = props.disclosure
+    const { onClose } = props.disclosure
 
     return (
         <Fragment>
@@ -134,14 +132,6 @@ const DisclaimerModal = (props: {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button
-                            mr={3}
-                            onClick={() => {
-                                window.close()
-                            }}
-                        >
-                            Leave
-                        </Button>
                         <Button
                             colorScheme="blue"
                             disabled={!allChecked}
