@@ -34,12 +34,11 @@ const MeetingsFabricator = (
 
     for (const [index, course] of courses.entries()) {
         for (const [userCourse, userMeeting] of Object.entries(userMeetings)) {
-            console.log(course.code, userCourse)
             if (course.courseId !== userCourse) continue
 
-            for (const [, meetingName] of Object.entries(userMeeting)) {
+            for (const meetingName of Object.values(userMeeting)) {
                 const meeting = course.meetings[meetingName]
-                for (const [, schedule] of Object.entries(meeting.schedule)) {
+                for (const schedule of Object.values(meeting.schedule)) {
                     const day =
                         standardMeetingDays[
                             schedule.meetingDay as
