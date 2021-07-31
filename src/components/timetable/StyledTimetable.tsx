@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { chakra } from "@chakra-ui/react"
 import Colour from "color"
+import { Preferences } from "../../PreferencesContext"
 
 export const StyledTimetableContainer = styled(chakra.div)`
     width: 100%;
@@ -171,7 +172,7 @@ export const MeetingTime = styled.div`
         dark,
     }: {
         courseKey: number
-        palette: string
+        palette: Preferences["palette"]
         dark: boolean
     }) => courseKeyToColour(courseKey, dark, palettes[palette] as any)};
     /* color: ${({ palette }) => (palette === "accessible" ? "#fff" : "")}; */
@@ -190,34 +191,6 @@ export const MeetingTime = styled.div`
     }
 `
 
-// export const TimeLabelCell = styled(MeetingTimeCell)``
-
-// export const hexToRgb = (hex: string) => {
-//     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-//     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
-//     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-//         return r + r + g + g + b + b
-//     })
-
-//     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-//     return result
-//         ? {
-//               r: parseInt(result[1], 16),
-//               g: parseInt(result[2], 16),
-//               b: parseInt(result[3], 16),
-//           }
-//         : null
-// }
-
-// export const rgbToHex = (r, g, b) =>
-//     "#" +
-//     [r, g, b]
-//         .map((x) => {
-//             const hex = x.toString(16)
-//             return hex.length === 1 ? "0" + hex : hex
-//         })
-//         .join("")
-
 export const courseKeyToColour = (
     courseKey: number,
     dark: boolean,
@@ -229,15 +202,7 @@ export const courseKeyToColour = (
     colours = colours || defaultColours
 
     if (dark) colours = HSLDarken(colours)
-    // const rgb = hexToRgb(colours[courseKey % colours.length])
-    // console.log(colours)
 
-    // Darken
-    // let r = Math.min((rgb.r * (100 + lightenPercent)) / 100, 255)
-    // let g = Math.min((rgb.g * (100 + lightenPercent)) / 100, 255)
-    // let b = Math.min((rgb.b * (100 + lightenPercent)) / 100, 255)
-    // Format to css rgba value
-    // return `rgba(${r}, ${g}, ${b}, ${alpha})`
     return colours[courseKey % colours.length]
 }
 
@@ -268,19 +233,7 @@ const palettes = {
         "hsl(167.50000000000003, 63.15789473684209%, 85.09803921568627%)",
         "hsl(263.99999999999994, 45.45454545454547%, 87.05882352941177%)",
     ],
-    // default: [
-    //     "eaeaea",
-    //     "c9ebab",
-    //     "d6e2eb",
-    //     "fce4d1",
-    //     "d1dbf5",
-    //     "c9f7f7",
-    //     "eeead6",
-    //     "e6f9d9",
-    //     "c0dcf3",
-    //     "c1f1e7",
-    //     "dbcfed",
-    // ],
+
     accessible: [
         "hsl(115, 100%, 69.41176470588235%)",
         "hsl(241.9230769230769, 100%, 69.41176470588235%)",

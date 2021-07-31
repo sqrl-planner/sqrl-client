@@ -6,7 +6,7 @@ import { createContext } from "react"
 // type paletteType = "default" | "accessible" | "monochrome"
 // type scaleType = "compact" | "normal" | "tall"
 
-interface Preferences {
+export interface Preferences {
     palette: "default" | "accessible" | "monochrome" | "rainbow"
     scale: number
     showTimeInMeeting: boolean

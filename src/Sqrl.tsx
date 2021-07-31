@@ -17,6 +17,20 @@ import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
 import { HoverContextProvider } from "./HoverContext"
 import DisclaimerModal from "./components/DisclaimerModal"
+import styled from "styled-components"
+
+const Container = styled(chakra.div)`
+    position: relative;
+    top: 4.5rem;
+    display: grid;
+    width: 100vw;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    min-height: calc(100vh - 4.5rem);
+
+    @media print {
+        top: 1rem;
+    }
+`
 
 const Sqrl = () => {
     const {
@@ -143,17 +157,7 @@ const Sqrl = () => {
                 }}
             />
             <Header />
-            <chakra.div
-                style={{
-                    position: "relative",
-                    top: "4.5rem",
-                    display: "grid",
-                    width: "100vw",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
-                    minHeight: "calc(100vh - 4.5rem)",
-                }}
-                background={useColorModeValue("gray.75", "gray.800")}
-            >
+            <Container background={useColorModeValue("gray.75", "gray.800")}>
                 <HoverContextProvider>
                     {(showSemester === "first" || showSemester === "both") && (
                         <Flex position="relative">
@@ -208,7 +212,7 @@ const Sqrl = () => {
                         </Flex>
                     )}
                 </HoverContextProvider>
-            </chakra.div>
+            </Container>
         </div>
     )
 }

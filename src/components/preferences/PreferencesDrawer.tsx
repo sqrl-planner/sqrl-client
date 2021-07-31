@@ -20,13 +20,15 @@ import PreferencesCosmetic from "./PreferencesCosmetic"
 
 const Tab = ({ children }: { children: React.ReactNode }) => (
     <ChakraTab
-        _focus={{
-            boxShadow: "none",
-        }}
         _active={{
-            background: "inherit",
+            boxShadow: "outline",
         }}
-        fontWeight={500}
+        fontWeight="500"
+        _selected={{
+            fontWeight: "600",
+            color: "var(--chakra-colors-blue-600)",
+            borderColor: "currentColor",
+        }}
     >
         {children}
     </ChakraTab>
@@ -53,13 +55,14 @@ const PreferencesDrawer = (props: {
                         colorScheme="blue"
                         defaultIndex={currentPrefTab}
                         isLazy
+                        isFitted
                     >
                         <TabList
                             position="fixed"
                             zIndex="1"
                             width="100%"
                             bg={useColorModeValue("white", "gray.700")}
-                            px={2}
+                            px={6}
                             height="2.8rem"
                             boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
                         >
