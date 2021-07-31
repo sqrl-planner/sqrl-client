@@ -18,6 +18,7 @@ interface Preferences {
     highlightConflicts: boolean
     twentyFour: boolean
     emphasize: boolean
+    showSemester: "first" | "second" | "both"
 }
 
 export type Action =
@@ -35,6 +36,7 @@ export type Action =
     | { type: "SET_HIGHLIGHT_CONFLICTS"; payload: boolean }
     | { type: "SET_TWENTY_FOUR"; payload: boolean }
     | { type: "SET_EMPHASIZE"; payload: boolean }
+    | { type: "SET_SHOW_SEMESTER"; payload: "first" | "second" | "both" }
 
 type Dispatch = (action: Action) => void
 
@@ -106,6 +108,11 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             break
         }
 
+        case "SET_SHOW_SEMESTER": {
+            newPreferences = { ...state, showSemester: action.payload }
+            break
+        }
+
         default: {
             // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -139,7 +146,8 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
             end: 22,
             highlightConflicts: true,
             twentyFour: true,
-            emphasize: true,
+            emphasize: false,
+            showSemester: "both",
         }
     }
 

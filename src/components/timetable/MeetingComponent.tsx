@@ -2,6 +2,7 @@ import { chakra, Tooltip } from "@chakra-ui/react"
 import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
+import { capitalize } from "../../utils/misc"
 import { minuteOffsetToTime } from "../../utils/time"
 import { Meeting } from "./Meeting"
 
@@ -21,8 +22,6 @@ const categoryAbbreviations = {
     tutorial: "TUT",
     lecture: "LEC",
 }
-
-const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 const MeetingTitle = styled.div`
     padding-right: 0.3em;

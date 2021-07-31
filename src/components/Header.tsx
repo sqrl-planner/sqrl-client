@@ -115,15 +115,17 @@ const Header = () => {
                 position="absolute"
                 width="40%"
                 maxWidth="400px"
-                left="0"
+                top="0"
                 right="0"
+                bottom="0"
+                left="0"
                 margin="auto"
             />
 
             <Link>About</Link>
             <div>
                 <Button
-                    colorScheme="blue"
+                    // colorScheme=""
                     variant="link"
                     onClick={onOpen}
                     outline="none"

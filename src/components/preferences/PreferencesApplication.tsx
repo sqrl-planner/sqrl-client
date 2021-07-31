@@ -5,12 +5,14 @@ import {
     FormHelperText,
     FormLabel,
     Grid,
+    Icon,
     Select,
     Tooltip,
 } from "@chakra-ui/react"
 import React, { Fragment, useEffect, useState } from "react"
 import { MdHighlight } from "react-icons/md"
 import { Ri24HoursLine } from "react-icons/ri"
+import { BsFillCalendarFill } from "react-icons/bs"
 import styled from "styled-components"
 import MeetingsFabricator from "../../MeetingsFabricator"
 import { usePreferences } from "../../PreferencesContext"
@@ -19,6 +21,7 @@ import { minuteOffsetToTime } from "../../utils/time"
 import { MeetingGroup } from "../timetable/Meeting"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
+import PreferencesShowSections from "./_PreferencesShowSections"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;
@@ -171,10 +174,26 @@ const PreferencesApplication = () => {
                         <FormHelperText>
                             You may unintentionally hide meetings if you adjust
                             the bounds manually. Autoclamp is run only once on
-                            click.
+                            click. Autoclamps based on both semesters' meeting
+                            times.
                         </FormHelperText>
                     </FormControl>
                 </Grid>
+            </PreferencesSection>
+            <PreferencesSection>
+                <FormControl>
+                    <FormLabel mb={3}>
+                        <IconWrapper>
+                            <Icon as={BsFillCalendarFill} />
+                        </IconWrapper>
+                        Show semester
+                    </FormLabel>
+                    <PreferencesShowSections />
+                    <FormHelperText mt={4}>
+                        Showing a single semester will also limit search to that
+                        semester.
+                    </FormHelperText>
+                </FormControl>
             </PreferencesSection>
             <PreferencesSection>
                 <PreferencesToggle
@@ -183,9 +202,16 @@ const PreferencesApplication = () => {
                     iconProps={{
                         as: MdHighlight,
                     }}
-                    helperText="Dim other courses on hover"
+                    helperText={`Dim other courses on ${
+                        window.matchMedia("(hover: none)").matches
+                            ? "tap"
+                            : "hover"
+                    }`}
                 >
-                    Emphasize on hover
+                    Emphasize on{" "}
+                    {window.matchMedia("(hover: none)").matches
+                        ? "tap"
+                        : "hover"}
                 </PreferencesToggle>
             </PreferencesSection>
         </Fragment>
