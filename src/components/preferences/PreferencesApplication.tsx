@@ -6,6 +6,7 @@ import {
     FormLabel,
     Grid,
     Icon,
+    Text,
     Select,
     Tooltip,
 } from "@chakra-ui/react"
@@ -22,6 +23,7 @@ import { MeetingGroup } from "../timetable/Meeting"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
 import PreferencesShowSections from "./_PreferencesShowSections"
+import { capitalize } from "../../utils/misc"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;
@@ -32,7 +34,7 @@ const IconWrapper = styled.div`
 
 const PreferencesApplication = () => {
     const {
-        state: { start, end, twentyFour, emphasize },
+        state: { start, end, twentyFour, emphasize, showSemester },
         dispatch,
     } = usePreferences()
 
@@ -76,6 +78,26 @@ const PreferencesApplication = () => {
 
     return (
         <Fragment>
+            <PreferencesSection>
+                <FormControl>
+                    <FormLabel mb={3}>
+                        <IconWrapper>
+                            <Icon as={BsFillCalendarFill} />
+                        </IconWrapper>
+                        Show semester
+                    </FormLabel>
+                    <PreferencesShowSections />
+                    {showSemester !== "both" && (
+                        <FormHelperText mt={4}>
+                            Showing only the {showSemester} semester limits
+                            search to {showSemester} (
+                            {capitalize(showSemester)[0]}) semester courses and
+                            full section (Y) courses.
+                        </FormHelperText>
+                    )}
+                </FormControl>
+            </PreferencesSection>
+
             <PreferencesSection>
                 <PreferencesToggle
                     isChecked={twentyFour}
@@ -176,28 +198,22 @@ const PreferencesApplication = () => {
                     </FormControl>
                     <FormControl alignSelf="start" gridColumn="span 3">
                         <FormHelperText>
-                            You may unintentionally hide meetings if you adjust
-                            the bounds manually. Autoclamp is run only once on
-                            click. Autoclamps based on both semesters' meeting
-                            times.
+                            {!!times &&
+                                (start > times.start || end < times.end) && (
+                                    <Text
+                                        color="red.600"
+                                        fontWeight="500"
+                                        pb={2}
+                                    >
+                                        Some meetings may be unintentionally
+                                        hidden.
+                                    </Text>
+                                )}
+                            Autoclamp is run only once on click. Autoclamps
+                            based on both semesters' meeting times.
                         </FormHelperText>
                     </FormControl>
                 </Grid>
-            </PreferencesSection>
-            <PreferencesSection>
-                <FormControl>
-                    <FormLabel mb={3}>
-                        <IconWrapper>
-                            <Icon as={BsFillCalendarFill} />
-                        </IconWrapper>
-                        Show semester
-                    </FormLabel>
-                    <PreferencesShowSections />
-                    <FormHelperText mt={4}>
-                        Showing a single semester will limit search to full
-                        section courses and courses in that semester.
-                    </FormHelperText>
-                </FormControl>
             </PreferencesSection>
             <PreferencesSection>
                 <PreferencesToggle
