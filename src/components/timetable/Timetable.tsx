@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react"
 import React, { FunctionComponent, useState } from "react"
+import { useHoverContext } from "../../HoverContext"
 import {
     Day,
     minuteOffsetToTime,
@@ -85,7 +86,16 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     emphasizeOnHover = true,
     days = WEEK_DAYS,
 }) => {
-    const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
+    // const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
+
+    const {
+        state: { hoverCourseKey },
+        dispatch,
+    } = useHoverContext()
+
+    const setHoverCourseKey = (courseKey: number | null) => {
+        dispatch({ type: "SET_CURRENT_HOVER", payload: courseKey })
+    }
 
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60

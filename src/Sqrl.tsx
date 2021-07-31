@@ -14,6 +14,7 @@ import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
+import { HoverContextProvider } from "./HoverContext"
 
 const Sqrl = () => {
     const {
@@ -113,8 +114,6 @@ const Sqrl = () => {
         setSecondMeetings(MeetingsFabricator(courses, userMeetings, "S"))
     }, [setFirstMeetings, setSecondMeetings, courses, userMeetings])
 
-    const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
-
     return (
         <div>
             <Header />
@@ -129,38 +128,40 @@ const Sqrl = () => {
                 }}
                 background={useColorModeValue("gray.75", "gray.800")}
             >
-                <Flex flexDirection="column" alignItems="center">
-                    <Heading as="h3" size="md" my={2} mt={4}>
-                        First
-                    </Heading>
-                    <Timetable
-                        meetings={firstMeetings}
-                        scale={timetableSize}
-                        minTime={timeToMinuteOffset(start)}
-                        maxTime={timeToMinuteOffset(end)}
-                        palette={palette}
-                        highlightConflicts={highlightConflicts}
-                        twentyFour={twentyFour}
-                        dark={colorMode === "dark"}
-                        emphasizeOnHover={emphasize}
-                    />
-                </Flex>
-                <Flex flexDirection="column" alignItems="center">
-                    <Heading as="h3" size="md" my={2} mt={4}>
-                        Second
-                    </Heading>
-                    <Timetable
-                        meetings={secondMeetings}
-                        scale={timetableSize}
-                        minTime={timeToMinuteOffset(start)}
-                        maxTime={timeToMinuteOffset(end)}
-                        palette={palette}
-                        highlightConflicts={highlightConflicts}
-                        twentyFour={twentyFour}
-                        dark={colorMode === "dark"}
-                        emphasizeOnHover={emphasize}
-                    />
-                </Flex>
+                <HoverContextProvider>
+                    <Flex flexDirection="column" alignItems="center">
+                        <Heading as="h3" size="md" my={2} mt={4}>
+                            First
+                        </Heading>
+                        <Timetable
+                            meetings={firstMeetings}
+                            scale={timetableSize}
+                            minTime={timeToMinuteOffset(start)}
+                            maxTime={timeToMinuteOffset(end)}
+                            palette={palette}
+                            highlightConflicts={highlightConflicts}
+                            twentyFour={twentyFour}
+                            dark={colorMode === "dark"}
+                            emphasizeOnHover={emphasize}
+                        />
+                    </Flex>
+                    <Flex flexDirection="column" alignItems="center">
+                        <Heading as="h3" size="md" my={2} mt={4}>
+                            Second
+                        </Heading>
+                        <Timetable
+                            meetings={secondMeetings}
+                            scale={timetableSize}
+                            minTime={timeToMinuteOffset(start)}
+                            maxTime={timeToMinuteOffset(end)}
+                            palette={palette}
+                            highlightConflicts={highlightConflicts}
+                            twentyFour={twentyFour}
+                            dark={colorMode === "dark"}
+                            emphasizeOnHover={emphasize}
+                        />
+                    </Flex>
+                </HoverContextProvider>
             </chakra.div>
         </div>
     )
