@@ -1,4 +1,10 @@
-import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react"
+import {
+    chakra,
+    Flex,
+    Heading,
+    useColorMode,
+    useColorModeValue,
+} from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import Header from "./components/Header"
 import { Meeting } from "./components/timetable/Meeting"
@@ -28,7 +34,8 @@ const Sqrl = () => {
     } = useAppContext()
 
     const [timetableSize, setTimetableSize] = useState(40)
-    const [meetings, setMeetings] = useState<Array<Meeting>>([])
+    const [firstMeetings, setFirstMeetings] = useState<Array<Meeting>>([])
+    const [secondMeetings, setSecondMeetings] = useState<Array<Meeting>>([])
 
     useEffect(() => {
         setTimetableSize(scale)
@@ -64,6 +71,18 @@ const Sqrl = () => {
             payload: { courseName: "CSC207H1", lecture: "LEC-0301" },
         })
         disptachAppContext({
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "MAT224H1", lecture: "LEC-0101" },
+        })
+        disptachAppContext({
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "CSC209H1", lecture: "LEC-0101" },
+        })
+        disptachAppContext({
+            type: "ADD_LECTURE_BY_COURSE_NAME",
+            payload: { courseName: "CSC263H1", lecture: "LEC-0201" },
+        })
+        disptachAppContext({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "CSC207H1", tutorial: "TUT-0301" },
         })
@@ -75,11 +94,26 @@ const Sqrl = () => {
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "STA247H1", tutorial: "TUT-5103" },
         })
+        disptachAppContext({
+            type: "ADD_TUTORIAL_BY_COURSE_NAME",
+            payload: { courseName: "MAT224H1", tutorial: "TUT-0203" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL_BY_COURSE_NAME",
+            payload: { courseName: "CSC209H1", tutorial: "TUT-0101" },
+        })
+        disptachAppContext({
+            type: "ADD_TUTORIAL_BY_COURSE_NAME",
+            payload: { courseName: "CSC263H1", tutorial: "TUT-0201" },
+        })
     }, [disptachAppContext])
 
     useEffect(() => {
-        setMeetings(MeetingsFabricator(courses, userMeetings))
-    }, [setMeetings, courses, userMeetings])
+        setFirstMeetings(MeetingsFabricator(courses, userMeetings, "F"))
+        setSecondMeetings(MeetingsFabricator(courses, userMeetings, "S"))
+    }, [setFirstMeetings, setSecondMeetings, courses, userMeetings])
+
+    const [hoverCourseKey, setHoverCourseKey] = useState<number | null>(null)
 
     return (
         <div>
@@ -88,22 +122,45 @@ const Sqrl = () => {
                 style={{
                     position: "relative",
                     top: "4.5rem",
-                    display: "flex",
+                    display: "grid",
+                    width: "100vw",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
                     minHeight: "calc(100vh - 4.5rem)",
                 }}
                 background={useColorModeValue("gray.75", "gray.800")}
             >
-                <Timetable
-                    meetings={meetings}
-                    scale={timetableSize}
-                    minTime={timeToMinuteOffset(start)}
-                    maxTime={timeToMinuteOffset(end)}
-                    palette={palette}
-                    highlightConflicts={highlightConflicts}
-                    twentyFour={twentyFour}
-                    dark={colorMode === "dark"}
-                    emphasizeOnHover={emphasize}
-                />
+                <Flex flexDirection="column" alignItems="center">
+                    <Heading as="h3" size="md" my={2} mt={4}>
+                        First
+                    </Heading>
+                    <Timetable
+                        meetings={firstMeetings}
+                        scale={timetableSize}
+                        minTime={timeToMinuteOffset(start)}
+                        maxTime={timeToMinuteOffset(end)}
+                        palette={palette}
+                        highlightConflicts={highlightConflicts}
+                        twentyFour={twentyFour}
+                        dark={colorMode === "dark"}
+                        emphasizeOnHover={emphasize}
+                    />
+                </Flex>
+                <Flex flexDirection="column" alignItems="center">
+                    <Heading as="h3" size="md" my={2} mt={4}>
+                        Second
+                    </Heading>
+                    <Timetable
+                        meetings={secondMeetings}
+                        scale={timetableSize}
+                        minTime={timeToMinuteOffset(start)}
+                        maxTime={timeToMinuteOffset(end)}
+                        palette={palette}
+                        highlightConflicts={highlightConflicts}
+                        twentyFour={twentyFour}
+                        dark={colorMode === "dark"}
+                        emphasizeOnHover={emphasize}
+                    />
+                </Flex>
             </chakra.div>
         </div>
     )

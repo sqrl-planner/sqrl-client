@@ -4,7 +4,7 @@ import {
     chakra,
     Heading,
     Input,
-    Text,
+    Link,
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
@@ -13,8 +13,11 @@ import styled from "styled-components"
 import PreferencesDrawer from "./preferences/PreferencesDrawer"
 
 const HeaderComponent = styled(chakra.header)`
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: 1fr auto auto;
     align-items: center;
     position: fixed;
     width: 100vw;
@@ -27,23 +30,23 @@ const HeaderComponent = styled(chakra.header)`
     }
 `
 
-const Program = styled.div`
-    &::before {
-        /* content: "program of study"; */
-        position: absolute;
-        font-variant: small-caps;
-        font-size: 0.8em;
-        font-weight: 800;
-        color: #555;
-        top: -1.2em;
-    }
-    position: relative;
-    max-height: 100%;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    /* top: 0.4rem; */
-`
+// const Program = styled.div`
+//     &::before {
+//         /* content: "program of study"; */
+//         position: absolute;
+//         font-variant: small-caps;
+//         font-size: 0.8em;
+//         font-weight: 800;
+//         color: #555;
+//         top: -1.2em;
+//     }
+//     position: relative;
+//     max-height: 100%;
+//     white-space: nowrap;
+//     overflow-x: hidden;
+//     text-overflow: ellipsis;
+//     /* top: 0.4rem; */
+// `
 
 const Header = () => {
     const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>
@@ -82,13 +85,14 @@ const Header = () => {
                 as="h1"
                 size="xl"
                 _before={{
-                    content: '"for U of T"',
+                    content: '"for ArtSci"',
                     fontSize: "0.7rem",
-                    width: "100%",
+                    width: "auto",
                     textAlign: "center",
                     textTransform: "uppercase",
                     position: "absolute",
                     bottom: "-0.8rem",
+                    left: "0.1rem",
                     whiteSpace: "nowrap",
                     // color: "#555",
                     opacity: 0.7,
@@ -98,19 +102,25 @@ const Header = () => {
             >
                 Sqrl
             </Heading>
-            <Program>
+            {/* <Program>
                 Fine arts specialist + Poker dealing major + Air Rifle minor
-            </Program>
+            </Program> */}
             <Input
-                width="40%"
-                boxShadow="1px 1px 8px -6px rgba(0, 0, 0, 0.4)"
-                autoFocus
-                ml={6}
-                mr={6}
+                // width="40%"
+                boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
+                // ml={6}
+                // mr={6}
                 placeholder={`Search for a course (${osModifier}K)`}
                 ref={searchRef}
+                position="absolute"
+                width="40%"
+                maxWidth="400px"
+                left="0"
+                right="0"
+                margin="auto"
             />
-            <Text>Help</Text>
+
+            <Link>About</Link>
             <div>
                 <Button
                     colorScheme="blue"
@@ -119,7 +129,7 @@ const Header = () => {
                     outline="none"
                     border="none"
                     m={0}
-                    mr={4}
+                    mx={6}
                     position="relative"
                     top="0.2rem"
                     _hover={{
@@ -135,7 +145,7 @@ const Header = () => {
             </div>
             <PreferencesDrawer
                 disclosure={{ isOpen, onOpen, onClose }}
-                drawerprops={{
+                drawerProps={{
                     isOpen,
                     placement: "right",
                     onClose,

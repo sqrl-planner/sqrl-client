@@ -14,6 +14,13 @@ interface AppData {
     userMeetings: { [key: string]: UserMeeting }
 }
 
+/**
+ * TODO IMPORTANT
+ * Identifying courses by courseId is unreliable across sections (F, S, Y)
+ * Change to identification of courses by other means, i.e. entire code: CSC263H1-F-20219
+ * Requires restructure of AppData store and associated reducers
+ */
+
 export type Action =
     | { type: "ADD_COURSE"; payload: Course }
     | { type: "REMOVE_COURSE"; payload: string }

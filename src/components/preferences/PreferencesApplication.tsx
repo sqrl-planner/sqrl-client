@@ -44,8 +44,9 @@ const PreferencesApplication = () => {
 
     useEffect(() => {
         const meetings = new MeetingGroup(
-            MeetingsFabricator(courses, userMeetings)
+            MeetingsFabricator(courses, userMeetings, "Y")
         )
+
         setMeetingGroup(meetings)
     }, [setMeetingGroup, courses, userMeetings])
 

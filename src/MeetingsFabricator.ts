@@ -28,11 +28,18 @@ const standardMeetingCategoryType = {
 
 const MeetingsFabricator = (
     courses: Course[],
-    userMeetings: { [key: string]: UserMeeting }
+    userMeetings: { [key: string]: UserMeeting },
+    section: "F" | "S" | "Y"
 ): Meeting[] => {
     let meetings: Meeting[] = []
 
     for (const [index, course] of courses.entries()) {
+        if (
+            section !== "Y" &&
+            course.section !== "Y" &&
+            course.section !== section
+        )
+            continue
         for (const [userCourse, userMeeting] of Object.entries(userMeetings)) {
             if (course.courseId !== userCourse) continue
 

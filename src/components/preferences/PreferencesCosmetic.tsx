@@ -13,7 +13,6 @@ import { GiResize } from "react-icons/gi"
 import { ImSection } from "react-icons/im"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
-import { useAppContext } from "../../SqrlContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
 
@@ -28,22 +27,15 @@ const PreferencesTimetable = () => {
     const {
         state: {
             scale,
-            start,
-            end,
             showTimeInMeeting,
             showCourseSuffix,
             showCategory,
             showDelivery,
             palette,
             highlightConflicts,
-            twentyFour,
         },
         dispatch,
     } = usePreferences()
-
-    const {
-        state: { courses, userMeetings },
-    } = useAppContext()
 
     const { colorMode, toggleColorMode } = useColorMode()
     return (
