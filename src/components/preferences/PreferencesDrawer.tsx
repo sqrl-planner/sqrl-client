@@ -14,6 +14,7 @@ import {
     UseDisclosureProps,
 } from "@chakra-ui/react"
 import React from "react"
+import { usePreferences } from "../../PreferencesContext"
 import PreferencesApplication from "./PreferencesApplication"
 import PreferencesCosmetic from "./PreferencesCosmetic"
 
@@ -35,6 +36,9 @@ const PreferencesDrawer = (props: {
     disclosure: UseDisclosureProps
     drawerProps: any
 }) => {
+    const {
+        state: { currentPrefTab },
+    } = usePreferences()
     return (
         <Drawer {...props.drawerProps} size="md">
             <DrawerOverlay />
@@ -45,7 +49,11 @@ const PreferencesDrawer = (props: {
                 </DrawerHeader>
 
                 <DrawerBody p={0} userSelect="none">
-                    <Tabs colorScheme="blue">
+                    <Tabs
+                        colorScheme="blue"
+                        defaultIndex={currentPrefTab}
+                        isLazy
+                    >
                         <TabList
                             position="fixed"
                             zIndex="1"

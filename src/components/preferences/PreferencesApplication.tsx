@@ -70,6 +70,10 @@ const PreferencesApplication = () => {
         })
     }, [meetingGroup])
 
+    useEffect(() => {
+        dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 1 })
+    }, [dispatch])
+
     return (
         <Fragment>
             <PreferencesSection>

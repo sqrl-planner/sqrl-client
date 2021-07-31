@@ -6,7 +6,7 @@ import {
     Select,
     useColorMode,
 } from "@chakra-ui/react"
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
 import { FaClock, FaPalette, FaSun, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
@@ -38,6 +38,11 @@ const PreferencesTimetable = () => {
     } = usePreferences()
 
     const { colorMode, toggleColorMode } = useColorMode()
+
+    useEffect(() => {
+        dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 0 })
+    }, [dispatch])
+
     return (
         <Fragment>
             <PreferencesSection>

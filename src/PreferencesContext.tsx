@@ -19,6 +19,7 @@ interface Preferences {
     twentyFour: boolean
     emphasize: boolean
     showSemester: "first" | "second" | "both"
+    currentPrefTab: number
 }
 
 export type Action =
@@ -37,6 +38,7 @@ export type Action =
     | { type: "SET_TWENTY_FOUR"; payload: boolean }
     | { type: "SET_EMPHASIZE"; payload: boolean }
     | { type: "SET_SHOW_SEMESTER"; payload: "first" | "second" | "both" }
+    | { type: "SET_CURRENT_PREF_TAB"; payload: number }
 
 type Dispatch = (action: Action) => void
 
@@ -113,6 +115,11 @@ const preferencesReducer = (state: Preferences, action: Action) => {
             break
         }
 
+        case "SET_CURRENT_PREF_TAB": {
+            newPreferences = { ...state, currentPrefTab: action.payload }
+            break
+        }
+
         default: {
             // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -148,6 +155,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
             twentyFour: true,
             emphasize: false,
             showSemester: "both",
+            currentPrefTab: 0,
         }
     }
 
