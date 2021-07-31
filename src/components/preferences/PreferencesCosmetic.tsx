@@ -1,14 +1,7 @@
+import { MoonIcon, WarningTwoIcon } from "@chakra-ui/icons"
 import {
-    MoonIcon,
-    TriangleDownIcon,
-    TriangleUpIcon,
-    WarningTwoIcon,
-} from "@chakra-ui/icons"
-import {
-    Button,
     FormControl,
     FormLabel,
-    Grid,
     Icon,
     Select,
     useColorMode,
@@ -20,6 +13,7 @@ import { GiResize } from "react-icons/gi"
 import { ImSection } from "react-icons/im"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
+import { useAppContext } from "../../SqrlContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
 
@@ -42,9 +36,14 @@ const PreferencesTimetable = () => {
             showDelivery,
             palette,
             highlightConflicts,
+            twentyFour,
         },
         dispatch,
     } = usePreferences()
+
+    const {
+        state: { courses, userMeetings },
+    } = useAppContext()
 
     const { colorMode, toggleColorMode } = useColorMode()
     return (
@@ -165,68 +164,6 @@ const PreferencesTimetable = () => {
                         {/* <option value="accessible">High contrast</option> */}
                     </Select>
                 </FormControl>
-
-                <Grid gridTemplateColumns="1fr 1fr auto" gap={3} pb={2}>
-                    <FormControl mr={3}>
-                        <FormLabel htmlFor="start">
-                            <IconWrapper>
-                                <TriangleDownIcon />
-                            </IconWrapper>
-                            Start
-                        </FormLabel>
-                        <Select
-                            id="start"
-                            value={start}
-                            onChange={(e) => {
-                                const payload = e.target.value as any
-
-                                dispatch({
-                                    type: "SET_START",
-                                    payload,
-                                })
-                            }}
-                        >
-                            {[...Array(15)].map((_, i) => (
-                                <option key={i} value={8 + i}>
-                                    {8 + i}:00
-                                </option>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl mr={3}>
-                        <FormLabel htmlFor="end">
-                            <IconWrapper>
-                                <TriangleUpIcon />
-                            </IconWrapper>
-                            End
-                        </FormLabel>
-                        <Select
-                            id="end"
-                            value={end}
-                            onChange={(e) => {
-                                const payload = e.target.value as any
-
-                                dispatch({
-                                    type: "SET_END",
-                                    payload,
-                                })
-                            }}
-                        >
-                            {[...Array(22 - start)].map((_, i) => (
-                                <option
-                                    key={i}
-                                    value={parseInt(start + "") + 1 + i}
-                                >
-                                    {parseInt(start + "") + 1 + i}
-                                    :00
-                                </option>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl display="flex" alignItems="flex-end">
-                        <Button>Auto</Button>
-                    </FormControl>
-                </Grid>
             </PreferencesSection>
         </Fragment>
     )

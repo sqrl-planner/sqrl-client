@@ -70,7 +70,7 @@ export const StyledTr = styled.tr<{
         line-height: ${({ size = 20 }: { size?: number }) =>
             (size / 100) * 2 + "em"};
 
-        transition: line-height 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: line-height 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 
     /* &:hover::after {
@@ -163,8 +163,8 @@ export const MeetingTime = styled.div`
     }
     padding-right: 0em;
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
-    transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1),
-        opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: ${({
         courseKey = 0,
         palette,

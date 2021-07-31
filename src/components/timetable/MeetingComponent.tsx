@@ -47,17 +47,15 @@ const MeetingTitle = styled.div`
 `
 
 const MeetingSuffix = styled.span<{ darkText: boolean }>`
-    /* opacity: 0; */
     font-size: 0.8em;
     font-weight: 500;
-    transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
 const MeetingInformation = styled.div<{ darkText: boolean }>`
     color: ${({ darkText }) => {
         return darkText ? `#111` : `#eee`
     }};
-    transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     display: flex;
     flex-direction: column;
     align-content: flex-start;
@@ -73,7 +71,7 @@ const MeetingTimes = styled.div`
     top: 0.1rem;
     font-size: 0.9em;
     opacity: 0.8;
-    transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
 const MeetingDelivery = styled.div`
