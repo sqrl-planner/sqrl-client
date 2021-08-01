@@ -26,7 +26,10 @@ const Tab = ({ children }: { children: React.ReactNode }) => (
         fontWeight="500"
         _selected={{
             fontWeight: "600",
-            color: "var(--chakra-colors-blue-600)",
+            color: `${useColorModeValue(
+                "var(--chakra-colors-blue-600)",
+                "var(--chakra-colors-blue-300)"
+            )}`,
             borderColor: "currentColor",
         }}
     >

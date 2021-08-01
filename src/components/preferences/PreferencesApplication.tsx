@@ -1,5 +1,6 @@
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import {
+    useColorModeValue,
     Button,
     FormControl,
     FormHelperText,
@@ -75,6 +76,8 @@ const PreferencesApplication = () => {
     useEffect(() => {
         dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 1 })
     }, [dispatch])
+
+    const redColor = useColorModeValue("red.600", "red.200")
 
     return (
         <Fragment>
@@ -201,7 +204,7 @@ const PreferencesApplication = () => {
                             {!!times &&
                                 (start > times.start || end < times.end) && (
                                     <Text
-                                        color="red.600"
+                                        color={redColor}
                                         fontWeight="500"
                                         pb={2}
                                     >
