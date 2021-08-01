@@ -10,8 +10,11 @@ import {
     Text,
     Select,
     Tooltip,
+    toast,
+    useToast,
+    ToastId,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import { MdHighlight } from "react-icons/md"
 import { Ri24HoursLine } from "react-icons/ri"
 import { BsFillCalendarFill } from "react-icons/bs"
@@ -77,7 +80,25 @@ const PreferencesApplication = () => {
         dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 1 })
     }, [dispatch])
 
-    const redColor = useColorModeValue("red.600", "red.200")
+    const toast = useToast()
+    const toastRef = useRef<ToastId>()
+
+    useEffect(() => {
+        if (!times) return
+        if (!(start > times.start || end < times.end))
+            return toast.close(toastRef.current as ToastId)
+
+        if (toast.isActive("warn-hidden")) return
+        toastRef.current = toast({
+            id: "warn-hidden",
+            title: "Some meetings may be unintentionally hidden.",
+            description: "Run Autoclamp to fit timetable to meetings.",
+            status: "warning",
+            variant: "subtle",
+            isClosable: true,
+            duration: null,
+        })
+    }, [start, times, end, toast])
 
     return (
         <Fragment>
@@ -201,17 +222,6 @@ const PreferencesApplication = () => {
                     </FormControl>
                     <FormControl alignSelf="start" gridColumn="span 3">
                         <FormHelperText>
-                            {!!times &&
-                                (start > times.start || end < times.end) && (
-                                    <Text
-                                        color={redColor}
-                                        fontWeight="500"
-                                        pb={2}
-                                    >
-                                        Some meetings may be unintentionally
-                                        hidden.
-                                    </Text>
-                                )}
                             Autoclamp is run only once on click. Autoclamps
                             based on both semesters' meeting times.
                         </FormHelperText>
