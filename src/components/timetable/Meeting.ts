@@ -15,6 +15,7 @@ export enum MeetingDeliveryMode {
 export enum MeetingCategoryType {
     Tutorial = "tutorial",
     Lecture = "lecture",
+    Practical = "practical",
 }
 
 /**

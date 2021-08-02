@@ -8,14 +8,11 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { MutableRefObject, useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
 import PreferencesDrawer from "./preferences/PreferencesDrawer"
 
 const HeaderComponent = styled(chakra.header)`
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     display: grid;
     grid-template-columns: 1fr auto auto;
     align-items: center;
@@ -30,40 +27,22 @@ const HeaderComponent = styled(chakra.header)`
     }
 `
 
-// const Program = styled.div`
-//     &::before {
-//         /* content: "program of study"; */
-//         position: absolute;
-//         font-variant: small-caps;
-//         font-size: 0.8em;
-//         font-weight: 800;
-//         color: #555;
-//         top: -1.2em;
-//     }
-//     position: relative;
-//     max-height: 100%;
-//     white-space: nowrap;
-//     overflow-x: hidden;
-//     text-overflow: ellipsis;
-//     /* top: 0.4rem; */
-// `
-
 const Header = () => {
-    const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>
-    const keydownListener = useCallback((keydownEvent) => {
-        const { key, metaKey, ctrlKey, repeat } = keydownEvent
-        if (repeat) return
+    const searchRef = useRef() as MutableRefObject<HTMLInputElement>
 
-        if ((metaKey || ctrlKey) && key === "k") {
-            keydownEvent.preventDefault()
-            searchRef.current.focus()
-        }
+    const keydownListener = useCallback(
+        ({ key, metaKey, ctrlKey, repeat, preventDefault }: KeyboardEvent) => {
+            if (!searchRef.current) return
+            if (repeat) return
 
-        // if (blacklistedTargets.includes(target.tagName)) return
-        // if (!shortcutKeys.includes(key)) return
+            if ((metaKey || ctrlKey) && key === "k") {
+                preventDefault()
 
-        // if (!keys[key]) setKeys({ type: "set-key-down", key })
-    }, [])
+                searchRef.current.focus()
+            }
+        },
+        []
+    )
 
     useEffect(() => {
         window.addEventListener("keydown", keydownListener, true)
@@ -85,16 +64,17 @@ const Header = () => {
                 as="h1"
                 size="xl"
                 _before={{
-                    content: '"for ArtSci"',
-                    fontSize: "0.7rem",
+                    content: `"for ${new Date().getFullYear()}-${
+                        new Date().getFullYear() + 1
+                    }"`,
+                    fontSize: "0.65rem",
                     width: "auto",
                     textAlign: "center",
                     textTransform: "uppercase",
                     position: "absolute",
                     bottom: "-0.8rem",
-                    left: "0.1rem",
+                    left: "-0.15rem",
                     whiteSpace: "nowrap",
-                    // color: "#555",
                     opacity: 0.7,
                 }}
                 position="relative"
@@ -102,14 +82,8 @@ const Header = () => {
             >
                 Sqrl
             </Heading>
-            {/* <Program>
-                Fine arts specialist + Poker dealing major + Air Rifle minor
-            </Program> */}
             <Input
-                // width="40%"
                 boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
-                // ml={6}
-                // mr={6}
                 placeholder={`Search for a course (${osModifier}K)`}
                 ref={searchRef}
                 position="absolute"
@@ -125,7 +99,6 @@ const Header = () => {
             <Link>About</Link>
             <div>
                 <Button
-                    // colorScheme=""
                     variant="link"
                     onClick={onOpen}
                     outline="none"

@@ -19,6 +19,7 @@ import {
     StyledTimetable,
     StyledTimetableContainer,
     StyledTr,
+    Palettes,
 } from "./StyledTimetable"
 
 type TimetableProps = {
@@ -45,7 +46,7 @@ type TimetableProps = {
     /**
      * The palette of the timetable
      */
-    palette?: string
+    palette?: keyof Palettes
     /**
      * Whether to highlight conflicts
      */
@@ -133,9 +134,9 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                   </StyledTimeLabelTd>,
               ]
 
-        for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
+        for (const day of days) {
             let isOccupied = false
-            for (const group of groupsByDay.get(days[dayIndex])) {
+            for (const group of groupsByDay.get(day)) {
                 const groupStartTime = group.getMinStartTime()
                 const groupEndTime = group.getMaxEndTime()
                 if (
@@ -156,7 +157,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     const meeting = group.meetings[0]
                     cells.push(
                         <MeetingTimeCell
-                            key={dayIndex}
+                            key={day}
                             days={days.length}
                             rowSpan={rowspan}
                             dark={dark}
@@ -270,7 +271,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     )
                     cells.push(
                         <MeetingTimeCell
-                            key={dayIndex}
+                            key={day}
                             days={days.length}
                             rowSpan={rowspan}
                             dark={dark}
@@ -284,11 +285,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
             if (!isOccupied) {
                 cells.push(
-                    <MeetingTimeCell
-                        key={dayIndex}
-                        days={days.length}
-                        dark={dark}
-                    />
+                    <MeetingTimeCell key={day} days={days.length} dark={dark} />
                 )
             }
         }
@@ -314,7 +311,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                             <StyledTh key={index} dark={dark}>
                                 {day.toString().substr(0, 3)}
                             </StyledTh>
-                            // <StyledTh>{day}</StyledTh>
                         ))}
                     </StyledHead>
                 </thead>

@@ -21,6 +21,7 @@ const deliveryAbbreviations = {
 const categoryAbbreviations = {
     tutorial: "TUT",
     lecture: "LEC",
+    practical: "PRA",
 }
 
 const MeetingTitle = styled.div`
@@ -73,17 +74,9 @@ const MeetingTimes = styled.div`
     transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
 
-const MeetingDelivery = styled.div`
-    /* font-size: 0.9em; */
-    /* font-weight: 700; */
-    /* position: relative; */
-    /* top: 0.2rem; */
-`
+const MeetingDelivery = styled.div``
 
-const MeetingCategory = styled.div`
-    /* font-size: 0.9em; */
-    /* font-weight: 700; */
-`
+const MeetingCategory = styled.div``
 
 const MiscInfo = styled.div`
     font-family: interstate-mono, monospace;
@@ -92,10 +85,12 @@ const MiscInfo = styled.div`
 
     position: absolute;
     bottom: 0.4rem;
-    right: 0.5rem;
+    right: 0.3rem;
+
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
     line-height: 1.2em;
     opacity: 0.6;
 `
@@ -139,12 +134,8 @@ const MeetingComponent = ({
     return (
         <MeetingInformation darkText={darkText}>
             <MeetingTitle>
-                {/* <span style={{ fontSize: "inherit" }}> */}
                 {department + "\u200b"}
-                {/* </span>
-                <span style={{ fontSize: "inherit" }}> */}
                 {numeral + "\u200b"}
-                {/* </span> */}
                 <MeetingSuffix
                     style={{
                         opacity: showCourseSuffix ? "" : 0,

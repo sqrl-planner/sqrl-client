@@ -7,6 +7,7 @@ import { Course } from "./Course"
 export interface UserMeeting {
     lecture: string
     tutorial?: string
+    practical?: string
 }
 
 interface AppData {

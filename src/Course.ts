@@ -1,6 +1,6 @@
 export interface Schedule {
     [key: string]: {
-        meetingDay: string
+        meetingDay: "MO" | "TU" | "WE" | "TH" | "FR"
         meetingStartTime: string
         meetingEndTime: string
         meetingScheduleId: string
@@ -21,12 +21,12 @@ export interface StandardMeeting {
     schedule: Schedule | Array<never>
     instructors: Instructors | Array<never>
     meetingId: string
-    teachingMethod: string
+    teachingMethod: "LEC" | "TUT" | "PRA"
     sectionNumber: string
     subtitle: string
     cancel: string
     waitlist: string
-    deliveryMode: string
+    deliveryMode: "ONLSYNC" | "ONLASYNC" | "CLASS"
     online?: string
     enrollmentCapacity: string
     actualEnrolment: string
@@ -54,7 +54,7 @@ export interface Course {
     corequisite: string
     exclusion: string
     recommendedPreparation: string
-    section: string
+    section: "F" | "S" | "Y"
     session: string
     webTimetableInstructions: string
     deliveryInstructions: string

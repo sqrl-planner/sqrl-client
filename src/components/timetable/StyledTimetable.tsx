@@ -135,7 +135,11 @@ export const MeetingTimeCell = styled.td<{ days: number; dark: boolean }>`
     }
 `
 
-export const MeetingTime = styled.div`
+export const MeetingTime = styled.div<{
+    courseKey: number
+    palette: keyof Palettes
+    dark: boolean
+}>`
     position: absolute;
     top: 0.2em;
     right: 0.3em;
@@ -166,16 +170,8 @@ export const MeetingTime = styled.div`
     box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
     transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
         opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background-color: ${({
-        courseKey = 0,
-        palette,
-        dark,
-    }: {
-        courseKey: number
-        palette: Preferences["palette"]
-        dark: boolean
-    }) => courseKeyToColour(courseKey, dark, palettes[palette] as any)};
-    /* color: ${({ palette }) => (palette === "accessible" ? "#fff" : "")}; */
+    background-color: ${({ courseKey = 0, palette, dark }) =>
+        courseKeyToColour(courseKey, dark, palettes[palette] as any)};
 
     @media print {
         font-size: 10pt;
@@ -216,9 +212,16 @@ const HSLDarken = (colours: string[]) =>
     )
 
 const HSLAlpha = (colours: string[], alpha: number = 0.5) =>
-    colours.map((colour) => Colour(colour, "hsl").alpha(alpha))
+    colours.map((colour) => Colour(colour, "hsl").alpha(alpha).toString())
 
-const palettes = {
+export interface Palettes {
+    default: string[]
+    accessible: string[]
+    monochrome: string[]
+    rainbow: string[]
+}
+
+const palettes: Palettes = {
     default: [
         "hsl(0, 0%, 91.76470588235294%)",
         "hsl(0, 100%, 89.01960784313725%)",

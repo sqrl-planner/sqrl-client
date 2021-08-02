@@ -1,33 +1,30 @@
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import {
-    useColorModeValue,
     Button,
     FormControl,
     FormHelperText,
     FormLabel,
     Grid,
     Icon,
-    Text,
     Select,
-    Tooltip,
-    toast,
-    useToast,
     ToastId,
+    Tooltip,
+    useToast,
 } from "@chakra-ui/react"
 import React, { Fragment, useEffect, useRef, useState } from "react"
+import { BsFillCalendarFill } from "react-icons/bs"
 import { MdHighlight } from "react-icons/md"
 import { Ri24HoursLine } from "react-icons/ri"
-import { BsFillCalendarFill } from "react-icons/bs"
 import styled from "styled-components"
 import MeetingsFabricator from "../../MeetingsFabricator"
 import { usePreferences } from "../../PreferencesContext"
 import { useAppContext } from "../../SqrlContext"
+import { capitalize } from "../../utils/misc"
 import { minuteOffsetToTime } from "../../utils/time"
 import { MeetingGroup } from "../timetable/Meeting"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
 import PreferencesShowSections from "./_PreferencesShowSections"
-import { capitalize } from "../../utils/misc"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;

@@ -7,17 +7,17 @@ import {
     useDisclosure,
 } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
+import styled from "styled-components"
+import DisclaimerModal from "./components/DisclaimerModal"
 import Header from "./components/Header"
 import { Meeting } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
-import { courses as sampleCourse } from "./sampleCourses"
+import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
+import { courses as sampleCourse } from "./sampleCourses"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
-import { HoverContextProvider } from "./HoverContext"
-import DisclaimerModal from "./components/DisclaimerModal"
-import styled from "styled-components"
 
 const Container = styled(chakra.div)`
     position: relative;
@@ -48,7 +48,7 @@ const Sqrl = () => {
 
     const {
         state: { courses, userMeetings },
-        dispatch: disptachAppContext,
+        dispatch,
     } = useAppContext()
 
     const [timetableSize, setTimetableSize] = useState(40)
@@ -66,68 +66,65 @@ const Sqrl = () => {
 
     useEffect(() => {
         sampleCourse.forEach((course) => {
-            disptachAppContext({ type: "ADD_COURSE", payload: course })
+            dispatch({ type: "ADD_COURSE", payload: course })
         })
-    }, [disptachAppContext])
-
-    useEffect(() => {
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "CSC258H1", lecture: "LEC-0101" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "MAT237Y1", lecture: "LEC-0201" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "CSC236H1", lecture: "LEC-0201" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "STA247H1", lecture: "LEC-0101" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "CSC207H1", lecture: "LEC-0301" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "MAT224H1", lecture: "LEC-0101" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "CSC209H1", lecture: "LEC-0101" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_LECTURE_BY_COURSE_NAME",
             payload: { courseName: "CSC263H1", lecture: "LEC-0201" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "CSC207H1", tutorial: "TUT-0301" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "MAT237Y1", tutorial: "TUT-0301" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "STA247H1", tutorial: "TUT-5103" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "MAT224H1", tutorial: "TUT-0203" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "CSC209H1", tutorial: "TUT-0101" },
         })
-        disptachAppContext({
+        dispatch({
             type: "ADD_TUTORIAL_BY_COURSE_NAME",
             payload: { courseName: "CSC263H1", tutorial: "TUT-0201" },
         })
-    }, [disptachAppContext])
+    }, [dispatch])
 
     useEffect(() => {
         setFirstMeetings(MeetingsFabricator(courses, userMeetings, "F"))

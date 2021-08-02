@@ -24,20 +24,21 @@ const standardMeetingDeliveryMode = {
 const standardMeetingCategoryType = {
     TUT: MeetingCategoryType.Tutorial,
     LEC: MeetingCategoryType.Lecture,
+    PRA: MeetingCategoryType.Practical,
 }
 
 const MeetingsFabricator = (
     courses: Course[],
     userMeetings: { [key: string]: UserMeeting },
-    section: "F" | "S" | "Y"
+    section: Course["section"]
 ): Meeting[] => {
     let meetings: Meeting[] = []
 
     for (const [index, course] of courses.entries()) {
         if (
+            course.section !== section &&
             section !== "Y" &&
-            course.section !== "Y" &&
-            course.section !== section
+            course.section !== "Y"
         )
             continue
         for (const [userCourse, userMeeting] of Object.entries(userMeetings)) {
@@ -46,15 +47,7 @@ const MeetingsFabricator = (
             for (const meetingName of Object.values(userMeeting)) {
                 const meeting = course.meetings[meetingName]
                 for (const schedule of Object.values(meeting.schedule)) {
-                    const day =
-                        standardMeetingDays[
-                            schedule.meetingDay as
-                                | "MO"
-                                | "TU"
-                                | "WE"
-                                | "TH"
-                                | "FR"
-                        ]
+                    const day = standardMeetingDays[schedule.meetingDay]
                     // TODO Handle case where meetingStartTime is null
                     const startTime = schedule.meetingStartTime
                         .split(":")
@@ -70,15 +63,8 @@ const MeetingsFabricator = (
                             timeToMinuteOffset(endTime[0], endTime[1]),
                             course.code,
                             index + 1,
-                            standardMeetingDeliveryMode[
-                                meeting.deliveryMode as
-                                    | "ONLSYNC"
-                                    | "ONLASYNC"
-                                    | "CLASS"
-                            ],
-                            standardMeetingCategoryType[
-                                meeting.teachingMethod as "TUT" | "LEC"
-                            ],
+                            standardMeetingDeliveryMode[meeting.deliveryMode],
+                            standardMeetingCategoryType[meeting.teachingMethod],
                             meeting.sectionNumber
                         )
                     )
