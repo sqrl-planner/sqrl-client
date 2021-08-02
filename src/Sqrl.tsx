@@ -65,65 +65,142 @@ const Sqrl = () => {
     const { colorMode } = useColorMode()
 
     useEffect(() => {
-        sampleCourse.forEach((course) => {
-            dispatch({ type: "ADD_COURSE", payload: course })
-        })
+        console.log(sampleCourse, typeof sampleCourse)
+
+        for (const [identifier, course] of Object.entries(sampleCourse)) {
+            dispatch({ type: "ADD_COURSE", payload: { identifier, course } })
+        }
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "CSC258H1", lecture: "LEC-0101" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC258H1-F-20219",
+                meeting: "LEC-0101",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "MAT237Y1", lecture: "LEC-0201" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "MAT237Y1-Y-20219",
+                meeting: "LEC-0201",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "CSC236H1", lecture: "LEC-0201" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC236H1-F-20219",
+                meeting: "LEC-0201",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "STA247H1", lecture: "LEC-0101" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC207H1-F-20219",
+                meeting: "LEC-0301",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "CSC207H1", lecture: "LEC-0301" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "STA247H1-F-20219",
+                meeting: "LEC-0101",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "MAT224H1", lecture: "LEC-0101" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "MAT224H1-S-20219",
+                meeting: "LEC-0101",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "CSC209H1", lecture: "LEC-0101" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC209H1-S-20219",
+                meeting: "LEC-0101",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_LECTURE_BY_COURSE_NAME",
-            payload: { courseName: "CSC263H1", lecture: "LEC-0201" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC263H1-S-20219",
+                meeting: "LEC-0201",
+                method: "lecture",
+            },
         })
+
         dispatch({
-            type: "ADD_TUTORIAL_BY_COURSE_NAME",
-            payload: { courseName: "CSC207H1", tutorial: "TUT-0301" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC207H1-F-20219",
+                meeting: "TUT-0301",
+                method: "tutorial",
+            },
         })
+
         dispatch({
-            type: "ADD_TUTORIAL_BY_COURSE_NAME",
-            payload: { courseName: "MAT237Y1", tutorial: "TUT-0301" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "MAT237Y1-Y-20219",
+                meeting: "TUT-0301",
+                method: "tutorial",
+            },
         })
+
         dispatch({
-            type: "ADD_TUTORIAL_BY_COURSE_NAME",
-            payload: { courseName: "STA247H1", tutorial: "TUT-5103" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "STA247H1-F-20219",
+                meeting: "TUT-5103",
+                method: "tutorial",
+            },
         })
+
         dispatch({
-            type: "ADD_TUTORIAL_BY_COURSE_NAME",
-            payload: { courseName: "MAT224H1", tutorial: "TUT-0203" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "MAT224H1-S-20219",
+                meeting: "TUT-0203",
+                method: "tutorial",
+            },
         })
+
         dispatch({
-            type: "ADD_TUTORIAL_BY_COURSE_NAME",
-            payload: { courseName: "CSC209H1", tutorial: "TUT-0101" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC209H1-S-20219",
+                meeting: "TUT-0101",
+                method: "tutorial",
+            },
         })
+
         dispatch({
-            type: "ADD_TUTORIAL_BY_COURSE_NAME",
-            payload: { courseName: "CSC263H1", tutorial: "TUT-0201" },
+            type: "ADD_MEETING",
+            payload: {
+                identifier: "CSC263H1-S-20219",
+                meeting: "TUT-0201",
+                method: "tutorial",
+            },
         })
+
+        // dispatch({
+        //     type: "ADD_TUTORIAL_BY_COURSE_NAME",
+        //     payload: { courseName: "CSC263H1", tutorial: "TUT-0201" },
+        // })
     }, [dispatch])
 
     useEffect(() => {

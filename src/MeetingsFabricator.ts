@@ -29,27 +29,31 @@ const standardMeetingCategoryType = {
 
 /**
  * Generate an array of Meetings from a list of courses
- * @param courses An array of StandardCourse
+ * @param courses Object of StandardCourse
  * @param userMeetings Object of key: course identifier, value: UserMeeting
  * @param section The semester
  * @returns An array of Meeting type
  */
 const MeetingsFabricator = (
-    courses: StandardCourse[],
+    courses: { [key: string]: StandardCourse },
     userMeetings: { [key: string]: UserMeeting },
     section: StandardCourse["section"]
 ): Meeting[] => {
     let meetings: Meeting[] = []
+    let index = 0
 
-    for (const [index, course] of courses.entries()) {
+    for (const [identifier, course] of Object.entries(courses)) {
+        index++
         if (
             course.section !== section &&
             section !== "Y" &&
             course.section !== "Y"
-        )
+        ) {
             continue
+        }
+
         for (const [userCourse, userMeeting] of Object.entries(userMeetings)) {
-            if (course.courseId !== userCourse) continue
+            if (identifier !== userCourse) continue
 
             for (const meetingName of Object.values(userMeeting)) {
                 const meeting = course.meetings[meetingName]
@@ -69,7 +73,7 @@ const MeetingsFabricator = (
                             timeToMinuteOffset(startTime[0], startTime[1]),
                             timeToMinuteOffset(endTime[0], endTime[1]),
                             course.code,
-                            index + 1,
+                            index,
                             standardMeetingDeliveryMode[meeting.deliveryMode],
                             standardMeetingCategoryType[meeting.teachingMethod],
                             meeting.sectionNumber

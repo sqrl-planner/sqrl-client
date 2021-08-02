@@ -1,6 +1,6 @@
 /* eslint-disable */
-export const courses = [
-    JSON.parse(`{
+export const courses: Object = {
+    "CSC258H1-F-20219": JSON.parse(`{
         "courseId": "51828",
         "org": "CSC",
         "orgName": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)",
@@ -190,7 +190,7 @@ export const courses = [
             }
         }
     }`), // CSC258
-    JSON.parse(`{
+    "MAT237Y1-Y-20219": JSON.parse(`{
         "courseId": "53848",
         "org": "MAT",
         "orgName": "Mathematics (MAT) (APM) (JMB) (JUM)",
@@ -2126,7 +2126,7 @@ export const courses = [
             }
         }
     }`), // MAT237
-    JSON.parse(`{
+    "CSC236H1-F-20219": JSON.parse(`{
         "courseId": "51826",
         "org": "CSC",
         "orgName": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)",
@@ -2658,7 +2658,7 @@ export const courses = [
             }
         }
     }`), // CSC236
-    JSON.parse(`{
+    "CSC207H1-F-20219": JSON.parse(`{
         "courseId": "51824",
         "org": "CSC",
         "orgName": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)",
@@ -3599,7 +3599,7 @@ export const courses = [
             }
         }
     }`), // CSC207
-    JSON.parse(` {
+    "STA247H1-F-20219": JSON.parse(` {
         "courseId": "55628",
         "org": "STAT",
         "orgName": "Statistical Sciences (STA) (ACT) (JSC)",
@@ -3815,7 +3815,7 @@ export const courses = [
             }
         }
     }`), // STA247
-    JSON.parse(`{
+    "MAT224H1-S-20219": JSON.parse(`{
         "courseId": "53846",
         "org": "MAT",
         "orgName": "Mathematics (MAT) (APM) (JMB) (JUM)",
@@ -7627,7 +7627,7 @@ export const courses = [
             }
         }
     }`), // MAT224
-    JSON.parse(`{
+    "CSC209H1-S-20219": JSON.parse(`{
         "courseId": "51825",
         "org": "CSC",
         "orgName": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)",
@@ -8158,7 +8158,7 @@ export const courses = [
             }
         }
     }`), // CSC209
-    JSON.parse(` {
+    "CSC263H1-S-20219": JSON.parse(` {
         "courseId": "51829",
         "org": "CSC",
         "orgName": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)",
@@ -8520,4 +8520,4 @@ export const courses = [
             }
         }
     }`), // CSC263
-]
+}

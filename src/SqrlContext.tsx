@@ -1,5 +1,4 @@
-import React from "react"
-import { createContext } from "react"
+import React, { createContext } from "react"
 import { StandardCourse } from "./Course"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
@@ -11,7 +10,7 @@ export interface UserMeeting {
 }
 
 interface AppData {
-    courses: StandardCourse[]
+    courses: { [key: string]: StandardCourse }
     userMeetings: { [key: string]: UserMeeting }
 }
 
@@ -23,23 +22,33 @@ interface AppData {
  */
 
 export type Action =
-    | { type: "ADD_COURSE"; payload: StandardCourse }
+    | {
+          type: "ADD_COURSE"
+          payload: { identifier: string; course: StandardCourse }
+      }
     | { type: "REMOVE_COURSE"; payload: string }
-    | { type: "ADD_LECTURE"; payload: { courseId: string; lecture: string } }
     | {
-          type: "ADD_LECTURE_BY_COURSE_NAME"
-          payload: { courseName: string; lecture: string }
+          type: "ADD_MEETING"
+          payload: {
+              identifier: string
+              meeting: string
+              method: "lecture" | "tutorial" | "practical"
+          }
       }
-    | { type: "ADD_TUTORIAL"; payload: { courseId: string; tutorial: string } }
-    | {
-          type: "ADD_TUTORIAL_BY_COURSE_NAME"
-          payload: { courseName: string; tutorial: string }
-      }
-    | { type: "REMOVE_LECTURE"; payload: { courseId: string; lecture: string } }
-    | {
-          type: "REMOVE_TUTORIAL"
-          payload: { courseId: string; tutorial: string }
-      }
+// | {
+//       type: "ADD_LECTURE_BY_COURSE_NAME"
+//       payload: { courseName: string; lecture: string }
+//   }
+// | { type: "ADD_TUTORIAL"; payload: { courseId: string; tutorial: string } }
+// | {
+//       type: "ADD_TUTORIAL_BY_COURSE_NAME"
+//       payload: { courseName: string; tutorial: string }
+//   }
+// | { type: "REMOVE_LECTURE"; payload: { courseId: string; lecture: string } }
+// | {
+//       type: "REMOVE_TUTORIAL"
+//       payload: { courseId: string; tutorial: string }
+//   }
 
 type Dispatch = (action: Action) => void
 
@@ -54,129 +63,131 @@ const AppContext = createContext<
 type AppContextProviderProps = { children: React.ReactNode }
 
 const AppContextReducer = (state: AppData, action: Action) => {
-    let newContext: AppData = { courses: [], userMeetings: {} }
+    let newContext: AppData = { courses: {}, userMeetings: {} }
     const { courses, userMeetings } = state
 
     switch (action.type) {
         case "ADD_COURSE": {
             newContext = {
                 ...state,
-                courses: [...courses, action.payload],
+                courses: {
+                    ...courses,
+                    [action.payload.identifier]: action.payload.course,
+                },
             }
             break
         }
 
         case "REMOVE_COURSE": {
+            // Destructure everything, discard the course to remove
+            const { [action.payload]: _, ...rest } = courses
             newContext = {
                 ...state,
-                courses: courses.filter(
-                    (course: StandardCourse) =>
-                        course.courseId !== action.payload
-                ),
+                courses: rest,
             }
             break
         }
 
-        case "ADD_LECTURE_BY_COURSE_NAME": {
-            let courseId: string | null = null
+        // case "ADD_LECTURE_BY_COURSE_NAME": {
+        //     let courseId: string | null = null
 
-            const course = courses.find(
-                (course) => course.code === action.payload.courseName
-            )
-            if (!course) break
+        //     const course = courses.find(
+        //         (course) => course.code === action.payload.courseName
+        //     )
+        //     if (!course) break
 
-            courseId = course.courseId
+        //     courseId = course.courseId
+        //     newContext = {
+        //         ...state,
+        //         userMeetings: {
+        //             ...userMeetings,
+        //             [courseId]: {
+        //                 ...userMeetings[courseId],
+        //                 lecture: action.payload.lecture,
+        //             },
+        //         },
+        //     }
+        //     break
+        // }
+
+        case "ADD_MEETING": {
+            const { identifier, meeting, method } = action.payload
             newContext = {
                 ...state,
                 userMeetings: {
                     ...userMeetings,
-                    [courseId]: {
-                        ...userMeetings[courseId],
-                        lecture: action.payload.lecture,
+                    [identifier]: {
+                        ...userMeetings[identifier],
+                        [method]: meeting,
                     },
                 },
             }
             break
         }
 
-        case "ADD_LECTURE": {
-            const courseId = action.payload.courseId
-            newContext = {
-                ...state,
-                userMeetings: {
-                    ...userMeetings,
-                    [courseId]: {
-                        ...userMeetings[courseId],
-                        lecture: action.payload.lecture,
-                    },
-                },
-            }
-            break
-        }
+        // case "ADD_TUTORIAL": {
+        //     newContext = {
+        //         ...state,
+        //         userMeetings: {
+        //             ...userMeetings,
+        //             [action.payload.courseId]: {
+        //                 ...userMeetings[action.payload.courseId],
+        //                 tutorial: action.payload.tutorial,
+        //             },
+        //         },
+        //     }
+        //     break
+        // }
 
-        case "ADD_TUTORIAL": {
-            newContext = {
-                ...state,
-                userMeetings: {
-                    ...userMeetings,
-                    [action.payload.courseId]: {
-                        ...userMeetings[action.payload.courseId],
-                        tutorial: action.payload.tutorial,
-                    },
-                },
-            }
-            break
-        }
+        // case "ADD_TUTORIAL_BY_COURSE_NAME": {
+        //     let courseId: string | null = null
 
-        case "ADD_TUTORIAL_BY_COURSE_NAME": {
-            let courseId: string | null = null
+        //     const course = courses.find(
+        //         (course) => course.code === action.payload.courseName
+        //     )
+        //     if (!course) break
 
-            const course = courses.find(
-                (course) => course.code === action.payload.courseName
-            )
-            if (!course) break
+        //     courseId = course.courseId
+        //     newContext = {
+        //         ...state,
+        //         userMeetings: {
+        //             ...userMeetings,
+        //             [courseId]: {
+        //                 ...userMeetings[courseId],
+        //                 tutorial: action.payload.tutorial,
+        //             },
+        //         },
+        //     }
+        //     break
+        // }
 
-            courseId = course.courseId
-            newContext = {
-                ...state,
-                userMeetings: {
-                    ...userMeetings,
-                    [courseId]: {
-                        ...userMeetings[courseId],
-                        tutorial: action.payload.tutorial,
-                    },
-                },
-            }
-            break
-        }
+        // case "REMOVE_LECTURE": {
+        //     newContext = {
+        //         ...state,
+        //         userMeetings: {
+        //             ...userMeetings,
+        //             [action.payload.courseId]: {
+        //                 ...userMeetings[action.payload.courseId],
+        //                 lecture: "",
+        //             },
+        //         },
+        //     }
+        //     break
+        // }
 
-        case "REMOVE_LECTURE": {
-            newContext = {
-                ...state,
-                userMeetings: {
-                    ...userMeetings,
-                    [action.payload.courseId]: {
-                        ...userMeetings[action.payload.courseId],
-                        lecture: "",
-                    },
-                },
-            }
-            break
-        }
-
-        case "REMOVE_TUTORIAL": {
-            newContext = {
-                ...state,
-                userMeetings: {
-                    ...userMeetings,
-                    [action.payload.courseId]: {
-                        ...userMeetings[action.payload.courseId],
-                        tutorial: "",
-                    },
-                },
-            }
-            break
-        }
+        // case "REMOVE_TUTORIAL": {
+        //     newContext = {
+        //         ...state,
+        //         userMeetings: {
+        //             ...userMeetings,
+        //             [action.payload.courseId]: {
+        //                 ...userMeetings[action.payload.courseId],
+        //                 tutorial: "",
+        //             },
+        //         },
+        //     }
+        //     break
+        // }
 
         default: {
             // @ts-expect-error
@@ -195,7 +206,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     // if (lsAppContext) appContext = JSON.parse(lsAppContext) as AppData
     // else {
     appContext = {
-        courses: [],
+        courses: {},
         userMeetings: {},
     }
     // }
