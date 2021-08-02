@@ -27,7 +27,7 @@ export type Action =
           payload: {
               identifier: string
               meeting: string
-              method: "lecture" | "tutorial" | "practical" | ""
+              method: "lecture" | "tutorial" | "practical"
           }
       }
     | { type: "ADD_PROGRAM"; payload: { code: string; title: string } }

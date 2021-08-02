@@ -1,7 +1,6 @@
-import styled from "styled-components"
 import { chakra } from "@chakra-ui/react"
 import Colour from "color"
-import { Preferences } from "../../PreferencesContext"
+import styled from "styled-components"
 
 export const StyledTimetableContainer = styled(chakra.div)`
     width: 100%;

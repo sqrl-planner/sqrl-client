@@ -19,7 +19,7 @@ import {
     Text,
     UnorderedList,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useRef } from "react"
+import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
 import { FaSchool, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
@@ -62,6 +62,19 @@ const PreferencesApplication = () => {
                         boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
                         placeholder="Search for a program or focus"
                         my={2}
+                        onClick={(e: MouseEvent) => {
+                            dispatchAppContext({
+                                type: "ADD_PROGRAM",
+                                payload: {
+                                    code: (
+                                        e.target as HTMLInputElement
+                                    ).value.split(":")[0],
+                                    title: (
+                                        e.target as HTMLInputElement
+                                    ).value.split(":")[1],
+                                },
+                            })
+                        }}
                     />
                     <UnorderedList my={4} fontWeight="500">
                         {programs.map((program) => (
@@ -122,6 +135,7 @@ const PreferencesApplication = () => {
                                                                                 program.code,
                                                                         }
                                                                     )
+                                                                    onClose()
                                                                 }}
                                                             >
                                                                 Delete{" "}
