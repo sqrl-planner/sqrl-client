@@ -3,7 +3,7 @@ import {
     MeetingCategoryType,
     Meeting,
 } from "./components/timetable/Meeting"
-import { Course } from "./Course"
+import { StandardCourse } from "./Course"
 import { UserMeeting } from "./SqrlContext"
 import { Day, timeToMinuteOffset } from "./utils/time"
 
@@ -27,10 +27,17 @@ const standardMeetingCategoryType = {
     PRA: MeetingCategoryType.Practical,
 }
 
+/**
+ * Generate an array of Meetings from a list of courses
+ * @param courses An array of StandardCourse
+ * @param userMeetings Object of key: course identifier, value: UserMeeting
+ * @param section The semester
+ * @returns An array of Meeting type
+ */
 const MeetingsFabricator = (
-    courses: Course[],
+    courses: StandardCourse[],
     userMeetings: { [key: string]: UserMeeting },
-    section: Course["section"]
+    section: StandardCourse["section"]
 ): Meeting[] => {
     let meetings: Meeting[] = []
 

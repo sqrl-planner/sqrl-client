@@ -1,6 +1,12 @@
+/**
+ * Across this project, "Standard" refers to a schema derived from the official Timetable
+ */
+
+import { StandardDayOfWeek } from "./utils/time"
+
 export interface Schedule {
     [key: string]: {
-        meetingDay: "MO" | "TU" | "WE" | "TH" | "FR"
+        meetingDay: StandardDayOfWeek
         meetingStartTime: string
         meetingEndTime: string
         meetingScheduleId: string
@@ -43,7 +49,7 @@ interface StandardMeetings {
 /**
  * A class representing a course
  */
-export interface Course {
+export interface StandardCourse {
     courseId: string
     org: string
     orgName: string

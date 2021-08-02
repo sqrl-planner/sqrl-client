@@ -1,6 +1,6 @@
 import React from "react"
 import { createContext } from "react"
-import { Course } from "./Course"
+import { StandardCourse } from "./Course"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
@@ -11,7 +11,7 @@ export interface UserMeeting {
 }
 
 interface AppData {
-    courses: Course[]
+    courses: StandardCourse[]
     userMeetings: { [key: string]: UserMeeting }
 }
 
@@ -23,7 +23,7 @@ interface AppData {
  */
 
 export type Action =
-    | { type: "ADD_COURSE"; payload: Course }
+    | { type: "ADD_COURSE"; payload: StandardCourse }
     | { type: "REMOVE_COURSE"; payload: string }
     | { type: "ADD_LECTURE"; payload: { courseId: string; lecture: string } }
     | {
@@ -54,7 +54,7 @@ const AppContext = createContext<
 type AppContextProviderProps = { children: React.ReactNode }
 
 const AppContextReducer = (state: AppData, action: Action) => {
-    let newContext: AppData
+    let newContext: AppData = { courses: [], userMeetings: {} }
     const { courses, userMeetings } = state
 
     switch (action.type) {
@@ -70,7 +70,8 @@ const AppContextReducer = (state: AppData, action: Action) => {
             newContext = {
                 ...state,
                 courses: courses.filter(
-                    (course: Course) => course.courseId !== action.payload
+                    (course: StandardCourse) =>
+                        course.courseId !== action.payload
                 ),
             }
             break
@@ -200,8 +201,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     // }
 
     const [state, dispatch] = React.useReducer(AppContextReducer, appContext)
-
-    // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
 
     const value = { state, dispatch }
 

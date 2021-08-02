@@ -14,8 +14,8 @@ export function timeToMinuteOffset(
 }
 
 /**
- *
- * @param time Convert a minute offset (from midnight) to an HH:MM time.
+ * Convert a minute offset (from midnight) to an HH:MM time.
+ * @param time Minutes from midnight
  * @returns A string representing the given time in the format HH:MM.
  */
 export function minuteOffsetToTime(time: number, twentyFour: boolean): string {
@@ -60,3 +60,5 @@ export const WEEK_DAYS: Day[] = [
     Day.THURSDAY,
     Day.FRIDAY,
 ]
+
+export type StandardDayOfWeek = "MO" | "TU" | "WE" | "TH" | "FR"
