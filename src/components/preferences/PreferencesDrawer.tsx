@@ -15,8 +15,9 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 import { usePreferences } from "../../PreferencesContext"
-import PreferencesApplication from "./PreferencesApplication"
+import PreferencesTimetable from "./PreferencesTimetable"
 import PreferencesCosmetic from "./PreferencesCosmetic"
+import PreferencesApplication from "./PreferencesApplication"
 
 const Tab = ({ children }: { children: React.ReactNode }) => (
     <ChakraTab
@@ -69,15 +70,19 @@ const PreferencesDrawer = (props: {
                             height="2.8rem"
                             boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
                         >
-                            <Tab>Appearance</Tab>
                             <Tab>Application</Tab>
+                            <Tab>Timetable</Tab>
+                            <Tab>Appearance</Tab>
                         </TabList>
                         <TabPanels position="relative" top="10" zIndex="0">
                             <TabPanel>
-                                <PreferencesCosmetic />
+                                <PreferencesApplication />
                             </TabPanel>
                             <TabPanel>
-                                <PreferencesApplication />
+                                <PreferencesTimetable />
+                            </TabPanel>
+                            <TabPanel>
+                                <PreferencesCosmetic />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

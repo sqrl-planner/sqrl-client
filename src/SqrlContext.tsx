@@ -12,14 +12,9 @@ export interface UserMeeting {
 interface AppData {
     courses: { [key: string]: StandardCourse }
     userMeetings: { [key: string]: UserMeeting }
+    programs: Array<{ code: string; title: string }>
+    campus: { sg: boolean; sc: boolean; ms: boolean }
 }
-
-/**
- * TODO IMPORTANT
- * Identifying courses by courseId is unreliable across sections (F, S, Y)
- * Change to identification of courses by other means, i.e. entire code: CSC263H1-F-20219
- * Requires restructure of AppData store and associated reducers
- */
 
 export type Action =
     | {
@@ -28,27 +23,19 @@ export type Action =
       }
     | { type: "REMOVE_COURSE"; payload: string }
     | {
-          type: "ADD_MEETING"
+          type: "SET_MEETING"
           payload: {
               identifier: string
               meeting: string
-              method: "lecture" | "tutorial" | "practical"
+              method: "lecture" | "tutorial" | "practical" | ""
           }
       }
-// | {
-//       type: "ADD_LECTURE_BY_COURSE_NAME"
-//       payload: { courseName: string; lecture: string }
-//   }
-// | { type: "ADD_TUTORIAL"; payload: { courseId: string; tutorial: string } }
-// | {
-//       type: "ADD_TUTORIAL_BY_COURSE_NAME"
-//       payload: { courseName: string; tutorial: string }
-//   }
-// | { type: "REMOVE_LECTURE"; payload: { courseId: string; lecture: string } }
-// | {
-//       type: "REMOVE_TUTORIAL"
-//       payload: { courseId: string; tutorial: string }
-//   }
+    | { type: "ADD_PROGRAM"; payload: { code: string; title: string } }
+    | { type: "REMOVE_PROGRAM"; payload: string }
+    | {
+          type: "SET_CAMPUS"
+          payload: { campus: "sg" | "sc" | "ms"; status: boolean }
+      }
 
 type Dispatch = (action: Action) => void
 
@@ -63,8 +50,13 @@ const AppContext = createContext<
 type AppContextProviderProps = { children: React.ReactNode }
 
 const AppContextReducer = (state: AppData, action: Action) => {
-    let newContext: AppData = { courses: {}, userMeetings: {} }
-    const { courses, userMeetings } = state
+    let newContext: AppData = {
+        courses: {},
+        userMeetings: {},
+        programs: [],
+        campus: { sg: true, sc: false, ms: false },
+    }
+    const { courses, userMeetings, programs, campus } = state
 
     switch (action.type) {
         case "ADD_COURSE": {
@@ -88,29 +80,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
             break
         }
 
-        // case "ADD_LECTURE_BY_COURSE_NAME": {
-        //     let courseId: string | null = null
-
-        //     const course = courses.find(
-        //         (course) => course.code === action.payload.courseName
-        //     )
-        //     if (!course) break
-
-        //     courseId = course.courseId
-        //     newContext = {
-        //         ...state,
-        //         userMeetings: {
-        //             ...userMeetings,
-        //             [courseId]: {
-        //                 ...userMeetings[courseId],
-        //                 lecture: action.payload.lecture,
-        //             },
-        //         },
-        //     }
-        //     break
-        // }
-
-        case "ADD_MEETING": {
+        case "SET_MEETING": {
             const { identifier, meeting, method } = action.payload
             newContext = {
                 ...state,
@@ -125,69 +95,34 @@ const AppContextReducer = (state: AppData, action: Action) => {
             break
         }
 
-        // case "ADD_TUTORIAL": {
-        //     newContext = {
-        //         ...state,
-        //         userMeetings: {
-        //             ...userMeetings,
-        //             [action.payload.courseId]: {
-        //                 ...userMeetings[action.payload.courseId],
-        //                 tutorial: action.payload.tutorial,
-        //             },
-        //         },
-        //     }
-        //     break
-        // }
+        case "ADD_PROGRAM": {
+            newContext = {
+                ...state,
+                programs: [...programs, action.payload],
+            }
+            break
+        }
 
-        // case "ADD_TUTORIAL_BY_COURSE_NAME": {
-        //     let courseId: string | null = null
+        case "REMOVE_PROGRAM": {
+            newContext = {
+                ...state,
+                programs: programs.filter(
+                    (program) => program.code !== action.payload
+                ),
+            }
+            break
+        }
 
-        //     const course = courses.find(
-        //         (course) => course.code === action.payload.courseName
-        //     )
-        //     if (!course) break
-
-        //     courseId = course.courseId
-        //     newContext = {
-        //         ...state,
-        //         userMeetings: {
-        //             ...userMeetings,
-        //             [courseId]: {
-        //                 ...userMeetings[courseId],
-        //                 tutorial: action.payload.tutorial,
-        //             },
-        //         },
-        //     }
-        //     break
-        // }
-
-        // case "REMOVE_LECTURE": {
-        //     newContext = {
-        //         ...state,
-        //         userMeetings: {
-        //             ...userMeetings,
-        //             [action.payload.courseId]: {
-        //                 ...userMeetings[action.payload.courseId],
-        //                 lecture: "",
-        //             },
-        //         },
-        //     }
-        //     break
-        // }
-
-        // case "REMOVE_TUTORIAL": {
-        //     newContext = {
-        //         ...state,
-        //         userMeetings: {
-        //             ...userMeetings,
-        //             [action.payload.courseId]: {
-        //                 ...userMeetings[action.payload.courseId],
-        //                 tutorial: "",
-        //             },
-        //         },
-        //     }
-        //     break
-        // }
+        case "SET_CAMPUS": {
+            newContext = {
+                ...state,
+                campus: {
+                    ...campus,
+                    [action.payload.campus]: action.payload.status,
+                },
+            }
+            break
+        }
 
         default: {
             // @ts-expect-error
@@ -208,6 +143,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     appContext = {
         courses: {},
         userMeetings: {},
+        programs: [],
+        campus: { sg: true, sc: false, ms: false },
     }
     // }
 

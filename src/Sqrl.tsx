@@ -72,7 +72,7 @@ const Sqrl = () => {
         }
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC258H1-F-20219",
                 meeting: "LEC-0101",
@@ -81,7 +81,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "MAT237Y1-Y-20219",
                 meeting: "LEC-0201",
@@ -90,7 +90,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC236H1-F-20219",
                 meeting: "LEC-0201",
@@ -99,7 +99,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC207H1-F-20219",
                 meeting: "LEC-0301",
@@ -108,7 +108,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "STA247H1-F-20219",
                 meeting: "LEC-0101",
@@ -117,7 +117,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "MAT224H1-S-20219",
                 meeting: "LEC-0101",
@@ -126,7 +126,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC209H1-S-20219",
                 meeting: "LEC-0101",
@@ -135,7 +135,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC263H1-S-20219",
                 meeting: "LEC-0201",
@@ -144,7 +144,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC207H1-F-20219",
                 meeting: "TUT-0301",
@@ -153,7 +153,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "MAT237Y1-Y-20219",
                 meeting: "TUT-0301",
@@ -162,7 +162,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "STA247H1-F-20219",
                 meeting: "TUT-5103",
@@ -171,7 +171,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "MAT224H1-S-20219",
                 meeting: "TUT-0203",
@@ -180,7 +180,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC209H1-S-20219",
                 meeting: "TUT-0101",
@@ -189,7 +189,7 @@ const Sqrl = () => {
         })
 
         dispatch({
-            type: "ADD_MEETING",
+            type: "SET_MEETING",
             payload: {
                 identifier: "CSC263H1-S-20219",
                 meeting: "TUT-0201",
@@ -197,10 +197,26 @@ const Sqrl = () => {
             },
         })
 
-        // dispatch({
-        //     type: "ADD_TUTORIAL_BY_COURSE_NAME",
-        //     payload: { courseName: "CSC263H1", tutorial: "TUT-0201" },
-        // })
+        dispatch({
+            type: "SET_CAMPUS",
+            payload: { campus: "sg", status: true },
+        })
+
+        dispatch({
+            type: "ADD_PROGRAM",
+            payload: {
+                code: "ASSPE1689",
+                title: "Computer Science Specialist",
+            },
+        })
+
+        dispatch({
+            type: "ADD_PROGRAM",
+            payload: {
+                code: "ASFOC1689B",
+                title: "Focus in Artificial Intelligence",
+            },
+        })
     }, [dispatch])
 
     useEffect(() => {

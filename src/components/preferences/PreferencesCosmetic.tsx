@@ -40,7 +40,7 @@ const PreferencesTimetable = () => {
     const { colorMode, toggleColorMode } = useColorMode()
 
     useEffect(() => {
-        dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 0 })
+        dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 2 })
     }, [dispatch])
 
     return (
