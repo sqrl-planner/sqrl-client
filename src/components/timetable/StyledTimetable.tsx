@@ -12,7 +12,7 @@ export const StyledTimetableContainer = styled(chakra.div)`
 export const StyledTimetable = styled.table`
     display: table;
     width: calc(100% - 0.25rem);
-    min-width: 500px;
+    min-width: 450px;
     margin: 1rem;
     margin-left: 0;
     padding: 0;
@@ -171,7 +171,6 @@ export const MeetingTime = styled.div<{
     padding-right: 0.3em;
     transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
         box-shadow 0s cubic-bezier(0.645, 0.045, 0.355, 1);
-    /* transition-delay: opacity 1s; */
     background-color: ${({ courseKey = 0, palette, dark }) =>
         courseKeyToColour(courseKey, dark, palettes[palette] as any)};
 

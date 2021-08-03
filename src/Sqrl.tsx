@@ -6,10 +6,12 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
+import { AnimatePresence } from "framer-motion"
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
 import Header from "./components/Header"
+import Sidebar from "./components/Sidebar"
 import { Meeting } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
 import { HoverContextProvider } from "./HoverContext"
@@ -19,17 +21,23 @@ import { courses as sampleCourse } from "./sampleCourses"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
 
-const Container = styled(chakra.div)`
-    position: relative;
-    top: 4.5rem;
+const TimetableContainer = styled(chakra.div)`
     display: grid;
-    width: 100vw;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    width: calc(100vw - 24rem);
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     min-height: calc(100vh - 4.5rem);
 
     @media print {
         top: 1rem;
     }
+`
+
+const Container = styled(chakra.div)`
+    position: relative;
+    position: relative;
+    top: 4.5rem;
+
+    display: flex;
 `
 
 const Sqrl = () => {
@@ -245,61 +253,72 @@ const Sqrl = () => {
                 }}
             />
             <Header />
-            <Container background={useColorModeValue("gray.75", "gray.800")}>
-                <HoverContextProvider>
-                    {(showSemester === "first" || showSemester === "both") && (
-                        <Flex position="relative">
-                            <Heading
-                                as="h3"
-                                size="sm"
-                                color="blue.600"
-                                fontWeight="800"
-                                position="absolute"
-                                top={3}
-                                left={3}
-                            >
-                                1<sup>st</sup>
-                            </Heading>
-                            <Timetable
-                                meetings={firstMeetings}
-                                scale={timetableSize}
-                                minTime={timeToMinuteOffset(start)}
-                                maxTime={timeToMinuteOffset(end)}
-                                palette={palette}
-                                highlightConflicts={highlightConflicts}
-                                twentyFour={twentyFour}
-                                dark={colorMode === "dark"}
-                                emphasizeOnHover={emphasize}
-                            />
-                        </Flex>
+            <Container>
+                <TimetableContainer
+                    background={useColorModeValue("gray.75", "gray.800")}
+                >
+                    <HoverContextProvider>
+                        {(showSemester === "first" ||
+                            showSemester === "both") && (
+                            <Flex position="relative">
+                                <Heading
+                                    as="h3"
+                                    size="sm"
+                                    color="blue.600"
+                                    fontWeight="800"
+                                    position="absolute"
+                                    top={3}
+                                    left={3}
+                                >
+                                    1<sup>st</sup>
+                                </Heading>
+                                <Timetable
+                                    meetings={firstMeetings}
+                                    scale={timetableSize}
+                                    minTime={timeToMinuteOffset(start)}
+                                    maxTime={timeToMinuteOffset(end)}
+                                    palette={palette}
+                                    highlightConflicts={highlightConflicts}
+                                    twentyFour={twentyFour}
+                                    dark={colorMode === "dark"}
+                                    emphasizeOnHover={emphasize}
+                                />
+                            </Flex>
+                        )}
+                        {(showSemester === "second" ||
+                            showSemester === "both") && (
+                            <Flex position="relative">
+                                <Heading
+                                    as="h3"
+                                    size="sm"
+                                    color="green.600"
+                                    fontWeight="800"
+                                    position="absolute"
+                                    top={3}
+                                    left={3}
+                                >
+                                    2<sup>nd</sup>
+                                </Heading>
+                                <Timetable
+                                    meetings={secondMeetings}
+                                    scale={timetableSize}
+                                    minTime={timeToMinuteOffset(start)}
+                                    maxTime={timeToMinuteOffset(end)}
+                                    palette={palette}
+                                    highlightConflicts={highlightConflicts}
+                                    twentyFour={twentyFour}
+                                    dark={colorMode === "dark"}
+                                    emphasizeOnHover={emphasize}
+                                />
+                            </Flex>
+                        )}
+                    </HoverContextProvider>
+                </TimetableContainer>
+                <AnimatePresence>
+                    {courses["CSC263H1-S-20219"] && (
+                        <Sidebar course={courses["CSC263H1-S-20219"]} />
                     )}
-                    {(showSemester === "second" || showSemester === "both") && (
-                        <Flex position="relative">
-                            <Heading
-                                as="h3"
-                                size="sm"
-                                color="green.600"
-                                fontWeight="800"
-                                position="absolute"
-                                top={3}
-                                left={3}
-                            >
-                                2<sup>nd</sup>
-                            </Heading>
-                            <Timetable
-                                meetings={secondMeetings}
-                                scale={timetableSize}
-                                minTime={timeToMinuteOffset(start)}
-                                maxTime={timeToMinuteOffset(end)}
-                                palette={palette}
-                                highlightConflicts={highlightConflicts}
-                                twentyFour={twentyFour}
-                                dark={colorMode === "dark"}
-                                emphasizeOnHover={emphasize}
-                            />
-                        </Flex>
-                    )}
-                </HoverContextProvider>
+                </AnimatePresence>
             </Container>
         </div>
     )

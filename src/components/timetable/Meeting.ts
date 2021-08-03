@@ -13,8 +13,8 @@ export enum MeetingDeliveryMode {
  * The type of meeting category.
  */
 export enum MeetingCategoryType {
-    Tutorial = "tutorial",
     Lecture = "lecture",
+    Tutorial = "tutorial",
     Practical = "practical",
 }
 
@@ -54,6 +54,10 @@ export class Meeting {
      * Meeting section
      */
     section: string | null
+    /**
+     * Course identifier
+     */
+    identifier: string
 
     constructor(
         day: Day,
@@ -63,7 +67,8 @@ export class Meeting {
         courseKey: number = 0,
         delivery: MeetingDeliveryMode = MeetingDeliveryMode.InPerson,
         category: MeetingCategoryType = MeetingCategoryType.Lecture,
-        section: string | null = null
+        section: string | null = null,
+        identifier: string
     ) {
         this.day = day
         this.startTime = startTime
@@ -73,6 +78,7 @@ export class Meeting {
         this.delivery = delivery
         this.category = category
         this.section = section
+        this.identifier = identifier
     }
 
     /**

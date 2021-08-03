@@ -76,7 +76,8 @@ const MeetingsFabricator = (
                             index,
                             standardMeetingDeliveryMode[meeting.deliveryMode],
                             standardMeetingCategoryType[meeting.teachingMethod],
-                            meeting.sectionNumber
+                            meeting.sectionNumber,
+                            identifier
                         )
                     )
                 }

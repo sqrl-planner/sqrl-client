@@ -101,6 +101,24 @@ const MiscInfo = styled.div`
     opacity: 0.6;
 `
 
+export const breakdownCourseCode = (title: string) => {
+    const firstDigitContent = title.match(/\d{3,}/g)
+    let firstDigit = 0
+
+    if (firstDigitContent) firstDigit = title.indexOf(firstDigitContent[0])
+
+    const department = title.substring(0, firstDigit)
+    const numeral = firstDigitContent
+        ? title.substr(firstDigit, firstDigitContent[0].length)
+        : title
+
+    const suffix = firstDigitContent
+        ? title.substring(firstDigitContent[0].length + department.length)
+        : ""
+
+    return { department, numeral, suffix }
+}
+
 const MeetingComponent = ({
     meeting,
     darkText = true,
@@ -117,22 +135,7 @@ const MeetingComponent = ({
 
     const meetingTitle = meeting.title
 
-    const firstDigitContent = meeting.title.match(/\d{3,}/g)
-    let firstDigit = 0
-
-    if (firstDigitContent)
-        firstDigit = meeting.title.indexOf(firstDigitContent[0])
-
-    const department = meetingTitle.substring(0, firstDigit)
-    const numeral = firstDigitContent
-        ? meetingTitle.substr(firstDigit, firstDigitContent[0].length)
-        : meetingTitle
-
-    const suffix = firstDigitContent
-        ? meetingTitle.substring(
-              firstDigitContent[0].length + department.length
-          )
-        : ""
+    const { department, numeral, suffix } = breakdownCourseCode(meetingTitle)
 
     const startTime = minuteOffsetToTime(meeting.startTime, twentyFour)
     const endTime = minuteOffsetToTime(meeting.endTime, twentyFour)
