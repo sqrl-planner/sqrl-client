@@ -27,10 +27,11 @@ const categoryAbbreviations = {
 const MeetingTitle = styled.div`
     padding-right: 0.3em;
     line-height: 1.2em;
+    font-size: 1.2em;
+
     &,
     & > * {
         font-weight: 700;
-        font-size: 1.2em;
         /* line-height: 2em; */
         /* overflow-wrap: break-word; */
         /* word-wrap: break-word; */
@@ -44,6 +45,10 @@ const MeetingTitle = styled.div`
             line-height: 10pt;
         }
     }
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
 `
 
 const MeetingSuffix = styled.span<{ darkText: boolean }>`
@@ -70,6 +75,7 @@ const MeetingTimes = styled.div`
     position: relative;
     top: 0.1rem;
     font-size: 0.9em;
+    line-height: 1em;
     opacity: 0.8;
     transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 `
@@ -135,7 +141,7 @@ const MeetingComponent = ({
         <MeetingInformation darkText={darkText}>
             <MeetingTitle>
                 {department + "\u200b"}
-                {numeral + "\u200b"}
+                <div>{numeral + "\u200b"}</div>
                 <MeetingSuffix
                     style={{
                         opacity: showCourseSuffix ? "" : 0,

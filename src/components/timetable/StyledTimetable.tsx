@@ -138,6 +138,8 @@ export const MeetingTime = styled.div<{
     courseKey: number
     palette: keyof Palettes
     dark: boolean
+    highlight: boolean
+    conflict?: boolean
 }>`
     position: absolute;
     top: 0.2em;
@@ -159,28 +161,38 @@ export const MeetingTime = styled.div<{
     font-weight: 500;
     /* line-height: 1.5em; */
 
-    padding: 0.5rem 0.6rem;
+    padding: 0.5rem;
 
     @media (max-width: 800px) {
         padding: 0.3rem;
         padding-left: 0.4rem;
     }
-    padding-right: 0em;
-    box-shadow: 1px 1px 4px -3px rgba(0, 0, 0, 0.4);
+
+    padding-right: 0.3em;
     transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        box-shadow 0.05s cubic-bezier(0.645, 0.045, 0.355, 1);
+    /* transition-delay: opacity 1s; */
     background-color: ${({ courseKey = 0, palette, dark }) =>
         courseKeyToColour(courseKey, dark, palettes[palette] as any)};
 
+    box-shadow: ${({ highlight, dark }) => {
+        if (!highlight) return `1px 1px 4px -3px rgba(0, 0, 0, 0.4);`
+
+        if (!dark) return `0 0 0 2px rgba(0,0,0,0.6)`
+        return `0 0 0 2px rgba(255, 255, 255, 0.6)`
+    }};
+
     @media print {
         font-size: 10pt;
-        line-height: 12pt;
-        border: 1px solid black;
-        box-shadow: none;
+        line-height: 14pt;
+        padding: 0.6rem;
+        border: ${({ conflict = false }) =>
+            conflict ? "1px solid #c53030" : "1px solid black"};
+
+        box-shadow: none !important;
 
         &,
         & > * {
-            /* white-space: nowrap; */
             overflow: visible;
         }
     }
@@ -190,8 +202,6 @@ export const courseKeyToColour = (
     courseKey: number,
     dark: boolean,
     colours?: string[]
-    // alpha: number = 1,
-    // lightenPercent: number = 0
 ) => {
     const defaultColours = palettes.default
     colours = colours || defaultColours
@@ -244,21 +254,20 @@ const palettes: Palettes = {
         "hsl(240, 100%, 50%)",
         "hsl(180, 100%, 50%)",
     ],
-    // monochrome: ["hsl(0, 0%, 90%)", "hsl(0, 0%, 80%)"],
-    monochrome: HSLGrayscale([
-        "hsl(0, 0%, 91.76470588235294%)",
-        "hsl(44, 92.59259259259261%, 84.11764705882354%)",
-        "hsl(205.16129032258067, 100%, 93.92156862745098%)",
-        "hsl(127.24137931034483, 85.29411764705883%, 86.66666666666667%)",
-        // "c9f7f7",
-        "hsl(242.06896551724137, 52.72727272727269%, 89.21568627450979%)",
-        "hsl(207.05882352941174, 68%, 85.29411764705883%)",
-        "hsl(14.545454545454547, 100%, 93.52941176470588%)",
-        "hsl(223.33333333333334, 64.28571428571435%, 89.01960784313725%)",
-        "hsl(95.625, 72.72727272727275%, 91.37254901960785%)",
-        "hsl(167.5, 63.15789473684209%, 85.09803921568627%)",
-        "hsl(264, 45.45454545454547%, 87.05882352941177%)",
-    ]),
+    monochrome: ["hsl(0, 0%, 95%)", "hsl(0, 0%, 85%)"],
+    // monochrome: HSLGrayscale([
+    //     "hsl(0, 0%, 91.76470588235294%)",
+    //     "hsl(44, 92.59259259259261%, 84.11764705882354%)",
+    //     "hsl(205.16129032258067, 100%, 93.92156862745098%)",
+    //     "hsl(127.24137931034483, 85.29411764705883%, 86.66666666666667%)",
+    //     "hsl(242.06896551724137, 52.72727272727269%, 89.21568627450979%)",
+    //     "hsl(207.05882352941174, 68%, 85.29411764705883%)",
+    //     "hsl(14.545454545454547, 100%, 93.52941176470588%)",
+    //     "hsl(223.33333333333334, 64.28571428571435%, 89.01960784313725%)",
+    //     "hsl(95.625, 72.72727272727275%, 91.37254901960785%)",
+    //     "hsl(167.5, 63.15789473684209%, 85.09803921568627%)",
+    //     "hsl(264, 45.45454545454547%, 87.05882352941177%)",
+    // ]),
     rainbow: HSLAlpha(
         [
             "#ffc6ff",

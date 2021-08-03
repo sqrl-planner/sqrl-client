@@ -1,14 +1,8 @@
-import { MoonIcon, WarningTwoIcon } from "@chakra-ui/icons"
-import {
-    FormControl,
-    FormLabel,
-    Icon,
-    Select,
-    useColorMode,
-} from "@chakra-ui/react"
+import { WarningTwoIcon } from "@chakra-ui/icons"
+import { FormControl, FormLabel, Icon, Select } from "@chakra-ui/react"
 import React, { Fragment, useEffect } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
-import { FaClock, FaPalette, FaSun, FaTruckMoving } from "react-icons/fa"
+import { FaClock, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
 import { ImSection } from "react-icons/im"
 import styled from "styled-components"
@@ -31,7 +25,6 @@ const PreferencesMeeting = () => {
             showCourseSuffix,
             showCategory,
             showDelivery,
-            palette,
             highlightConflicts,
         },
         dispatch,
@@ -81,9 +74,9 @@ const PreferencesMeeting = () => {
                     iconProps={{
                         as: ImSection,
                     }}
-                    helperText="Show meeting type (TUT, LEC)."
+                    helperText="Show meeting section (e.g. LEC 0101)."
                 >
-                    Meeting category
+                    Meeting section
                 </PreferencesToggle>
             </PreferencesSection>
 

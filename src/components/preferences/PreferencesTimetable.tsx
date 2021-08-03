@@ -58,7 +58,7 @@ const PreferencesTimetable = () => {
     }, [setMeetingGroup, courses, userMeetings])
 
     useEffect(() => {
-        if (!meetingGroup) return
+        if (!meetingGroup || !meetingGroup.meetings.length) return
 
         setTimes({
             start: parseInt(
@@ -197,9 +197,11 @@ const PreferencesTimetable = () => {
                             <Button
                                 colorScheme="green"
                                 disabled={
-                                    !!times &&
-                                    start === times.start &&
-                                    end === times.end
+                                    (meetingGroup &&
+                                        !meetingGroup.meetings.length) ||
+                                    (!!times &&
+                                        start === times.start &&
+                                        end === times.end)
                                 }
                                 onClick={() => {
                                     if (!meetingGroup || !times) return
@@ -233,7 +235,7 @@ const PreferencesTimetable = () => {
                     iconProps={{
                         as: MdHighlight,
                     }}
-                    helperText={`Dim other courses on ${
+                    helperText={`Draw a box around a course's meetings on ${
                         window.matchMedia("(hover: none)").matches
                             ? "tap"
                             : "hover"
@@ -266,8 +268,8 @@ const PreferencesTimetable = () => {
                         }}
                     >
                         <option value="default">Default</option>
-                        <option value="monochrome">Monochrome</option>
                         <option value="rainbow">Rainbow</option>
+                        <option value="monochrome">Monochrome</option>
                         {/* <option value="accessible">High contrast</option> */}
                     </Select>
                 </FormControl>

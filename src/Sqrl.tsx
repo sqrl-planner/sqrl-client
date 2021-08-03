@@ -65,8 +65,6 @@ const Sqrl = () => {
     const { colorMode } = useColorMode()
 
     useEffect(() => {
-        console.log(sampleCourse, typeof sampleCourse)
-
         for (const [identifier, course] of Object.entries(sampleCourse)) {
             dispatch({ type: "ADD_COURSE", payload: { identifier, course } })
         }

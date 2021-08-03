@@ -166,14 +166,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 courseKey={meeting.courseKey}
                                 palette={palette}
                                 dark={dark}
-                                style={{
-                                    opacity:
-                                        hoverCourseKey === meeting.courseKey
-                                            ? ""
-                                            : hoverCourseKey && emphasizeOnHover
-                                            ? "0.6"
-                                            : "",
-                                }}
+                                highlight={
+                                    hoverCourseKey === meeting.courseKey &&
+                                    emphasizeOnHover
+                                }
                                 onMouseEnter={() =>
                                     setHoverCourseKey(meeting.courseKey)
                                 }
@@ -230,29 +226,23 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 !emphasizeOnHover)
                                                 ? "#c53030"
                                                 : "",
-                                        // border: highlightConflicts
-                                        //     ? "1px solid #c53030"
-                                        //     : "",
                                         color:
                                             highlightConflicts ||
                                             !emphasizeOnHover
                                                 ? "#fff"
                                                 : "",
-                                        opacity:
-                                            hoverCourseKey === meeting.courseKey
-                                                ? ""
-                                                : hoverCourseKey &&
-                                                  emphasizeOnHover
-                                                ? "0.6"
-                                                : "",
+
                                         lineHeight:
                                             "var(--chakra-lineHeights-base)",
-                                        transition:
-                                            "all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}
                                     dark={dark}
+                                    highlight={
+                                        hoverCourseKey === meeting.courseKey &&
+                                        emphasizeOnHover
+                                    }
+                                    conflict={highlightConflicts}
                                 >
                                     <MeetingComponent
                                         darkText={
