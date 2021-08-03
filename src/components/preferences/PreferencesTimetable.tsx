@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react"
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import { BsFillCalendarFill } from "react-icons/bs"
+import { FaPalette } from "react-icons/fa"
 import { MdHighlight } from "react-icons/md"
 import { Ri24HoursLine } from "react-icons/ri"
 import styled from "styled-components"
@@ -35,7 +36,7 @@ const IconWrapper = styled.div`
 
 const PreferencesTimetable = () => {
     const {
-        state: { start, end, twentyFour, emphasize, showSemester },
+        state: { start, end, twentyFour, emphasize, showSemester, palette },
         dispatch,
     } = usePreferences()
 
@@ -243,6 +244,33 @@ const PreferencesTimetable = () => {
                         ? "tap"
                         : "hover"}
                 </PreferencesToggle>
+            </PreferencesSection>
+            <PreferencesSection>
+                <FormControl>
+                    <FormLabel htmlFor="palette">
+                        <IconWrapper>
+                            <Icon as={FaPalette} />
+                        </IconWrapper>
+                        Palette
+                    </FormLabel>
+                    <Select
+                        id="palette"
+                        value={palette}
+                        onChange={(e) => {
+                            const payload = e.target.value as any
+
+                            dispatch({
+                                type: "SET_PALETTE",
+                                payload,
+                            })
+                        }}
+                    >
+                        <option value="default">Default</option>
+                        <option value="monochrome">Monochrome</option>
+                        <option value="rainbow">Rainbow</option>
+                        {/* <option value="accessible">High contrast</option> */}
+                    </Select>
+                </FormControl>
             </PreferencesSection>
         </Fragment>
     )

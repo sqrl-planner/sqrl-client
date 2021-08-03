@@ -1,3 +1,4 @@
+import { MoonIcon } from "@chakra-ui/icons"
 import {
     Button,
     ButtonGroup,
@@ -18,13 +19,15 @@ import {
     PopoverTrigger,
     Text,
     UnorderedList,
+    useColorMode,
 } from "@chakra-ui/react"
 import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
-import { FaSchool, FaTemperatureHigh } from "react-icons/fa"
+import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import { useAppContext } from "../../SqrlContext"
 import PreferencesSection from "./PreferencesSection"
+import PreferencesToggle from "./PreferencesToggle"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;
@@ -46,6 +49,8 @@ const PreferencesApplication = () => {
     }, [dispatch])
 
     const initRef = useRef<HTMLButtonElement>(null)
+
+    const { colorMode, toggleColorMode } = useColorMode()
 
     return (
         <Fragment>
@@ -169,6 +174,19 @@ const PreferencesApplication = () => {
                     {JSON.stringify(campus, null, 2)} <br />
                     TODO: Add campus selection
                 </FormControl>
+            </PreferencesSection>
+
+            <PreferencesSection>
+                <PreferencesToggle
+                    isChecked={colorMode === "dark"}
+                    onToggle={toggleColorMode}
+                    id="mode_toggle"
+                    iconProps={{
+                        as: colorMode === "light" ? MoonIcon : FaSun,
+                    }}
+                >
+                    Dark mode
+                </PreferencesToggle>
             </PreferencesSection>
         </Fragment>
     )

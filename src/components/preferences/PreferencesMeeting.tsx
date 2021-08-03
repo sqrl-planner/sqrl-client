@@ -23,7 +23,7 @@ const IconWrapper = styled.div`
     align-items: center;
 `
 
-const PreferencesTimetable = () => {
+const PreferencesMeeting = () => {
     const {
         state: {
             scale,
@@ -36,8 +36,6 @@ const PreferencesTimetable = () => {
         },
         dispatch,
     } = usePreferences()
-
-    const { colorMode, toggleColorMode } = useColorMode()
 
     useEffect(() => {
         dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 2 })
@@ -91,16 +89,6 @@ const PreferencesTimetable = () => {
 
             <PreferencesSection>
                 <PreferencesToggle
-                    isChecked={colorMode === "dark"}
-                    onToggle={toggleColorMode}
-                    id="mode_toggle"
-                    iconProps={{
-                        as: colorMode === "light" ? MoonIcon : FaSun,
-                    }}
-                >
-                    Dark mode
-                </PreferencesToggle>
-                <PreferencesToggle
                     isChecked={highlightConflicts}
                     actionType="SET_HIGHLIGHT_CONFLICTS"
                     iconProps={{
@@ -136,34 +124,9 @@ const PreferencesTimetable = () => {
                         <option value="100">Tall</option>
                     </Select>
                 </FormControl>
-                <FormControl>
-                    <FormLabel htmlFor="palette">
-                        <IconWrapper>
-                            <Icon as={FaPalette} />
-                        </IconWrapper>
-                        Palette
-                    </FormLabel>
-                    <Select
-                        id="palette"
-                        value={palette}
-                        onChange={(e) => {
-                            const payload = e.target.value as any
-
-                            dispatch({
-                                type: "SET_PALETTE",
-                                payload,
-                            })
-                        }}
-                    >
-                        <option value="default">Default</option>
-                        <option value="monochrome">Monochrome</option>
-                        <option value="rainbow">Rainbow</option>
-                        {/* <option value="accessible">High contrast</option> */}
-                    </Select>
-                </FormControl>
             </PreferencesSection>
         </Fragment>
     )
 }
 
-export default PreferencesTimetable
+export default PreferencesMeeting

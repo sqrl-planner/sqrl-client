@@ -133,29 +133,31 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 
 const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
     const lsPreferences = localStorage.getItem("preferences")
-    let preferences: Preferences
+
+    let preferences: Preferences = {
+        palette: "default",
+        scale: 40,
+        showTimeInMeeting: false,
+        showCourseSuffix: true,
+        showCategory: true,
+        showDelivery: false,
+        start: 9,
+        end: 22,
+        highlightConflicts: true,
+        twentyFour: true,
+        emphasize: false,
+        showSemester: "both",
+        currentPrefTab: 0,
+    }
+
     if (lsPreferences) {
-        preferences = JSON.parse(lsPreferences) as Preferences
+        const parsed = JSON.parse(lsPreferences) as Preferences
+
         preferences = {
             ...preferences,
-            start: parseInt(preferences.start as any),
-            end: parseInt(preferences.end as any),
-        }
-    } else {
-        preferences = {
-            palette: "default",
-            scale: 40,
-            showTimeInMeeting: false,
-            showCourseSuffix: true,
-            showCategory: true,
-            showDelivery: false,
-            start: 9,
-            end: 22,
-            highlightConflicts: true,
-            twentyFour: true,
-            emphasize: false,
-            showSemester: "both",
-            currentPrefTab: 0,
+            ...parsed,
+            start: parseInt(parsed.start as any),
+            end: parseInt(parsed.end as any),
         }
     }
 

@@ -16,7 +16,7 @@ import {
 import React from "react"
 import { usePreferences } from "../../PreferencesContext"
 import PreferencesTimetable from "./PreferencesTimetable"
-import PreferencesCosmetic from "./PreferencesCosmetic"
+import PreferencesMeeting from "./PreferencesMeeting"
 import PreferencesApplication from "./PreferencesApplication"
 
 const Tab = ({ children }: { children: React.ReactNode }) => (
@@ -72,7 +72,7 @@ const PreferencesDrawer = (props: {
                         >
                             <Tab>Application</Tab>
                             <Tab>Timetable</Tab>
-                            <Tab>Appearance</Tab>
+                            <Tab>Meeting</Tab>
                         </TabList>
                         <TabPanels position="relative" top="10" zIndex="0">
                             <TabPanel>
@@ -82,7 +82,7 @@ const PreferencesDrawer = (props: {
                                 <PreferencesTimetable />
                             </TabPanel>
                             <TabPanel>
-                                <PreferencesCosmetic />
+                                <PreferencesMeeting />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
