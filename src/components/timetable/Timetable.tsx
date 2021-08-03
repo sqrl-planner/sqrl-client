@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react"
-import React, { FunctionComponent } from "react"
+import React, { FunctionComponent, useMemo } from "react"
 import { useHoverContext } from "../../HoverContext"
 import {
     Day,
@@ -98,22 +98,71 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
-    const meetingsByDay = new Map()
-    for (const meeting of meetings) {
-        if (!meetingsByDay.has(meeting.day)) {
-            meetingsByDay.set(meeting.day, [])
-        }
-        meetingsByDay.get(meeting.day).push(meeting)
-    }
 
-    const groupsByDay = new Map()
-    for (const day of days) {
-        if (meetingsByDay.has(day)) {
-            groupsByDay.set(day, MeetingGroup.partition(meetingsByDay.get(day)))
-        } else {
-            groupsByDay.set(day, [])
+    const JSONMeetings = JSON.stringify(meetings)
+
+    const groupsByDay = useMemo(() => {
+        const meetingsMap = new Map()
+        for (const meeting of meetings) {
+            if (!meetingsMap.has(meeting.day)) {
+                meetingsMap.set(meeting.day, [])
+            }
+            meetingsMap.get(meeting.day).push(meeting)
         }
-    }
+
+        const groupsMap = new Map()
+        for (const day of days) {
+            if (meetingsMap.has(day)) {
+                groupsMap.set(day, MeetingGroup.partition(meetingsMap.get(day)))
+            } else {
+                groupsMap.set(day, [])
+            }
+        }
+
+        return groupsMap
+    }, [JSONMeetings, days])
+
+    // Version with "ineffective" memo
+
+    // const groupsByDay = useMemo(() => {
+    //     const meetingsMap = new Map()
+    //     for (const meeting of meetings) {
+    //         if (!meetingsMap.has(meeting.day)) {
+    //             meetingsMap.set(meeting.day, [])
+    //         }
+    //         meetingsMap.get(meeting.day).push(meeting)
+    //     }
+
+    //     const groupsMap = new Map()
+    //     for (const day of days) {
+    //         if (meetingsMap.has(day)) {
+    //             groupsMap.set(day, MeetingGroup.partition(meetingsMap.get(day)))
+    //         } else {
+    //             groupsMap.set(day, [])
+    //         }
+    //     }
+
+    //     return groupsMap
+    // }, [meetings, days])
+
+    // Version without memo
+
+    // const meetingsByDay = new Map()
+    // for (const meeting of meetings) {
+    //     if (!meetingsByDay.has(meeting.day)) {
+    //         meetingsByDay.set(meeting.day, [])
+    //     }
+    //     meetingsByDay.get(meeting.day).push(meeting)
+    // }
+
+    // const groupsByDay = new Map()
+    // for (const day of days) {
+    //     if (meetingsByDay.has(day)) {
+    //         groupsByDay.set(day, MeetingGroup.partition(meetingsByDay.get(day)))
+    //     } else {
+    //         groupsByDay.set(day, [])
+    //     }
+    // }
 
     const tableRows: Array<React.ReactNode> = []
     for (
