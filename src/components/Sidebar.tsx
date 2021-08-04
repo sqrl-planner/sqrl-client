@@ -47,15 +47,15 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
             meeting.includes(category.substring(0, 3).toUpperCase())
         )
 
-        if (!categories.length) return <Fragment />
+        if (!categories.length) return <Fragment key={category} />
 
         return (
-            <Box>
+            <Box key={category}>
                 <CourseSubheading>{category}</CourseSubheading>
-
                 <Flex flexWrap="wrap">
                     {categories.map((meeting) => (
                         <Button
+                            key={meeting}
                             mr={2}
                             mb={2}
                             fontSize="sm"
@@ -115,7 +115,7 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
                             fontSize="0.7em"
                             width="1.5em"
                             height="1.5em"
-                            backgroundColor="rgba(0,0,0,0.1)"
+                            backgroundColor="rgba(221, 221, 221, 0.2)"
                             padding={2}
                             borderRadius="100rem"
                             display="flex"

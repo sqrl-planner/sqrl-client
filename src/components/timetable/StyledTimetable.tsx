@@ -210,8 +210,8 @@ export const courseKeyToColour = (
     return colours[courseKey % colours.length]
 }
 
-const HSLGrayscale = (colours: string[]) =>
-    colours.map((colour) => Colour(colour, "hsl").grayscale().toString())
+// const HSLGrayscale = (colours: string[]) =>
+//     colours.map((colour) => Colour(colour, "hsl").grayscale().toString())
 
 const HSLDarken = (colours: string[]) =>
     colours.map((colour) =>
