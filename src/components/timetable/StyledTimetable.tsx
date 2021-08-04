@@ -147,6 +147,7 @@ export const MeetingTime = styled.div<{
     bottom: 0em;
     left: 0.3em;
 
+    cursor: pointer;
     /* border-radius: 0.4em; */
 
     &,
@@ -161,7 +162,7 @@ export const MeetingTime = styled.div<{
     font-weight: 500;
     /* line-height: 1.5em; */
 
-    padding: 0.5rem;
+    padding: 0.4rem;
 
     @media (max-width: 800px) {
         padding: 0.3rem;

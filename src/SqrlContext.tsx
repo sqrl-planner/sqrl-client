@@ -14,6 +14,7 @@ interface AppData {
     userMeetings: { [key: string]: UserMeeting }
     programs: Array<{ code: string; title: string }>
     campus: { sg: boolean; sc: boolean; ms: boolean }
+    sidebarCourse: string
 }
 
 export type Action =
@@ -36,6 +37,10 @@ export type Action =
           type: "SET_CAMPUS"
           payload: { campus: "sg" | "sc" | "ms"; status: boolean }
       }
+    | {
+          type: "SET_SIDEBAR_COURSE"
+          payload: string
+      }
 
 type Dispatch = (action: Action) => void
 
@@ -55,6 +60,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
         userMeetings: {},
         programs: [],
         campus: { sg: true, sc: false, ms: false },
+        sidebarCourse: "",
     }
     const { courses, userMeetings, programs, campus } = state
 
@@ -124,6 +130,14 @@ const AppContextReducer = (state: AppData, action: Action) => {
             break
         }
 
+        case "SET_SIDEBAR_COURSE": {
+            newContext = {
+                ...state,
+                sidebarCourse: action.payload,
+            }
+            break
+        }
+
         default: {
             // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -145,6 +159,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         userMeetings: {},
         programs: [],
         campus: { sg: true, sc: false, ms: false },
+        sidebarCourse: "",
     }
     // }
 

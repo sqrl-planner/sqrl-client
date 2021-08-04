@@ -9,7 +9,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, Fragment, useRef } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
@@ -61,7 +61,7 @@ const Sqrl = () => {
     } = usePreferences()
 
     const {
-        state: { courses, userMeetings },
+        state: { courses, userMeetings, sidebarCourse },
         dispatch,
     } = useAppContext()
 
@@ -252,8 +252,18 @@ const Sqrl = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [transitioning, setTransitioning] = useState(false)
 
+    const firstUpdate = useRef(true)
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false
+            return
+        }
+
+        setSidebarOpen(true)
+    }, [sidebarCourse])
+
     return (
-        <div>
+        <Fragment>
             <DisclaimerModal
                 disclosure={{ isOpen, onOpen, onClose }}
                 ModalProps={{
@@ -279,6 +289,8 @@ const Sqrl = () => {
                         zIndex="1"
                         boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
                         pointerEvents={transitioning ? "none" : "auto"}
+                        height="calc(100vh - 4.5rem)"
+                        overflowY="scroll"
                     >
                         {(showSemester === "first" ||
                             showSemester === "both") && (
@@ -376,7 +388,7 @@ const Sqrl = () => {
                     />
                 </Flex>
             </Flex>
-            {courses["CSC263H1-S-20219"] && (
+            {courses[sidebarCourse] && (
                 <Box
                     position="absolute"
                     right="0"
@@ -385,10 +397,10 @@ const Sqrl = () => {
                     height="calc(100vh - 4.5rem)"
                     overflowX="hidden"
                 >
-                    <Sidebar course={courses["CSC263H1-S-20219"]} />
+                    <Sidebar course={courses[sidebarCourse]} />
                 </Box>
             )}
-        </div>
+        </Fragment>
     )
 }
 

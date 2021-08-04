@@ -15,9 +15,10 @@ import { breakdownCourseCode } from "./timetable/MeetingComponent"
 const CourseSubheading = ({ children }: { children: React.ReactNode }) => (
     <Text
         textTransform="uppercase"
-        fontWeight={600}
-        mt={4}
-        mb={2}
+        fontWeight={700}
+        letterSpacing="0.3px"
+        mt={5}
+        mb={1}
         fontSize="0.8em"
     >
         {children}
@@ -52,11 +53,12 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
         return (
             <Box key={category}>
                 <CourseSubheading>{category}</CourseSubheading>
-                <Flex flexWrap="wrap">
+                <Flex flexWrap="wrap" mt={1}>
                     {categories.map((meeting) => (
                         <Button
+                            fontFamily="interstate-mono, monospace"
                             key={meeting}
-                            mr={2}
+                            mr={1}
                             mb={2}
                             fontSize="sm"
                             fontWeight="600"
@@ -77,8 +79,15 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
                                 }))
                             }}
                             borderRadius="100rem"
+                            _last={{
+                                marginBottom: 0,
+                            }}
                         >
-                            {meeting.replace(/-/g, " ")}
+                            {/* TODO: Do we really need this? */}
+                            {/* <Text as="span" mr="0.2rem">
+                                {meeting.split("-")[0]}
+                            </Text> */}
+                            {meeting.split("-")[1]}
                         </Button>
                     ))}
                 </Flex>
@@ -142,10 +151,26 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
                     }}
                 ></Text>
             </Box>
-            <Box>
-                <CourseSubheading>Prerequisites</CourseSubheading>
-                <Text>{course.prerequisite}</Text>
-            </Box>
+            {!!course.prerequisite.length && (
+                <Box>
+                    <CourseSubheading>Prerequisites</CourseSubheading>
+                    <Text>{course.prerequisite}</Text>
+                </Box>
+            )}
+            {!!course.exclusion.length && (
+                <Fragment>
+                    <Box>
+                        <CourseSubheading>Exclusions</CourseSubheading>
+                        <Text>{course.exclusion}</Text>
+                    </Box>
+                </Fragment>
+            )}
+            {!!course.distributionCategories.length && (
+                <Box>
+                    <CourseSubheading>Distribution</CourseSubheading>
+                    <Text>{course.distributionCategories}</Text>
+                </Box>
+            )}
         </Box>
     ) : (
         <Box

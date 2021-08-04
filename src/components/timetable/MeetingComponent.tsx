@@ -1,4 +1,4 @@
-import { chakra, Tooltip } from "@chakra-ui/react"
+import { chakra, Flex, Tooltip } from "@chakra-ui/react"
 import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
@@ -81,8 +81,6 @@ const MeetingTimes = styled.div`
 `
 
 const MeetingDelivery = styled.div``
-
-const MeetingCategory = styled.div``
 
 const MiscInfo = styled.div`
     font-family: interstate-mono, monospace;
@@ -182,12 +180,16 @@ const MeetingComponent = ({
                                 : `${capitalize(meeting.category)}`
                         }
                     >
-                        <MeetingCategory style={{ cursor: "default" }}>
-                            <chakra.span pr="0.2em">
-                                {categoryAbbreviations[meeting.category]}
-                            </chakra.span>
+                        <Flex
+                            cursor="default"
+                            flexWrap="wrap"
+                            justifyContent="flex-end"
+                            style={{ gap: "0.2em" }}
+                            lineHeight="1em"
+                        >
+                            <div>{categoryAbbreviations[meeting.category]}</div>
                             {meeting.section}
-                        </MeetingCategory>
+                        </Flex>
                     </Tooltip>
                 )}
             </MiscInfo>

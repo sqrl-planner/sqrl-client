@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react"
 import React, { FunctionComponent, useMemo } from "react"
 import { useHoverContext } from "../../HoverContext"
+import { useAppContext } from "../../SqrlContext"
 import {
     Day,
     minuteOffsetToTime,
@@ -91,6 +92,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         state: { hoverCourseKey },
         dispatch,
     } = useHoverContext()
+
+    const { dispatch: dispatchAppContext } = useAppContext()
 
     const setHoverCourseKey = (courseKey: number | null) => {
         dispatch({ type: "SET_CURRENT_HOVER", payload: courseKey })
@@ -183,6 +186,12 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     setHoverCourseKey(meeting.courseKey)
                                 }
                                 onMouseLeave={() => setHoverCourseKey(null)}
+                                onClick={() => {
+                                    dispatchAppContext({
+                                        type: "SET_SIDEBAR_COURSE",
+                                        payload: meeting.identifier,
+                                    })
+                                }}
                             >
                                 <MeetingComponent
                                     darkText={!dark}
@@ -252,6 +261,12 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         emphasizeOnHover
                                     }
                                     conflict={highlightConflicts}
+                                    onClick={() => {
+                                        dispatchAppContext({
+                                            type: "SET_SIDEBAR_COURSE",
+                                            payload: meeting.identifier,
+                                        })
+                                    }}
                                 >
                                     <MeetingComponent
                                         darkText={
@@ -302,7 +317,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
     return (
         <StyledTimetableContainer>
-            <StyledTimetable>
+            <StyledTimetable
+                onClick={(e) => {
+                    console.log(e)
+                }}
+            >
                 <thead>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>

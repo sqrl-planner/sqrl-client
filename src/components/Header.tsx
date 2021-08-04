@@ -30,19 +30,16 @@ const HeaderComponent = styled(chakra.header)`
 const Header = () => {
     const searchRef = useRef() as MutableRefObject<HTMLInputElement>
 
-    const keydownListener = useCallback(
-        ({ key, metaKey, ctrlKey, repeat, preventDefault }: KeyboardEvent) => {
-            if (!searchRef.current) return
-            if (repeat) return
+    const keydownListener = useCallback((e) => {
+        if (!searchRef.current) return
+        if (e.repeat) return
 
-            if ((metaKey || ctrlKey) && key === "k") {
-                preventDefault()
+        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+            e.preventDefault()
 
-                searchRef.current.focus()
-            }
-        },
-        []
-    )
+            searchRef.current.focus()
+        }
+    }, [])
 
     useEffect(() => {
         window.addEventListener("keydown", keydownListener, true)
