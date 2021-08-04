@@ -1,16 +1,17 @@
 import {
     Box,
-    Button,
     chakra,
     Flex,
     Grid,
     Heading,
+    Icon,
     useColorMode,
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
 import { motion, useCycle } from "framer-motion"
 import React, { useEffect, useState } from "react"
+import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
 import Header from "./components/Header"
@@ -277,17 +278,7 @@ const Sqrl = () => {
                 }}
             />
             <Header />
-            <Button
-                position="fixed"
-                top="1rem"
-                left="1rem"
-                zIndex="1000"
-                onClick={() => {
-                    toggleSidebarOpen()
-                }}
-            >
-                toggle sidebar
-            </Button>
+
             <Container
                 width={sidebarOpen ? "calc(100vw - 24rem)" : "100vw"}
                 minHeight="calc(100vh - 4.5rem)"
@@ -358,20 +349,53 @@ const Sqrl = () => {
                     </Grid>
                 </HoverContextProvider>
             </Container>
+            <Flex
+                position="fixed"
+                right="0"
+                top="0"
+                bottom="0"
+                fontSize="1.8rem"
+                height="100%"
+                pointerEvents="none"
+                margin="auto"
+                zIndex="1000"
+                alignItems="center"
+                transform={sidebarOpen ? "translateX(-23rem)" : ""}
+                transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                onClick={() => {
+                    toggleSidebarOpen()
+                }}
+            >
+                <Flex
+                    as="button"
+                    pointerEvents="all"
+                    background={useColorModeValue("gray.100", "gray.900")}
+                    p={2}
+                    height="2.5rem"
+                    width="2.5rem"
+                    borderRadius="1000rem"
+                    justifyContent="center"
+                    alignItems="center"
+                    boxShadow="1px 1px 6px -3px rgba(0, 0, 0, 0.4)"
+                >
+                    <Icon
+                        as={GoChevronLeft}
+                        transform={sidebarOpen ? " rotate(180deg)" : ""}
+                        transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                    />
+                </Flex>
+            </Flex>
             {courses["CSC263H1-S-20219"] && (
-                <MotionContainer
+                <Box
                     position="absolute"
                     right="0"
                     width="24rem"
                     top="4.5rem"
-                    // boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
                     height="calc(100vh - 4.5rem)"
                     overflowX="hidden"
-                    // transition="z-index 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                    // transitionDelay="0.1s"
                 >
                     <Sidebar course={courses["CSC263H1-S-20219"]} />
-                </MotionContainer>
+                </Box>
             )}
         </div>
     )
