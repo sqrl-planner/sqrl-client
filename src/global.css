@@ -8,6 +8,7 @@ html {
 
 body {
     min-height: 100%;
+    overflow-x: hidden;
 
     /* font-family: museo-sans, sans-serif; */
     font-family: "Inter", sans-serif;

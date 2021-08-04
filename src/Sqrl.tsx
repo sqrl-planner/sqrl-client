@@ -1,4 +1,7 @@
 import {
+    Box,
+    Grid,
+    Button,
     chakra,
     Flex,
     Heading,
@@ -6,7 +9,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import { AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion, useCycle } from "framer-motion"
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
@@ -21,16 +24,33 @@ import { courses as sampleCourse } from "./sampleCourses"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
 
-const TimetableContainer = styled(chakra.div)`
-    display: grid;
-    width: calc(100vw - 24rem);
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    min-height: calc(100vh - 4.5rem);
+// const TimetableContainer = styled(chakra.div)`
+//     display: grid;
+//     /* width: calc(100vw ); */
+//     /* width: 100%; */
+//     flex: 1;
+//     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+//     min-height: calc(100vh - 4.5rem);
 
-    @media print {
-        top: 1rem;
-    }
-`
+//     @media print {
+//         top: 1rem;
+//     }
+// `
+
+const TimetableContainer = React.forwardRef(
+    ({ children, ...rest }: any, ref: any) => (
+        <Grid
+            gridTemplateColumns="repeat(auto-fit, minmax(450px, 1fr))"
+            ref={ref}
+            // width="100%"
+            {...rest}
+        >
+            {children}
+        </Grid>
+    )
+)
+
+const MotionTimetableContainer = motion(TimetableContainer)
 
 const Container = styled(chakra.div)`
     position: relative;
@@ -38,7 +58,24 @@ const Container = styled(chakra.div)`
     top: 4.5rem;
 
     display: flex;
+    width: 100vw;
 `
+
+const MContainer = React.forwardRef(({ children, ...rest }: any, ref: any) => (
+    <Box ref={ref} {...rest}>
+        {children}
+    </Box>
+))
+
+const MotionContainer = motion(MContainer)
+
+const MFlex = React.forwardRef(({ children, ...rest }: any, ref: any) => (
+    <Flex ref={ref} {...rest}>
+        {children}
+    </Flex>
+))
+
+const MotionFlex = motion(MFlex)
 
 const Sqrl = () => {
     const {
@@ -243,6 +280,8 @@ const Sqrl = () => {
         if (disclaimed) onClose()
     }, [disclaimed, onOpen, onClose])
 
+    const [sidebarOpen, toggleSidebarOpen] = useCycle(false, true)
+
     return (
         <div>
             <DisclaimerModal
@@ -253,73 +292,151 @@ const Sqrl = () => {
                 }}
             />
             <Header />
-            <Container>
-                <TimetableContainer
-                    background={useColorModeValue("gray.75", "gray.800")}
-                >
+            <Button
+                position="fixed"
+                top="1rem"
+                left="1rem"
+                zIndex="1000"
+                onClick={() => {
+                    toggleSidebarOpen()
+                }}
+            >
+                toggle sidebar
+            </Button>
+            <AnimatePresence>
+                <Container>
                     <HoverContextProvider>
-                        {(showSemester === "first" ||
-                            showSemester === "both") && (
-                            <Flex position="relative">
-                                <Heading
-                                    as="h3"
-                                    size="sm"
-                                    color="blue.600"
-                                    fontWeight="800"
-                                    position="absolute"
-                                    top={3}
-                                    left={3}
-                                >
-                                    1<sup>st</sup>
-                                </Heading>
-                                <Timetable
-                                    meetings={firstMeetings}
-                                    scale={timetableSize}
-                                    minTime={timeToMinuteOffset(start)}
-                                    maxTime={timeToMinuteOffset(end)}
-                                    palette={palette}
-                                    highlightConflicts={highlightConflicts}
-                                    twentyFour={twentyFour}
-                                    dark={colorMode === "dark"}
-                                    emphasizeOnHover={emphasize}
-                                />
-                            </Flex>
-                        )}
-                        {(showSemester === "second" ||
-                            showSemester === "both") && (
-                            <Flex position="relative">
-                                <Heading
-                                    as="h3"
-                                    size="sm"
-                                    color="green.600"
-                                    fontWeight="800"
-                                    position="absolute"
-                                    top={3}
-                                    left={3}
-                                >
-                                    2<sup>nd</sup>
-                                </Heading>
-                                <Timetable
-                                    meetings={secondMeetings}
-                                    scale={timetableSize}
-                                    minTime={timeToMinuteOffset(start)}
-                                    maxTime={timeToMinuteOffset(end)}
-                                    palette={palette}
-                                    highlightConflicts={highlightConflicts}
-                                    twentyFour={twentyFour}
-                                    dark={colorMode === "dark"}
-                                    emphasizeOnHover={emphasize}
-                                />
-                            </Flex>
-                        )}
+                        <MotionTimetableContainer
+                            background={useColorModeValue(
+                                "gray.75",
+                                "gray.800"
+                            )}
+                            flex="1"
+                            // transition="width 0.1s ease"
+                            // border="1px solid red"
+
+                            // width={sidebarOpen ? "calc(100vw - 24rem)" : "calc(100vw)"}
+                            layout
+                            transition={{
+                                ease: "easeInOut",
+                                duration: 0.1,
+                            }}
+                            // animate={{
+                            //     width: sidebarOpen
+                            //         ? window.innerWidth -
+                            //           24 *
+                            //               parseFloat(
+                            //                   getComputedStyle(document.documentElement)
+                            //                       .fontSize
+                            //               )
+                            //         : window.innerWidth,
+                            // }}
+                            // initial={{
+                            //     width: window.innerWidth,
+                            // }}
+
+                            // display: grid;
+                            //     /* width: calc(100vw ); */
+                            //     /**/
+                            // flex: 1;
+                            //     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+                            //     min-height: calc(100vh - 4.5rem);
+
+                            //     @media print {
+                            //         top: 1rem;
+                            //     }
+                        >
+                            {(showSemester === "first" ||
+                                showSemester === "both") && (
+                                <MotionFlex layout position="relative">
+                                    <Heading
+                                        as="h3"
+                                        size="sm"
+                                        color="blue.600"
+                                        fontWeight="800"
+                                        position="absolute"
+                                        top={3}
+                                        left={3}
+                                    >
+                                        1<sup>st</sup>
+                                    </Heading>
+                                    <Timetable
+                                        meetings={firstMeetings}
+                                        scale={timetableSize}
+                                        minTime={timeToMinuteOffset(start)}
+                                        maxTime={timeToMinuteOffset(end)}
+                                        palette={palette}
+                                        highlightConflicts={highlightConflicts}
+                                        twentyFour={twentyFour}
+                                        dark={colorMode === "dark"}
+                                        emphasizeOnHover={emphasize}
+                                    />
+                                </MotionFlex>
+                            )}
+                            {(showSemester === "second" ||
+                                showSemester === "both") && (
+                                <MotionFlex layout position="relative">
+                                    <Heading
+                                        as="h3"
+                                        size="sm"
+                                        color="green.600"
+                                        fontWeight="800"
+                                        position="absolute"
+                                        top={3}
+                                        left={3}
+                                    >
+                                        2<sup>nd</sup>
+                                    </Heading>
+                                    <Timetable
+                                        meetings={secondMeetings}
+                                        scale={timetableSize}
+                                        minTime={timeToMinuteOffset(start)}
+                                        maxTime={timeToMinuteOffset(end)}
+                                        palette={palette}
+                                        highlightConflicts={highlightConflicts}
+                                        twentyFour={twentyFour}
+                                        dark={colorMode === "dark"}
+                                        emphasizeOnHover={emphasize}
+                                    />
+                                </MotionFlex>
+                            )}
+                        </MotionTimetableContainer>
                     </HoverContextProvider>
-                </TimetableContainer>
-                <AnimatePresence>
-                    {courses["CSC263H1-S-20219"] && (
-                        <Sidebar course={courses["CSC263H1-S-20219"]} />
+                    {sidebarOpen && courses["CSC263H1-S-20219"] && (
+                        <MotionContainer
+                            width="24rem"
+                            boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
+                            height="calc(100vh - 4.5rem)"
+                            // overflow="scroll"
+                            overflowX="hidden"
+                            animate={{
+                                x: 0,
+                            }}
+                            initial={{
+                                x: "200%",
+                            }}
+                            exit={{
+                                x: "200%",
+                            }}
+                            // animate={{
+                            //     width: "24rem",
+                            // }}
+                            // initial={{
+                            //     width: "0",
+                            // }}
+                            // exit={{
+                            //     width: "0",
+                            // }}
+                            transition={{
+                                ease: "easeInOut",
+                                duration: 0.1,
+                            }}
+                        >
+                            <Sidebar course={courses["CSC263H1-S-20219"]} />
+                        </MotionContainer>
                     )}
-                </AnimatePresence>
-            </Container>
+                </Container>
+            </AnimatePresence>
         </div>
     )
 }

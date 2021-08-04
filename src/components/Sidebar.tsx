@@ -7,6 +7,7 @@ import {
     Tooltip,
     useColorModeValue,
 } from "@chakra-ui/react"
+import { motion } from "framer-motion"
 import React, { Fragment, useState } from "react"
 import { StandardCourse } from "../Course"
 import { MeetingCategoryType } from "./timetable/Meeting"
@@ -86,13 +87,7 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
     })
 
     return course ? (
-        <Box
-            p={5}
-            width="24rem"
-            boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
-            height="calc(100vh - 4.5rem)"
-            overflow="scroll"
-        >
+        <Box width="24rem" p={5}>
             <Heading
                 as="h3"
                 size="lg"
@@ -130,9 +125,7 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
             <Heading as="h4" size="md" opacity="0.6" mb={6}>
                 {course.courseTitle}
             </Heading>
-
             {meetingPicker}
-
             <Box>
                 <CourseSubheading>Description</CourseSubheading>
                 <Text
@@ -141,7 +134,6 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
                     }}
                 ></Text>
             </Box>
-
             <Box>
                 <CourseSubheading>Prerequisites</CourseSubheading>
                 <Text>{course.prerequisite}</Text>
