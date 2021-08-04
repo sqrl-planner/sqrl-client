@@ -76,7 +76,7 @@ const Sqrl = () => {
         setTimetableSize(scale)
     }, [timetableSize, setTimetableSize, scale])
 
-    const { colorMode } = useColorMode()
+    const { colorMode, setColorMode } = useColorMode()
 
     useEffect(() => {
         for (const [identifier, course] of Object.entries(sampleCourse)) {
@@ -261,6 +261,16 @@ const Sqrl = () => {
 
         setSidebarOpen(true)
     }, [sidebarCourse])
+
+    useEffect(() => {
+        if (localStorage.getItem("disclaimed")) return
+        if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+            setColorMode("dark")
+        }
+    }, [setColorMode])
 
     return (
         <Fragment>
