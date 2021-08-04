@@ -30,7 +30,8 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
     const pillTextColour = useColorModeValue("gray.700", "gray.100")
     const activePillColour = useColorModeValue("green.100", "green.800")
     const activePillTextColour = useColorModeValue("green.800", "green.100")
-    // const boxBackground = useColorModeValue("gray.75", "gray.700")
+
+    const boxBackground = useColorModeValue("gray.75", "gray.900")
 
     const [activePills, setActivePills] = useState<{
         lecture?: string
@@ -87,7 +88,7 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
     })
 
     return course ? (
-        <Box width="24rem" p={5}>
+        <Box width="24rem" p={5} background={boxBackground}>
             <Heading
                 as="h3"
                 size="lg"

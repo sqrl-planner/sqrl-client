@@ -288,19 +288,22 @@ const Sqrl = () => {
             >
                 toggle sidebar
             </Button>
-            <Container>
+            <Container
+                width={sidebarOpen ? "calc(100vw - 24rem)" : "100vw"}
+                minHeight="calc(100vh - 4.5rem)"
+                transition="width 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+            >
                 <HoverContextProvider>
                     <Grid
                         gridTemplateColumns="repeat(auto-fit, minmax(450px, 1fr))"
                         background={useColorModeValue("gray.75", "gray.800")}
-                        // flex="1"
-                        width={sidebarOpen ? "calc(100vw - 24rem)" : "100vw"}
+                        flex="1"
+                        zIndex="1"
                         boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
-                        transition="width 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
                     >
                         {(showSemester === "first" ||
                             showSemester === "both") && (
-                            <MotionFlex layout position="relative">
+                            <Flex position="relative">
                                 <Heading
                                     as="h3"
                                     size="sm"
@@ -323,11 +326,11 @@ const Sqrl = () => {
                                     dark={colorMode === "dark"}
                                     emphasizeOnHover={emphasize}
                                 />
-                            </MotionFlex>
+                            </Flex>
                         )}
                         {(showSemester === "second" ||
                             showSemester === "both") && (
-                            <MotionFlex layout position="relative">
+                            <Flex position="relative">
                                 <Heading
                                     as="h3"
                                     size="sm"
@@ -350,26 +353,26 @@ const Sqrl = () => {
                                     dark={colorMode === "dark"}
                                     emphasizeOnHover={emphasize}
                                 />
-                            </MotionFlex>
+                            </Flex>
                         )}
                     </Grid>
                 </HoverContextProvider>
-                {courses["CSC263H1-S-20219"] && (
-                    <MotionContainer
-                        position="absolute"
-                        right="0"
-                        zIndex="-1"
-                        width="24rem"
-                        // boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
-                        height="calc(100vh - 4.5rem)"
-                        overflowX="hidden"
-                        // transition="z-index 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                        // transitionDelay="0.1s"
-                    >
-                        <Sidebar course={courses["CSC263H1-S-20219"]} />
-                    </MotionContainer>
-                )}
             </Container>
+            {courses["CSC263H1-S-20219"] && (
+                <MotionContainer
+                    position="absolute"
+                    right="0"
+                    width="24rem"
+                    top="4.5rem"
+                    // boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
+                    height="calc(100vh - 4.5rem)"
+                    overflowX="hidden"
+                    // transition="z-index 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                    // transitionDelay="0.1s"
+                >
+                    <Sidebar course={courses["CSC263H1-S-20219"]} />
+                </MotionContainer>
+            )}
         </div>
     )
 }
