@@ -9,7 +9,6 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import { motion, useCycle } from "framer-motion"
 import React, { useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
@@ -46,22 +45,6 @@ const Container = styled(chakra.div)`
     display: flex;
     width: 100vw;
 `
-
-const MContainer = React.forwardRef(({ children, ...rest }: any, ref: any) => (
-    <Box ref={ref} {...rest}>
-        {children}
-    </Box>
-))
-
-const MotionContainer = motion(MContainer)
-
-const MFlex = React.forwardRef(({ children, ...rest }: any, ref: any) => (
-    <Flex ref={ref} {...rest}>
-        {children}
-    </Flex>
-))
-
-const MotionFlex = motion(MFlex)
 
 const Sqrl = () => {
     const {
@@ -266,7 +249,8 @@ const Sqrl = () => {
         if (disclaimed) onClose()
     }, [disclaimed, onOpen, onClose])
 
-    const [sidebarOpen, toggleSidebarOpen] = useCycle(false, true)
+    const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [transitioning, setTransitioning] = useState(false)
 
     return (
         <div>
@@ -280,9 +264,12 @@ const Sqrl = () => {
             <Header />
 
             <Container
-                width={sidebarOpen ? "calc(100vw - 24rem)" : "100vw"}
+                width={sidebarOpen ? "calc(100vw - 25rem)" : "100vw"}
                 minHeight="calc(100vh - 4.5rem)"
                 transition="width 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                onTransitionEnd={() => {
+                    setTransitioning(false)
+                }}
             >
                 <HoverContextProvider>
                     <Grid
@@ -291,6 +278,7 @@ const Sqrl = () => {
                         flex="1"
                         zIndex="1"
                         boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
+                        pointerEvents={transitioning ? "none" : "auto"}
                     >
                         {(showSemester === "first" ||
                             showSemester === "both") && (
@@ -360,10 +348,11 @@ const Sqrl = () => {
                 margin="auto"
                 zIndex="1000"
                 alignItems="center"
-                transform={sidebarOpen ? "translateX(-23rem)" : ""}
+                transform={sidebarOpen ? "translateX(-24.5rem)" : ""}
                 transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
                 onClick={() => {
-                    toggleSidebarOpen()
+                    setTransitioning(true)
+                    setSidebarOpen((prev) => !prev)
                 }}
             >
                 <Flex
@@ -376,11 +365,13 @@ const Sqrl = () => {
                     borderRadius="1000rem"
                     justifyContent="center"
                     alignItems="center"
-                    boxShadow="1px 1px 6px -3px rgba(0, 0, 0, 0.4)"
+                    boxShadow="1px 1px 8px -2px rgba(0, 0, 0, 0.4)"
                 >
                     <Icon
                         as={GoChevronLeft}
-                        transform={sidebarOpen ? " rotate(180deg)" : ""}
+                        transform={
+                            sidebarOpen ? "translateX(1px) rotate(180deg)" : ""
+                        }
                         transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
                     />
                 </Flex>
@@ -389,7 +380,7 @@ const Sqrl = () => {
                 <Box
                     position="absolute"
                     right="0"
-                    width="24rem"
+                    width="25rem"
                     top="4.5rem"
                     height="calc(100vh - 4.5rem)"
                     overflowX="hidden"

@@ -120,49 +120,9 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         }
 
         return groupsMap
+        // Disabled because meetings is expressed as a dependency as the JSON string
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSONMeetings, days])
-
-    // Version with "ineffective" memo
-
-    // const groupsByDay = useMemo(() => {
-    //     const meetingsMap = new Map()
-    //     for (const meeting of meetings) {
-    //         if (!meetingsMap.has(meeting.day)) {
-    //             meetingsMap.set(meeting.day, [])
-    //         }
-    //         meetingsMap.get(meeting.day).push(meeting)
-    //     }
-
-    //     const groupsMap = new Map()
-    //     for (const day of days) {
-    //         if (meetingsMap.has(day)) {
-    //             groupsMap.set(day, MeetingGroup.partition(meetingsMap.get(day)))
-    //         } else {
-    //             groupsMap.set(day, [])
-    //         }
-    //     }
-
-    //     return groupsMap
-    // }, [meetings, days])
-
-    // Version without memo
-
-    // const meetingsByDay = new Map()
-    // for (const meeting of meetings) {
-    //     if (!meetingsByDay.has(meeting.day)) {
-    //         meetingsByDay.set(meeting.day, [])
-    //     }
-    //     meetingsByDay.get(meeting.day).push(meeting)
-    // }
-
-    // const groupsByDay = new Map()
-    // for (const day of days) {
-    //     if (meetingsByDay.has(day)) {
-    //         groupsByDay.set(day, MeetingGroup.partition(meetingsByDay.get(day)))
-    //     } else {
-    //         groupsByDay.set(day, [])
-    //     }
-    // }
 
     const tableRows: Array<React.ReactNode> = []
     for (

@@ -1,4 +1,4 @@
-import { Day, timeToMinuteOffset } from "../../utils/time"
+import { Day } from "../../utils/time"
 
 /**
  * The delivery mode for a meeting.

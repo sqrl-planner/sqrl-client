@@ -7,7 +7,6 @@ import {
     Tooltip,
     useColorModeValue,
 } from "@chakra-ui/react"
-import { motion } from "framer-motion"
 import React, { Fragment, useState } from "react"
 import { StandardCourse } from "../Course"
 import { MeetingCategoryType } from "./timetable/Meeting"
@@ -88,7 +87,12 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
     })
 
     return course ? (
-        <Box width="24rem" p={5} background={boxBackground}>
+        <Box
+            width="25rem"
+            minHeight="calc(100vh - 4.5rem)"
+            p={5}
+            background={boxBackground}
+        >
             <Heading
                 as="h3"
                 size="lg"
@@ -118,7 +122,10 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            {course.breadthCategories.match(/\d/g)?.join(", ")}
+                            {course.breadthCategories
+                                .match(/\d/g)
+                                ?.sort()
+                                .join(", ")}
                         </Text>
                     </Tooltip>
                 </Box>
@@ -143,7 +150,7 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
     ) : (
         <Box
             p={5}
-            width="24rem"
+            width="25rem"
             boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
             // background={boxBackground}
         ></Box>
