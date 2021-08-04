@@ -7,8 +7,9 @@ import {
     Tooltip,
     useColorModeValue,
 } from "@chakra-ui/react"
-import React, { Fragment, useState } from "react"
+import React, { Fragment } from "react"
 import { StandardCourse } from "../Course"
+import { useAppContext } from "../SqrlContext"
 import { MeetingCategoryType } from "./timetable/Meeting"
 import { breakdownCourseCode } from "./timetable/MeetingComponent"
 
@@ -25,7 +26,13 @@ const CourseSubheading = ({ children }: { children: React.ReactNode }) => (
     </Text>
 )
 
-const SidebarComponent = ({ course }: { course: StandardCourse }) => {
+const SidebarComponent = ({
+    course,
+    identifier,
+}: {
+    course: StandardCourse
+    identifier: string
+}) => {
     const pillColour = useColorModeValue("gray.100", "gray.700")
     const pillTextColour = useColorModeValue("gray.700", "gray.100")
     const activePillColour = useColorModeValue("green.100", "green.800")
@@ -33,11 +40,12 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
 
     const boxBackground = useColorModeValue("gray.75", "gray.900")
 
-    const [activePills, setActivePills] = useState<{
-        lecture?: string
-        tutorial?: string
-        practical?: string
-    }>({ lecture: "LEC-0101" })
+    const {
+        state: { userMeetings },
+        dispatch,
+    } = useAppContext()
+
+    // TODO: meetings out of the timetable's display bounds are hidden without warning. Warn them.
 
     const { department, numeral, suffix } = breakdownCourseCode(course.code)
 
@@ -63,20 +71,28 @@ const SidebarComponent = ({ course }: { course: StandardCourse }) => {
                             fontSize="sm"
                             fontWeight="600"
                             bgColor={
-                                activePills[category] === meeting
+                                userMeetings[identifier][category] === meeting
                                     ? activePillColour
                                     : pillColour
                             }
                             color={
-                                activePills[category] === meeting
+                                userMeetings[identifier][category] === meeting
                                     ? activePillTextColour
                                     : pillTextColour
                             }
                             onClick={() => {
-                                setActivePills((prev) => ({
-                                    ...prev,
-                                    [category]: meeting,
-                                }))
+                                dispatch({
+                                    type: "SET_MEETING",
+                                    payload: {
+                                        identifier,
+                                        meeting,
+                                        method: category,
+                                    },
+                                })
+                                // setActivePills((prev) => ({
+                                //     ...prev,
+                                //     [category]: meeting,
+                                // }))
                             }}
                             borderRadius="100rem"
                             _last={{

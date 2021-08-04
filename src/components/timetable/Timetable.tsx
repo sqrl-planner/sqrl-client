@@ -317,11 +317,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
     return (
         <StyledTimetableContainer>
-            <StyledTimetable
-                onClick={(e) => {
-                    console.log(e)
-                }}
-            >
+            <StyledTimetable>
                 <thead>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>

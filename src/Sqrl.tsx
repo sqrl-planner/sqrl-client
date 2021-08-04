@@ -407,7 +407,10 @@ const Sqrl = () => {
                     height="calc(100vh - 4.5rem)"
                     overflowX="hidden"
                 >
-                    <Sidebar course={courses[sidebarCourse]} />
+                    <Sidebar
+                        identifier={sidebarCourse}
+                        course={courses[sidebarCourse]}
+                    />
                 </Box>
             )}
         </Fragment>

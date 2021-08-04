@@ -1,4 +1,4 @@
-import { chakra, Flex, Tooltip } from "@chakra-ui/react"
+import { Flex, Tooltip } from "@chakra-ui/react"
 import React from "react"
 import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
