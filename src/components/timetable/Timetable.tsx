@@ -1,4 +1,5 @@
 import { Flex } from "@chakra-ui/react"
+import { AnimateSharedLayout } from "framer-motion"
 import React, { FunctionComponent, useMemo } from "react"
 import { useHoverContext } from "../../HoverContext"
 import { useAppContext } from "../../SqrlContext"
@@ -93,7 +94,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         dispatch,
     } = useHoverContext()
 
-    const { dispatch: dispatchAppContext } = useAppContext()
+    const {
+        state: { sidebarCourse },
+        dispatch: dispatchAppContext,
+    } = useAppContext()
 
     const setHoverCourseKey = (courseKey: number | null) => {
         dispatch({ type: "SET_CURRENT_HOVER", payload: courseKey })
@@ -192,6 +196,16 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         payload: meeting.identifier,
                                     })
                                 }}
+                                style={{
+                                    boxShadow:
+                                        meeting.identifier === sidebarCourse
+                                            ? "inset 0 0 0 0.15rem rgba(60, 142, 230, 0.7)"
+                                            : "",
+                                    cursor:
+                                        meeting.identifier === sidebarCourse
+                                            ? "default"
+                                            : "",
+                                }}
                             >
                                 <MeetingComponent
                                     darkText={!dark}
@@ -237,6 +251,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         }% + 0.1rem)`,
                                         backgroundColor:
                                             highlightConflicts &&
+                                            // meeting.identifier !== sidebarCourse &&
                                             (!(
                                                 hoverCourseKey ===
                                                 meeting.courseKey
@@ -244,14 +259,23 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 !emphasizeOnHover)
                                                 ? "#c53030"
                                                 : "",
-                                        color:
-                                            highlightConflicts ||
-                                            !emphasizeOnHover
-                                                ? "#fff"
-                                                : "",
+                                        // color: "",
+                                        // highlightConflicts ||
+                                        // !emphasizeOnHover ||
+                                        // meeting.identifier === sidebarCourse
+                                        //     ? "#fff"
+                                        //     : "",
 
                                         lineHeight:
                                             "var(--chakra-lineHeights-base)",
+                                        boxShadow:
+                                            meeting.identifier === sidebarCourse
+                                                ? "inset 0 0 0 0.15rem rgba(60, 142, 230, 0.7)"
+                                                : "",
+                                        cursor:
+                                            meeting.identifier === sidebarCourse
+                                                ? "default"
+                                                : "",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}
@@ -275,6 +299,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 hoverCourseKey ===
                                                     meeting.courseKey &&
                                                 !dark)
+                                            //  || meeting.identifier === sidebarCourse
                                         }
                                         meeting={meeting}
                                         twentyFour={twentyFour}

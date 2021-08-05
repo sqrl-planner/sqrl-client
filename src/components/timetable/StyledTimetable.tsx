@@ -1,5 +1,6 @@
 import { chakra } from "@chakra-ui/react"
 import Colour from "color"
+import { motion } from "framer-motion"
 import styled from "styled-components"
 
 export const StyledTimetableContainer = styled(chakra.div)`
@@ -178,8 +179,10 @@ export const MeetingTime = styled.div<{
     box-shadow: ${({ highlight, dark }) => {
         if (!highlight) return `1px 1px 4px -3px rgba(0, 0, 0, 0.4);`
 
-        if (!dark) return `0 0 0 2px rgba(0,0,0,0.6)`
-        return `0 0 0 2px rgba(255, 255, 255, 0.6)`
+        if (!dark) return `inset 0 0 0 0.15rem rgba(0,0,0,0.6)`
+        return `inset 0 0 0 0.15rem rgba(255, 255, 255, 0.6)`
+        // if (!dark) return `inset 0 0 0 2px rgba(0,0,0,0.6)`
+        // return `inset 0 0 0 2px rgba(255, 255, 255, 0.6)`
     }};
 
     @media print {

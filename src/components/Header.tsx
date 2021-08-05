@@ -93,7 +93,6 @@ const Header = () => {
                 margin="auto"
             />
 
-            <Link>About</Link>
             <div>
                 <Button
                     variant="link"
@@ -105,7 +104,7 @@ const Header = () => {
                     position="relative"
                     top="0.2rem"
                     _hover={{
-                        transform: "rotate(90deg) scale(1.2)",
+                        transform: "rotate(90deg)",
                     }}
                     _focus={{
                         border: "none",

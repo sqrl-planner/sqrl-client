@@ -95,6 +95,15 @@ const Sqrl = () => {
         dispatch({
             type: "SET_MEETING",
             payload: {
+                identifier: "FSL226H1-F-20219",
+                meeting: "LEC-0101",
+                method: "lecture",
+            },
+        })
+
+        dispatch({
+            type: "SET_MEETING",
+            payload: {
                 identifier: "MAT237Y1-Y-20219",
                 meeting: "LEC-0201",
                 method: "lecture",
@@ -254,12 +263,16 @@ const Sqrl = () => {
 
     const firstUpdate = useRef(true)
     useEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false
-            return
-        }
+        // if (firstUpdate.current) {
+        //     firstUpdate.current = false
+        //     return
+        // }
 
-        setSidebarOpen(true)
+        setTransitioning(true)
+        setSidebarOpen(() => {
+            setTransitioning(false)
+            return true
+        })
     }, [sidebarCourse])
 
     useEffect(() => {
@@ -297,7 +310,7 @@ const Sqrl = () => {
                         background={useColorModeValue("gray.75", "gray.800")}
                         flex="1"
                         zIndex="1"
-                        boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
+                        boxShadow="0px 0px 9px -5px rgba(0, 0, 0, 0.3)"
                         pointerEvents={transitioning ? "none" : "auto"}
                         height="calc(100vh - 4.5rem)"
                         overflowY="scroll"
@@ -364,13 +377,13 @@ const Sqrl = () => {
                 right="0"
                 top="0"
                 bottom="0"
-                fontSize="1.8rem"
+                fontSize="1.5rem"
                 height="100%"
                 pointerEvents="none"
                 margin="auto"
                 zIndex="1000"
                 alignItems="center"
-                transform={sidebarOpen ? "translateX(-24.5rem)" : ""}
+                transform={sidebarOpen ? "translateX(-24rem)" : ""}
                 transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
                 onClick={() => {
                     setTransitioning(true)
@@ -380,14 +393,23 @@ const Sqrl = () => {
                 <Flex
                     as="button"
                     pointerEvents="all"
-                    background={useColorModeValue("gray.100", "gray.900")}
+                    background={useColorModeValue(
+                        "rgba(236, 236, 236, 0.6)",
+                        "rgba(0,0,0,0.6)"
+                    )}
                     p={2}
-                    height="2.5rem"
-                    width="2.5rem"
+                    height="2rem"
+                    width="2rem"
                     borderRadius="1000rem"
                     justifyContent="center"
                     alignItems="center"
+                    // opacity={0.7}
                     boxShadow="1px 1px 8px -2px rgba(0, 0, 0, 0.4)"
+                    backdropFilter="blur(1px)"
+                    _hover={{
+                        backdropFilter: "none",
+                        // opacity: "0.5",
+                    }}
                 >
                     <Icon
                         as={GoChevronLeft}

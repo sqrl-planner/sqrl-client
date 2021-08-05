@@ -7,7 +7,8 @@ import {
     Tooltip,
     useColorModeValue,
 } from "@chakra-ui/react"
-import React, { Fragment } from "react"
+import reactStringReplace from "react-string-replace"
+import React, { Fragment, useEffect, useLayoutEffect, useRef } from "react"
 import { StandardCourse } from "../Course"
 import { useAppContext } from "../SqrlContext"
 import { MeetingCategoryType } from "./timetable/Meeting"
@@ -26,6 +27,25 @@ const CourseSubheading = ({ children }: { children: React.ReactNode }) => (
     </Text>
 )
 
+export const wrapCourseWithElement = (
+    courses: string,
+    Element: React.FunctionComponent
+) => {
+    courses =
+        "(60% or higher in (CSC148H1/CSC148H5/CSCA48H3), 60% or higher in (CSC165H1/CSC240H1/MAT102H5/MATA67H3/ CSCA67H3)) / 60% or higher in CSC111H1"
+
+    const parsed = courses.replace(/[A-Za-z]{3}\d{3,}[H,Y]\d/g, (value) => {
+        console.log(value)
+        return value
+    })
+
+    return (
+        <Fragment>
+            <Element>{JSON.stringify(parsed)}</Element>
+        </Fragment>
+    )
+}
+
 const SidebarComponent = ({
     course,
     identifier,
@@ -36,7 +56,7 @@ const SidebarComponent = ({
     const pillColour = useColorModeValue("gray.100", "gray.700")
     const pillTextColour = useColorModeValue("gray.700", "gray.100")
     const activePillColour = useColorModeValue("green.100", "green.800")
-    const activePillTextColour = useColorModeValue("green.800", "green.100")
+    const activePillTextColour = useColorModeValue("green.50", "green.800")
 
     const boxBackground = useColorModeValue("gray.75", "gray.900")
 
@@ -45,9 +65,17 @@ const SidebarComponent = ({
         dispatch,
     } = useAppContext()
 
+    const boxRef = useRef<HTMLHeadingElement | null>(null)
+
     // TODO: meetings out of the timetable's display bounds are hidden without warning. Warn them.
 
     const { department, numeral, suffix } = breakdownCourseCode(course.code)
+
+    useEffect(() => {
+        if (!boxRef.current) return
+
+        boxRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [boxRef, department, numeral, suffix])
 
     let meetingPicker: Array<React.ReactNode> = []
 
@@ -70,11 +98,17 @@ const SidebarComponent = ({
                             mb={2}
                             fontSize="sm"
                             fontWeight="600"
-                            bgColor={
+                            boxShadow="sm"
+                            colorScheme={
                                 userMeetings[identifier][category] === meeting
-                                    ? activePillColour
-                                    : pillColour
+                                    ? "green"
+                                    : "gray"
                             }
+                            // bgColor={
+                            //     userMeetings[identifier][category] === meeting
+                            //         ? activePillColour
+                            //         : pillColour
+                            // }
                             color={
                                 userMeetings[identifier][category] === meeting
                                     ? activePillTextColour
@@ -117,6 +151,7 @@ const SidebarComponent = ({
             minHeight="calc(100vh - 4.5rem)"
             p={5}
             background={boxBackground}
+            ref={boxRef}
         >
             <Heading
                 as="h3"
@@ -170,16 +205,52 @@ const SidebarComponent = ({
             {!!course.prerequisite.length && (
                 <Box>
                     <CourseSubheading>Prerequisites</CourseSubheading>
-                    <Text>{course.prerequisite}</Text>
+                    <Text>
+                        {reactStringReplace(
+                            course.prerequisite,
+                            // three to four alpha characters, two to four digits, H or Y, and a digit
+                            /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
+                            (match, i) => (
+                                <Button
+                                    variant="link"
+                                    colorScheme="gray"
+                                    key={i}
+                                    p={1}
+                                >
+                                    {match}
+                                </Button>
+                            )
+                        )}
+                    </Text>
                 </Box>
             )}
             {!!course.exclusion.length && (
                 <Fragment>
                     <Box>
                         <CourseSubheading>Exclusions</CourseSubheading>
-                        <Text>{course.exclusion}</Text>
+                        <Text>
+                            {reactStringReplace(
+                                course.exclusion,
+                                /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
+                                (match, i) => (
+                                    <Button variant="link" key={i} p={1}>
+                                        {match}
+                                    </Button>
+                                )
+                            )}
+                        </Text>
                     </Box>
                 </Fragment>
+            )}
+            {!!course.webTimetableInstructions.length && (
+                <Box>
+                    <CourseSubheading>Distribution</CourseSubheading>
+                    <Text
+                        dangerouslySetInnerHTML={{
+                            __html: course.webTimetableInstructions,
+                        }}
+                    />
+                </Box>
             )}
             {!!course.distributionCategories.length && (
                 <Box>
