@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/react"
-import { AnimateSharedLayout } from "framer-motion"
 import React, { FunctionComponent, useMemo } from "react"
 import { useHoverContext } from "../../HoverContext"
 import { useAppContext } from "../../SqrlContext"
@@ -14,6 +13,7 @@ import MeetingComponent from "./MeetingComponent"
 import {
     MeetingTime,
     MeetingTimeCell,
+    Palettes,
     StyledHead,
     StyledTbody,
     StyledTh,
@@ -21,7 +21,6 @@ import {
     StyledTimetable,
     StyledTimetableContainer,
     StyledTr,
-    Palettes,
 } from "./StyledTimetable"
 
 type TimetableProps = {
@@ -259,13 +258,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 !emphasizeOnHover)
                                                 ? "#c53030"
                                                 : "",
-                                        // color: "",
-                                        // highlightConflicts ||
-                                        // !emphasizeOnHover ||
-                                        // meeting.identifier === sidebarCourse
-                                        //     ? "#fff"
-                                        //     : "",
-
                                         lineHeight:
                                             "var(--chakra-lineHeights-base)",
                                         boxShadow:

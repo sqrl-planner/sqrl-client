@@ -4,7 +4,6 @@ import {
     chakra,
     Heading,
     Input,
-    Link,
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"

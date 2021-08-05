@@ -7,8 +7,8 @@ import {
     Tooltip,
     useColorModeValue,
 } from "@chakra-ui/react"
+import React, { Fragment, useEffect, useRef } from "react"
 import reactStringReplace from "react-string-replace"
-import React, { Fragment, useEffect, useLayoutEffect, useRef } from "react"
 import { StandardCourse } from "../Course"
 import { useAppContext } from "../SqrlContext"
 import { MeetingCategoryType } from "./timetable/Meeting"
@@ -53,9 +53,7 @@ const SidebarComponent = ({
     course: StandardCourse
     identifier: string
 }) => {
-    const pillColour = useColorModeValue("gray.100", "gray.700")
     const pillTextColour = useColorModeValue("gray.700", "gray.100")
-    const activePillColour = useColorModeValue("green.100", "green.800")
     const activePillTextColour = useColorModeValue("green.50", "green.800")
 
     const boxBackground = useColorModeValue("gray.75", "gray.900")
@@ -104,11 +102,6 @@ const SidebarComponent = ({
                                     ? "green"
                                     : "gray"
                             }
-                            // bgColor={
-                            //     userMeetings[identifier][category] === meeting
-                            //         ? activePillColour
-                            //         : pillColour
-                            // }
                             color={
                                 userMeetings[identifier][category] === meeting
                                     ? activePillTextColour
@@ -123,10 +116,6 @@ const SidebarComponent = ({
                                         method: category,
                                     },
                                 })
-                                // setActivePills((prev) => ({
-                                //     ...prev,
-                                //     [category]: meeting,
-                                // }))
                             }}
                             borderRadius="100rem"
                             _last={{

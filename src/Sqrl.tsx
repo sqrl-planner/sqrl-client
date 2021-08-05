@@ -9,7 +9,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import React, { useEffect, useState, Fragment, useRef } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
@@ -23,19 +23,6 @@ import { usePreferences } from "./PreferencesContext"
 import { courses as sampleCourse } from "./sampleCourses"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
-
-// const TimetableContainer = styled(chakra.div)`
-//     display: grid;
-//     /* width: calc(100vw ); */
-//     /* width: 100%; */
-//     flex: 1;
-//     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-//     min-height: calc(100vh - 4.5rem);
-
-//     @media print {
-//         top: 1rem;
-//     }
-// `
 
 const Container = styled(chakra.div)`
     position: relative;
@@ -261,13 +248,7 @@ const Sqrl = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [transitioning, setTransitioning] = useState(false)
 
-    const firstUpdate = useRef(true)
     useEffect(() => {
-        // if (firstUpdate.current) {
-        //     firstUpdate.current = false
-        //     return
-        // }
-
         setTransitioning(true)
         setSidebarOpen(() => {
             setTransitioning(false)
