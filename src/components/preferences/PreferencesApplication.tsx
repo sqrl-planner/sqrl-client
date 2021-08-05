@@ -83,7 +83,7 @@ const PreferencesApplication = () => {
                     />
                     <UnorderedList my={4} fontWeight="500">
                         {programs.map((program) => (
-                            <ListItem mb={2}>
+                            <ListItem mb={2} key={program.code}>
                                 <Flex
                                     justifyContent="space-between"
                                     alignItems="center"
@@ -122,7 +122,7 @@ const PreferencesApplication = () => {
                                                     >
                                                         <ButtonGroup size="sm">
                                                             <Button
-                                                                variant="outline"
+                                                                variant="ghost"
                                                                 ref={initRef}
                                                                 onClick={
                                                                     onClose

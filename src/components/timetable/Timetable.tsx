@@ -335,7 +335,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     return (
         <StyledTimetableContainer>
             <StyledTimetable>
-                <thead>
+                <thead style={{ position: "relative" }}>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>
                         {days.map((day, index) => (

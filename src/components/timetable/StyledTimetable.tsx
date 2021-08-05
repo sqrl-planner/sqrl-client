@@ -4,17 +4,19 @@ import styled from "styled-components"
 
 export const StyledTimetableContainer = styled(chakra.div)`
     width: 100%;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     font-size: 0.625rem;
     /* background: #fafafa; */
 `
 
 export const StyledTimetable = styled.table`
     display: table;
+    position: relative;
     width: calc(100% - 0.25rem);
     min-width: 450px;
     margin: 1rem;
     margin-left: 0;
+    margin-top: 0;
     padding: 0;
 
     border-collapse: collapse;
@@ -25,16 +27,28 @@ export const StyledTimetable = styled.table`
 `
 
 export const StyledHead = styled.tr`
+    position: relative;
+    z-index: 1;
+
     /* background-color: red; */
 `
 
 export const StyledTh = styled.th<{ dark: boolean; days?: number }>`
+    z-index: 1;
+    position: sticky;
+    top: 0;
+
+    border-left: 3px solid red;
+    box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.4);
     border-left: 1px solid ${({ dark }) => (dark ? `#414141` : `#e2e8f0`)};
     font-size: 1rem;
-    padding-bottom: 0.8em;
+    padding: 0.6em 0;
+
+    background-color: #fafafa;
 
     &:first-of-type {
         border-left: none;
+        opacity: 0;
     }
 
     &:first-of-type:not() {

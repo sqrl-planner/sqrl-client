@@ -9,7 +9,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
@@ -48,7 +48,7 @@ const Sqrl = () => {
     } = usePreferences()
 
     const {
-        state: { courses, userMeetings, sidebarCourse },
+        state: { courses, userMeetings, sidebarCourse, hoverMeeting },
         dispatch,
     } = useAppContext()
 
@@ -228,9 +228,22 @@ const Sqrl = () => {
     }, [dispatch])
 
     useEffect(() => {
-        setFirstMeetings(MeetingsFabricator(courses, userMeetings, "F"))
-        setSecondMeetings(MeetingsFabricator(courses, userMeetings, "S"))
-    }, [setFirstMeetings, setSecondMeetings, courses, userMeetings])
+        const meetings = {
+            ...userMeetings,
+            [hoverMeeting.courseIdentifier]: {
+                ...userMeetings[hoverMeeting.courseIdentifier],
+                hover: hoverMeeting.meeting,
+            },
+        }
+        setFirstMeetings(MeetingsFabricator(courses, meetings, "F"))
+        setSecondMeetings(MeetingsFabricator(courses, meetings, "S"))
+    }, [
+        setFirstMeetings,
+        setSecondMeetings,
+        courses,
+        userMeetings,
+        hoverMeeting,
+    ])
 
     useEffect(() => {
         const lsDisclaimed = localStorage.getItem("disclaimed")
@@ -265,6 +278,10 @@ const Sqrl = () => {
             setColorMode("dark")
         }
     }, [setColorMode])
+
+    const ref = useRef("pee")
+
+    console.log(ref.current)
 
     return (
         <Fragment>

@@ -117,6 +117,34 @@ const SidebarComponent = ({
                                     },
                                 })
                             }}
+                            onMouseEnter={() => {
+                                if (
+                                    userMeetings[identifier][category] ===
+                                    meeting
+                                )
+                                    return
+                                dispatch({
+                                    type: "SET_HOVER_MEETING",
+                                    payload: {
+                                        courseIdentifier: identifier,
+                                        meeting,
+                                    },
+                                })
+                            }}
+                            onMouseLeave={() => {
+                                if (
+                                    userMeetings[identifier][category] ===
+                                    meeting
+                                )
+                                    return
+                                dispatch({
+                                    type: "SET_HOVER_MEETING",
+                                    payload: {
+                                        courseIdentifier: "",
+                                        meeting: "",
+                                    },
+                                })
+                            }}
                             borderRadius="100rem"
                             _last={{
                                 marginBottom: 0,
