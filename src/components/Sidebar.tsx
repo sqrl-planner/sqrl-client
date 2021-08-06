@@ -44,25 +44,6 @@ const CourseSubheading = ({
     </Text>
 )
 
-export const wrapCourseWithElement = (
-    courses: string,
-    Element: React.FunctionComponent
-) => {
-    courses =
-        "(60% or higher in (CSC148H1/CSC148H5/CSCA48H3), 60% or higher in (CSC165H1/CSC240H1/MAT102H5/MATA67H3/ CSCA67H3)) / 60% or higher in CSC111H1"
-
-    const parsed = courses.replace(/[A-Za-z]{3}\d{3,}[H,Y]\d/g, (value) => {
-        console.log(value)
-        return value
-    })
-
-    return (
-        <Fragment>
-            <Element>{JSON.stringify(parsed)}</Element>
-        </Fragment>
-    )
-}
-
 const SidebarComponent = ({
     course,
     identifier,
@@ -76,7 +57,7 @@ const SidebarComponent = ({
     const activePillColour = useColorModeValue("green.100", "green.700")
 
     const concerningPillTextColour = useColorModeValue(
-        "yellow.700",
+        "yellow.600",
         "yellow.100"
     )
     // const waitlistPillColour = useColorModeValue("yellow.100", "yellow.900")
@@ -139,8 +120,8 @@ const SidebarComponent = ({
                         position="relative"
                         top={1.5}
                         fontSize="sm"
-                        pr={0.5}
-                        mr={7}
+                        pl={0.5}
+                        mr={6}
                         opacity={
                             userMeetings[identifier][category] ? "" : "0.5"
                         }
@@ -172,20 +153,12 @@ const SidebarComponent = ({
                         )
                             concerning = true
 
-                        console.log(
-                            meeting.enrollmentCapacity,
-                            meeting.actualEnrolment,
-                            meeting.enrollmentCapacity ===
-                                meeting.actualEnrolment
-                        )
-
                         return (
                             <Grid
                                 fontSize="sm"
+                                key={section}
                                 alignContent="center"
-                                // justifyContent="space-between"
-                                // alignItems="center"
-                                gridTemplateColumns="auto 1fr auto auto"
+                                gridTemplateColumns="auto auto 1fr auto auto"
                                 width="100%"
                                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
                                     isSelected
@@ -193,9 +166,8 @@ const SidebarComponent = ({
                                         : ""
                                 }`}
                                 margin={0}
-                                // p={1.5}
                                 p={2.5}
-                                px={5}
+                                pl={5}
                                 fontWeight="600"
                                 cursor={isSelected ? "default" : "pointer"}
                                 _hover={{
@@ -252,6 +224,23 @@ const SidebarComponent = ({
                                         : pillTextColour
                                 }
                             >
+                                <Box
+                                    mr={4}
+                                    position="relative"
+                                    bottom="0.1rem"
+                                    fontSize="md"
+                                >
+                                    {isSelected ? (
+                                        <CheckIcon />
+                                    ) : (
+                                        <AddIcon
+                                            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                            _hover={{
+                                                transform: "rotate(90deg)",
+                                            }}
+                                        />
+                                    )}
+                                </Box>
                                 <Text
                                     fontFamily="interstate-mono, monospace"
                                     key={section}
@@ -273,7 +262,7 @@ const SidebarComponent = ({
                                     // textAlign="left"
                                     isLoaded={true}
                                 >
-                                    <Text opacity="0.7">
+                                    <Text opacity={0.7}>
                                         {/* {Object.values(
                                         course.meetings[meeting].schedule
                                     ).reduce((prev, scheduledMeeting) => {
@@ -319,10 +308,22 @@ const SidebarComponent = ({
                                     </Text>
                                 </Skeleton>
                                 {/* <Text>{course.meetings[section].online}</Text> */}
+
+                                <Box
+                                    mx={1}
+                                    position="relative"
+                                    bottom="0.1rem"
+                                    fontSize="md"
+                                >
+                                    {concerning && (
+                                        <Tooltip label="This section may be full">
+                                            <WarningIcon opacity="0.6" />
+                                        </Tooltip>
+                                    )}
+                                </Box>
                                 <Button
                                     variant="link"
                                     // color="blue.500"
-                                    p={0.5}
                                     fontSize="md"
                                     onClick={(e) => {
                                         e.stopPropagation()
@@ -330,26 +331,6 @@ const SidebarComponent = ({
                                 >
                                     <QuestionIcon />
                                 </Button>
-
-                                <Box
-                                    mx={2}
-                                    position="relative"
-                                    bottom="0.1rem"
-                                    fontSize="md"
-                                >
-                                    {concerning ? (
-                                        <WarningIcon opacity="0.6" />
-                                    ) : isSelected ? (
-                                        <CheckIcon />
-                                    ) : (
-                                        <AddIcon
-                                            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                                            _hover={{
-                                                transform: "rotate(90deg)",
-                                            }}
-                                        />
-                                    )}
-                                </Box>
                             </Grid>
                         )
                     })}

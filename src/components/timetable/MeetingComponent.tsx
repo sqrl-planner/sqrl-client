@@ -128,6 +128,7 @@ const MeetingComponent = ({
             showCourseSuffix,
             showCategory,
             showDelivery,
+            showSection,
         },
     } = usePreferences()
 
@@ -168,8 +169,7 @@ const MeetingComponent = ({
                         </MeetingDelivery>
                     </Tooltip>
                 )}
-
-                {showCategory && (
+                {(showCategory || showSection) && (
                     <Tooltip
                         hasArrow
                         label={
@@ -180,16 +180,42 @@ const MeetingComponent = ({
                                 : `${capitalize(meeting.category)}`
                         }
                     >
-                        <Flex
-                            cursor="default"
-                            flexWrap="wrap"
-                            justifyContent="flex-end"
-                            style={{ gap: "0.2em" }}
-                            lineHeight="1em"
-                        >
-                            <div>{categoryAbbreviations[meeting.category]}</div>
-                            {meeting.section}
-                        </Flex>
+                        {showCategory && showSection ? (
+                            <Flex
+                                cursor="default"
+                                flexWrap="wrap"
+                                justifyContent="flex-end"
+                                style={{ gap: "0.2em" }}
+                                lineHeight="1em"
+                            >
+                                <div>
+                                    {categoryAbbreviations[meeting.category]}
+                                </div>
+                                {meeting.section}
+                            </Flex>
+                        ) : showCategory ? (
+                            <Flex
+                                cursor="default"
+                                flexWrap="wrap"
+                                justifyContent="flex-end"
+                                style={{ gap: "0.2em" }}
+                                lineHeight="1em"
+                            >
+                                <div>
+                                    {categoryAbbreviations[meeting.category]}
+                                </div>
+                            </Flex>
+                        ) : (
+                            <Flex
+                                cursor="default"
+                                flexWrap="wrap"
+                                justifyContent="flex-end"
+                                style={{ gap: "0.2em" }}
+                                lineHeight="1em"
+                            >
+                                {meeting.section}
+                            </Flex>
+                        )}
                     </Tooltip>
                 )}
             </MiscInfo>

@@ -2,7 +2,7 @@ import { WarningTwoIcon } from "@chakra-ui/icons"
 import { FormControl, FormLabel, Icon, Select } from "@chakra-ui/react"
 import React, { Fragment, useEffect } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
-import { FaClock, FaTruckMoving } from "react-icons/fa"
+import { FaClock, FaGlassMartiniAlt, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
 import { ImSection } from "react-icons/im"
 import styled from "styled-components"
@@ -24,6 +24,7 @@ const PreferencesMeeting = () => {
             showTimeInMeeting,
             showCourseSuffix,
             showCategory,
+            showSection,
             showDelivery,
             highlightConflicts,
         },
@@ -72,9 +73,20 @@ const PreferencesMeeting = () => {
                     isChecked={showCategory}
                     actionType="SET_SHOW_CATEGORY"
                     iconProps={{
+                        as: FaGlassMartiniAlt,
+                    }}
+                    helperText="Show meeting category (LEC, TUT, PRA)."
+                >
+                    Meeting category
+                </PreferencesToggle>
+
+                <PreferencesToggle
+                    isChecked={showSection}
+                    actionType="SET_SHOW_SECTION"
+                    iconProps={{
                         as: ImSection,
                     }}
-                    helperText="Show meeting section (e.g. LEC 0101)."
+                    helperText="Show meeting section (e.g. 0101)."
                 >
                     Meeting section
                 </PreferencesToggle>

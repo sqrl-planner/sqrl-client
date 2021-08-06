@@ -12,6 +12,7 @@ export interface Preferences {
     showTimeInMeeting: boolean
     showCourseSuffix: boolean
     showCategory: boolean
+    showSection: boolean
     showDelivery: boolean
     start: number
     end: number
@@ -31,6 +32,7 @@ export type Action =
     | { type: "SET_SHOW_TIME_IN_MEETING"; payload: boolean }
     | { type: "SET_SHOW_COURSE_SUFFIX"; payload: boolean }
     | { type: "SET_SHOW_CATEGORY"; payload: boolean }
+    | { type: "SET_SHOW_SECTION"; payload: boolean }
     | { type: "SET_SHOW_DELIVERY"; payload: boolean }
     | { type: "SET_START"; payload: number }
     | { type: "SET_END"; payload: number }
@@ -77,6 +79,11 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 
         case "SET_SHOW_CATEGORY": {
             newPreferences = { ...state, showCategory: action.payload }
+            break
+        }
+
+        case "SET_SHOW_SECTION": {
+            newPreferences = { ...state, showSection: action.payload }
             break
         }
 
@@ -140,6 +147,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
         showTimeInMeeting: false,
         showCourseSuffix: true,
         showCategory: true,
+        showSection: false,
         showDelivery: false,
         start: 9,
         end: 22,
