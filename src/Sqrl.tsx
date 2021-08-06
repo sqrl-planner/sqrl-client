@@ -82,7 +82,7 @@ const Sqrl = () => {
         dispatch({
             type: "SET_MEETING",
             payload: {
-                identifier: "FSL226H1-F-20219",
+                identifier: "CHM217H1-F-20219",
                 meeting: "LEC-0101",
                 method: "lecture",
             },

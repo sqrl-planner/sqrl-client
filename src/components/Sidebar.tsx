@@ -1,4 +1,9 @@
 import {
+    Accordion,
+    AccordionButton,
+    AccordionIcon,
+    AccordionItem,
+    AccordionPanel,
     Box,
     Button,
     Flex,
@@ -14,7 +19,12 @@ import { useAppContext } from "../SqrlContext"
 import { MeetingCategoryType } from "./timetable/Meeting"
 import { breakdownCourseCode } from "./timetable/MeetingComponent"
 
-const CourseSubheading = ({ children }: { children: React.ReactNode }) => (
+const CourseSubheading = ({
+    children,
+    ...rest
+}: {
+    children: React.ReactNode
+}) => (
     <Text
         textTransform="uppercase"
         fontWeight={700}
@@ -22,6 +32,7 @@ const CourseSubheading = ({ children }: { children: React.ReactNode }) => (
         mt={5}
         mb={1}
         fontSize="0.8em"
+        {...rest}
     >
         {children}
     </Text>
@@ -85,7 +96,7 @@ const SidebarComponent = ({
         if (!categories.length) return <Fragment key={category} />
 
         return (
-            <Box key={category}>
+            <Box key={category} px={5}>
                 <CourseSubheading>{category}</CourseSubheading>
                 <Flex flexWrap="wrap" mt={1}>
                     {categories.map((meeting) => (
@@ -96,7 +107,8 @@ const SidebarComponent = ({
                             mb={2}
                             fontSize="sm"
                             fontWeight="600"
-                            boxShadow="sm"
+                            boxShadow="0 0 5px -3px gray"
+                            // boxShadow="sm"
                             colorScheme={
                                 userMeetings[identifier][category] === meeting
                                     ? "green"
@@ -114,6 +126,13 @@ const SidebarComponent = ({
                                         identifier,
                                         meeting,
                                         method: category,
+                                    },
+                                })
+                                dispatch({
+                                    type: "SET_HOVER_MEETING",
+                                    payload: {
+                                        courseIdentifier: "",
+                                        meeting: "",
                                     },
                                 })
                             }}
@@ -145,7 +164,7 @@ const SidebarComponent = ({
                                     },
                                 })
                             }}
-                            borderRadius="100rem"
+                            borderRadius="10rem"
                             _last={{
                                 marginBottom: 0,
                             }}
@@ -166,11 +185,13 @@ const SidebarComponent = ({
         <Box
             width="25rem"
             minHeight="calc(100vh - 4.5rem)"
-            p={5}
+            pb={5}
             background={boxBackground}
             ref={boxRef}
         >
             <Heading
+                p={5}
+                pb={0}
                 as="h3"
                 size="lg"
                 display="flex"
@@ -207,20 +228,37 @@ const SidebarComponent = ({
                     </Tooltip>
                 </Box>
             </Heading>
-            <Heading as="h4" size="md" opacity="0.6" mb={6}>
+            <Heading as="h4" size="md" opacity="0.6" mb={6} px={5}>
                 {course.courseTitle}
             </Heading>
             {meetingPicker}
             <Box>
-                <CourseSubheading>Description</CourseSubheading>
-                <Text
-                    dangerouslySetInnerHTML={{
-                        __html: course.courseDescription,
-                    }}
-                ></Text>
+                <Accordion allowToggle mt={4}>
+                    <AccordionItem>
+                        <AccordionButton
+                            p={0}
+                            px={5}
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
+                            <CourseSubheading my={2} px={5}>
+                                Description
+                            </CourseSubheading>
+                            <AccordionIcon mr={5} />
+                        </AccordionButton>
+                        <AccordionPanel px={5} pb={4}>
+                            <Text
+                                dangerouslySetInnerHTML={{
+                                    __html: course.courseDescription,
+                                }}
+                            ></Text>
+                        </AccordionPanel>
+                    </AccordionItem>
+                </Accordion>
             </Box>
             {!!course.prerequisite.length && (
-                <Box>
+                <Box mx={5}>
                     <CourseSubheading>Prerequisites</CourseSubheading>
                     <Text>
                         {reactStringReplace(
@@ -233,6 +271,7 @@ const SidebarComponent = ({
                                     colorScheme="gray"
                                     key={i}
                                     p={1}
+                                    fontFamily="interstate-mono, monospace"
                                 >
                                     {match}
                                 </Button>
@@ -242,25 +281,28 @@ const SidebarComponent = ({
                 </Box>
             )}
             {!!course.exclusion.length && (
-                <Fragment>
-                    <Box>
-                        <CourseSubheading>Exclusions</CourseSubheading>
-                        <Text>
-                            {reactStringReplace(
-                                course.exclusion,
-                                /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
-                                (match, i) => (
-                                    <Button variant="link" key={i} p={1}>
-                                        {match}
-                                    </Button>
-                                )
-                            )}
-                        </Text>
-                    </Box>
-                </Fragment>
+                <Box px={5}>
+                    <CourseSubheading>Exclusions</CourseSubheading>
+                    <Text>
+                        {reactStringReplace(
+                            course.exclusion,
+                            /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
+                            (match, i) => (
+                                <Button
+                                    variant="link"
+                                    key={i}
+                                    p={1}
+                                    fontFamily="interstate-mono, monospace"
+                                >
+                                    {match}
+                                </Button>
+                            )
+                        )}
+                    </Text>
+                </Box>
             )}
             {!!course.webTimetableInstructions.length && (
-                <Box>
+                <Box px={5}>
                     <CourseSubheading>Distribution</CourseSubheading>
                     <Text
                         dangerouslySetInnerHTML={{
@@ -270,7 +312,7 @@ const SidebarComponent = ({
                 </Box>
             )}
             {!!course.distributionCategories.length && (
-                <Box>
+                <Box px={5}>
                     <CourseSubheading>Distribution</CourseSubheading>
                     <Text>{course.distributionCategories}</Text>
                 </Box>

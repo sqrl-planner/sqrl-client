@@ -60,10 +60,7 @@ type TimetableProps = {
      * Dark mode
      */
     dark?: boolean
-    /**
-     * Show time
-     */
-    showTime?: boolean
+
     /**
      * Emphasize on hover
      */
@@ -84,7 +81,6 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     highlightConflicts = true,
     twentyFour = true,
     dark = false,
-    showTime = true,
     emphasizeOnHover = true,
     days = WEEK_DAYS,
 }) => {
@@ -94,7 +90,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     } = useHoverContext()
 
     const {
-        state: { sidebarCourse },
+        state: { sidebarCourse, hoverMeeting, userMeetings },
         dispatch: dispatchAppContext,
     } = useAppContext()
 
@@ -137,17 +133,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         currentTime += resolution
     ) {
         const timeLabel = minuteOffsetToTime(currentTime, twentyFour)
-        const cells = showTime
-            ? [
-                  <StyledTimeLabelTd key={currentTime} className="time">
-                      {timeLabel}
-                  </StyledTimeLabelTd>,
-              ]
-            : [
-                  <StyledTimeLabelTd style={{ padding: 0 }}>
-                      &nbsp;
-                  </StyledTimeLabelTd>,
-              ]
+        const cells = [
+            <StyledTimeLabelTd key={currentTime} className="time">
+                {timeLabel}
+            </StyledTimeLabelTd>,
+        ]
 
         for (const day of days) {
             let isOccupied = false
@@ -169,7 +159,18 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
                 if (group.meetings.length === 1) {
                     // No conflicts
-                    const meeting = group.meetings[0]
+                    const meeting = group.meetings[0] as Meeting
+
+                    // Should dim when hovered meeting is same category as this but codes dont match
+                    const shouldDim =
+                        hoverMeeting.courseIdentifier === meeting.identifier &&
+                        hoverMeeting.meeting.substring(0, 3) ===
+                            meeting.category.substring(0, 3).toUpperCase() &&
+                        hoverMeeting.meeting !==
+                            `${meeting.category
+                                .substring(0, 3)
+                                .toUpperCase()}-${meeting.section}`
+
                     cells.push(
                         <MeetingTimeCell
                             key={day}
@@ -204,6 +205,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         meeting.identifier === sidebarCourse
                                             ? "default"
                                             : "",
+                                    opacity: shouldDim ? "0.4" : "",
                                 }}
                             >
                                 <MeetingComponent
@@ -225,6 +227,18 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 ((meeting.endTime - meeting.startTime) /
                                     (groupEndTime - groupStartTime)) *
                                 100
+
+                            const shouldDim =
+                                hoverMeeting.courseIdentifier ===
+                                    meeting.identifier &&
+                                hoverMeeting.meeting.substring(0, 3) ===
+                                    meeting.category
+                                        .substring(0, 3)
+                                        .toUpperCase() &&
+                                hoverMeeting.meeting !==
+                                    `${meeting.category
+                                        .substring(0, 3)
+                                        .toUpperCase()}-${meeting.section}`
 
                             items.push(
                                 <MeetingTime
@@ -268,6 +282,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                             meeting.identifier === sidebarCourse
                                                 ? "default"
                                                 : "",
+                                        opacity: shouldDim ? "0.4" : "",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}
@@ -335,7 +350,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     return (
         <StyledTimetableContainer>
             <StyledTimetable>
-                <thead style={{ position: "relative" }}>
+                <thead>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>
                         {days.map((day, index) => (
