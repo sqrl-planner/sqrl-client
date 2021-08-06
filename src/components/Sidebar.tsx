@@ -1,3 +1,4 @@
+import { AddIcon, CheckIcon, QuestionIcon, WarningIcon } from "@chakra-ui/icons"
 import {
     Accordion,
     AccordionButton,
@@ -7,12 +8,17 @@ import {
     Box,
     Button,
     Flex,
+    Grid,
     Heading,
+    Icon,
+    Skeleton,
     Text,
     Tooltip,
     useColorModeValue,
+    VStack,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useRef } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
+import { FaTrashAlt } from "react-icons/fa"
 import reactStringReplace from "react-string-replace"
 import { StandardCourse } from "../Course"
 import { useAppContext } from "../SqrlContext"
@@ -64,10 +70,25 @@ const SidebarComponent = ({
     course: StandardCourse
     identifier: string
 }) => {
-    const pillTextColour = useColorModeValue("gray.700", "gray.100")
-    const activePillTextColour = useColorModeValue("green.50", "green.800")
+    const pillTextColour = useColorModeValue("gray.800", "gray.100")
+    const pillColour = useColorModeValue("gray.100", "gray.800")
+    const activePillTextColour = useColorModeValue("green.700", "green.100")
+    const activePillColour = useColorModeValue("green.100", "green.700")
 
-    const boxBackground = useColorModeValue("gray.75", "gray.900")
+    const concerningPillTextColour = useColorModeValue(
+        "yellow.700",
+        "yellow.100"
+    )
+    // const waitlistPillColour = useColorModeValue("yellow.100", "yellow.900")
+
+    const boxShadowColour = useColorModeValue(
+        "rgba(0,0,0,0.5)",
+        "rgba(255, 255, 255, 0.5)"
+    )
+
+    const hoverBackground = useColorModeValue("gray.200", "gray.600")
+
+    const boxBackground = useColorModeValue("gray.75", "gray.700")
 
     const {
         state: { userMeetings },
@@ -88,6 +109,10 @@ const SidebarComponent = ({
 
     let meetingPicker: Array<React.ReactNode> = []
 
+    const scrollingTimeoutRef = useRef<any>(null)
+
+    const [scrolling, setScrolling] = useState<boolean>(false)
+
     meetingPicker = Object.values(MeetingCategoryType).map((category) => {
         const categories = Object.keys(course.meetings).filter((meeting) =>
             meeting.includes(category.substring(0, 3).toUpperCase())
@@ -96,87 +121,239 @@ const SidebarComponent = ({
         if (!categories.length) return <Fragment key={category} />
 
         return (
-            <Box key={category} px={5}>
-                <CourseSubheading>{category}</CourseSubheading>
-                <Flex flexWrap="wrap" mt={1}>
-                    {categories.map((meeting) => (
-                        <Button
-                            fontFamily="interstate-mono, monospace"
-                            key={meeting}
-                            mr={1}
-                            mb={2}
-                            fontSize="sm"
-                            fontWeight="600"
-                            boxShadow="0 0 5px -3px gray"
-                            // boxShadow="sm"
-                            colorScheme={
-                                userMeetings[identifier][category] === meeting
-                                    ? "green"
-                                    : "gray"
-                            }
-                            color={
-                                userMeetings[identifier][category] === meeting
-                                    ? activePillTextColour
-                                    : pillTextColour
-                            }
-                            onClick={() => {
-                                dispatch({
-                                    type: "SET_MEETING",
-                                    payload: {
-                                        identifier,
-                                        meeting,
-                                        method: category,
-                                    },
-                                })
-                                dispatch({
-                                    type: "SET_HOVER_MEETING",
-                                    payload: {
-                                        courseIdentifier: "",
-                                        meeting: "",
-                                    },
-                                })
-                            }}
-                            onMouseEnter={() => {
-                                if (
-                                    userMeetings[identifier][category] ===
-                                    meeting
-                                )
-                                    return
-                                dispatch({
-                                    type: "SET_HOVER_MEETING",
-                                    payload: {
-                                        courseIdentifier: identifier,
-                                        meeting,
-                                    },
-                                })
-                            }}
-                            onMouseLeave={() => {
-                                if (
-                                    userMeetings[identifier][category] ===
-                                    meeting
-                                )
-                                    return
-                                dispatch({
-                                    type: "SET_HOVER_MEETING",
-                                    payload: {
-                                        courseIdentifier: "",
-                                        meeting: "",
-                                    },
-                                })
-                            }}
-                            borderRadius="10rem"
-                            _last={{
-                                marginBottom: 0,
-                            }}
-                        >
-                            {/* TODO: Do we really need this? */}
-                            {/* <Text as="span" mr="0.2rem">
+            <Box
+                key={category}
+                // px={5}
+                pointerEvents={scrolling ? "none" : "auto"}
+            >
+                <Flex
+                    width="100%"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={1}
+                >
+                    <CourseSubheading px={5}>{category}</CourseSubheading>
+                    <Icon
+                        cursor="pointer"
+                        as={FaTrashAlt}
+                        position="relative"
+                        top={1.5}
+                        fontSize="sm"
+                        pr={0.5}
+                        mr={7}
+                        opacity={
+                            userMeetings[identifier][category] ? "" : "0.5"
+                        }
+                        onClick={() => {
+                            dispatch({
+                                type: "REMOVE_MEETING",
+                                payload: {
+                                    identifier,
+                                    method: category,
+                                },
+                            })
+                        }}
+                    />
+                </Flex>
+                <VStack spacing={0}>
+                    {categories.map((section) => {
+                        const isSelected =
+                            userMeetings[identifier][category] === section
+
+                        const meeting = course.meetings[section]
+
+                        // A meeting is concerning if it is waitlisting or it has no waitlist and is fully enrolled
+                        let concerning = !!parseInt(meeting.actualWaitlist)
+
+                        if (
+                            meeting.waitlist === "N" &&
+                            meeting.enrollmentCapacity ===
+                                meeting.actualEnrolment
+                        )
+                            concerning = true
+
+                        console.log(
+                            meeting.enrollmentCapacity,
+                            meeting.actualEnrolment,
+                            meeting.enrollmentCapacity ===
+                                meeting.actualEnrolment
+                        )
+
+                        return (
+                            <Grid
+                                fontSize="sm"
+                                alignContent="center"
+                                // justifyContent="space-between"
+                                // alignItems="center"
+                                gridTemplateColumns="auto 1fr auto auto"
+                                width="100%"
+                                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
+                                    isSelected
+                                        ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)`
+                                        : ""
+                                }`}
+                                margin={0}
+                                // p={1.5}
+                                p={2.5}
+                                px={5}
+                                fontWeight="600"
+                                cursor={isSelected ? "default" : "pointer"}
+                                _hover={{
+                                    background: isSelected
+                                        ? ""
+                                        : hoverBackground,
+                                }}
+                                transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                onClick={() => {
+                                    dispatch({
+                                        type: "SET_MEETING",
+                                        payload: {
+                                            identifier,
+                                            meeting: section,
+                                            method: category,
+                                        },
+                                    })
+                                    dispatch({
+                                        type: "SET_HOVER_MEETING",
+                                        payload: {
+                                            courseIdentifier: "",
+                                            meeting: "",
+                                        },
+                                    })
+                                }}
+                                onMouseEnter={() => {
+                                    if (isSelected) return
+                                    dispatch({
+                                        type: "SET_HOVER_MEETING",
+                                        payload: {
+                                            courseIdentifier: identifier,
+                                            meeting: section,
+                                        },
+                                    })
+                                }}
+                                onMouseLeave={() => {
+                                    if (isSelected) return
+                                    dispatch({
+                                        type: "SET_HOVER_MEETING",
+                                        payload: {
+                                            courseIdentifier: "",
+                                            meeting: "",
+                                        },
+                                    })
+                                }}
+                                background={
+                                    isSelected ? activePillColour : pillColour
+                                }
+                                color={
+                                    isSelected
+                                        ? activePillTextColour
+                                        : concerning
+                                        ? concerningPillTextColour
+                                        : pillTextColour
+                                }
+                            >
+                                <Text
+                                    fontFamily="interstate-mono, monospace"
+                                    key={section}
+                                    fontSize="md"
+                                    colorScheme={isSelected ? "green" : "gray"}
+                                >
+                                    {/* TODO: Do we really need this? */}
+                                    {/* <Text as="span" mr="0.2rem">
                                 {meeting.split("-")[0]}
                             </Text> */}
-                            {meeting.split("-")[1]}
-                        </Button>
-                    ))}
-                </Flex>
+                                    {section.split("-")[1]}
+                                </Text>
+
+                                <Skeleton
+                                    width="90%"
+                                    justifySelf="center"
+                                    display="flex"
+                                    alignItems="center"
+                                    // textAlign="left"
+                                    isLoaded={true}
+                                >
+                                    <Text opacity="0.7">
+                                        {/* {Object.values(
+                                        course.meetings[meeting].schedule
+                                    ).reduce((prev, scheduledMeeting) => {
+                                        return `${prev ? prev + ", " : ""}${
+                                            scheduledMeeting.meetingDay
+                                        } ${
+                                            scheduledMeeting.meetingStartTime
+                                        }-${scheduledMeeting.meetingEndTime}`
+                                    }, "")} */}
+                                        {/* {Object.values(
+                                        course.meetings[meeting].instructors
+                                    ).reduce(
+                                        (prev, instructor) =>
+                                            `${prev ? prev + ", " : ""}${
+                                                instructor.lastName
+                                            }, ${instructor.firstName}.`,
+                                        ""
+                                    )} */}
+
+                                        {parseInt(meeting.actualWaitlist)
+                                            ? // ? "yue"
+                                              `Waitlist ${
+                                                  meeting.actualWaitlist
+                                              } student${
+                                                  parseInt(
+                                                      meeting.actualWaitlist
+                                                  ) === 1
+                                                      ? ""
+                                                      : "s"
+                                              }`
+                                            : `Enrol ${
+                                                  meeting.actualEnrolment
+                                              } of ${
+                                                  meeting.enrollmentCapacity
+                                              }${
+                                                  meeting.waitlist === "N"
+                                                      ? "—No waitlist"
+                                                      : ""
+                                              }`}
+                                        {/* <Text as="span" ml={2}>
+                                        {meeting.enrollmentIndicator}
+                                    </Text> */}
+                                    </Text>
+                                </Skeleton>
+                                {/* <Text>{course.meetings[section].online}</Text> */}
+                                <Button
+                                    variant="link"
+                                    // color="blue.500"
+                                    p={0.5}
+                                    fontSize="md"
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                    }}
+                                >
+                                    <QuestionIcon />
+                                </Button>
+
+                                <Box
+                                    mx={2}
+                                    position="relative"
+                                    bottom="0.1rem"
+                                    fontSize="md"
+                                >
+                                    {concerning ? (
+                                        <WarningIcon opacity="0.6" />
+                                    ) : isSelected ? (
+                                        <CheckIcon />
+                                    ) : (
+                                        <AddIcon
+                                            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                            _hover={{
+                                                transform: "rotate(90deg)",
+                                            }}
+                                        />
+                                    )}
+                                </Box>
+                            </Grid>
+                        )
+                    })}
+                </VStack>
             </Box>
         )
     })
@@ -188,6 +365,17 @@ const SidebarComponent = ({
             pb={5}
             background={boxBackground}
             ref={boxRef}
+            onScroll={() => {
+                if (scrollingTimeoutRef.current) {
+                    clearTimeout(scrollingTimeoutRef.current)
+                }
+
+                setScrolling(true)
+
+                scrollingTimeoutRef.current = setTimeout(() => {
+                    setScrolling(false)
+                }, 200)
+            }}
         >
             <Heading
                 p={5}

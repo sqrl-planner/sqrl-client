@@ -90,7 +90,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     } = useHoverContext()
 
     const {
-        state: { sidebarCourse, hoverMeeting, userMeetings },
+        state: { sidebarCourse, hoverMeeting },
         dispatch: dispatchAppContext,
     } = useAppContext()
 
@@ -199,7 +199,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 style={{
                                     boxShadow:
                                         meeting.identifier === sidebarCourse
-                                            ? "inset 0 0 0 0.15rem rgba(60, 142, 230, 0.7)"
+                                            ? "inset 0 0 1px 0.15rem rgba(60, 142, 230, 0.7)"
                                             : "",
                                     cursor:
                                         meeting.identifier === sidebarCourse
@@ -269,14 +269,25 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 hoverCourseKey ===
                                                 meeting.courseKey
                                             ) ||
-                                                !emphasizeOnHover)
+                                                !emphasizeOnHover) &&
+                                            !(
+                                                meeting.identifier ===
+                                                    hoverMeeting.courseIdentifier &&
+                                                hoverMeeting.meeting.substring(
+                                                    0,
+                                                    3
+                                                ) ===
+                                                    meeting.category
+                                                        .substring(0, 3)
+                                                        .toUpperCase()
+                                            )
                                                 ? "#c53030"
                                                 : "",
                                         lineHeight:
                                             "var(--chakra-lineHeights-base)",
                                         boxShadow:
                                             meeting.identifier === sidebarCourse
-                                                ? "inset 0 0 0 0.15rem rgba(60, 142, 230, 0.7)"
+                                                ? "inset 0 0 1px 0.15rem rgba(60, 142, 230, 0.7)"
                                                 : "",
                                         cursor:
                                             meeting.identifier === sidebarCourse
@@ -305,7 +316,16 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                             (emphasizeOnHover &&
                                                 hoverCourseKey ===
                                                     meeting.courseKey &&
-                                                !dark)
+                                                !dark) ||
+                                            (meeting.identifier ===
+                                                hoverMeeting.courseIdentifier &&
+                                                hoverMeeting.meeting.substring(
+                                                    0,
+                                                    3
+                                                ) ===
+                                                    meeting.category
+                                                        .substring(0, 3)
+                                                        .toUpperCase())
                                             //  || meeting.identifier === sidebarCourse
                                         }
                                         meeting={meeting}

@@ -9,7 +9,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useRef, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
@@ -79,14 +79,14 @@ const Sqrl = () => {
             },
         })
 
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CHM217H1-F-20219",
-                meeting: "LEC-0101",
-                method: "lecture",
-            },
-        })
+        // dispatch({
+        //     type: "SET_MEETING",
+        //     payload: {
+        //         identifier: "CHM217H1-F-20219",
+        //         meeting: "LEC-0101",
+        //         method: "lecture",
+        //     },
+        // })
 
         dispatch({
             type: "SET_MEETING",
@@ -262,11 +262,16 @@ const Sqrl = () => {
     const [transitioning, setTransitioning] = useState(false)
 
     useEffect(() => {
+        if (!sidebarCourse) return
         setTransitioning(true)
+
         setSidebarOpen(() => {
-            setTransitioning(false)
             return true
         })
+
+        setTimeout(() => {
+            setTransitioning(false)
+        }, 0)
     }, [sidebarCourse])
 
     useEffect(() => {
@@ -278,10 +283,6 @@ const Sqrl = () => {
             setColorMode("dark")
         }
     }, [setColorMode])
-
-    const ref = useRef("pee")
-
-    console.log(ref.current)
 
     return (
         <Fragment>

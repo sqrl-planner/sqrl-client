@@ -33,6 +33,13 @@ export type Action =
               method: "lecture" | "tutorial" | "practical"
           }
       }
+    | {
+          type: "REMOVE_MEETING"
+          payload: {
+              identifier: string
+              method: "lecture" | "tutorial" | "practical" | "hover"
+          }
+      }
     | { type: "ADD_PROGRAM"; payload: { code: string; title: string } }
     | { type: "REMOVE_PROGRAM"; payload: string }
     | {
@@ -67,7 +74,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
         programs: [],
         campus: { sg: true, sc: false, ms: false },
         sidebarCourse: "",
-        hoverMeeting: "",
+        hoverMeeting: { courseIdentifier: "", meeting: "" },
     }
     const { courses, userMeetings, programs, campus } = state
 
@@ -102,6 +109,21 @@ const AppContextReducer = (state: AppData, action: Action) => {
                     [identifier]: {
                         ...userMeetings[identifier],
                         [method]: meeting,
+                    },
+                },
+            }
+            break
+        }
+
+        case "REMOVE_MEETING": {
+            const { identifier, method } = action.payload
+            const { [method]: _, ...rest } = userMeetings[identifier]
+            newContext = {
+                ...state,
+                userMeetings: {
+                    ...userMeetings,
+                    [identifier]: {
+                        ...rest,
                     },
                 },
             }
