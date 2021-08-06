@@ -161,12 +161,23 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                     // No conflicts
                     const meeting = group.meetings[0] as Meeting
 
-                    // Should dim when hovered meeting is same category as this but codes dont match
-                    const shouldDim =
+                    const isSameCourseAndCategory =
                         hoverMeeting.courseIdentifier === meeting.identifier &&
                         hoverMeeting.meeting.substring(0, 3) ===
-                            meeting.category.substring(0, 3).toUpperCase() &&
+                            meeting.category.substring(0, 3).toUpperCase()
+
+                    // Should dim when hovered meeting is same category as this but codes dont match
+                    const shouldDim =
+                        isSameCourseAndCategory &&
                         hoverMeeting.meeting !==
+                            `${meeting.category
+                                .substring(0, 3)
+                                .toUpperCase()}-${meeting.section}`
+
+                    // Should indicate positive when hovered meeting is this
+                    const shouldIndicatePositive =
+                        isSameCourseAndCategory &&
+                        hoverMeeting.meeting ===
                             `${meeting.category
                                 .substring(0, 3)
                                 .toUpperCase()}-${meeting.section}`
@@ -199,13 +210,17 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 style={{
                                     boxShadow:
                                         meeting.identifier === sidebarCourse
-                                            ? "inset 0 0 1px 0.15rem rgba(60, 142, 230, 0.7)"
+                                            ? `inset 0 0 1px 0.15rem ${
+                                                  shouldIndicatePositive
+                                                      ? "rgba(85, 206, 69, 0.7)"
+                                                      : "rgba(60, 142, 230, 0.7)"
+                                              }`
                                             : "",
                                     cursor:
                                         meeting.identifier === sidebarCourse
                                             ? "default"
                                             : "",
-                                    opacity: shouldDim ? "0.4" : "",
+                                    opacity: shouldDim ? "0.3" : "",
                                 }}
                             >
                                 <MeetingComponent
@@ -228,14 +243,26 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                     (groupEndTime - groupStartTime)) *
                                 100
 
-                            const shouldDim =
+                            const isSameCourseAndCategory =
                                 hoverMeeting.courseIdentifier ===
                                     meeting.identifier &&
                                 hoverMeeting.meeting.substring(0, 3) ===
                                     meeting.category
                                         .substring(0, 3)
-                                        .toUpperCase() &&
+                                        .toUpperCase()
+
+                            // Should dim when hovered meeting is same category as this but codes dont match
+                            const shouldDim =
+                                isSameCourseAndCategory &&
                                 hoverMeeting.meeting !==
+                                    `${meeting.category
+                                        .substring(0, 3)
+                                        .toUpperCase()}-${meeting.section}`
+
+                            // Should indicate positive when hovered meeting is this
+                            const shouldIndicatePositive =
+                                isSameCourseAndCategory &&
+                                hoverMeeting.meeting ===
                                     `${meeting.category
                                         .substring(0, 3)
                                         .toUpperCase()}-${meeting.section}`
@@ -287,13 +314,17 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                             "var(--chakra-lineHeights-base)",
                                         boxShadow:
                                             meeting.identifier === sidebarCourse
-                                                ? "inset 0 0 1px 0.15rem rgba(60, 142, 230, 0.7)"
+                                                ? `inset 0 0 1px 0.15rem ${
+                                                      shouldIndicatePositive
+                                                          ? "rgba(21, 184, 0, 0.9)"
+                                                          : "rgba(60, 142, 230, 0.7)"
+                                                  }`
                                                 : "",
                                         cursor:
                                             meeting.identifier === sidebarCourse
                                                 ? "default"
                                                 : "",
-                                        opacity: shouldDim ? "0.4" : "",
+                                        opacity: shouldDim ? "0.3" : "",
                                     }}
                                     courseKey={meeting.courseKey}
                                     palette={palette}
