@@ -339,7 +339,7 @@ const SidebarComponent = ({
         )
     })
 
-    return course ? (
+    return (
         <Box
             width="25rem"
             minHeight="calc(100vh - 4.5rem)"
@@ -487,13 +487,6 @@ const SidebarComponent = ({
                 </Box>
             )}
         </Box>
-    ) : (
-        <Box
-            p={5}
-            width="25rem"
-            boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
-            // background={boxBackground}
-        ></Box>
     )
 }
 

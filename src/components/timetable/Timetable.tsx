@@ -210,7 +210,11 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                 style={{
                                     boxShadow:
                                         meeting.identifier === sidebarCourse
-                                            ? `inset 0 0 1px 0.15rem ${
+                                            ? `${
+                                                  shouldIndicatePositive
+                                                      ? ""
+                                                      : "inset"
+                                              } 0 0 0 0.1rem ${
                                                   shouldIndicatePositive
                                                       ? "rgba(85, 206, 69, 0.7)"
                                                       : "rgba(60, 142, 230, 0.7)"
@@ -314,9 +318,13 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                             "var(--chakra-lineHeights-base)",
                                         boxShadow:
                                             meeting.identifier === sidebarCourse
-                                                ? `inset 0 0 1px 0.15rem ${
+                                                ? `${
                                                       shouldIndicatePositive
-                                                          ? "rgba(21, 184, 0, 0.9)"
+                                                          ? ""
+                                                          : "inset"
+                                                  } 0 0 0 0.1rem ${
+                                                      shouldIndicatePositive
+                                                          ? "rgba(85, 206, 69, 0.7)"
                                                           : "rgba(60, 142, 230, 0.7)"
                                                   }`
                                                 : "",

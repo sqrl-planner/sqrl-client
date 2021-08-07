@@ -1,5 +1,6 @@
 import {
     Box,
+    Text,
     chakra,
     Flex,
     Grid,
@@ -419,7 +420,7 @@ const Sqrl = () => {
                     />
                 </Flex>
             </Flex>
-            {courses[sidebarCourse] && (
+            {courses[sidebarCourse] ? (
                 <Box
                     position="absolute"
                     right="0"
@@ -432,6 +433,36 @@ const Sqrl = () => {
                         identifier={sidebarCourse}
                         course={courses[sidebarCourse]}
                     />
+                </Box>
+            ) : (
+                <Box
+                    position="absolute"
+                    right="0"
+                    width="25rem"
+                    top="4.5rem"
+                    height="calc(100vh - 4.5rem)"
+                    overflowX="hidden"
+                >
+                    <Box
+                        p={5}
+                        width="25rem"
+                        // boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
+                        // background={boxBackground}
+                    >
+                        <Heading
+                            pb={2}
+                            as="h3"
+                            size="lg"
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
+                            No course
+                        </Heading>
+                        <Text>
+                            Pick a course to see information regarding it.
+                        </Text>
+                    </Box>
                 </Box>
             )}
         </Fragment>
