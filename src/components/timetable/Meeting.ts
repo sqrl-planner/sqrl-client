@@ -106,6 +106,7 @@ export class MeetingGroup {
     /**
      * Get the earliest start time of the meetings in this group, given in minutes from midnight.
      * @returns The minimum start time, given in minutes from midnight.
+     * @remarks This IGNORES the day of the meeting.
      */
     getMinStartTime(): number {
         let minStartTime = Infinity
@@ -118,6 +119,7 @@ export class MeetingGroup {
     /**
      * Get the latest end time of the meetings in this group.
      * @returns The maximum end time, given in minutes from midnight.
+     * @remarks This IGNORES the day of the meeting.
      */
     getMaxEndTime(): number {
         let maxEndTime = -Infinity
@@ -130,6 +132,8 @@ export class MeetingGroup {
     /**
      * Return whether this meeting group contains a conflict.
      * @returns A boolean indicating whether this meeting group contains a conflict.
+     * @remarks A meeting A is a conflict iff it overlaps with another meeting B, and A and B
+     * occur on the same day.
      */
     hasConflict(): boolean {
         // Sort in increasing order of start time
@@ -141,7 +145,7 @@ export class MeetingGroup {
             const meetingA = meetings[i - 1]
             const meetingB = meetings[i]
             // Check overlap
-            if (meetingA.endTime > meetingB.startTime) {
+            if (meetingA.day === meetingB.day && meetingA.endTime > meetingB.startTime) {
                 return true
             }
         }
