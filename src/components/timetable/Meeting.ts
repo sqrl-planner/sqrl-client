@@ -128,6 +128,28 @@ export class MeetingGroup {
     }
 
     /**
+     * Return whether this meeting group contains a conflict.
+     * @returns A boolean indicating whether this meeting group contains a conflict.
+     */
+    hasConflict(): boolean {
+        // Sort in increasing order of start time
+        // Copy the original array to avoid mutating it
+        const meetings = [...this.meetings].sort((a: any, b: any) =>
+            a.startTime >= b.startTime ? 1 : -1
+        )
+        for (let i = 1; i < meetings.length; i++) {
+            const meetingA = meetings[i - 1]
+            const meetingB = meetings[i]
+            // Check overlap
+            if (meetingA.endTime > meetingB.startTime) {
+                return true
+            }
+        }
+        // No overlap
+        return false
+    }
+    
+    /**
      * Partition an array of meetings into groups such that each group contains a set of contiguous
      * and possibly overlapping meetings.
      * @param meetings The array of meetings to partition.
