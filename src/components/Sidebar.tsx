@@ -158,7 +158,7 @@ const SidebarComponent = ({
                                 fontSize="sm"
                                 key={section}
                                 alignContent="center"
-                                gridTemplateColumns="auto auto 1fr auto auto"
+                                gridTemplateColumns="auto auto 1fr auto"
                                 width="100%"
                                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
                                     isSelected
@@ -254,6 +254,30 @@ const SidebarComponent = ({
                                     {section.split("-")[1]}
                                 </Text>
 
+                                {/* <Box>{JSON.stringify(meeting.schedule)}</Box> */}
+                                {/* <Flex
+                                    alignItems="center"
+                                    flexWrap="wrap"
+                                    ml={1.5}
+                                >
+                                    {Object.values(meeting.schedule).map(
+                                        (session) => (
+                                            <Text
+                                                _before={{
+                                                    content: `"${session.meetingDay}"`,
+                                                    fontSize: "0.8em",
+                                                    opacity: 0.6,
+                                                }}
+                                                fontFamily="interstate-mono, monospace"
+                                                ml={1}
+                                            >
+                                                {session.meetingStartTime}-
+                                                {session.meetingEndTime}
+                                            </Text>
+                                        )
+                                    )}
+                                </Flex> */}
+
                                 <Skeleton
                                     width="90%"
                                     justifySelf="center"
@@ -309,28 +333,29 @@ const SidebarComponent = ({
                                 </Skeleton>
                                 {/* <Text>{course.meetings[section].online}</Text> */}
 
-                                <Box
+                                <Flex
                                     mx={1}
-                                    position="relative"
-                                    bottom="0.1rem"
-                                    fontSize="md"
+                                    alignItems="center"
+                                    // position="relative"
+                                    // bottom="0.1rem"
+                                    fontSize="lg"
                                 >
                                     {concerning && (
                                         <Tooltip label="This section may be full">
                                             <WarningIcon opacity="0.6" />
                                         </Tooltip>
                                     )}
-                                </Box>
-                                <Button
-                                    variant="link"
-                                    // color="blue.500"
-                                    fontSize="md"
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                    }}
-                                >
-                                    <QuestionIcon />
-                                </Button>
+                                    <Button
+                                        variant="link"
+                                        // color="blue.500"
+                                        // m={0}
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                        }}
+                                    >
+                                        <QuestionIcon fontSize="lg" />
+                                    </Button>
+                                </Flex>
                             </Grid>
                         )
                     })}
