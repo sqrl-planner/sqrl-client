@@ -422,7 +422,7 @@ const SidebarComponent = ({
                     </Tooltip>
                 </Box>
             </Heading>
-            <Heading as="h4" size="md" opacity="0.6" mb={6} px={5}>
+            <Heading as="h4" size="md" opacity="0.6" mb={2} px={5}>
                 {course.courseTitle}
             </Heading>
             {meetingPicker}
