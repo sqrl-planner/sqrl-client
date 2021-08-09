@@ -1,9 +1,30 @@
+import {
+    ApolloClient,
+    ApolloLink,
+    ApolloProvider,
+    createHttpLink,
+    InMemoryCache,
+} from "@apollo/client"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import * as React from "react"
 import "./global.css"
 import { PreferencesProvider } from "./PreferencesContext"
 import Sqrl from "./Sqrl"
 import { AppContextProvider } from "./SqrlContext"
+
+const httpLink = createHttpLink({
+    uri:
+        process.env.NODE_ENV === "production"
+            ? "https://api.uoft.in/graphql"
+            : "http://localhost:5000/graphql",
+})
+
+// https://dev.to/tmaximini/accessing-authorization-headers-in-apollo-graphql-client-3b50
+const client = new ApolloClient({
+    link: ApolloLink.from([httpLink]),
+    cache: new InMemoryCache(),
+    connectToDevTools: true,
+})
 
 const theme = extendTheme({
     fonts: {
@@ -41,7 +62,9 @@ export const App = () => (
     <ChakraProvider theme={theme}>
         <PreferencesProvider>
             <AppContextProvider>
-                <Sqrl />
+                <ApolloProvider client={client}>
+                    <Sqrl />
+                </ApolloProvider>
             </AppContextProvider>
         </PreferencesProvider>
     </ChakraProvider>

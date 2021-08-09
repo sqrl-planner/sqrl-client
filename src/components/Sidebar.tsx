@@ -1,3 +1,4 @@
+import { gql, useQuery } from "@apollo/client"
 import { AddIcon, CheckIcon, QuestionIcon, WarningIcon } from "@chakra-ui/icons"
 import {
     Accordion,
@@ -66,6 +67,28 @@ const SidebarComponent = ({
         "rgba(0,0,0,0.5)",
         "rgba(255, 255, 255, 0.5)"
     )
+
+    const QUERY = gql`
+        {
+            searchCourses(query: "csc108", limit: 10) {
+                sessionCode
+                id
+                code
+                title
+                description
+                organisation {
+                    code
+                    name
+                }
+            }
+        }
+    `
+
+    const { data, loading, error } = useQuery(QUERY)
+
+    if (data) console.log(data)
+    if (error) console.log(error)
+    if (loading) console.log(loading)
 
     const hoverBackground = useColorModeValue("gray.200", "gray.600")
 
