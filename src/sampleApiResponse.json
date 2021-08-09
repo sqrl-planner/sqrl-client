@@ -1,270 +1,3007 @@
 {
-	"BMS100H1-F-20219": {
-		"courseId": "51272",
-		"org": "SMC",
-		"orgName": "St. Michael's College (SMC) (BMS) (CHC) (CLT) (JCA) (MST)",
-		"courseTitle": "Introduction to Book & Media Studies",
-		"code": "BMS100H1",
-		"courseDescription": "<p>Introduces the academic study of media in all its forms, including books and print media as well as modern electronic and digital media. Provides an overview of key theories of media, culture, and society and relates them to contemporary issues, enabling students to apply different critical approaches to their everyday experiences with media.<\/p>",
-		"prerequisite": "",
-		"corequisite": "",
-		"exclusion": "SMC219Y1",
-		"recommendedPreparation": "",
-		"section": "F",
-		"session": "20219",
-		"webTimetableInstructions": "",
-		"deliveryInstructions": "<p>Lectures and tutorials will be delivered online per the meeting schedule. Students are expected to attend online lectures and participate in active learning activities. Lectures will be also recorded and shared on Quercus for students to review on their own time. Slides and other learning materials, such as weekly readings and case studies will be posted on Quercus.<\/p>",
-		"breadthCategories": "Creative and Cultural Representations (1)",
-		"distributionCategories": "Humanities",
-		"meetings": {
-			"LEC-9901": {
-				"schedule": {
-					"WE-293917": {
-						"meetingDay": "WE",
-						"meetingStartTime": "10:00",
-						"meetingEndTime": "12:00",
-						"meetingScheduleId": "293917",
-						"assignedRoom1": "",
-						"assignedRoom2": null
-					}
+	"data": {
+		"searchCourses": [{
+				"id": "MAT237Y1-Y-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "MAT237Y1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>Sequences and series. Uniform convergence. Convergence of integrals. Elements of topology in R^2 and R^3. Differential and integral calculus of vector valued functions of a vector variable, with emphasis on vectors in two and three dimensional euclidean space. Extremal problems, Lagrange multipliers, line and surface integrals, vector analysis, Stokes' theorem, Fourier series, calculus of variations.</p>",
+				"distributionCategories": "Science",
+				"exclusions": "MAT235Y1, MAT257Y1, MATB41H3, MATB42H3, MATB43H3 & MAT368H5, MAT232H5 & MAT236H5",
+				"organisation": {
+					"code": "MAT",
+					"name": "Mathematics (MAT) (APM) (JMB) (JUM)"
 				},
-				"instructors": {
-					"7382610": {
-						"instructorId": "7382610",
-						"firstName": "P",
-						"lastName": "Granata"
-					}
-				},
-				"meetingId": "200095",
-				"teachingMethod": "LEC",
-				"sectionNumber": "9901",
-				"subtitle": "",
-				"cancel": "",
-				"waitlist": "Y",
-				"deliveryMode": "ONLSYNC",
-				"online": "Online - Synchronous (See Delivery Instructions.)",
-				"enrollmentCapacity": "100",
-				"actualEnrolment": "100",
-				"actualWaitlist": "116",
-				"enrollmentIndicator": null,
-				"meetingStatusNotes": "",
-				"enrollmentControls": []
-			},
-			"TUT-0101": {
-				"schedule": {
-					"TH-273101": {
-						"meetingDay": "TH",
-						"meetingStartTime": "12:00",
-						"meetingEndTime": "13:00",
-						"meetingScheduleId": "273101",
-						"assignedRoom1": "",
-						"assignedRoom2": null
-					}
-				},
-				"instructors": [],
-				"meetingId": "200583",
-				"teachingMethod": "TUT",
-				"sectionNumber": "0101",
-				"subtitle": "",
-				"cancel": "",
-				"waitlist": "N",
-				"deliveryMode": "ONLSYNC",
-				"online": "Online - Synchronous (See Delivery Instructions.)",
-				"enrollmentCapacity": "25",
-				"actualEnrolment": "25",
-				"actualWaitlist": "0",
-				"enrollmentIndicator": null,
-				"meetingStatusNotes": null,
-				"enrollmentControls": []
-			},
-			"TUT-0102": {
-				"schedule": {
-					"TH-295323": {
-						"meetingDay": "TH",
-						"meetingStartTime": "12:00",
-						"meetingEndTime": "13:00",
-						"meetingScheduleId": "295323",
-						"assignedRoom1": "",
-						"assignedRoom2": null
-					}
-				},
-				"instructors": [],
-				"meetingId": "200584",
-				"teachingMethod": "TUT",
-				"sectionNumber": "0102",
-				"subtitle": "",
-				"cancel": "",
-				"waitlist": "N",
-				"deliveryMode": "ONLSYNC",
-				"online": "Online - Synchronous (See Delivery Instructions.)",
-				"enrollmentCapacity": "25",
-				"actualEnrolment": "25",
-				"actualWaitlist": "0",
-				"enrollmentIndicator": null,
-				"meetingStatusNotes": "",
-				"enrollmentControls": []
-			},
-			"TUT-0103": {
-				"schedule": {
-					"TH-295324": {
-						"meetingDay": "TH",
-						"meetingStartTime": "12:00",
-						"meetingEndTime": "13:00",
-						"meetingScheduleId": "295324",
-						"assignedRoom1": "",
-						"assignedRoom2": null
-					}
-				},
-				"instructors": [],
-				"meetingId": "200585",
-				"teachingMethod": "TUT",
-				"sectionNumber": "0103",
-				"subtitle": "",
-				"cancel": "",
-				"waitlist": "N",
-				"deliveryMode": "ONLSYNC",
-				"online": "Online - Synchronous (See Delivery Instructions.)",
-				"enrollmentCapacity": "25",
-				"actualEnrolment": "24",
-				"actualWaitlist": "0",
-				"enrollmentIndicator": null,
-				"meetingStatusNotes": "",
-				"enrollmentControls": []
-			},
-			"TUT-0104": {
-				"schedule": {
-					"TH-295325": {
-						"meetingDay": "TH",
-						"meetingStartTime": "12:00",
-						"meetingEndTime": "13:00",
-						"meetingScheduleId": "295325",
-						"assignedRoom1": "",
-						"assignedRoom2": null
-					}
-				},
-				"instructors": [],
-				"meetingId": "200586",
-				"teachingMethod": "TUT",
-				"sectionNumber": "0104",
-				"subtitle": "",
-				"cancel": "",
-				"waitlist": "N",
-				"deliveryMode": "ONLSYNC",
-				"online": "Online - Synchronous (See Delivery Instructions.)",
-				"enrollmentCapacity": "25",
-				"actualEnrolment": "18",
-				"actualWaitlist": "0",
-				"enrollmentIndicator": null,
-				"meetingStatusNotes": "",
-				"enrollmentControls": []
-			}
-		}
-	},
-	"PSY497H1-F-20219": {
-		"courseId": "54897",
-		"org": "PSY",
-		"orgName": "Psychology (PSY) (JLP)",
-		"courseTitle": "Seminar in Biological Timing",
-		"code": "PSY497H1",
-		"courseDescription": "<p>This is an advanced seminar course that examines the mechanisms and significance of timing and timekeeping at several levels of organization in living organisms. Topics include the roles of clocks and oscillations in physiology and behaviour, and the importance of timing in sensorimotor integration, memory, decision making, and health. Course capacity is limited to 20 students and enrolment priority is given to PSY Specialists and Research Specialists.<\/p>",
-		"prerequisite": "PSY202H1\/ECO220Y1\/SOC252H1\/STA221H1\/PSY202H5\/STA221H5\/PSYC08H3\/STAB27H3\/STAC32H3, and PSY290H1\/PSY290H5\/PSYB64H3\/HMB200H1\/PSL300H1",
-		"corequisite": "",
-		"exclusion": "",
-		"recommendedPreparation": "PSY397H1",
-		"section": "F",
-		"session": "20219",
-		"webTimetableInstructions": "",
-		"deliveryInstructions": "",
-		"breadthCategories": "Living Things and Their Environment (4)",
-		"distributionCategories": "Science",
-		"meetings": {
-			"LEC-0101": {
-				"schedule": {
-					"WE-279694": {
-						"meetingDay": "WE",
-						"meetingStartTime": "12:00",
-						"meetingEndTime": "14:00",
-						"meetingScheduleId": "279694",
-						"assignedRoom1": "",
-						"assignedRoom2": null
-					}
-				},
-				"instructors": {
-					"7383762": {
-						"instructorId": "7383762",
-						"firstName": "M",
-						"lastName": "Ralph"
-					}
-				},
-				"meetingId": "198811",
-				"teachingMethod": "LEC",
-				"sectionNumber": "0101",
-				"subtitle": "The Temporal Dimension in Biology and Behaviour",
-				"cancel": "",
-				"waitlist": "Y",
-				"deliveryMode": "CLASS",
-				"online": "In Person",
-				"enrollmentCapacity": "20",
-				"actualEnrolment": "9",
-				"actualWaitlist": "0",
-				"enrollmentIndicator": "P",
-				"meetingStatusNotes": null,
-				"enrollmentControls": [{
-						"postId": "287",
-						"postCode": "ASSPE1160",
-						"postName": "SP PSYCHOLOGY",
-						"subjectId": null,
-						"subjectCode": null,
-						"subjectName": null,
-						"designationId": null,
-						"designationCode": null,
-						"designationName": null,
-						"yearOfStudy": "*",
-						"typeOfProgramId": null,
-						"typeOfProgramCode": null,
-						"typeOfProgramName": null,
-						"primaryOrgId": null,
-						"primaryOrgCode": null,
-						"primaryOrgName": null,
-						"secondaryOrgId": null,
-						"secondaryOrgCode": null,
-						"secondaryOrgName": null,
-						"assocOrgId": null,
-						"assocOrgCode": null,
-						"assocOrgName": null,
-						"adminOrgId": null,
-						"adminOrgCode": null,
-						"adminOrgName": null
+				"prerequisites": "MAT137Y1/MAT157Y1/(MAT135H1/MAT135H5, MAT136H1(85%)/MAT136H5 (85%), MAT138H1), MAT223H1/MAT240H1",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 188,
+						"actualWaitlist": 10,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 188,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "A",
+							"lastName": "Zaman"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 10
+								},
+								"startTime": {
+									"hour": 9,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 10
+								},
+								"startTime": {
+									"hour": 9,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 10
+								},
+								"startTime": {
+									"hour": 9,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
 					},
 					{
-						"postId": "353",
-						"postCode": "ASSPE1958",
-						"postName": "SP PSYCHOLOGY RESEARCH(THESIS)",
-						"subjectId": null,
-						"subjectCode": null,
-						"subjectName": null,
-						"designationId": null,
-						"designationCode": null,
-						"designationName": null,
-						"yearOfStudy": "*",
-						"typeOfProgramId": null,
-						"typeOfProgramCode": null,
-						"typeOfProgramName": null,
-						"primaryOrgId": null,
-						"primaryOrgCode": null,
-						"primaryOrgName": null,
-						"secondaryOrgId": null,
-						"secondaryOrgCode": null,
-						"secondaryOrgName": null,
-						"assocOrgId": null,
-						"assocOrgCode": null,
-						"assocOrgName": null,
-						"adminOrgId": null,
-						"adminOrgCode": null,
-						"adminOrgName": null
+						"actualEnrolment": 136,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "A",
+							"lastName": "Zaman"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 107,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 196,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [],
+						"code": "LEC-0301",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 94,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 170,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [],
+						"code": "LEC-5101",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 18
+								},
+								"startTime": {
+									"hour": 17,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 18
+								},
+								"startTime": {
+									"hour": 17,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 18
+								},
+								"startTime": {
+									"hour": 17,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 69,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 11
+							},
+							"startTime": {
+								"hour": 10,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 69,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0201",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 12
+							},
+							"startTime": {
+								"hour": 11,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 70,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0301",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 13
+							},
+							"startTime": {
+								"hour": 12,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 68,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0401",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 66,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0501",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 15
+							},
+							"startTime": {
+								"hour": 14,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0501",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 65,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0601",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 16
+							},
+							"startTime": {
+								"hour": 15,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0601",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 39,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0701",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 17
+							},
+							"startTime": {
+								"hour": 16,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0701",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 41,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 70,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 19
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
 					}
-				]
+				],
+				"term": "FULL_YEAR",
+				"sessionCode": "20219",
+				"title": "Multivariable Calculus with Proofs",
+				"webTimetableInstructions": ""
+			},
+			{
+				"id": "CSC258H1-F-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "CSC258H1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>Computer structures, machine languages, instruction execution, addressing techniques, and digital representation of data. Computer system organization, memory storage devices, and microprogramming. Block diagram circuit realizations of memory, control and arithmetic functions. There are a number of laboratory periods in which students conduct experiments with digital logic circuits. </p>",
+				"distributionCategories": "Science",
+				"exclusions": "",
+				"organisation": {
+					"code": "CSC",
+					"name": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)"
+				},
+				"prerequisites": "(60% or higher in (CSC148H1/CSC148H5/CSCA48H3), 60% or higher in (CSC165H1/CSC240H1/MAT102H5/MATA67H3/ CSCA67H3)) / 60% or higher in CSC111H1",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 150,
+						"actualWaitlist": 3,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 150,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "S",
+							"lastName": "Engels"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 11
+								},
+								"startTime": {
+									"hour": 10,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 11
+								},
+								"startTime": {
+									"hour": 10,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 11
+								},
+								"startTime": {
+									"hour": 10,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 144,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 150,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "S",
+							"lastName": "Engels"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					}
+				],
+				"term": "FIRST_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Computer Organization",
+				"webTimetableInstructions": ""
+			}, {
+				"id": "CSC258H1-S-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "CSC258H1",
+				"corequisites": "",
+				"deliveryInstructions": null,
+				"description": "<p>Computer structures, machine languages, instruction execution, addressing techniques, and digital representation of data. Computer system organization, memory storage devices, and microprogramming. Block diagram circuit realizations of memory, control and arithmetic functions. There are a number of laboratory periods in which students conduct experiments with digital logic circuits. </p>",
+				"distributionCategories": "Science",
+				"exclusions": "",
+				"organisation": {
+					"code": "CSC",
+					"name": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)"
+				},
+				"prerequisites": "(60% or higher in (CSC148H1/CSC148H5/CSCA48H3), 60% or higher in (CSC165H1/CSC240H1/MAT102H5/MATA67H3/ CSCA67H3)) / 60% or higher in CSC111H1",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 136,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 150,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "S",
+							"lastName": "Engels"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 124,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 150,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "S",
+							"lastName": "Engels"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 72,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 150,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [],
+						"code": "LEC-5101",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					}
+				],
+				"term": "SECOND_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Computer Organization",
+				"webTimetableInstructions": null
+			}, {
+				"id": "MAT224H1-S-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "MAT224H1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>Fields, complex numbers, vector spaces over a field, linear transformations, matrix of a linear transformation, kernel, range, dimension theorem, isomorphisms, change of basis, eigenvalues, eigenvectors, diagonalizability, real and complex inner products, spectral theorem, adjoint/self-adjoint/normal linear operators, triangular form, nilpotent mappings, Jordan canonical form.</p>",
+				"distributionCategories": "Science",
+				"exclusions": "MAT247H1",
+				"organisation": {
+					"code": "MAT",
+					"name": "Mathematics (MAT) (APM) (JMB) (JUM)"
+				},
+				"prerequisites": "MAT221H1(80%)/MAT223H1/MAT240H1/MATA22H3",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 163,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 185,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "S",
+							"lastName": "Homayouni-Boroojeni"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 11
+								},
+								"startTime": {
+									"hour": 10,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 11
+								},
+								"startTime": {
+									"hour": 10,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 11
+								},
+								"startTime": {
+									"hour": 10,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 150,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 150,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 149,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 160,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [],
+						"code": "LEC-0301",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 10
+								},
+								"startTime": {
+									"hour": 9,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 10
+								},
+								"startTime": {
+									"hour": 9,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 10
+								},
+								"startTime": {
+									"hour": 9,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 130,
+						"actualWaitlist": 3,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 130,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "C",
+							"lastName": "Karimian Pour"
+						}],
+						"code": "LEC-0401",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 175,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 185,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "C",
+							"lastName": "Karimian Pour"
+						}],
+						"code": "LEC-0501",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0501",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 65,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 190,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [],
+						"code": "LEC-5101",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 19
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 19
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 19
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 44,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0101",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 12
+							},
+							"startTime": {
+								"hour": 11,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0102",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 12
+							},
+							"startTime": {
+								"hour": 11,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0102",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0103",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 12
+							},
+							"startTime": {
+								"hour": 11,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0103",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0201",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 44,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0202",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0202",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0203",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0203",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0301",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 15
+							},
+							"startTime": {
+								"hour": 14,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0302",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 15
+							},
+							"startTime": {
+								"hour": 14,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0302",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0303",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 15
+							},
+							"startTime": {
+								"hour": 14,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0303",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 41,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0401",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 10
+							},
+							"startTime": {
+								"hour": 9,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 19,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0402",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 10
+							},
+							"startTime": {
+								"hour": 9,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0402",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 11,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0403",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 10
+							},
+							"startTime": {
+								"hour": 9,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0403",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0501",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 13
+							},
+							"startTime": {
+								"hour": 12,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0501",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 30,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0502",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 13
+							},
+							"startTime": {
+								"hour": 12,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0502",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 13,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0503",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 13
+							},
+							"startTime": {
+								"hour": 12,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0503",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 45,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0601",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0601",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 44,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0602",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0602",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 35,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0603",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0603",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 13,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5101",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 19,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 14,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5102",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 19,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5102",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 25,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5201",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 19,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5201",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 10,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 45,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5202",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 19,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5202",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					}
+				],
+				"term": "SECOND_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Linear Algebra II",
+				"webTimetableInstructions": ""
+			}, {
+				"id": "CSC207H1-F-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "CSC207H1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>An introduction to software design and development concepts, methods, and tools using a statically-typed object-oriented programming language such as Java. Topics from: version control, unit testing, refactoring, object-oriented design and development, design patterns, advanced IDE usage, regular expressions, and reflection. Representation of floating-point numbers and introduction to numerical computation.</p>",
+				"distributionCategories": "Science",
+				"exclusions": "",
+				"organisation": {
+					"code": "CSC",
+					"name": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)"
+				},
+				"prerequisites": "60% or higher in CSC148H1/ 60% or higher in CSC111H1",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 110,
+						"actualWaitlist": 77,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 110,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "P",
+							"lastName": "Gries"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 56,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "P",
+							"lastName": "Gries"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 45,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "J",
+							"lastName": "Calver"
+						}],
+						"code": "LEC-0301",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 16
+								},
+								"startTime": {
+									"hour": 15,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 16
+								},
+								"startTime": {
+									"hour": 15,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 46,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "J",
+							"lastName": "Calver"
+						}],
+						"code": "LEC-0401",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 22,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 22,
+						"enrolmentIndicator": "E",
+						"hasWaitlist": false,
+						"instructors": [{
+							"firstName": "P",
+							"lastName": "Gries"
+						}],
+						"code": "LEC-0501",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0501",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 48,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "L",
+							"lastName": "Shorser"
+						}],
+						"code": "LEC-5101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 138,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 12
+							},
+							"startTime": {
+								"hour": 10,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0201",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 12,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 124,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0301",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 16
+							},
+							"startTime": {
+								"hour": 14,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 87,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0401",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 18
+							},
+							"startTime": {
+								"hour": 16,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 22,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 22,
+						"enrolmentIndicator": "E",
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0501",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 11
+							},
+							"startTime": {
+								"hour": 9,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0501",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					}
+				],
+				"term": "FIRST_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Software Design",
+				"webTimetableInstructions": "<p>CSC207H1F LEC0501 and TUT0501 are reserved for students in the Technology Leadership Initiative.</p>"
+			}, {
+				"id": "CSC209H1-S-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "CSC209H1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>Software techniques in a Unix-style environment, using scripting languages and a machine-oriented programming language (typically C). What goes on in the operating system when programs are executed. Core topics: creating and using software tools, pipes and filters, file processing, shell programming, processes, system calls, signals, basic network programming.</p>",
+				"distributionCategories": "Science",
+				"exclusions": "CSC372H1, CSC369H1, CSC469H1",
+				"organisation": {
+					"code": "CSC",
+					"name": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)"
+				},
+				"prerequisites": "CSC207H1/ CSC207H5/ CSCB07H3",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 234,
+						"actualWaitlist": 15,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 234,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "K",
+							"lastName": "Reid"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 234,
+						"actualWaitlist": 14,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 234,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "K",
+							"lastName": "Reid"
+						}],
+						"code": "LEC-0102",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0102",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 17,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "K",
+							"lastName": "Reid"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 116,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "J",
+							"lastName": "Simpson"
+						}],
+						"code": "LEC-5101",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 144,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 144,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0101",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "FRIDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 14
+							},
+							"startTime": {
+								"hour": 13,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 144,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 144,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0201",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "FRIDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 15
+							},
+							"startTime": {
+								"hour": 14,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 180,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 180,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0301",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "FRIDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 16
+							},
+							"startTime": {
+								"hour": 15,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 144,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 144,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0401",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "FRIDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 17
+							},
+							"startTime": {
+								"hour": 16,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 66,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 144,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5101",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "TUESDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 21
+							},
+							"startTime": {
+								"hour": 20,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					}
+				],
+				"term": "SECOND_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Software Tools and Systems Programming",
+				"webTimetableInstructions": ""
+			}, {
+				"id": "STA247H1-F-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "STA247H1",
+				"corequisites": "",
+				"deliveryInstructions": "<p>Lectures will be delivered online and lecture recordings will also be available for students to view asynchronously.&nbsp;</p><p>Tutorials will be offered in-person or online depending on the tutorial section in which you enrol, and are mandatory and cannot be done asynchronously. &nbsp;</p><p>All assessments can be completed online.&nbsp;Details about the course meeting schedule, as well as other course activities and assessments, will be communicated in the course syllabus and/or on Quercus.&nbsp;&nbsp;</p><p>&nbsp;</p>",
+				"description": "<p>An introduction to probability using simulation and mathematical frameworks, with emphasis on the probability needed for computer science applications and more advanced study in statistical practice. Topics covered include probability spaces, random variables, discrete and continuous probability distributions, probability mass, density, and distribution functions, expectation and variance, independence, conditional probability, the law of large numbers, the central limit theorem, sampling distributions. Computer simulation will be taught and used extensively for calculations and to guide the theoretical development. <strike></strike></p>",
+				"distributionCategories": "",
+				"exclusions": "ECO227Y1/STA255H1/STA237H1/STA257H1/STAB52H3/STA256H5/ECO227Y5",
+				"organisation": {
+					"code": "STAT",
+					"name": "Statistical Sciences (STA) (ACT) (JSC)"
+				},
+				"prerequisites": "(MAT135H1, MAT136H1)/MAT137Y1/MAT157Y1/(MATA30H3, MATA36H3)/(MATA31H3, MATA37H3)/(MAT135H5, MAT136H5)/MAT137Y5/MAT157Y5; CSC111H1/CSC148H1/CSCA48H3/CSC148H5",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 300,
+						"actualWaitlist": 84,
+						"cancelled": false,
+						"deliveryMode": "ONLINE_SYNC",
+						"enrolmentCapacity": 300,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "K",
+							"lastName": "Huynh Wong"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "MONDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 17
+							},
+							"startTime": {
+								"hour": 15,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 60,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "ONLINE_SYNC",
+						"enrolmentCapacity": 60,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5101",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 60,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "ONLINE_SYNC",
+						"enrolmentCapacity": 60,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5102",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5102",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 60,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 60,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5103",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5103",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 55,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 60,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5104",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5104",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 50,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 60,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-5105",
+						"meetings": [{
+							"assignedRoom1": "",
+							"assignedRoom2": null,
+							"day": "THURSDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 20
+							},
+							"startTime": {
+								"hour": 18,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "5105",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					}
+				],
+				"term": "FIRST_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Probability with Computer Applications",
+				"webTimetableInstructions": ""
+			}, {
+				"id": "CSC236H1-F-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "CSC236H1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>The application of logic and proof techniques to Computer Science. Mathematical induction; correctness proofs for iterative and recursive algorithms; recurrence equations and their solutions; introduction to automata and formal languages. This course assumes university-level experience with proof techniques and algorithmic complexity as provided by CSC165H1. Very strong students who already have this experience (e.g. successful completion of MAT157Y1) may consult the undergraduate office about proceeding directly into CSC236H1 or CSC240H1.</p>",
+				"distributionCategories": "Science",
+				"exclusions": "CSC240H1",
+				"organisation": {
+					"code": "CSC",
+					"name": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)"
+				},
+				"prerequisites": "(60% or higher in CSC148H1, 60% or higher in CSC165H1) / (60% or higher in CSC111H1)",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 140,
+						"actualWaitlist": 19,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "D",
+							"lastName": "Heap"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 12
+								},
+								"startTime": {
+									"hour": 11,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 22,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "D",
+							"lastName": "Heap"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 13
+								},
+								"startTime": {
+									"hour": 12,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 13
+								},
+								"startTime": {
+									"hour": 12,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 13
+								},
+								"startTime": {
+									"hour": 12,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 3,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "G",
+							"lastName": "Baumgartner"
+						}],
+						"code": "LEC-0301",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 107,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "G",
+							"lastName": "Baumgartner"
+						}],
+						"code": "LEC-0401",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "MONDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "FRIDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 15
+								},
+								"startTime": {
+									"hour": 14,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0401",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 73,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "G",
+							"lastName": "Baumgartner"
+						}],
+						"code": "LEC-5101",
+						"meetings": [{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 20
+								},
+								"startTime": {
+									"hour": 18,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": "",
+								"assignedRoom2": null,
+								"day": "WEDNESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 21
+								},
+								"startTime": {
+									"hour": 20,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "5101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					}
+				],
+				"term": "FIRST_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Introduction to the Theory of Computation",
+				"webTimetableInstructions": ""
 			}
-		}
+		]
 	}
 }

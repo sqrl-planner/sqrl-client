@@ -51,7 +51,7 @@ const PreferencesTimetable = () => {
 
     useEffect(() => {
         const meetings = new MeetingGroup(
-            MeetingsFabricator(courses, userMeetings, "Y")
+            MeetingsFabricator(courses, userMeetings, "FULL_YEAR")
         )
 
         setMeetingGroup(meetings)

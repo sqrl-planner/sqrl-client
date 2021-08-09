@@ -1,4 +1,3 @@
-import { gql, useQuery } from "@apollo/client"
 import { AddIcon, CheckIcon, QuestionIcon, WarningIcon } from "@chakra-ui/icons"
 import {
     Accordion,
@@ -21,7 +20,7 @@ import {
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import { FaTrashAlt } from "react-icons/fa"
 import reactStringReplace from "react-string-replace"
-import { StandardCourse } from "../Course"
+import { Course } from "../Course"
 import { useAppContext } from "../SqrlContext"
 import { MeetingCategoryType } from "./timetable/Meeting"
 import { breakdownCourseCode } from "./timetable/MeetingComponent"
@@ -49,7 +48,7 @@ const SidebarComponent = ({
     course,
     identifier,
 }: {
-    course: StandardCourse
+    course: Course
     identifier: string
 }) => {
     const pillTextColour = useColorModeValue("gray.800", "gray.100")
@@ -67,28 +66,6 @@ const SidebarComponent = ({
         "rgba(0,0,0,0.5)",
         "rgba(255, 255, 255, 0.5)"
     )
-
-    const QUERY = gql`
-        {
-            searchCourses(query: "csc108", limit: 10) {
-                sessionCode
-                id
-                code
-                title
-                description
-                organisation {
-                    code
-                    name
-                }
-            }
-        }
-    `
-
-    const { data, loading, error } = useQuery(QUERY)
-
-    if (data) console.log(data)
-    if (error) console.log(error)
-    if (loading) console.log(loading)
 
     const hoverBackground = useColorModeValue("gray.200", "gray.600")
 
@@ -117,16 +94,21 @@ const SidebarComponent = ({
 
     const [scrolling, setScrolling] = useState<boolean>(false)
 
-    meetingPicker = Object.values(MeetingCategoryType).map((category) => {
-        const categories = Object.keys(course.meetings).filter((meeting) =>
-            meeting.includes(category.substring(0, 3).toUpperCase())
+    meetingPicker = Object.values(MeetingCategoryType).map((method) => {
+        // const categories = Object.keys(course.meetings).filter((meeting) =>
+        //     meeting.includes(category.substring(0, 3).toUpperCase())
+        // )
+
+        const matchingMethod = course.sections.filter(
+            (meeting) =>
+                meeting.teachingMethod.toUpperCase() === method.toUpperCase()
         )
 
-        if (!categories.length) return <Fragment key={category} />
+        if (!matchingMethod.length) return <Fragment key={method} />
 
         return (
             <Box
-                key={category}
+                key={method}
                 // px={5}
                 pointerEvents={scrolling ? "none" : "auto"}
             >
@@ -136,7 +118,7 @@ const SidebarComponent = ({
                     alignItems="center"
                     mb={1}
                 >
-                    <CourseSubheading px={5}>{category}</CourseSubheading>
+                    <CourseSubheading px={5}>{method}</CourseSubheading>
                     <Icon
                         cursor="pointer"
                         as={FaTrashAlt}
@@ -145,41 +127,49 @@ const SidebarComponent = ({
                         fontSize="sm"
                         pl={0.5}
                         mr={6}
-                        opacity={
-                            userMeetings[identifier][category] ? "" : "0.5"
-                        }
+                        opacity={userMeetings[identifier][method] ? "" : "0.5"}
                         onClick={() => {
                             dispatch({
                                 type: "REMOVE_MEETING",
                                 payload: {
                                     identifier,
-                                    method: category,
+                                    method,
                                 },
                             })
                         }}
                     />
                 </Flex>
                 <VStack spacing={0}>
-                    {categories.map((section) => {
+                    {matchingMethod.map((section) => {
+                        const sectionCode = section.code
                         const isSelected =
-                            userMeetings[identifier][category] === section
+                            userMeetings[identifier][method] === sectionCode
 
-                        const meeting = course.meetings[section]
+                        const meeting = section
 
+                        // const meeting = course.sections.filter(
+                        //     (courseSection) =>
+                        //         courseSection.teachingMethod === section
+                        // )[0]
                         // A meeting is concerning if it is waitlisting or it has no waitlist and is fully enrolled
                         let concerning = !!parseInt(meeting.actualWaitlist)
 
+                        console.log(
+                            meeting.enrolmentCapacity,
+                            meeting.actualEnrolment
+                        )
+
                         if (
-                            meeting.waitlist === "N" &&
-                            meeting.enrollmentCapacity ===
-                                meeting.actualEnrolment
+                            // meeting.waitlist === "N" &&
+                            meeting.enrolmentCapacity ===
+                            meeting.actualEnrolment
                         )
                             concerning = true
 
                         return (
                             <Grid
                                 fontSize="sm"
-                                key={section}
+                                key={sectionCode}
                                 alignContent="center"
                                 gridTemplateColumns="auto auto 1fr auto"
                                 width="100%"
@@ -204,8 +194,8 @@ const SidebarComponent = ({
                                         type: "SET_MEETING",
                                         payload: {
                                             identifier,
-                                            meeting: section,
-                                            method: category,
+                                            meeting: sectionCode,
+                                            method: method,
                                         },
                                     })
                                     dispatch({
@@ -222,7 +212,7 @@ const SidebarComponent = ({
                                         type: "SET_HOVER_MEETING",
                                         payload: {
                                             courseIdentifier: identifier,
-                                            meeting: section,
+                                            meeting: sectionCode,
                                         },
                                     })
                                 }}
@@ -266,7 +256,7 @@ const SidebarComponent = ({
                                 </Box>
                                 <Text
                                     fontFamily="interstate-mono, monospace"
-                                    key={section}
+                                    key={sectionCode}
                                     fontSize="md"
                                     colorScheme={isSelected ? "green" : "gray"}
                                 >
@@ -274,7 +264,7 @@ const SidebarComponent = ({
                                     {/* <Text as="span" mr="0.2rem">
                                 {meeting.split("-")[0]}
                             </Text> */}
-                                    {section.split("-")[1]}
+                                    {sectionCode.split("-")[1]}
                                 </Text>
 
                                 {/* <Box>{JSON.stringify(meeting.schedule)}</Box> */}
@@ -343,7 +333,7 @@ const SidebarComponent = ({
                                             : `Enrol ${
                                                   meeting.actualEnrolment
                                               } of ${
-                                                  meeting.enrollmentCapacity
+                                                  meeting.enrolmentCapacity
                                               }${
                                                   meeting.waitlist === "N"
                                                       ? "—No waitlist"
@@ -446,7 +436,7 @@ const SidebarComponent = ({
                 </Box>
             </Heading>
             <Heading as="h4" size="md" opacity="0.6" mb={2} px={5}>
-                {course.courseTitle}
+                {course.title}
             </Heading>
             {meetingPicker}
             <Box>
@@ -467,19 +457,19 @@ const SidebarComponent = ({
                         <AccordionPanel px={5} pb={4}>
                             <Text
                                 dangerouslySetInnerHTML={{
-                                    __html: course.courseDescription,
+                                    __html: course.description,
                                 }}
                             ></Text>
                         </AccordionPanel>
                     </AccordionItem>
                 </Accordion>
             </Box>
-            {!!course.prerequisite.length && (
+            {!!course.prerequisites.length && (
                 <Box mx={5}>
                     <CourseSubheading>Prerequisites</CourseSubheading>
                     <Text>
                         {reactStringReplace(
-                            course.prerequisite,
+                            course.prerequisites,
                             // three to four alpha characters, two to four digits, H or Y, and a digit
                             /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
                             (match, i) => (
@@ -497,12 +487,12 @@ const SidebarComponent = ({
                     </Text>
                 </Box>
             )}
-            {!!course.exclusion.length && (
+            {!!course.exclusions.length && (
                 <Box px={5}>
                     <CourseSubheading>Exclusions</CourseSubheading>
                     <Text>
                         {reactStringReplace(
-                            course.exclusion,
+                            course.exclusions,
                             /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
                             (match, i) => (
                                 <Button

@@ -1,11 +1,11 @@
 import {
     Box,
-    Text,
     chakra,
     Flex,
     Grid,
     Heading,
     Icon,
+    Text,
     useColorMode,
     useColorModeValue,
     useDisclosure,
@@ -21,7 +21,7 @@ import { Timetable } from "./components/timetable/Timetable"
 import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
-import { courses as sampleCourse } from "./sampleCourses"
+import sampleApiResponse from "./sampleApiResponse.json"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
 
@@ -53,6 +53,10 @@ const Sqrl = () => {
         dispatch,
     } = useAppContext()
 
+    // const { data, loading, error } = useQuery(GET_SAMPLE_COURSE)
+
+    // if (data) console.log(data)
+
     const [timetableSize, setTimetableSize] = useState(40)
     const [firstMeetings, setFirstMeetings] = useState<Array<Meeting>>([])
     const [secondMeetings, setSecondMeetings] = useState<Array<Meeting>>([])
@@ -67,8 +71,38 @@ const Sqrl = () => {
     const { colorMode, setColorMode } = useColorMode()
 
     useEffect(() => {
-        for (const [identifier, course] of Object.entries(sampleCourse)) {
-            dispatch({ type: "ADD_COURSE", payload: { identifier, course } })
+        const meetings = {
+            ...userMeetings,
+            [hoverMeeting.courseIdentifier]: {
+                ...userMeetings[hoverMeeting.courseIdentifier],
+                hover: hoverMeeting.meeting,
+            },
+        }
+
+        setFirstMeetings(
+            MeetingsFabricator(courses, meetings, "FIRST_SEMESTER")
+        )
+        setSecondMeetings(
+            MeetingsFabricator(courses, meetings, "SECOND_SEMESTER")
+        )
+    }, [
+        setFirstMeetings,
+        setSecondMeetings,
+        courses,
+        userMeetings,
+        hoverMeeting,
+    ])
+
+    useEffect(() => {
+        // for (const [identifier, course] of Object.entries(sampleCourse)) {
+        //     dispatch({ type: "ADD_COURSE", payload: { identifier, course } })
+        // }
+
+        for (const course of sampleApiResponse.data.searchCourses) {
+            dispatch({
+                type: "ADD_COURSE",
+                payload: { identifier: course.id, course },
+            })
         }
 
         dispatch({
@@ -227,24 +261,6 @@ const Sqrl = () => {
             },
         })
     }, [dispatch])
-
-    useEffect(() => {
-        const meetings = {
-            ...userMeetings,
-            [hoverMeeting.courseIdentifier]: {
-                ...userMeetings[hoverMeeting.courseIdentifier],
-                hover: hoverMeeting.meeting,
-            },
-        }
-        setFirstMeetings(MeetingsFabricator(courses, meetings, "F"))
-        setSecondMeetings(MeetingsFabricator(courses, meetings, "S"))
-    }, [
-        setFirstMeetings,
-        setSecondMeetings,
-        courses,
-        userMeetings,
-        hoverMeeting,
-    ])
 
     useEffect(() => {
         const lsDisclaimed = localStorage.getItem("disclaimed")

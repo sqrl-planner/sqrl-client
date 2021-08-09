@@ -68,3 +68,33 @@ export interface StandardCourse {
     distributionCategories: string
     meetings: StandardMeetings
 }
+
+export interface Course {
+    /**
+     * _id
+     */
+    id: string
+    breadthCategories: string
+    campus: string
+    code: string
+    corequisites: string
+    deliveryInstructions: string | null
+    description: string
+    distributionCategories: string
+    exclusions: string
+    /**
+     * A class representing a department (which offers courses).
+     *
+     * Instance Attributes:
+     *     code: A unique string representing this organisation.
+     *     name: The full name of this organisation.
+     */
+    organisation: any
+    prerequisites: string
+    recommendedPreparation: string
+    sections: Array<any>
+    term: string
+    sessionCode: string
+    title: string
+    webTimetableInstructions: string | null
+}

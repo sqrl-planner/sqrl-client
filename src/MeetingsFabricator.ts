@@ -1,18 +1,18 @@
 import {
-    MeetingDeliveryMode,
-    MeetingCategoryType,
     Meeting,
+    MeetingCategoryType,
+    MeetingDeliveryMode,
 } from "./components/timetable/Meeting"
-import { StandardCourse } from "./Course"
+import { Course } from "./Course"
 import { UserMeeting } from "./SqrlContext"
 import { Day, timeToMinuteOffset } from "./utils/time"
 
 const standardMeetingDays = {
-    MO: Day.MONDAY,
-    TU: Day.TUESDAY,
-    WE: Day.WEDNESDAY,
-    TH: Day.THURSDAY,
-    FR: Day.FRIDAY,
+    MONDAY: Day.MONDAY,
+    TUESDAY: Day.TUESDAY,
+    WEDNESDAY: Day.WEDNESDAY,
+    THURSDAY: Day.THURSDAY,
+    FRIDAY: Day.FRIDAY,
 }
 
 const standardMeetingDeliveryMode = {
@@ -22,9 +22,9 @@ const standardMeetingDeliveryMode = {
 }
 
 const standardMeetingCategoryType = {
-    TUT: MeetingCategoryType.Tutorial,
-    LEC: MeetingCategoryType.Lecture,
-    PRA: MeetingCategoryType.Practical,
+    TUTORIAL: MeetingCategoryType.Tutorial,
+    LECTURE: MeetingCategoryType.Lecture,
+    PRACTICAL: MeetingCategoryType.Practical,
 }
 
 /**
@@ -35,19 +35,20 @@ const standardMeetingCategoryType = {
  * @returns An array of Meeting type
  */
 const MeetingsFabricator = (
-    courses: { [key: string]: StandardCourse },
+    courses: { [key: string]: Course },
     userMeetings: { [key: string]: UserMeeting },
-    section: StandardCourse["section"]
+    term: "FULL_YEAR" | "FIRST_SEMESTER" | "SECOND_SEMESTER"
 ): Meeting[] => {
     let meetings: Meeting[] = []
     let index = 0
 
     for (const [identifier, course] of Object.entries(courses)) {
         index++
+
         if (
-            course.section !== section &&
-            section !== "Y" &&
-            course.section !== "Y"
+            course.term !== term &&
+            term !== "FULL_YEAR" &&
+            course.term !== "FULL_YEAR"
         ) {
             continue
         }
@@ -56,26 +57,46 @@ const MeetingsFabricator = (
             if (identifier !== userCourse) continue
 
             for (const meetingName of Object.values(userMeeting)) {
-                const meeting = course.meetings[meetingName]
-                for (const schedule of Object.values(meeting.schedule)) {
-                    const day = standardMeetingDays[schedule.meetingDay]
-                    // TODO Handle case where meetingStartTime is null
-                    const startTime = schedule.meetingStartTime
-                        .split(":")
-                        .map((time) => parseInt(time))
-                    const endTime = schedule.meetingEndTime
-                        .split(":")
-                        .map((time) => parseInt(time))
+                const meeting = course.sections.filter(
+                    (section: any) => section.code === meetingName
+                )[0]
+
+                for (const schedule of meeting.meetings as any) {
+                    const day =
+                        standardMeetingDays[
+                            schedule.day as
+                                | "MONDAY"
+                                | "TUESDAY"
+                                | "WEDNESDAY"
+                                | "THURSDAY"
+                                | "FRIDAY"
+                        ]
 
                     meetings.push(
                         new Meeting(
                             day,
-                            timeToMinuteOffset(startTime[0], startTime[1]),
-                            timeToMinuteOffset(endTime[0], endTime[1]),
-                            course.code,
+                            timeToMinuteOffset(
+                                schedule.startTime.hour,
+                                schedule.startTime.minute
+                            ),
+                            timeToMinuteOffset(
+                                schedule.endTime.hour,
+                                schedule.endTime.minute
+                            ),
+                            course.code as string | undefined,
                             index,
-                            standardMeetingDeliveryMode[meeting.deliveryMode],
-                            standardMeetingCategoryType[meeting.teachingMethod],
+                            standardMeetingDeliveryMode[
+                                meeting.deliveryMode as
+                                    | "CLASS"
+                                    | "ONLSYNC"
+                                    | "ONLASYNC"
+                            ],
+                            standardMeetingCategoryType[
+                                meeting.teachingMethod as
+                                    | "LECTURE"
+                                    | "TUTORIAL"
+                                    | "PRACTICAL"
+                            ],
                             meeting.sectionNumber,
                             identifier
                         )

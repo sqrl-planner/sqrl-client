@@ -1,5 +1,5 @@
 import React, { createContext } from "react"
-import { StandardCourse } from "./Course"
+import { Course } from "./Course"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
@@ -11,7 +11,7 @@ export interface UserMeeting {
 }
 
 interface AppData {
-    courses: { [key: string]: StandardCourse }
+    courses: { [key: string]: Course }
     userMeetings: { [key: string]: UserMeeting }
     programs: Array<{ code: string; title: string }>
     campus: { sg: boolean; sc: boolean; ms: boolean }
@@ -22,7 +22,7 @@ interface AppData {
 export type Action =
     | {
           type: "ADD_COURSE"
-          payload: { identifier: string; course: StandardCourse }
+          payload: { identifier: string; course: Course }
       }
     | { type: "REMOVE_COURSE"; payload: string }
     | {
