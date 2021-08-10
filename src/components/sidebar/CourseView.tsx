@@ -46,12 +46,12 @@ const CourseSubheading = ({
 
 const SidebarComponent = () => {
     const pillTextColour = useColorModeValue("gray.800", "gray.100")
-    const pillColour = useColorModeValue("gray.100", "gray.800")
+    const pillColour = useColorModeValue("gray.75", "gray.800")
     const activePillTextColour = useColorModeValue("green.700", "green.100")
     const activePillColour = useColorModeValue("green.100", "green.700")
 
     const concerningPillTextColour = useColorModeValue(
-        "yellow.600",
+        "yellow.700",
         "yellow.100"
     )
     // const waitlistPillColour = useColorModeValue("yellow.100", "yellow.900")
@@ -61,7 +61,7 @@ const SidebarComponent = () => {
         "rgba(255, 255, 255, 0.5)"
     )
 
-    const hoverBackground = useColorModeValue("gray.200", "gray.600")
+    const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
     const {
         state: { userMeetings, courses, sidebarCourse: identifier },
@@ -467,7 +467,7 @@ const SidebarComponent = () => {
             </Heading>
             {meetingPicker}
             <Box>
-                <Accordion allowToggle mt={4}>
+                <Accordion allowToggle mt={4} borderColor="rgba(0,0,0,0)">
                     <AccordionItem>
                         <AccordionButton
                             p={0}

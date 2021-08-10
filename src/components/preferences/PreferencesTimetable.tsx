@@ -50,6 +50,9 @@ const PreferencesTimetable = () => {
     )
 
     useEffect(() => {
+        console.log(userMeetings)
+
+        if (!Object.entries(userMeetings).length) return
         const meetings = new MeetingGroup(
             MeetingsFabricator(courses, userMeetings, "FULL_YEAR")
         )

@@ -12,8 +12,11 @@ import {
     Flex,
     Divider,
     useColorModeValue,
+    FlexProps,
+    ButtonProps,
 } from "@chakra-ui/react"
 import React, {
+    Fragment,
     MutableRefObject,
     useCallback,
     useEffect,
@@ -27,6 +30,10 @@ import { AddIcon } from "@chakra-ui/icons"
 import { useAppContext } from "../../SqrlContext"
 import { GET_COURSE_BY_ID } from "../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+
+const MotionFlex = motion<FlexProps>(Flex)
+const MotionButton = motion<ButtonProps>(Button)
 
 const SearchView = () => {
     const searchRef = useRef() as MutableRefObject<HTMLInputElement>
@@ -106,7 +113,6 @@ const SearchView = () => {
                     placeholder={`Search for a course (${osModifier}K)`}
                     ref={searchRef}
                     value={searchQuery}
-                    autoFocus
                     onChange={(e) => {
                         setSearchQuery(e.target.value)
                         debounced(e.target.value)
@@ -114,122 +120,227 @@ const SearchView = () => {
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="off"
+                    onFocus={(e) => {
+                        e.target.select()
+                    }}
                 />
                 <FormHelperText>
                     Try searching for "breadth 5" or "PSY100"
                 </FormHelperText>
             </FormControl>
-            {loading &&
-                [...new Array(5)].map((_, i) => (
-                    <Skeleton key={i} width="100%" height={16} my={2} />
-                ))}
-            {!error && !!data && (
-                <VStack alignItems="flex-start" spacing={0}>
-                    {data.searchCourses.map((course: any) => {
-                        console.log(data.searchCourses)
-
-                        const { department, numeral, suffix } =
-                            breakdownCourseCode(course.code)
-                        return (
-                            <Flex
-                                key={course.id}
-                                alignItems="center"
-                                width="100%"
-                                pr={5}
-                                py={2}
-                                boxShadow={`inset 0 2px 3px -3px rgba(0,0,0,0.5)`}
-                                _hover={{
-                                    background: hoverBackground,
-                                }}
-                                onClick={() => {
-                                    if (fullCourseLoading) return
-
-                                    setChosenCourse(course.id)
-
-                                    getFullCourse({
-                                        variables: { id: course.id },
-                                    })
-                                }}
-                                cursor={
-                                    fullCourseLoading
-                                        ? "not-allowed"
-                                        : "pointer"
-                                }
-                                opacity={fullCourseLoading ? 0.6 : 1}
-                            >
-                                <Flex
-                                    ml={5}
-                                    mr={4}
-                                    w={4}
-                                    h={4}
-                                    alignItems="center"
-                                >
-                                    {(fullCourseLoading || !fullCourseData) &&
-                                    chosenCourse === course.id ? (
-                                        <Spinner size="sm" />
-                                    ) : (
-                                        <AddIcon size="md" h={4} w={4} />
-                                    )}
-                                </Flex>
-                                <Flex
-                                    key={course.code}
-                                    fontSize="xl"
-                                    width="100%"
-                                    fontWeight={500}
-                                    alignItems="baseline"
-                                    // flexWrap="wrap"
-                                    flexDirection="column"
-                                >
-                                    <Box fontSize="0.8em">
-                                        <Text
-                                            fontSize="1.25em"
-                                            as="span"
-                                            fontWeight={600}
-                                        >
-                                            {department + numeral}
-                                        </Text>
-                                        <Text as="span">{suffix}</Text>
-                                        <Text as="span" ml={1}>
-                                            {(() => {
-                                                if (
-                                                    course.term ===
-                                                    "FIRST_SEMESTER"
-                                                )
-                                                    return "F"
-                                                if (
-                                                    course.term ===
-                                                    "SECOND_SEMESTER"
-                                                )
-                                                    return "S"
-                                                return "Y"
-                                            })()}
-                                        </Text>
-                                    </Box>
-                                    <Text
-                                        as="span"
-                                        opacity="0.7"
-                                        fontSize="0.8em"
-                                    >
-                                        {course.title}
-                                    </Text>
-                                    {/* {course.code}: {course.title} */}
-                                </Flex>
-                            </Flex>
-                        )
-                    })}
-                    {data.searchCourses.length > 4 ? (
-                        <Button
-                            alignSelf="center"
-                            p={2}
-                            variant="link"
-                            isLoading={loading}
+            {loading && (
+                <AnimatePresence>
+                    {[...new Array(5)].map((_, i) => (
+                        <MotionFlex
+                            flexDirection="column"
+                            variants={{
+                                hidden: {
+                                    opacity: 0,
+                                    y: -10,
+                                    transition: {
+                                        delay: i * 1.15,
+                                    },
+                                },
+                                // hidden: i => ( {
+                                //     opacity: 1,
+                                // 		transition: {
+                                // 			delay: i * 0.05
+                                // 		}
+                                // } ),
+                                visible: (i) => ({
+                                    opacity: 1,
+                                    y: 0,
+                                }),
+                            }}
+                            custom={i}
+                            key={i}
+                            initial="hidden"
+                            animate="visible"
+                            // exit="hidden"
                         >
-                            More results...
-                        </Button>
-                    ) : (
-                        <Divider />
-                    )}
-                </VStack>
+                            <Skeleton width="30%" height={6} my={1} mt={2} />
+                            <Skeleton width="100%" height={12} my={1} mb={2} />
+                        </MotionFlex>
+                    ))}
+                </AnimatePresence>
+            )}
+            {!loading && !error && !!data && (
+                <AnimatePresence>
+                    <VStack
+                        alignItems="flex-start"
+                        spacing={0}
+                        opacity={fullCourseLoading ? 0.6 : 1}
+                    >
+                        {data.searchCourses.map((course: any, i: number) => {
+                            console.log(data.searchCourses)
+
+                            const { department, numeral, suffix } =
+                                breakdownCourseCode(course.code)
+                            return (
+                                <MotionFlex
+                                    key={course.id}
+                                    variants={{
+                                        hidden: {
+                                            opacity: 0,
+                                            y: -10,
+                                        },
+                                        // hidden: i => ( {
+                                        //     opacity: 1,
+                                        // 		transition: {
+                                        // 			delay: i * 0.05
+                                        // 		}
+                                        // } ),
+                                        visible: (i) => ({
+                                            opacity: 1,
+                                            y: 0,
+                                            transition: {
+                                                delay: i * 0.02,
+                                            },
+                                        }),
+                                    }}
+                                    custom={i}
+                                    initial="hidden"
+                                    animate="visible"
+                                    alignItems="center"
+                                    width="100%"
+                                    pr={5}
+                                    py={2}
+                                    boxShadow={`inset 0 2px 3px -3px rgba(0,0,0,0.5)`}
+                                    _hover={{
+                                        background: hoverBackground,
+                                    }}
+                                    tabIndex={0}
+                                    onClick={() => {
+                                        if (fullCourseLoading) return
+
+                                        setChosenCourse(course.id)
+
+                                        getFullCourse({
+                                            variables: { id: course.id },
+                                        })
+                                    }}
+                                    cursor={
+                                        fullCourseLoading
+                                            ? "not-allowed"
+                                            : "pointer"
+                                    }
+                                >
+                                    <Flex
+                                        ml={5}
+                                        mr={4}
+                                        w={4}
+                                        h={4}
+                                        alignItems="center"
+                                    >
+                                        {(fullCourseLoading ||
+                                            !fullCourseData) &&
+                                        chosenCourse === course.id ? (
+                                            <Spinner size="sm" />
+                                        ) : (
+                                            <AddIcon size="md" h={4} w={4} />
+                                        )}
+                                    </Flex>
+                                    <Flex
+                                        key={course.code}
+                                        fontSize="xl"
+                                        width="100%"
+                                        fontWeight={500}
+                                        alignItems="baseline"
+                                        // flexWrap="wrap"
+                                        flexDirection="column"
+                                    >
+                                        <Flex
+                                            fontSize="0.8em"
+                                            width="100%"
+                                            alignItems="center"
+                                            justifyContent="space-between"
+                                        >
+                                            <Box>
+                                                <Text
+                                                    fontSize="1.25em"
+                                                    as="span"
+                                                    fontWeight={600}
+                                                >
+                                                    {department + numeral}
+                                                </Text>
+                                                <Text as="span">{suffix}</Text>
+                                                <Text as="span" ml={1}>
+                                                    {(() => {
+                                                        if (
+                                                            course.term ===
+                                                            "FIRST_SEMESTER"
+                                                        )
+                                                            return "F"
+                                                        if (
+                                                            course.term ===
+                                                            "SECOND_SEMESTER"
+                                                        )
+                                                            return "S"
+                                                        return "Y"
+                                                    })()}
+                                                </Text>
+                                            </Box>
+                                            <Box>
+                                                <Text
+                                                    fontSize="0.7em"
+                                                    fontWeight={700}
+                                                    opacity={0.7}
+                                                >
+                                                    {course.campus
+                                                        .toUpperCase()
+                                                        .replace(/_/g, " ")}
+                                                </Text>
+                                            </Box>
+                                        </Flex>
+                                        <Text
+                                            as="span"
+                                            opacity="0.7"
+                                            fontSize="0.8em"
+                                        >
+                                            {course.title}
+                                        </Text>
+                                        {/* {course.code}: {course.title} */}
+                                    </Flex>
+                                </MotionFlex>
+                            )
+                        })}
+                        {data.searchCourses.length > 6 ? (
+                            <MotionButton
+                                alignSelf="center"
+                                p={2}
+                                mt={4}
+                                variant="link"
+                                key="button"
+                                variants={{
+                                    hidden: {
+                                        opacity: 0,
+                                        // y: -10,
+                                    },
+                                    // hidden: i => ( {
+                                    //     opacity: 1,
+                                    // 		transition: {
+                                    // 			delay: i * 0.05
+                                    // 		}
+                                    // } ),
+                                    visible: {
+                                        opacity: 1,
+                                        // y: 0,
+                                        // transition: {
+                                        //     delay: 3 * 0.05,
+                                        // },
+                                    },
+                                }}
+                                initial="hidden"
+                                animate="visible"
+                                isLoading={loading}
+                            >
+                                More results...
+                            </MotionButton>
+                        ) : (
+                            <Divider />
+                        )}
+                    </VStack>
+                </AnimatePresence>
             )}
         </Box>
     )

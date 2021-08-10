@@ -28,6 +28,7 @@ export const StyledTimetable = styled.table`
 
 export const StyledHead = styled.tr`
     position: relative;
+    opacity: 0.8;
     z-index: 1;
 
     /* background-color: red; */

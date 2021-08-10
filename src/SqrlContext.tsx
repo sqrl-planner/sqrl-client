@@ -192,7 +192,11 @@ const AppContextReducer = (state: AppData, action: Action) => {
                 sidebar: action.payload,
             }
             if (action.payload !== 1) {
-                newContext = { ...newContext, sidebarCourse: "" }
+                newContext = {
+                    ...newContext,
+                    sidebarCourse: "",
+                    hoverMeeting: { courseIdentifier: "", meeting: "" },
+                }
             }
             break
         }
@@ -209,23 +213,23 @@ const AppContextReducer = (state: AppData, action: Action) => {
 }
 
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
-    // const lsAppContext = localStorage.getItem("appContext")
+    const lsAppContext = localStorage.getItem("appContext")
     let appContext: AppData
-    // if (lsAppContext) appContext = JSON.parse(lsAppContext) as AppData
-    // else {
-    appContext = {
-        courses: {},
-        userMeetings: {},
-        programs: [],
-        campus: { sg: true, sc: false, ms: false },
-        sidebarCourse: "",
-        hoverMeeting: {
-            courseIdentifier: "",
-            meeting: "",
-        },
-        sidebar: 0,
+    if (lsAppContext) appContext = JSON.parse(lsAppContext) as AppData
+    else {
+        appContext = {
+            courses: {},
+            userMeetings: {},
+            programs: [],
+            campus: { sg: true, sc: false, ms: false },
+            sidebarCourse: "",
+            hoverMeeting: {
+                courseIdentifier: "",
+                meeting: "",
+            },
+            sidebar: 0,
+        }
     }
-    // }
 
     const [state, dispatch] = React.useReducer(AppContextReducer, appContext)
 
