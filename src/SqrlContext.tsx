@@ -15,8 +15,9 @@ interface AppData {
     userMeetings: { [key: string]: UserMeeting }
     programs: Array<{ code: string; title: string }>
     campus: { sg: boolean; sc: boolean; ms: boolean }
-    sidebarCourse: string
     hoverMeeting: { courseIdentifier: string; meeting: string }
+    sidebarCourse: string
+    sidebar: number
 }
 
 export type Action =
@@ -54,6 +55,10 @@ export type Action =
           type: "SET_HOVER_MEETING"
           payload: { courseIdentifier: string; meeting: string }
       }
+    | {
+          type: "SET_SIDEBAR"
+          payload: number
+      }
 
 type Dispatch = (action: Action) => void
 
@@ -75,6 +80,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
         campus: { sg: true, sc: false, ms: false },
         sidebarCourse: "",
         hoverMeeting: { courseIdentifier: "", meeting: "" },
+        sidebar: 0,
     }
     const { courses, userMeetings, programs, campus } = state
 
@@ -93,9 +99,13 @@ const AppContextReducer = (state: AppData, action: Action) => {
         case "REMOVE_COURSE": {
             // Destructure everything, discard the course to remove
             const { [action.payload]: _, ...rest } = courses
+            const { [action.payload]: __, ...restOfMeetings } = userMeetings
             newContext = {
                 ...state,
                 courses: rest,
+                userMeetings: {
+                    ...restOfMeetings,
+                },
             }
             break
         }
@@ -176,6 +186,17 @@ const AppContextReducer = (state: AppData, action: Action) => {
             break
         }
 
+        case "SET_SIDEBAR": {
+            newContext = {
+                ...state,
+                sidebar: action.payload,
+            }
+            if (action.payload !== 1) {
+                newContext = { ...newContext, sidebarCourse: "" }
+            }
+            break
+        }
+
         default: {
             // @ts-expect-error
             throw new Error(`Unhandled action type: ${action.type}`)
@@ -202,6 +223,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
             courseIdentifier: "",
             meeting: "",
         },
+        sidebar: 0,
     }
     // }
 

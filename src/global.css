@@ -4,6 +4,7 @@
 
 html {
     min-height: 100vh;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -17,6 +18,18 @@ body {
 @page {
     size: auto;
     margin: 1.5rem;
+}
+
+ol {
+    padding-left: 1rem !important;
+}
+
+ol li {
+    padding-bottom: 0.8rem;
+}
+
+ol li:last-child {
+    padding: 0;
 }
 
 * {

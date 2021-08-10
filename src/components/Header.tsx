@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react"
 import React, { MutableRefObject, useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
+import { useAppContext } from "../SqrlContext"
 import PreferencesDrawer from "./preferences/PreferencesDrawer"
 
 const HeaderComponent = styled(chakra.header)`
@@ -26,30 +27,41 @@ const HeaderComponent = styled(chakra.header)`
     }
 `
 
-const Header = () => {
-    const searchRef = useRef() as MutableRefObject<HTMLInputElement>
+const Header = ({
+    setSidebarOpen,
+    sidebarOpen,
+}: {
+    setSidebarOpen: any
+    sidebarOpen: boolean
+}) => {
+    const { dispatch } = useAppContext()
+    const buttonRef = useRef<HTMLButtonElement | null>(null)
 
-    const keydownListener = useCallback((e) => {
-        if (!searchRef.current) return
-        if (e.repeat) return
+    let osModifier: string = ""
 
-        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-            e.preventDefault()
+    if (navigator.userAgent.indexOf("Mac OS X") !== -1) osModifier = "⌘"
+    if (navigator.userAgent.indexOf("Windows") !== -1) osModifier = "Ctrl + "
 
-            searchRef.current.focus()
-        }
-    }, [])
+    const keydownListener = useCallback(
+        (e) => {
+            if (!buttonRef.current) return
+            if (e.repeat) return
+
+            if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+                e.preventDefault()
+                setSidebarOpen(true)
+                dispatch({ type: "SET_SIDEBAR", payload: 0 })
+                // searchRef.current.focus()
+            }
+        },
+        [dispatch, buttonRef, setSidebarOpen]
+    )
 
     useEffect(() => {
         window.addEventListener("keydown", keydownListener, true)
         return () =>
             window.removeEventListener("keydown", keydownListener, true)
     }, [keydownListener])
-
-    let osModifier: string = ""
-
-    if (navigator.userAgent.indexOf("Mac OS X") !== -1) osModifier = "⌘"
-    if (navigator.userAgent.indexOf("Windows") !== -1) osModifier = "Ctrl + "
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -79,9 +91,10 @@ const Header = () => {
                 Sqrl
             </Heading>
             <Input
+                as="button"
                 boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
-                placeholder={`Search for a course (${osModifier}K)`}
-                ref={searchRef}
+                placeholder={`Search for anything (${osModifier}K)`}
+                ref={buttonRef}
                 position="absolute"
                 width="40%"
                 maxWidth="400px"
@@ -90,7 +103,12 @@ const Header = () => {
                 bottom="0"
                 left="0"
                 margin="auto"
-            />
+                onClick={(e) => {
+                    e.preventDefault()
+                    setSidebarOpen(true)
+                    dispatch({ type: "SET_SIDEBAR", payload: 0 })
+                }}
+            >{`Search for anything (${osModifier}K)`}</Input>
 
             <div>
                 <Button

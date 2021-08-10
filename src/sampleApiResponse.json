@@ -3001,6 +3001,213 @@
 				"sessionCode": "20219",
 				"title": "Introduction to the Theory of Computation",
 				"webTimetableInstructions": ""
+			}, {
+				"id": "CSC263H1-S-20219",
+				"breadthCategories": "The Physical and Mathematical Universes (5)",
+				"campus": "ST_GEORGE",
+				"code": "CSC263H1",
+				"corequisites": "",
+				"deliveryInstructions": "",
+				"description": "<p>Algorithm analysis: worst-case, average-case, and amortized complexity. Expected worst-case complexity, randomized quicksort and selection. Standard abstract data types, such as graphs, dictionaries, priority queues, and disjoint sets. A variety of data structures for implementing these abstract data types, such as balanced search trees, hashing, heaps, and disjoint forests. Design and comparison of data structures. Introduction to lower bounds.</p>",
+				"distributionCategories": "Science",
+				"exclusions": "CSC265H1",
+				"organisation": {
+					"code": "CSC",
+					"name": "Computer Science (CSC) (COG) (ECE) (JCC) (JSC)"
+				},
+				"prerequisites": "CSC236H1/ ​CSC240H1/ CSC236H5/ CSCB36H3/ APS105H1/ APS106H1/ ESC180H1; STA237H1/ STA247H1/ ​STA255H1/ ​STA257H1/ STAB57H3/ STAB52H3/ ECE302H1/ STA286H1/ CHE223H1/ CME263H1/ MIE231H1/ MIE236H1/ MSE238H1/ ECE286H1",
+				"recommendedPreparation": "",
+				"sections": [{
+						"actualEnrolment": 140,
+						"actualWaitlist": 101,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "M",
+							"lastName": "Craig"
+						}],
+						"code": "LEC-0101",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 14
+								},
+								"startTime": {
+									"hour": 13,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 93,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "M",
+							"lastName": "Craig"
+						}],
+						"code": "LEC-0201",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 16
+								},
+								"startTime": {
+									"hour": 15,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 16
+								},
+								"startTime": {
+									"hour": 15,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 140,
+						"actualWaitlist": 92,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 140,
+						"enrolmentIndicator": "P",
+						"hasWaitlist": true,
+						"instructors": [{
+							"firstName": "M",
+							"lastName": "Craig"
+						}],
+						"code": "LEC-0301",
+						"meetings": [{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "TUESDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							},
+							{
+								"assignedRoom1": null,
+								"assignedRoom2": "",
+								"day": "THURSDAY",
+								"endTime": {
+									"minute": 0,
+									"hour": 17
+								},
+								"startTime": {
+									"hour": 16,
+									"minute": 0
+								}
+							}
+						],
+						"sectionNumber": "0301",
+						"subtitle": "",
+						"teachingMethod": "LECTURE"
+					},
+					{
+						"actualEnrolment": 164,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 200,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0101",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "FRIDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 11
+							},
+							"startTime": {
+								"hour": 10,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0101",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					},
+					{
+						"actualEnrolment": 237,
+						"actualWaitlist": 0,
+						"cancelled": false,
+						"deliveryMode": "CLASS",
+						"enrolmentCapacity": 250,
+						"enrolmentIndicator": null,
+						"hasWaitlist": false,
+						"instructors": [],
+						"code": "TUT-0201",
+						"meetings": [{
+							"assignedRoom1": null,
+							"assignedRoom2": "",
+							"day": "FRIDAY",
+							"endTime": {
+								"minute": 0,
+								"hour": 12
+							},
+							"startTime": {
+								"hour": 11,
+								"minute": 0
+							}
+						}],
+						"sectionNumber": "0201",
+						"subtitle": "",
+						"teachingMethod": "TUTORIAL"
+					}
+				],
+				"term": "SECOND_SEMESTER",
+				"sessionCode": "20219",
+				"title": "Data Structures and Analysis",
+				"webTimetableInstructions": ""
 			}
 		]
 	}

@@ -20,10 +20,10 @@ import {
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import { FaTrashAlt } from "react-icons/fa"
 import reactStringReplace from "react-string-replace"
-import { Course } from "../Course"
-import { useAppContext } from "../SqrlContext"
-import { MeetingCategoryType } from "./timetable/Meeting"
-import { breakdownCourseCode } from "./timetable/MeetingComponent"
+import { Course } from "../../Course"
+import { useAppContext } from "../../SqrlContext"
+import { MeetingCategoryType } from "../timetable/Meeting"
+import { breakdownCourseCode } from "../timetable/MeetingComponent"
 
 const CourseSubheading = ({
     children,
@@ -44,13 +44,7 @@ const CourseSubheading = ({
     </Text>
 )
 
-const SidebarComponent = ({
-    course,
-    identifier,
-}: {
-    course: Course
-    identifier: string
-}) => {
+const SidebarComponent = () => {
     const pillTextColour = useColorModeValue("gray.800", "gray.100")
     const pillColour = useColorModeValue("gray.100", "gray.800")
     const activePillTextColour = useColorModeValue("green.700", "green.100")
@@ -69,24 +63,29 @@ const SidebarComponent = ({
 
     const hoverBackground = useColorModeValue("gray.200", "gray.600")
 
-    const boxBackground = useColorModeValue("gray.75", "gray.700")
-
     const {
-        state: { userMeetings },
+        state: { userMeetings, courses, sidebarCourse: identifier },
         dispatch,
     } = useAppContext()
 
-    const boxRef = useRef<HTMLHeadingElement | null>(null)
+    const course = courses[identifier]
 
     // TODO: meetings out of the timetable's display bounds are hidden without warning. Warn them.
 
-    const { department, numeral, suffix } = breakdownCourseCode(course.code)
+    const boxRef = useRef<HTMLHeadingElement | null>(null)
 
     useEffect(() => {
         if (!boxRef.current) return
-
         boxRef.current?.scrollIntoView({ behavior: "smooth" })
-    }, [boxRef, department, numeral, suffix])
+        // const headerOffset = 500
+        // const elementPosition = boxRef.current.getBoundingClientRect().top
+        // console.log(boxRef.current.offsetTop)
+        // const offsetPosition = elementPosition - headerOffset
+        // window.scrollTo({
+        //     top: offsetPosition,
+        //     behavior: "smooth",
+        // })
+    }, [boxRef, course])
 
     let meetingPicker: Array<React.ReactNode> = []
 
@@ -94,11 +93,25 @@ const SidebarComponent = ({
 
     const [scrolling, setScrolling] = useState<boolean>(false)
 
-    meetingPicker = Object.values(MeetingCategoryType).map((method) => {
-        // const categories = Object.keys(course.meetings).filter((meeting) =>
-        //     meeting.includes(category.substring(0, 3).toUpperCase())
-        // )
+    if (!course) {
+        return (
+            <Box p={5}>
+                <Heading
+                    pb={2}
+                    as="h3"
+                    size="lg"
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
+                    No course
+                </Heading>
+                <Text>Pick a course to see information regarding it.</Text>
+            </Box>
+        )
+    }
 
+    meetingPicker = Object.values(MeetingCategoryType).map((method) => {
         const matchingMethod = course.sections.filter(
             (meeting) =>
                 meeting.teachingMethod.toUpperCase() === method.toUpperCase()
@@ -127,7 +140,12 @@ const SidebarComponent = ({
                         fontSize="sm"
                         pl={0.5}
                         mr={6}
-                        opacity={userMeetings[identifier][method] ? "" : "0.5"}
+                        opacity={
+                            userMeetings[identifier] &&
+                            userMeetings[identifier][method]
+                                ? ""
+                                : "0.5"
+                        }
                         onClick={() => {
                             dispatch({
                                 type: "REMOVE_MEETING",
@@ -143,6 +161,7 @@ const SidebarComponent = ({
                     {matchingMethod.map((section) => {
                         const sectionCode = section.code
                         const isSelected =
+                            userMeetings[identifier] &&
                             userMeetings[identifier][method] === sectionCode
 
                         const meeting = section
@@ -153,11 +172,6 @@ const SidebarComponent = ({
                         // )[0]
                         // A meeting is concerning if it is waitlisting or it has no waitlist and is fully enrolled
                         let concerning = !!parseInt(meeting.actualWaitlist)
-
-                        console.log(
-                            meeting.enrolmentCapacity,
-                            meeting.actualEnrolment
-                        )
 
                         if (
                             // meeting.waitlist === "N" &&
@@ -171,6 +185,7 @@ const SidebarComponent = ({
                                 fontSize="sm"
                                 key={sectionCode}
                                 alignContent="center"
+                                alignItems="center"
                                 gridTemplateColumns="auto auto 1fr auto"
                                 width="100%"
                                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
@@ -335,7 +350,8 @@ const SidebarComponent = ({
                                               } of ${
                                                   meeting.enrolmentCapacity
                                               }${
-                                                  meeting.waitlist === "N"
+                                                  concerning &&
+                                                  !meeting.hasWaitlist
                                                       ? "—No waitlist"
                                                       : ""
                                               }`}
@@ -377,13 +393,12 @@ const SidebarComponent = ({
         )
     })
 
+    const { department, numeral, suffix } = breakdownCourseCode(course.code)
+
     return (
         <Box
-            width="25rem"
-            minHeight="calc(100vh - 4.5rem)"
-            pb={5}
-            background={boxBackground}
-            ref={boxRef}
+            width="100%"
+            height="100%"
             onScroll={() => {
                 if (scrollingTimeoutRef.current) {
                     clearTimeout(scrollingTimeoutRef.current)
@@ -396,6 +411,14 @@ const SidebarComponent = ({
                 }, 200)
             }}
         >
+            <Box
+                ref={boxRef}
+                position="relative"
+                bottom="100rem"
+                visibility="hidden"
+                role="none"
+            ></Box>
+
             <Heading
                 p={5}
                 pb={0}
@@ -411,7 +434,11 @@ const SidebarComponent = ({
                         {suffix}
                     </Text>
                     <Text as="span" fontSize="0.8em" ml={2}>
-                        {course.section}
+                        {(() => {
+                            if (course.term === "FIRST_SEMESTER") return "F"
+                            if (course.term === "SECOND_SEMESTER") return "S"
+                            return "Y"
+                        })()}
                     </Text>
                 </Box>
                 <Box>
@@ -471,7 +498,7 @@ const SidebarComponent = ({
                         {reactStringReplace(
                             course.prerequisites,
                             // three to four alpha characters, two to four digits, H or Y, and a digit
-                            /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
+                            /([A-Za-z]{3,4}\d{2,4}[H,Y]\d?)/g,
                             (match, i) => (
                                 <Button
                                     variant="link"
@@ -493,7 +520,7 @@ const SidebarComponent = ({
                     <Text>
                         {reactStringReplace(
                             course.exclusions,
-                            /([A-Za-z]{3,4}\d{2,4}[H,Y]\d)/g,
+                            /([A-Za-z]{3,4}\d{2,4}[H,Y]\d?)/g,
                             (match, i) => (
                                 <Button
                                     variant="link"
@@ -508,9 +535,9 @@ const SidebarComponent = ({
                     </Text>
                 </Box>
             )}
-            {!!course.webTimetableInstructions.length && (
+            {!!course.webTimetableInstructions?.length && (
                 <Box px={5}>
-                    <CourseSubheading>Distribution</CourseSubheading>
+                    <CourseSubheading>Instructions</CourseSubheading>
                     <Text
                         dangerouslySetInnerHTML={{
                             __html: course.webTimetableInstructions,

@@ -34,17 +34,17 @@ export const StyledHead = styled.tr`
 `
 
 export const StyledTh = styled.th<{ dark: boolean; days?: number }>`
-    z-index: 1;
+    /* z-index: 1;
     position: sticky;
-    top: 0;
+    top: 0; */
 
     border-left: 3px solid red;
-    box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.4);
+    /* box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.4); */
     border-left: 1px solid ${({ dark }) => (dark ? `#414141` : `#e2e8f0`)};
     font-size: 1rem;
     padding: 0.6em 0;
 
-    background-color: #fafafa;
+    /* background-color: #fafafa; */
 
     &:first-of-type {
         border-left: none;
@@ -246,7 +246,7 @@ export interface Palettes {
     rainbow: string[]
 }
 
-const palettes: Palettes = {
+export const palettes: Palettes = {
     default: [
         "hsl(0, 0%, 91.76470588235294%)",
         "hsl(0, 100%, 89.01960784313725%)",
@@ -258,8 +258,9 @@ const palettes: Palettes = {
         "hsl(14.545454545454547, 100%, 93.52941176470588%)",
         "hsl(223.33333333333334, 64.28571428571435%, 89.01960784313725%)",
         "hsl(95.62499999999997, 72.72727272727275%, 91.37254901960785%)",
-        "hsl(167.50000000000003, 63.15789473684209%, 85.09803921568627%)",
-        "hsl(263.99999999999994, 45.45454545454547%, 87.05882352941177%)",
+        // "hsl(167.5, 63.16%, 85%)",
+        // "hsl(264, 45.45454545454547%, 87.05882352941177%)",
+        "#feffd7",
     ],
 
     accessible: [

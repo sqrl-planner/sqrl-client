@@ -14,9 +14,10 @@ import { AppContextProvider } from "./SqrlContext"
 
 const httpLink = createHttpLink({
     uri:
-        process.env.NODE_ENV === "production"
-            ? "https://api.uoft.in/graphql"
-            : "http://localhost:5000/graphql",
+        // process.env.NODE_ENV === "production"
+        //     ? "https://api.uoft.in/graphql"
+        //     : "http://localhost:5000/graphql",
+        "http://localhost:5000/graphql",
 })
 
 // https://dev.to/tmaximini/accessing-authorization-headers-in-apollo-graphql-client-3b50

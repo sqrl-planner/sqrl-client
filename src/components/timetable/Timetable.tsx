@@ -206,6 +206,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         type: "SET_SIDEBAR_COURSE",
                                         payload: meeting.identifier,
                                     })
+                                    dispatchAppContext({
+                                        type: "SET_SIDEBAR",
+                                        payload: 1,
+                                    })
                                 }}
                                 style={{
                                     boxShadow:
@@ -346,6 +350,10 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                         dispatchAppContext({
                                             type: "SET_SIDEBAR_COURSE",
                                             payload: meeting.identifier,
+                                        })
+                                        dispatchAppContext({
+                                            type: "SET_SIDEBAR",
+                                            payload: 1,
                                         })
                                     }}
                                 >

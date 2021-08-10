@@ -15,7 +15,8 @@ import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
 import Header from "./components/Header"
-import Sidebar from "./components/Sidebar"
+import CourseView from "./components/sidebar/CourseView"
+import Sidebar from "./components/sidebar/Sidebar"
 import { Meeting } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
 import { HoverContextProvider } from "./HoverContext"
@@ -94,175 +95,6 @@ const Sqrl = () => {
     ])
 
     useEffect(() => {
-        // for (const [identifier, course] of Object.entries(sampleCourse)) {
-        //     dispatch({ type: "ADD_COURSE", payload: { identifier, course } })
-        // }
-
-        for (const course of sampleApiResponse.data.searchCourses) {
-            dispatch({
-                type: "ADD_COURSE",
-                payload: { identifier: course.id, course },
-            })
-        }
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC258H1-F-20219",
-                meeting: "LEC-0101",
-                method: "lecture",
-            },
-        })
-
-        // dispatch({
-        //     type: "SET_MEETING",
-        //     payload: {
-        //         identifier: "CHM217H1-F-20219",
-        //         meeting: "LEC-0101",
-        //         method: "lecture",
-        //     },
-        // })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "MAT237Y1-Y-20219",
-                meeting: "LEC-0201",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC236H1-F-20219",
-                meeting: "LEC-0201",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC207H1-F-20219",
-                meeting: "LEC-0301",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "STA247H1-F-20219",
-                meeting: "LEC-0101",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "MAT224H1-S-20219",
-                meeting: "LEC-0101",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC209H1-S-20219",
-                meeting: "LEC-0101",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC263H1-S-20219",
-                meeting: "LEC-0201",
-                method: "lecture",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC207H1-F-20219",
-                meeting: "TUT-0301",
-                method: "tutorial",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "MAT237Y1-Y-20219",
-                meeting: "TUT-0301",
-                method: "tutorial",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "STA247H1-F-20219",
-                meeting: "TUT-5103",
-                method: "tutorial",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "MAT224H1-S-20219",
-                meeting: "TUT-0203",
-                method: "tutorial",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC209H1-S-20219",
-                meeting: "TUT-0101",
-                method: "tutorial",
-            },
-        })
-
-        dispatch({
-            type: "SET_MEETING",
-            payload: {
-                identifier: "CSC263H1-S-20219",
-                meeting: "TUT-0201",
-                method: "tutorial",
-            },
-        })
-
-        dispatch({
-            type: "SET_CAMPUS",
-            payload: { campus: "sg", status: true },
-        })
-
-        dispatch({
-            type: "ADD_PROGRAM",
-            payload: {
-                code: "ASSPE1689",
-                title: "Computer Science Specialist",
-            },
-        })
-
-        dispatch({
-            type: "ADD_PROGRAM",
-            payload: {
-                code: "ASFOC1689B",
-                title: "Focus in Artificial Intelligence",
-            },
-        })
-    }, [dispatch])
-
-    useEffect(() => {
         const lsDisclaimed = localStorage.getItem("disclaimed")
 
         if (lsDisclaimed) {
@@ -310,7 +142,7 @@ const Sqrl = () => {
                     onClose,
                 }}
             />
-            <Header />
+            <Header setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
 
             <Container
                 width={sidebarOpen ? "calc(100vw - 25rem)" : "100vw"}
@@ -436,51 +268,16 @@ const Sqrl = () => {
                     />
                 </Flex>
             </Flex>
-            {courses[sidebarCourse] ? (
-                <Box
-                    position="absolute"
-                    right="0"
-                    width="25rem"
-                    top="4.5rem"
-                    height="calc(100vh - 4.5rem)"
-                    overflowX="hidden"
-                >
-                    <Sidebar
-                        identifier={sidebarCourse}
-                        course={courses[sidebarCourse]}
-                    />
-                </Box>
-            ) : (
-                <Box
-                    position="absolute"
-                    right="0"
-                    width="25rem"
-                    top="4.5rem"
-                    height="calc(100vh - 4.5rem)"
-                    overflowX="hidden"
-                >
-                    <Box
-                        p={5}
-                        width="25rem"
-                        // boxShadow="0px 0px 6px rgba(0, 0, 0, 0.2)"
-                        // background={boxBackground}
-                    >
-                        <Heading
-                            pb={2}
-                            as="h3"
-                            size="lg"
-                            display="flex"
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            No course
-                        </Heading>
-                        <Text>
-                            Pick a course to see information regarding it.
-                        </Text>
-                    </Box>
-                </Box>
-            )}
+            <Box
+                position="absolute"
+                right="0"
+                width="25rem"
+                top="4.5rem"
+                height="calc(100vh - 4.5rem)"
+                overflowX="hidden"
+            >
+                <Sidebar />
+            </Box>
         </Fragment>
     )
 }
