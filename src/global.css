@@ -20,17 +20,20 @@ body {
     margin: 1.5rem;
 }
 
-ol {
+ol,
+ul {
     padding-left: 1rem !important;
 }
 
-ol li {
-    padding-bottom: 0.8rem;
+ol li,
+ul li {
+    padding-top: 0.4rem;
 }
 
-ol li:last-child {
+/* ol li:last-child,
+ul li:last-child {
     padding: 0;
-}
+} */
 
 * {
     box-sizing: border-box;

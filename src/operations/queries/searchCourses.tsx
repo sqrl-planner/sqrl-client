@@ -8,6 +8,7 @@ export const SEARCH_COURSES = gql`
             title
             campus
             term
+            breadthCategories
         }
     }
 `

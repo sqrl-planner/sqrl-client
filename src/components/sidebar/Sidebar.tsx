@@ -36,6 +36,7 @@ const Tab = ({ children }: { children: React.ReactNode }) => (
 
 const Sidebar = () => {
     const boxBackground = useColorModeValue("gray.75", "gray.700")
+    const [searchQuery, setSearchQuery] = useState("")
 
     const {
         state: { sidebar },
@@ -89,7 +90,10 @@ const Sidebar = () => {
                     zIndex="0"
                 >
                     <TabPanel p={0}>
-                        <SearchView />
+                        <SearchView
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                        />
                     </TabPanel>
                     <TabPanel p={0}>
                         <CourseView />
