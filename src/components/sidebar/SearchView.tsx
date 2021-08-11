@@ -1,42 +1,31 @@
-import { gql, useLazyQuery } from "@apollo/client"
+import { useLazyQuery } from "@apollo/client"
+import { AddIcon } from "@chakra-ui/icons"
 import {
     Box,
-    FormControl,
     Button,
-    Input,
-    Text,
-    Spinner,
-    Skeleton,
-    FormHelperText,
-    VStack,
-    Flex,
-    Divider,
-    useColorModeValue,
-    FlexProps,
     ButtonProps,
+    Divider,
+    Flex,
+    FlexProps,
+    FormControl,
+    FormHelperText,
+    Input,
+    Skeleton,
+    Spinner,
+    Text,
     Tooltip,
+    useColorModeValue,
+    VStack,
 } from "@chakra-ui/react"
-import React, {
-    Fragment,
-    MutableRefObject,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from "react"
+import { QuestionIcon } from "@chakra-ui/icons"
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion"
+import React, { MutableRefObject, useEffect, useRef, useState } from "react"
 import { useDebouncedCallback } from "use-debounce/lib"
-import { usePreferences } from "../../PreferencesContext"
-import { breakdownCourseCode } from "../timetable/MeetingComponent"
-import { AddIcon } from "@chakra-ui/icons"
-import { useAppContext } from "../../SqrlContext"
 import { GET_COURSE_BY_ID } from "../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
-import {
-    AnimatePresence,
-    AnimateSharedLayout,
-    motion,
-    useReducedMotion,
-} from "framer-motion"
+import { usePreferences } from "../../PreferencesContext"
+import { useAppContext } from "../../SqrlContext"
+import { breakdownCourseCode } from "../timetable/MeetingComponent"
 
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
@@ -147,41 +136,52 @@ const SearchView = ({
                         e.target.select()
                     }}
                 />
-                <FormHelperText mt={3}>
-                    Try "
-                    <Button
-                        variant="link"
-                        fontSize="sm"
-                        onClick={() => {
-                            setSearchQuery("breadth 2")
-                            debouncedZero("breadth 2")
-                        }}
-                    >
-                        breadth 2
+                <FormHelperText
+                    mt={3}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                    <Box>
+                        Try "
+                        <Button
+                            variant="link"
+                            fontSize="sm"
+                            onClick={() => {
+                                setSearchQuery("breadth 2")
+                                debouncedZero("breadth 2")
+                            }}
+                        >
+                            breadth 2
+                        </Button>
+                        ", "
+                        <Button
+                            variant="link"
+                            fontSize="sm"
+                            width="auto"
+                            onClick={() => {
+                                setSearchQuery("PSY")
+                                debouncedZero("PSY")
+                            }}
+                        >
+                            PSY
+                        </Button>
+                        ", or "
+                        <Button
+                            variant="link"
+                            fontSize="sm"
+                            onClick={() => {
+                                setSearchQuery("linear algebra")
+                                debouncedZero("linear algebra")
+                            }}
+                        >
+                            linear algebra
+                        </Button>
+                        ".
+                    </Box>
+                    <Button variant="link" fontSize="sm">
+                        <QuestionIcon mr={1} /> Help
                     </Button>
-                    ", "
-                    <Button
-                        variant="link"
-                        fontSize="sm"
-                        onClick={() => {
-                            setSearchQuery("PSY100")
-                            debouncedZero("PSY100")
-                        }}
-                    >
-                        PSY100
-                    </Button>
-                    ", or "
-                    <Button
-                        variant="link"
-                        fontSize="sm"
-                        onClick={() => {
-                            setSearchQuery("linear algebra")
-                            debouncedZero("linear algebra")
-                        }}
-                    >
-                        linear algebra
-                    </Button>
-                    ".
                 </FormHelperText>
             </FormControl>
             <AnimateSharedLayout>
