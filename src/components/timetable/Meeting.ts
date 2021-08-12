@@ -145,14 +145,17 @@ export class MeetingGroup {
             const meetingA = meetings[i - 1]
             const meetingB = meetings[i]
             // Check overlap
-            if (meetingA.day === meetingB.day && meetingA.endTime > meetingB.startTime) {
+            if (
+                meetingA.day === meetingB.day &&
+                meetingA.endTime > meetingB.startTime
+            ) {
                 return true
             }
         }
         // No overlap
         return false
     }
-    
+
     /**
      * Partition an array of meetings into groups such that each group contains a set of contiguous
      * and possibly overlapping meetings.
@@ -182,4 +185,32 @@ export class MeetingGroup {
         }
         return currentGroups
     }
+}
+
+/**
+ * Partition an array of meetings into groups organized by day.
+ * @returns A Map mapping days to MeetingGroup objects.
+ */
+export const partitionMeetingsByDay = (
+    meetings: Meeting[],
+    days?: Array<Day> | undefined
+): Map<Day, MeetingGroup[]> => {
+    const meetingsMap = new Map()
+    for (const meeting of meetings) {
+        if (!meetingsMap.has(meeting.day)) {
+            meetingsMap.set(meeting.day, [])
+        }
+        meetingsMap.get(meeting.day).push(meeting)
+    }
+
+    const groupsMap = new Map()
+    const allDays = !days ? Array.from(meetingsMap.keys()) : days
+    for (const day of allDays) {
+        if (meetingsMap.has(day)) {
+            groupsMap.set(day, MeetingGroup.partition(meetingsMap.get(day)))
+        } else {
+            groupsMap.set(day, [])
+        }
+    }
+    return groupsMap
 }

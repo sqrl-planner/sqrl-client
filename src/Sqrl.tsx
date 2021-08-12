@@ -51,12 +51,7 @@ const Sqrl = () => {
 
     const {
         state: { courses, userMeetings, sidebarCourse, hoverMeeting },
-        dispatch,
     } = useAppContext()
-
-    // const { data, loading, error } = useQuery(GET_SAMPLE_COURSE)
-
-    // if (data) console.log(data)
 
     const [timetableSize, setTimetableSize] = useState(40)
     const [firstMeetings, setFirstMeetings] = useState<Array<Meeting>>([])

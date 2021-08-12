@@ -30,6 +30,20 @@ ul li {
     padding-top: 0.4rem;
 }
 
+.course-info a {
+    color: var(--chakra-colors-blue-600) !important;
+}
+
+.course-info a::after {
+    content: "↗";
+    /* color: initial; */
+    font-weight: 600;
+}
+
+.course-info a:hover {
+    text-decoration: underline;
+}
+
 /* ol li:last-child,
 ul li:last-child {
     padding: 0;

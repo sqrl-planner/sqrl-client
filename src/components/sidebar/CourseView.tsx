@@ -24,8 +24,9 @@ import { Course } from "../../Course"
 import { useAppContext } from "../../SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
 import { breakdownCourseCode } from "../timetable/MeetingComponent"
+import MeetingPicker from "./MeetingPicker"
 
-const CourseSubheading = ({
+export const CourseSubheading = ({
     children,
     ...rest
 }: {
@@ -45,27 +46,8 @@ const CourseSubheading = ({
 )
 
 const SidebarComponent = () => {
-    const pillTextColour = useColorModeValue("gray.800", "gray.100")
-    const pillColour = useColorModeValue("gray.75", "gray.800")
-    const activePillTextColour = useColorModeValue("green.700", "green.100")
-    const activePillColour = useColorModeValue("green.100", "green.700")
-
-    const concerningPillTextColour = useColorModeValue(
-        "yellow.700",
-        "yellow.100"
-    )
-    // const waitlistPillColour = useColorModeValue("yellow.100", "yellow.900")
-
-    const boxShadowColour = useColorModeValue(
-        "rgba(0,0,0,0.5)",
-        "rgba(255, 255, 255, 0.5)"
-    )
-
-    const hoverBackground = useColorModeValue("gray.100", "gray.600")
-
     const {
-        state: { userMeetings, courses, sidebarCourse: identifier },
-        dispatch,
+        state: { courses, sidebarCourse: identifier },
     } = useAppContext()
 
     const course = courses[identifier]
@@ -77,17 +59,7 @@ const SidebarComponent = () => {
     useEffect(() => {
         if (!boxRef.current) return
         boxRef.current?.scrollIntoView({ behavior: "smooth" })
-        // const headerOffset = 500
-        // const elementPosition = boxRef.current.getBoundingClientRect().top
-        // console.log(boxRef.current.offsetTop)
-        // const offsetPosition = elementPosition - headerOffset
-        // window.scrollTo({
-        //     top: offsetPosition,
-        //     behavior: "smooth",
-        // })
     }, [boxRef, course])
-
-    let meetingPicker: Array<React.ReactNode> = []
 
     const scrollingTimeoutRef = useRef<any>(null)
 
@@ -110,288 +82,6 @@ const SidebarComponent = () => {
             </Box>
         )
     }
-
-    meetingPicker = Object.values(MeetingCategoryType).map((method) => {
-        const matchingMethod = course.sections.filter(
-            (meeting) =>
-                meeting.teachingMethod.toUpperCase() === method.toUpperCase()
-        )
-
-        if (!matchingMethod.length) return <Fragment key={method} />
-
-        return (
-            <Box
-                key={method}
-                // px={5}
-                pointerEvents={scrolling ? "none" : "auto"}
-            >
-                <Flex
-                    width="100%"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    mb={1}
-                >
-                    <CourseSubheading px={5}>{method}</CourseSubheading>
-                    <Icon
-                        cursor="pointer"
-                        as={FaTrashAlt}
-                        position="relative"
-                        top={1.5}
-                        fontSize="sm"
-                        pl={0.5}
-                        mr={6}
-                        opacity={
-                            userMeetings[identifier] &&
-                            userMeetings[identifier][method]
-                                ? ""
-                                : "0.5"
-                        }
-                        onClick={() => {
-                            dispatch({
-                                type: "REMOVE_MEETING",
-                                payload: {
-                                    identifier,
-                                    method,
-                                },
-                            })
-                        }}
-                    />
-                </Flex>
-                <VStack spacing={0}>
-                    {matchingMethod.map((section) => {
-                        const sectionCode = section.code
-                        const isSelected =
-                            userMeetings[identifier] &&
-                            userMeetings[identifier][method] === sectionCode
-
-                        const meeting = section
-
-                        // const meeting = course.sections.filter(
-                        //     (courseSection) =>
-                        //         courseSection.teachingMethod === section
-                        // )[0]
-                        // A meeting is concerning if it is waitlisting or it has no waitlist and is fully enrolled
-                        let concerning = !!parseInt(meeting.actualWaitlist)
-
-                        if (
-                            // meeting.waitlist === "N" &&
-                            meeting.enrolmentCapacity ===
-                            meeting.actualEnrolment
-                        )
-                            concerning = true
-
-                        return (
-                            <Grid
-                                fontSize="sm"
-                                key={sectionCode}
-                                alignContent="center"
-                                alignItems="center"
-                                gridTemplateColumns="auto auto 1fr auto"
-                                width="100%"
-                                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
-                                    isSelected
-                                        ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)`
-                                        : ""
-                                }`}
-                                margin={0}
-                                p={2.5}
-                                pl={5}
-                                fontWeight="600"
-                                cursor={isSelected ? "default" : "pointer"}
-                                _hover={{
-                                    background: isSelected
-                                        ? ""
-                                        : hoverBackground,
-                                }}
-                                transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                                onClick={() => {
-                                    dispatch({
-                                        type: "SET_MEETING",
-                                        payload: {
-                                            identifier,
-                                            meeting: sectionCode,
-                                            method: method,
-                                        },
-                                    })
-                                    dispatch({
-                                        type: "SET_HOVER_MEETING",
-                                        payload: {
-                                            courseIdentifier: "",
-                                            meeting: "",
-                                        },
-                                    })
-                                }}
-                                onMouseEnter={() => {
-                                    if (isSelected) return
-                                    dispatch({
-                                        type: "SET_HOVER_MEETING",
-                                        payload: {
-                                            courseIdentifier: identifier,
-                                            meeting: sectionCode,
-                                        },
-                                    })
-                                }}
-                                onMouseLeave={() => {
-                                    if (isSelected) return
-                                    dispatch({
-                                        type: "SET_HOVER_MEETING",
-                                        payload: {
-                                            courseIdentifier: "",
-                                            meeting: "",
-                                        },
-                                    })
-                                }}
-                                background={
-                                    isSelected ? activePillColour : pillColour
-                                }
-                                color={
-                                    isSelected
-                                        ? activePillTextColour
-                                        : concerning
-                                        ? concerningPillTextColour
-                                        : pillTextColour
-                                }
-                            >
-                                <Box
-                                    mr={4}
-                                    position="relative"
-                                    bottom="0.1rem"
-                                    fontSize="md"
-                                >
-                                    {isSelected ? (
-                                        <CheckIcon />
-                                    ) : (
-                                        <AddIcon
-                                            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                                            _hover={{
-                                                transform: "rotate(90deg)",
-                                            }}
-                                        />
-                                    )}
-                                </Box>
-                                <Text
-                                    fontFamily="interstate-mono, monospace"
-                                    key={sectionCode}
-                                    fontSize="md"
-                                    colorScheme={isSelected ? "green" : "gray"}
-                                >
-                                    {/* TODO: Do we really need this? */}
-                                    {/* <Text as="span" mr="0.2rem">
-                                {meeting.split("-")[0]}
-                            </Text> */}
-                                    {sectionCode.split("-")[1]}
-                                </Text>
-
-                                {/* <Box>{JSON.stringify(meeting.schedule)}</Box> */}
-                                {/* <Flex
-                                    alignItems="center"
-                                    flexWrap="wrap"
-                                    ml={1.5}
-                                >
-                                    {Object.values(meeting.schedule).map(
-                                        (session) => (
-                                            <Text
-                                                _before={{
-                                                    content: `"${session.meetingDay}"`,
-                                                    fontSize: "0.8em",
-                                                    opacity: 0.6,
-                                                }}
-                                                fontFamily="interstate-mono, monospace"
-                                                ml={1}
-                                            >
-                                                {session.meetingStartTime}-
-                                                {session.meetingEndTime}
-                                            </Text>
-                                        )
-                                    )}
-                                </Flex> */}
-
-                                <Skeleton
-                                    width="90%"
-                                    justifySelf="center"
-                                    display="flex"
-                                    alignItems="center"
-                                    // textAlign="left"
-                                    isLoaded={true}
-                                >
-                                    <Text opacity={0.7}>
-                                        {/* {Object.values(
-                                        course.meetings[meeting].schedule
-                                    ).reduce((prev, scheduledMeeting) => {
-                                        return `${prev ? prev + ", " : ""}${
-                                            scheduledMeeting.meetingDay
-                                        } ${
-                                            scheduledMeeting.meetingStartTime
-                                        }-${scheduledMeeting.meetingEndTime}`
-                                    }, "")} */}
-                                        {/* {Object.values(
-                                        course.meetings[meeting].instructors
-                                    ).reduce(
-                                        (prev, instructor) =>
-                                            `${prev ? prev + ", " : ""}${
-                                                instructor.lastName
-                                            }, ${instructor.firstName}.`,
-                                        ""
-                                    )} */}
-
-                                        {parseInt(meeting.actualWaitlist)
-                                            ? // ? "yue"
-                                              `Waitlist ${
-                                                  meeting.actualWaitlist
-                                              } student${
-                                                  parseInt(
-                                                      meeting.actualWaitlist
-                                                  ) === 1
-                                                      ? ""
-                                                      : "s"
-                                              }`
-                                            : `Enrol ${
-                                                  meeting.actualEnrolment
-                                              } of ${
-                                                  meeting.enrolmentCapacity
-                                              }${
-                                                  concerning &&
-                                                  !meeting.hasWaitlist
-                                                      ? "—No waitlist"
-                                                      : ""
-                                              }`}
-                                        {/* <Text as="span" ml={2}>
-                                        {meeting.enrollmentIndicator}
-                                    </Text> */}
-                                    </Text>
-                                </Skeleton>
-                                {/* <Text>{course.meetings[section].online}</Text> */}
-
-                                <Flex
-                                    mx={1}
-                                    alignItems="center"
-                                    // position="relative"
-                                    // bottom="0.1rem"
-                                    fontSize="lg"
-                                >
-                                    {concerning && (
-                                        <Tooltip label="This section may be full">
-                                            <WarningIcon opacity="0.6" />
-                                        </Tooltip>
-                                    )}
-                                    <Button
-                                        variant="link"
-                                        // color="blue.500"
-                                        // m={0}
-                                        onClick={(e) => {
-                                            e.stopPropagation()
-                                        }}
-                                    >
-                                        <QuestionIcon fontSize="lg" />
-                                    </Button>
-                                </Flex>
-                            </Grid>
-                        )
-                    })}
-                </VStack>
-            </Box>
-        )
-    })
 
     const { department, numeral, suffix } = breakdownCourseCode(course.code)
 
@@ -465,9 +155,21 @@ const SidebarComponent = () => {
             <Heading as="h4" size="md" opacity="0.6" mb={2} px={5}>
                 {course.title}
             </Heading>
-            {meetingPicker}
+            {Object.values(MeetingCategoryType).map((method) => (
+                <MeetingPicker
+                    key={method}
+                    method={method}
+                    course={course}
+                    scrolling={scrolling}
+                />
+            ))}
             <Box>
-                <Accordion allowToggle mt={4} borderColor="rgba(0,0,0,0)">
+                <Accordion
+                    allowToggle
+                    mt={4}
+                    borderColor="rgba(0,0,0,0)"
+                    defaultIndex={0}
+                >
                     <AccordionItem>
                         <AccordionButton
                             p={0}
@@ -481,8 +183,9 @@ const SidebarComponent = () => {
                             </CourseSubheading>
                             <AccordionIcon mr={5} />
                         </AccordionButton>
-                        <AccordionPanel px={5} pb={4}>
+                        <AccordionPanel px={5} pt={0} pb={4}>
                             <Text
+                                className="course-info"
                                 dangerouslySetInnerHTML={{
                                     __html: course.description,
                                 }}
@@ -539,6 +242,7 @@ const SidebarComponent = () => {
                 <Box px={5}>
                     <CourseSubheading>Instructions</CourseSubheading>
                     <Text
+                        className="course-info"
                         dangerouslySetInnerHTML={{
                             __html: course.webTimetableInstructions,
                         }}

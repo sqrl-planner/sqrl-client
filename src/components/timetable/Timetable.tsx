@@ -8,7 +8,7 @@ import {
     timeToMinuteOffset,
     WEEK_DAYS,
 } from "../../utils/time"
-import { Meeting, MeetingGroup } from "./Meeting"
+import { Meeting, MeetingGroup, partitionMeetingsByDay } from "./Meeting"
 import MeetingComponent from "./MeetingComponent"
 import {
     MeetingTime,
@@ -103,29 +103,12 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
     const JSONMeetings = JSON.stringify(meetings)
 
-    const groupsByDay = useMemo(() => {
-        const meetingsMap = new Map()
-        for (const meeting of meetings) {
-            if (!meetingsMap.has(meeting.day)) {
-                meetingsMap.set(meeting.day, [])
-            }
-            meetingsMap.get(meeting.day).push(meeting)
-        }
-
-        const groupsMap = new Map()
-        for (const day of days) {
-            if (meetingsMap.has(day)) {
-                groupsMap.set(day, MeetingGroup.partition(meetingsMap.get(day)))
-            } else {
-                groupsMap.set(day, [])
-            }
-        }
-
-        return groupsMap
-        // Disabled because meetings is expressed as a dependency as the JSON string
+    // Disabled because meetings is expressed as a dependency as the JSON string
+    const groupsByDay = useMemo(
+        () => partitionMeetingsByDay(meetings, days),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSONMeetings, days])
-
+        [JSONMeetings, days]
+    )
     const tableRows: Array<React.ReactNode> = []
     for (
         let currentTime = minTime;

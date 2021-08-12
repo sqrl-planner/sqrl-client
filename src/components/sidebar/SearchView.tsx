@@ -44,14 +44,7 @@ const SearchView = ({
 
     const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
-    const {
-        state: { palette },
-    } = usePreferences()
-
-    const {
-        state: { userMeetings },
-        dispatch,
-    } = useAppContext()
+    const { dispatch } = useAppContext()
 
     useEffect(() => {
         searchRef.current.focus()
@@ -61,7 +54,7 @@ const SearchView = ({
         searchRef.current.focus()
     }
 
-    const [search, { called, loading, data, error, fetchMore }] =
+    const [search, { loading, data, error, fetchMore }] =
         useLazyQuery(SEARCH_COURSES)
 
     const debounced = useDebouncedCallback((query) => {
@@ -89,8 +82,6 @@ const SearchView = ({
         },
     ] = useLazyQuery(GET_COURSE_BY_ID, {
         onCompleted: (data) => {
-            console.log(data)
-
             const { courseById: course } = data
             dispatch({
                 type: "ADD_COURSE",
@@ -115,14 +106,12 @@ const SearchView = ({
     if (navigator.userAgent.indexOf("Mac OS X") !== -1) osModifier = "⌘"
     if (navigator.userAgent.indexOf("Windows") !== -1) osModifier = "Ctrl + "
 
-    if (data) console.log(data)
-
     return (
         <Box width="100%" height="100%">
             <FormControl p={5} py={7} pb={4}>
                 <Input
                     boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
-                    placeholder={`Search for a course (${osModifier}K)`}
+                    placeholder={`Search for anything (${osModifier}K)`}
                     ref={searchRef}
                     value={searchQuery}
                     onChange={(e) => {

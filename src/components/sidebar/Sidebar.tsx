@@ -78,7 +78,7 @@ const Sidebar = () => {
                 >
                     <Tab>Search</Tab>
                     <Tab>Course</Tab>
-                    <Tab>Actions</Tab>
+                    <Tab>Overview</Tab>
                 </TabList>
                 <TabPanels
                     position="relative"

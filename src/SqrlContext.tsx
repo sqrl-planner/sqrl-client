@@ -1,5 +1,6 @@
 import React, { createContext } from "react"
 import { Course } from "./Course"
+import { usePreferences } from "./PreferencesContext"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
@@ -179,10 +180,12 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
         case "SET_HOVER_MEETING": {
             const { courseIdentifier, meeting } = action.payload
+
             newContext = {
                 ...state,
                 hoverMeeting: { courseIdentifier, meeting },
             }
+
             break
         }
 
