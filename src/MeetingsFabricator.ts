@@ -42,19 +42,17 @@ const MeetingsFabricator = (
     let meetings: Meeting[] = []
     let index = 0
 
-    for (const [identifier, course] of Object.entries(courses)) {
+    for (const [userCourse, userMeeting] of Object.entries(userMeetings)) {
         index++
-
-        if (
-            course.term !== term &&
-            term !== "FULL_YEAR" &&
-            course.term !== "FULL_YEAR"
-        ) {
-            continue
-        }
-
-        for (const [userCourse, userMeeting] of Object.entries(userMeetings)) {
+        for (const [identifier, course] of Object.entries(courses)) {
             if (identifier !== userCourse) continue
+            if (
+                course.term !== term &&
+                term !== "FULL_YEAR" &&
+                course.term !== "FULL_YEAR"
+            ) {
+                continue
+            }
 
             for (const meetingName of Object.values(userMeeting)) {
                 const meeting = course.sections.filter(

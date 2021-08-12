@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { usePreferences } from "../../PreferencesContext"
 import { capitalize } from "../../utils/misc"
 import { minuteOffsetToTime } from "../../utils/time"
+import { breakdownCourseCode } from "../../utils/course"
 import { Meeting } from "./Meeting"
 
 interface MeetingProps {
@@ -98,24 +99,6 @@ const MiscInfo = styled.div`
     line-height: 1.2em;
     opacity: 0.6;
 `
-
-export const breakdownCourseCode = (title: string) => {
-    const firstDigitContent = title.match(/\d{3,}/g)
-    let firstDigit = 0
-
-    if (firstDigitContent) firstDigit = title.indexOf(firstDigitContent[0])
-
-    const department = title.substring(0, firstDigit)
-    const numeral = firstDigitContent
-        ? title.substr(firstDigit, firstDigitContent[0].length)
-        : title
-
-    const suffix = firstDigitContent
-        ? title.substring(firstDigitContent[0].length + department.length)
-        : ""
-
-    return { department, numeral, suffix }
-}
 
 const MeetingComponent = ({
     meeting,

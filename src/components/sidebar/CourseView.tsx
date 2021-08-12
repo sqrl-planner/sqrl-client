@@ -14,7 +14,7 @@ import React, { useEffect, useRef, useState } from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
-import { breakdownCourseCode } from "../timetable/MeetingComponent"
+import { breakdownCourseCode } from "../../utils/course"
 import MeetingPicker from "./MeetingPicker"
 
 export const CourseSubheading = ({
@@ -36,7 +36,7 @@ export const CourseSubheading = ({
     </Text>
 )
 
-const SidebarComponent = ({ setSearchQuery }: { setSearchQuery: Function }) => {
+const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
         state: { courses, sidebarCourse: identifier },
         dispatch,
@@ -139,7 +139,7 @@ const SidebarComponent = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                             {course.breadthCategories
                                 .match(/\d/g)
                                 ?.sort()
-                                .join(", ")}
+                                .join("&")}
                         </Text>
                     </Tooltip>
                 </Box>
@@ -265,4 +265,4 @@ const SidebarComponent = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     )
 }
 
-export default SidebarComponent
+export default CourseView

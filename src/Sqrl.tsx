@@ -5,7 +5,6 @@ import {
     Grid,
     Heading,
     Icon,
-    Text,
     useColorMode,
     useColorModeValue,
     useDisclosure,
@@ -15,14 +14,12 @@ import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "./components/DisclaimerModal"
 import Header from "./components/Header"
-import CourseView from "./components/sidebar/CourseView"
 import Sidebar from "./components/sidebar/Sidebar"
 import { Meeting } from "./components/timetable/Meeting"
 import { Timetable } from "./components/timetable/Timetable"
 import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
-import sampleApiResponse from "./sampleApiResponse.json"
 import { useAppContext } from "./SqrlContext"
 import { timeToMinuteOffset } from "./utils/time"
 

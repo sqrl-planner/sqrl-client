@@ -25,7 +25,7 @@ import { GET_COURSE_BY_ID } from "../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
 import { usePreferences } from "../../PreferencesContext"
 import { useAppContext } from "../../SqrlContext"
-import { breakdownCourseCode } from "../timetable/MeetingComponent"
+import { breakdownCourseCode } from "../../utils/course"
 
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)

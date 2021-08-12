@@ -37,7 +37,7 @@ import {
     partitionMeetingsByDay,
 } from "../timetable/Meeting"
 import { CourseSubheading } from "./CourseView"
-import { breakdownCourseCode } from "../timetable/MeetingComponent"
+import { breakdownCourseCode } from "../../utils/course"
 
 const ConditionalWrapper = ({
     condition,
@@ -193,10 +193,12 @@ const MeetingPicker = ({
                         ) {
                             for (const m of group.meetings) {
                                 const key = m.getUniqueKey()
-                                if(m.identifier === newMeeting.identifier && m.category === newMeeting.category) continue
                                 if (
-                                    key !== newMeeting.getUniqueKey()
-                                ) {
+                                    m.identifier === newMeeting.identifier &&
+                                    m.category === newMeeting.category
+                                )
+                                    continue
+                                if (key !== newMeeting.getUniqueKey()) {
                                     conflicts.set(key, m)
                                 }
                             }
@@ -232,6 +234,7 @@ const MeetingPicker = ({
                     const hasConflict = conflicts.size > 0
                     return (
                         <ConditionalWrapper
+                            key={sectionCode}
                             condition={hasConflict}
                             wrapper={(children: any) => (
                                 <Tooltip
@@ -259,7 +262,6 @@ const MeetingPicker = ({
                         >
                             <Grid
                                 fontSize="sm"
-                                key={sectionCode}
                                 alignContent="center"
                                 alignItems="center"
                                 gridTemplateColumns="auto auto 1fr auto"
@@ -392,7 +394,7 @@ const MeetingPicker = ({
                                     // textAlign="left"
                                     isLoaded={true}
                                 >
-                                    <Text opacity={hasConflict ? 0.9 : 0.7}>
+                                    <Text opacity={hasConflict ? 1 : 0.7}>
                                         {/* {Object.values(
                                         course.meetings[meeting].schedule
                                     ).reduce((prev, scheduledMeeting) => {

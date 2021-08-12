@@ -13,6 +13,7 @@ import PreferencesApplication from "../preferences/PreferencesApplication"
 import PreferencesMeeting from "../preferences/PreferencesMeeting"
 import PreferencesTimetable from "../preferences/PreferencesTimetable"
 import CourseView from "./CourseView"
+import OverviewView from "./OverviewView"
 import SearchView from "./SearchView"
 
 const Tab = ({ children }: { children: React.ReactNode }) => (
@@ -70,7 +71,7 @@ const Sidebar = () => {
                     position="fixed"
                     zIndex="1"
                     width="25rem"
-                    bg={useColorModeValue("white", "gray.700")}
+                    bg={useColorModeValue("gray.75", "gray.700")}
                     // px={6}
 
                     height="2.8rem"
@@ -98,7 +99,9 @@ const Sidebar = () => {
                     <TabPanel p={0}>
                         <CourseView setSearchQuery={setSearchQuery} />
                     </TabPanel>
-                    <TabPanel p={0}></TabPanel>
+                    <TabPanel p={0}>
+                        <OverviewView />
+                    </TabPanel>
                 </TabPanels>
             </Tabs>
             {/* {sidebar === "course" ? <CourseView /> : "nut"} */}
