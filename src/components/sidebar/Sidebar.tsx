@@ -96,7 +96,7 @@ const Sidebar = () => {
                         />
                     </TabPanel>
                     <TabPanel p={0}>
-                        <CourseView />
+                        <CourseView setSearchQuery={setSearchQuery} />
                     </TabPanel>
                     <TabPanel p={0}></TabPanel>
                 </TabPanels>

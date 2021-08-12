@@ -197,7 +197,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
             if (action.payload !== 1) {
                 newContext = {
                     ...newContext,
-                    sidebarCourse: "",
+                    // sidebarCourse: "",
                     hoverMeeting: { courseIdentifier: "", meeting: "" },
                 }
             }

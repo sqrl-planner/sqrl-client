@@ -1,4 +1,3 @@
-import { AddIcon, CheckIcon, QuestionIcon, WarningIcon } from "@chakra-ui/icons"
 import {
     Accordion,
     AccordionButton,
@@ -7,20 +6,12 @@ import {
     AccordionPanel,
     Box,
     Button,
-    Flex,
-    Grid,
     Heading,
-    Icon,
-    Skeleton,
     Text,
     Tooltip,
-    useColorModeValue,
-    VStack,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useRef, useState } from "react"
-import { FaTrashAlt } from "react-icons/fa"
+import React, { useEffect, useRef, useState } from "react"
 import reactStringReplace from "react-string-replace"
-import { Course } from "../../Course"
 import { useAppContext } from "../../SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
 import { breakdownCourseCode } from "../timetable/MeetingComponent"
@@ -45,9 +36,10 @@ export const CourseSubheading = ({
     </Text>
 )
 
-const SidebarComponent = () => {
+const SidebarComponent = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
         state: { courses, sidebarCourse: identifier },
+        dispatch,
     } = useAppContext()
 
     const course = courses[identifier]
@@ -209,6 +201,13 @@ const SidebarComponent = () => {
                                     key={i}
                                     p={1}
                                     fontFamily="interstate-mono, monospace"
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "SET_SIDEBAR",
+                                            payload: 0,
+                                        })
+                                        setSearchQuery(match)
+                                    }}
                                 >
                                     {match}
                                 </Button>
@@ -230,6 +229,13 @@ const SidebarComponent = () => {
                                     key={i}
                                     p={1}
                                     fontFamily="interstate-mono, monospace"
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "SET_SIDEBAR",
+                                            payload: 0,
+                                        })
+                                        setSearchQuery(match)
+                                    }}
                                 >
                                     {match}
                                 </Button>
