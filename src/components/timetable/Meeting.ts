@@ -88,6 +88,10 @@ export class Meeting {
     getTimeBounds(): [number, number] {
         return [this.startTime, this.endTime]
     }
+
+    getUniqueKey(): string {
+        return `${this.identifier}-${this.category}-${this.section}`
+    }
 }
 
 /**

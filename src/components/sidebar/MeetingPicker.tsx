@@ -39,6 +39,16 @@ import {
 import { CourseSubheading } from "./CourseView"
 import { breakdownCourseCode } from "../timetable/MeetingComponent"
 
+const ConditionalWrapper = ({
+    condition,
+    wrapper,
+    children,
+}: {
+    condition: boolean | any
+    wrapper: any
+    children: React.ReactNode
+}) => (condition ? wrapper(children) : children)
+
 const MeetingPicker = ({
     method,
     course,
@@ -167,7 +177,7 @@ const MeetingPicker = ({
                         ...currentMeetingsSecond,
                     ])
 
-                    const conflicts: Array<Meeting> = []
+                    const conflicts = new Map()
 
                     const detectConflicts = (
                         group: MeetingGroup,
@@ -177,14 +187,14 @@ const MeetingPicker = ({
                             group.meetings.length > 1 &&
                             group.meetings.filter(
                                 (meeting: Meeting) =>
-                                    meeting.identifier ===
-                                        newMeeting.identifier &&
-                                    meeting.section === newMeeting.section
+                                    meeting.getUniqueKey() ===
+                                    newMeeting.getUniqueKey()
                             ).length
                         ) {
                             for (const m of group.meetings) {
-                                if (m.identifier !== newMeeting.identifier) {
-                                    conflicts.push(m)
+                                const key = m.getUniqueKey()
+                                if (key !== newMeeting.getUniqueKey()) {
+                                    conflicts.set(key, m)
                                 }
                             }
                         }
@@ -216,112 +226,140 @@ const MeetingPicker = ({
                         }
                     }
 
-                    const hasConflict = conflicts.length > 0
-
+                    const hasConflict = conflicts.size > 0
+                    console.log(conflicts)
                     return (
-                        <Grid
-                            fontSize="sm"
-                            key={sectionCode}
-                            alignContent="center"
-                            alignItems="center"
-                            gridTemplateColumns="auto auto 1fr auto"
-                            width="100%"
-                            boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
-                                isSelected
-                                    ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)`
-                                    : ""
-                            }`}
-                            margin={0}
-                            p={2.5}
-                            pl={5}
-                            fontWeight="600"
-                            cursor={isSelected ? "default" : "pointer"}
-                            _hover={{
-                                background: isSelected ? "" : hoverBackground,
-                            }}
-                            // border={hasConflict ? "1px solid red" : "none"}
-                            transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                            onClick={() => {
-                                dispatch({
-                                    type: "SET_MEETING",
-                                    payload: {
-                                        identifier,
-                                        meeting: sectionCode,
-                                        method: method,
-                                    },
-                                })
-                                dispatch({
-                                    type: "SET_HOVER_MEETING",
-                                    payload: {
-                                        courseIdentifier: "",
-                                        meeting: "",
-                                    },
-                                })
-                            }}
-                            onMouseEnter={() => {
-                                if (isSelected) return
-                                dispatch({
-                                    type: "SET_HOVER_MEETING",
-                                    payload: {
-                                        courseIdentifier: identifier,
-                                        meeting: sectionCode,
-                                    },
-                                })
-                            }}
-                            onMouseLeave={() => {
-                                if (isSelected) return
-                                dispatch({
-                                    type: "SET_HOVER_MEETING",
-                                    payload: {
-                                        courseIdentifier: "",
-                                        meeting: "",
-                                    },
-                                })
-                            }}
-                            background={
-                                isSelected ? activePillColour : pillColour
-                            }
-                            color={
-                                isSelected
-                                    ? activePillTextColour
-                                    : hasConflict
-                                    ? conflictPillTextColour
-                                    : concerning
-                                    ? concerningPillTextColour
-                                    : pillTextColour
-                            }
+                        <ConditionalWrapper
+                            condition={hasConflict}
+                            wrapper={(children: any) => (
+                                <Tooltip
+                                    label={`This section conflicts with ${Array.from(
+                                        conflicts.values()
+                                    )
+                                        .map((conflict) => {
+                                            const { department, numeral } =
+                                                breakdownCourseCode(
+                                                    conflict.title
+                                                )
+                                            return `${department}${numeral} ${conflict.category
+                                                .substring(0, 3)
+                                                .toUpperCase()}${
+                                                conflict.section
+                                            }`
+                                        })
+                                        .join(", ")}${
+                                        concerning ? ", and may be full" : ""
+                                    }`}
+                                >
+                                    {children}
+                                </Tooltip>
+                            )}
                         >
-                            <Box
-                                mr={3}
-                                position="relative"
-                                bottom="0.1rem"
-                                fontSize="md"
-                            >
-                                {isSelected ? (
-                                    <CheckIcon />
-                                ) : (
-                                    <AddIcon
-                                        opacity={0.7}
-                                        transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-                                        _hover={{
-                                            transform: "rotate(90deg)",
-                                        }}
-                                    />
-                                )}
-                            </Box>
-                            <Text
-                                fontFamily="interstate-mono, monospace"
+                            <Grid
+                                fontSize="sm"
                                 key={sectionCode}
-                                fontSize="md"
-                                colorScheme={isSelected ? "green" : "gray"}
+                                alignContent="center"
+                                alignItems="center"
+                                gridTemplateColumns="auto auto 1fr auto"
+                                width="100%"
+                                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
+                                    isSelected
+                                        ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)`
+                                        : ""
+                                }`}
+                                margin={0}
+                                p={2.5}
+                                pl={5}
+                                fontWeight="600"
+                                cursor={isSelected ? "default" : "pointer"}
+                                _hover={{
+                                    background: isSelected
+                                        ? ""
+                                        : hoverBackground,
+                                }}
+                                // border={hasConflict ? "1px solid red" : "none"}
+                                transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                onClick={() => {
+                                    dispatch({
+                                        type: "SET_MEETING",
+                                        payload: {
+                                            identifier,
+                                            meeting: sectionCode,
+                                            method: method,
+                                        },
+                                    })
+                                    dispatch({
+                                        type: "SET_HOVER_MEETING",
+                                        payload: {
+                                            courseIdentifier: "",
+                                            meeting: "",
+                                        },
+                                    })
+                                }}
+                                onMouseEnter={() => {
+                                    if (isSelected) return
+                                    dispatch({
+                                        type: "SET_HOVER_MEETING",
+                                        payload: {
+                                            courseIdentifier: identifier,
+                                            meeting: sectionCode,
+                                        },
+                                    })
+                                }}
+                                onMouseLeave={() => {
+                                    if (isSelected) return
+                                    dispatch({
+                                        type: "SET_HOVER_MEETING",
+                                        payload: {
+                                            courseIdentifier: "",
+                                            meeting: "",
+                                        },
+                                    })
+                                }}
+                                background={
+                                    isSelected ? activePillColour : pillColour
+                                }
+                                color={
+                                    isSelected
+                                        ? activePillTextColour
+                                        : hasConflict
+                                        ? conflictPillTextColour
+                                        : concerning
+                                        ? concerningPillTextColour
+                                        : pillTextColour
+                                }
                             >
-                                {/* TODO: Maybe make this a pref? */}
-                                {/* <Text as="span" mr="0.2rem" opacity={0.5}> {sectionCode.split("-")[0]} </Text> */}
-                                {sectionCode.split("-")[1]}
-                            </Text>
+                                <Box
+                                    mr={3}
+                                    position="relative"
+                                    bottom="0.1rem"
+                                    fontSize="md"
+                                >
+                                    {isSelected ? (
+                                        <CheckIcon />
+                                    ) : (
+                                        <AddIcon
+                                            opacity={0.7}
+                                            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                            _hover={{
+                                                transform: "rotate(90deg)",
+                                            }}
+                                        />
+                                    )}
+                                </Box>
+                                <Text
+                                    fontFamily="interstate-mono, monospace"
+                                    key={sectionCode}
+                                    fontSize="md"
+                                    colorScheme={isSelected ? "green" : "gray"}
+                                >
+                                    {/* TODO: Maybe make this a pref? */}
+                                    {/* <Text as="span" mr="0.2rem" opacity={0.5}> {sectionCode.split("-")[0]} </Text> */}
+                                    {sectionCode.split("-")[1]}
+                                </Text>
 
-                            {/* <Box>{JSON.stringify(meeting.schedule)}</Box> */}
-                            {/* <Flex
+                                {/* <Box>{JSON.stringify(meeting.schedule)}</Box> */}
+                                {/* <Flex
                                     alignItems="center"
                                     flexWrap="wrap"
                                     ml={1.5}
@@ -344,16 +382,16 @@ const MeetingPicker = ({
                                     )}
                                 </Flex> */}
 
-                            <Skeleton
-                                width="90%"
-                                justifySelf="center"
-                                display="flex"
-                                alignItems="center"
-                                // textAlign="left"
-                                isLoaded={true}
-                            >
-                                <Text opacity={hasConflict ? 0.9 : 0.7}>
-                                    {/* {Object.values(
+                                <Skeleton
+                                    width="90%"
+                                    justifySelf="center"
+                                    display="flex"
+                                    alignItems="center"
+                                    // textAlign="left"
+                                    isLoaded={true}
+                                >
+                                    <Text opacity={hasConflict ? 0.9 : 0.7}>
+                                        {/* {Object.values(
                                         course.meetings[meeting].schedule
                                     ).reduce((prev, scheduledMeeting) => {
                                         return `${prev ? prev + ", " : ""}${
@@ -362,7 +400,7 @@ const MeetingPicker = ({
                                             scheduledMeeting.meetingStartTime
                                         }-${scheduledMeeting.meetingEndTime}`
                                     }, "")} */}
-                                    {/* {Object.values(
+                                        {/* {Object.values(
                                         course.meetings[meeting].instructors
                                     ).reduce(
                                         (prev, instructor) =>
@@ -371,81 +409,62 @@ const MeetingPicker = ({
                                             }, ${instructor.firstName}.`,
                                         ""
                                     )} */}
-                                    {parseInt(section.actualWaitlist)
-                                        ? `Waitlist ${
-                                              section.actualWaitlist
-                                          } student${
-                                              parseInt(
+                                        {parseInt(section.actualWaitlist)
+                                            ? `Waitlist ${
                                                   section.actualWaitlist
-                                              ) === 1
-                                                  ? ""
-                                                  : "s"
-                                          }`
-                                        : `Enrol ${
-                                              section.actualEnrolment
-                                          } of ${section.enrolmentCapacity}${
-                                              concerning && !section.hasWaitlist
-                                                  ? "—No waitlist"
-                                                  : ""
-                                          }`}
-                                    {/* <Text as="span" ml={2}>
+                                              } student${
+                                                  parseInt(
+                                                      section.actualWaitlist
+                                                  ) === 1
+                                                      ? ""
+                                                      : "s"
+                                              }`
+                                            : `Enrol ${
+                                                  section.actualEnrolment
+                                              } of ${
+                                                  section.enrolmentCapacity
+                                              }${
+                                                  concerning &&
+                                                  !section.hasWaitlist
+                                                      ? "—No waitlist"
+                                                      : ""
+                                              }`}
+                                        {/* <Text as="span" ml={2}>
                                         {meeting.enrolmentIndicator}
                                     </Text> */}
-                                </Text>
-                            </Skeleton>
+                                    </Text>
+                                </Skeleton>
 
-                            <Flex mx={1} alignItems="center" fontSize="lg">
-                                {hasConflict ? (
-                                    <Tooltip
-                                        label={`This section conflicts with ${Object.values(
-                                            conflicts
-                                        )
-                                            .map((conflict) => {
-                                                const { department, numeral } =
-                                                    breakdownCourseCode(
-                                                        conflict.title
-                                                    )
-                                                return `${department}${numeral} ${conflict.category
-                                                    .substring(0, 3)
-                                                    .toUpperCase()}${
-                                                    conflict.section
-                                                }`
-                                            })
-                                            .join(", ")}${
-                                            concerning
-                                                ? ", and may be full"
-                                                : ""
-                                        }`}
-                                    >
+                                <Flex mx={1} alignItems="center" fontSize="lg">
+                                    {section.deliveryMode.toUpperCase() ===
+                                        "ONLINE_ASYNC" && (
+                                        <Tooltip label="Asynchronous—no time on timetable.">
+                                            <chakra.span mr={2}>
+                                                <FaInternetExplorer />
+                                            </chakra.span>
+                                        </Tooltip>
+                                    )}
+                                    {hasConflict ? (
                                         <WarningTwoIcon />
-                                    </Tooltip>
-                                ) : concerning ? (
-                                    <Tooltip label="This section may be full">
-                                        <WarningIcon opacity="0.6" />
-                                    </Tooltip>
-                                ) : (
-                                    ""
-                                )}
-                                {section.deliveryMode.toUpperCase() ===
-                                    "ONLINE_ASYNC" && (
-                                    <Tooltip label="Asynchronous—no time on timetable.">
-                                        <chakra.span mr={2}>
-                                            <FaInternetExplorer />
-                                        </chakra.span>
-                                    </Tooltip>
-                                )}
-                                {}
+                                    ) : concerning ? (
+                                        <Tooltip label="This section may be full">
+                                            <WarningIcon opacity="0.6" />
+                                        </Tooltip>
+                                    ) : (
+                                        ""
+                                    )}
 
-                                <Button
-                                    variant="link"
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                    }}
-                                >
-                                    <QuestionIcon fontSize="lg" />
-                                </Button>
-                            </Flex>
-                        </Grid>
+                                    <Button
+                                        variant="link"
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                        }}
+                                    >
+                                        <QuestionIcon fontSize="lg" />
+                                    </Button>
+                                </Flex>
+                            </Grid>
+                        </ConditionalWrapper>
                     )
                 })}
             </VStack>
