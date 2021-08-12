@@ -241,8 +241,6 @@ const SearchView = ({
                             {!!data.searchCourses.length &&
                                 data.searchCourses.map(
                                     (course: any, i: number) => {
-                                        console.log(data.searchCourses)
-
                                         const { department, numeral, suffix } =
                                             breakdownCourseCode(course.code)
                                         return (

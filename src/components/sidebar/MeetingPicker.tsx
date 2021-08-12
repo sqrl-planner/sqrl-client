@@ -193,7 +193,10 @@ const MeetingPicker = ({
                         ) {
                             for (const m of group.meetings) {
                                 const key = m.getUniqueKey()
-                                if (key !== newMeeting.getUniqueKey()) {
+                                if(m.identifier === newMeeting.identifier && m.category === newMeeting.category) continue
+                                if (
+                                    key !== newMeeting.getUniqueKey()
+                                ) {
                                     conflicts.set(key, m)
                                 }
                             }
@@ -227,7 +230,6 @@ const MeetingPicker = ({
                     }
 
                     const hasConflict = conflicts.size > 0
-                    console.log(conflicts)
                     return (
                         <ConditionalWrapper
                             condition={hasConflict}

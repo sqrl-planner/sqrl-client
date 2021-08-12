@@ -98,6 +98,7 @@ const Sidebar = () => {
                     <TabPanel p={0}>
                         <CourseView />
                     </TabPanel>
+                    <TabPanel p={0}></TabPanel>
                 </TabPanels>
             </Tabs>
             {/* {sidebar === "course" ? <CourseView /> : "nut"} */}
