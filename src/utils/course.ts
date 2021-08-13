@@ -1,3 +1,5 @@
+import { Course } from "../Course"
+
 export const breakdownCourseCode = (title: string) => {
     const firstDigitContent = title.match(/\d{3,}/g)
     let firstDigit = 0
@@ -15,3 +17,25 @@ export const breakdownCourseCode = (title: string) => {
 
     return { department, numeral, suffix }
 }
+
+export const breakdownCourseIdentifier = (identifier: string) => {
+    const brokenIdentifier = identifier.split("-")
+
+    return {
+        ...breakdownCourseCode(brokenIdentifier[0]),
+        term: brokenIdentifier[1],
+        terminal: brokenIdentifier[2],
+    }
+}
+
+export const getMeetingTypes = (course: Course) => ({
+    lecture: course.sections.some(
+        (section) => section.teachingMethod === "LECTURE"
+    ),
+    tutorial: course.sections.some(
+        (section) => section.teachingMethod === "TUTORIAL"
+    ),
+    practical: course.sections.some(
+        (section) => section.teachingMethod === "PRACTICAL"
+    ),
+})

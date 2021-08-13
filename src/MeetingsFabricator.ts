@@ -53,6 +53,7 @@ const MeetingsFabricator = (
             ) {
                 continue
             }
+            // if (Object.keys(userMeeting).length) index++
 
             for (const meetingName of Object.values(userMeeting)) {
                 const meeting = course.sections.filter(

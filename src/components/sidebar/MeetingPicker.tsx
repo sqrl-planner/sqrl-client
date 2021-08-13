@@ -1,35 +1,29 @@
 import {
-    CheckIcon,
     AddIcon,
-    WarningIcon,
+    CheckIcon,
     QuestionIcon,
+    WarningIcon,
     WarningTwoIcon,
 } from "@chakra-ui/icons"
 import {
-    chakra,
     Box,
+    Button,
+    chakra,
     Flex,
-    Icon,
-    VStack,
     Grid,
+    Icon,
     Skeleton,
     Text,
     Tooltip,
-    Button,
     useColorModeValue,
+    VStack,
 } from "@chakra-ui/react"
-import React, {
-    Fragment,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from "react"
-import { BiError } from "react-icons/bi"
-import { FaTrashAlt, FaInternetExplorer } from "react-icons/fa"
+import React, { Fragment } from "react"
+import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
 import { Course } from "../../Course"
 import MeetingsFabricator from "../../MeetingsFabricator"
 import { useAppContext, UserMeeting } from "../../SqrlContext"
+import { breakdownCourseCode } from "../../utils/course"
 import {
     Meeting,
     MeetingCategoryType,
@@ -37,9 +31,8 @@ import {
     partitionMeetingsByDay,
 } from "../timetable/Meeting"
 import { CourseSubheading } from "./CourseView"
-import { breakdownCourseCode } from "../../utils/course"
 
-const ConditionalWrapper = ({
+export const ConditionalWrapper = ({
     condition,
     wrapper,
     children,
@@ -262,8 +255,8 @@ const MeetingPicker = ({
                         >
                             <Grid
                                 fontSize="sm"
-                                alignContent="center"
-                                alignItems="center"
+                                // alignContent="center"
+                                // alignItems="center"
                                 gridTemplateColumns="auto auto 1fr auto"
                                 width="100%"
                                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
@@ -388,13 +381,19 @@ const MeetingPicker = ({
 
                                 <Skeleton
                                     width="90%"
+                                    height="100%"
                                     justifySelf="center"
+                                    alignSelf="center"
                                     display="flex"
                                     alignItems="center"
+                                    margin="auto"
                                     // textAlign="left"
                                     isLoaded={true}
                                 >
-                                    <Text opacity={hasConflict ? 1 : 0.7}>
+                                    <Text
+                                        opacity={hasConflict ? 1 : 0.7}
+                                        lineHeight={1}
+                                    >
                                         {/* {Object.values(
                                         course.meetings[meeting].schedule
                                     ).reduce((prev, scheduledMeeting) => {
@@ -440,14 +439,15 @@ const MeetingPicker = ({
                                 </Skeleton>
 
                                 <Flex mx={1} alignItems="center" fontSize="lg">
-                                    {section.deliveryMode.toUpperCase() ===
-                                        "ONLINE_ASYNC" && (
-                                        <Tooltip label="Asynchronous—no time on timetable.">
-                                            <chakra.span mr={2}>
-                                                <FaInternetExplorer />
-                                            </chakra.span>
-                                        </Tooltip>
-                                    )}
+                                    {section.deliveryMode &&
+                                        section.deliveryMode.toUpperCase() ===
+                                            "ONLINE_ASYNC" && (
+                                            <Tooltip label="Asynchronous—no time on timetable.">
+                                                <chakra.span mr={2}>
+                                                    <FaInternetExplorer />
+                                                </chakra.span>
+                                            </Tooltip>
+                                        )}
                                     {hasConflict ? (
                                         <WarningTwoIcon />
                                     ) : concerning ? (
