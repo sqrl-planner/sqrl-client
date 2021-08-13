@@ -31,6 +31,8 @@ export const StyledHead = styled.tr`
     opacity: 0.8;
     z-index: 1;
 
+    text-transform: uppercase;
+
     /* background-color: red; */
 `
 
@@ -42,7 +44,8 @@ export const StyledTh = styled.th<{ dark: boolean; days?: number }>`
     border-left: 3px solid red;
     /* box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.4); */
     border-left: 1px solid ${({ dark }) => (dark ? `#414141` : `#e2e8f0`)};
-    font-size: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
     padding: 0.6em 0;
 
     /* background-color: #fafafa; */

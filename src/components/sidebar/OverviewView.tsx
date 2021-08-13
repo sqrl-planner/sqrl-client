@@ -20,6 +20,7 @@ import {
     breakdownCourseIdentifier,
     getMeetingTypes,
 } from "../../utils/course"
+import { MeetingCategoryType } from "../timetable/Meeting"
 import { ConditionalWrapper } from "./MeetingPicker"
 
 export const CourseSubheading = ({
@@ -169,17 +170,26 @@ const OverviewView = () => {
 
                     return (
                         <Box width="100%" key={term} pb={2}>
-                            <CourseSubheading px={5}>
-                                {term}:{" "}
-                                <Text as="span" fontWeight={500}>
-                                    {credits[term]} credit
-                                    {credits[term] !== 1 && "s"}
-                                    {/* {coursesToShow[term].length} course
-                                    {coursesToShow[term].length !== 1 && "s"} */}
-                                    {term !== "year" &&
-                                        `; ${(credits[term] / 2.5) * 100}%`}
+                            <CourseSubheading
+                                px={5}
+                                display="flex"
+                                justifyContent="space-between"
+                            >
+                                <Box>
+                                    {term}:{" "}
+                                    <Text as="span" fontWeight={500}>
+                                        {credits[term]} credit
+                                        {credits[term] !== 1 && "s"}
+                                        {term !== "year" &&
+                                            `; ${(credits[term] / 2.5) * 100}%`}
+                                    </Text>
+                                </Box>
+                                <Text as="span">
+                                    {coursesToShow[term].length} course
+                                    {coursesToShow[term].length !== 1 && "s"}
                                 </Text>
                             </CourseSubheading>
+
                             {coursesToShow[term].map((identifier: string) => {
                                 const course = courses[identifier]
                                 const { department, numeral, suffix } =
@@ -187,9 +197,7 @@ const OverviewView = () => {
                                 const courseMeetingTypes =
                                     getMeetingTypes(course)
 
-                                let missing: Array<
-                                    "lecture" | "tutorial" | "practical"
-                                > = []
+                                let missing: Array<MeetingCategoryType> = []
 
                                 for (const [
                                     meetingType,
@@ -199,17 +207,11 @@ const OverviewView = () => {
 
                                     if (
                                         !userMeetings[identifier][
-                                            meetingType as
-                                                | "lecture"
-                                                | "tutorial"
-                                                | "practical"
+                                            meetingType as MeetingCategoryType
                                         ]
                                     ) {
                                         missing.push(
-                                            meetingType as
-                                                | "lecture"
-                                                | "tutorial"
-                                                | "practical"
+                                            meetingType as MeetingCategoryType
                                         )
                                     }
                                 }
@@ -293,10 +295,9 @@ const OverviewView = () => {
                                                     <Tag key={method} ml={2}>
                                                         {userMeetings[
                                                             identifier
-                                                        ][method].replace(
-                                                            "-",
-                                                            " "
-                                                        )}
+                                                        ][
+                                                            method as MeetingCategoryType
+                                                        ]?.replace("-", " ")}
                                                         {/* {userMeetings[identifier][method]} */}
                                                     </Tag>
                                                 ))}
