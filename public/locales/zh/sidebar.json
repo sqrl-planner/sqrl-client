@@ -3,5 +3,14 @@
 	"course": "课程",
 	"overview": "概述",
 	"search-hint": "尝试搜索",
-	"search-hint-or": "或"
+	"search-hint-or": "或",
+	"lecture": "课程",
+	"tutorial": "教程",
+	"practical": "实践",
+	"description": "课程信息",
+	"prerequisites": "须知",
+	"credit": "学分",
+	"first": "第一学期",
+	"second": "第二学期",
+	"year": "全年"
 }

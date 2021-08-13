@@ -17,7 +17,7 @@ import { MeetingCategoryType } from "../timetable/Meeting"
 import { breakdownCourseCode } from "../../utils/course"
 import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
-
+import { useTranslation } from "next-i18next"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
@@ -59,6 +59,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     }
 
     const { department, numeral, suffix } = breakdownCourseCode(course.code)
+
+    const { t } = useTranslation("common")
 
     return (
         <Box
@@ -153,7 +155,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                             justifyContent="space-between"
                             alignItems="center"
                         >
-                                <CourseSubheading my={2} px={5}>Description</CourseSubheading>
+                            <CourseSubheading my={2} px={5}>
+                                {t("sidebar:description")}
+                            </CourseSubheading>
                             <AccordionIcon mr={5} />
                         </AccordionButton>
                         <AccordionPanel px={5} pt={0} pb={4}>
@@ -169,7 +173,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             </Box>
             {!!course.prerequisites.length && (
                 <Box mx={5}>
-                    <CourseSubheading>Prerequisites</CourseSubheading>
+                    <CourseSubheading>
+                        {t("sidebar:prerequisites")}
+                    </CourseSubheading>
                     <Text>
                         {reactStringReplace(
                             course.prerequisites,

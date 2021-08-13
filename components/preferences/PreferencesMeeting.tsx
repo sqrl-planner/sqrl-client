@@ -1,5 +1,6 @@
 import { WarningTwoIcon } from "@chakra-ui/icons"
 import { FormControl, FormLabel, Icon, Select } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
 import { FaClock, FaGlassMartiniAlt, FaTruckMoving } from "react-icons/fa"
@@ -35,6 +36,8 @@ const PreferencesMeeting = () => {
         dispatch({ type: "SET_CURRENT_PREF_TAB", payload: 2 })
     }, [dispatch])
 
+    const { t } = useTranslation("preferences")
+
     return (
         <Fragment>
             <PreferencesSection>
@@ -45,7 +48,7 @@ const PreferencesMeeting = () => {
                         as: FaClock,
                     }}
                 >
-                    Meeting times
+                    {t("meeting-times")}
                 </PreferencesToggle>
                 <PreferencesToggle
                     isChecked={showCourseSuffix}
@@ -56,7 +59,7 @@ const PreferencesMeeting = () => {
                     }}
                     helperText="Show course credit designator (Y1, H1, H5, etc.)."
                 >
-                    Course suffix
+                    {t("course-suffix")}
                 </PreferencesToggle>
                 <PreferencesToggle
                     isChecked={showDelivery}
@@ -66,7 +69,7 @@ const PreferencesMeeting = () => {
                     }}
                     helperText="Show medium of delivery (OS, OA, IP)."
                 >
-                    Delivery method
+                    {t("delivery-method")}
                 </PreferencesToggle>
 
                 <PreferencesToggle
@@ -77,7 +80,7 @@ const PreferencesMeeting = () => {
                     }}
                     helperText="Show meeting category (LEC, TUT, PRA)."
                 >
-                    Meeting category
+                    {t("meeting-category")}
                 </PreferencesToggle>
 
                 <PreferencesToggle
@@ -88,7 +91,7 @@ const PreferencesMeeting = () => {
                     }}
                     helperText="Show meeting section (e.g. 0101)."
                 >
-                    Meeting section
+                    {t("meeting-section")}
                 </PreferencesToggle>
             </PreferencesSection>
 
@@ -100,7 +103,7 @@ const PreferencesMeeting = () => {
                         as: WarningTwoIcon,
                     }}
                 >
-                    Highlight conflicts
+                    {t("highlight-conflicts")}
                 </PreferencesToggle>
             </PreferencesSection>
 
@@ -110,7 +113,7 @@ const PreferencesMeeting = () => {
                         <IconWrapper>
                             <Icon as={GiResize} />
                         </IconWrapper>
-                        Scale
+                        {t("scale")}
                     </FormLabel>
                     <Select
                         id="scale"
@@ -124,9 +127,9 @@ const PreferencesMeeting = () => {
                             })
                         }}
                     >
-                        <option value="20">Compact</option>
-                        <option value="40">Normal</option>
-                        <option value="100">Tall</option>
+                        <option value="20"> {t("compact")}</option>
+                        <option value="40"> {t("normal")}</option>
+                        <option value="100"> {t("tall")}</option>
                     </Select>
                 </FormControl>
             </PreferencesSection>

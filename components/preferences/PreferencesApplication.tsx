@@ -21,6 +21,7 @@ import {
     UnorderedList,
     useColorMode,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
@@ -51,6 +52,7 @@ const PreferencesApplication = () => {
     const initRef = useRef<HTMLButtonElement>(null)
 
     const { colorMode, toggleColorMode } = useColorMode()
+    const { t } = useTranslation("preferences")
 
     return (
         <Fragment>
@@ -60,7 +62,7 @@ const PreferencesApplication = () => {
                         <IconWrapper>
                             <Icon as={FaTemperatureHigh} />
                         </IconWrapper>
-                        Programs & focuses
+                        {t("programs-focuses")}
                     </FormLabel>
                     <Input
                         variant="outline"
@@ -169,7 +171,7 @@ const PreferencesApplication = () => {
                         <IconWrapper>
                             <Icon as={FaSchool} />
                         </IconWrapper>
-                        Campus
+                        {t("campus")}
                     </FormLabel>
                     {JSON.stringify(campus, null, 2)} <br />
                     TODO: Add campus selection
@@ -185,7 +187,7 @@ const PreferencesApplication = () => {
                         as: colorMode === "light" ? MoonIcon : FaSun,
                     }}
                 >
-                    Dark mode
+                {t("dark-mode")}
                 </PreferencesToggle>
             </PreferencesSection>
         </Fragment>

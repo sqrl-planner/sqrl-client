@@ -1,4 +1,5 @@
 import { Grid, useRadioGroup } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React from "react"
 import { usePreferences } from "../../PreferencesContext"
 import { capitalize } from "../../utils/misc"
@@ -22,13 +23,15 @@ const PreferencesShowSections = () => {
 
     const group = getRootProps()
 
+    const { t } = useTranslation("preferences")
+
     return (
         <Grid gridTemplateColumns="repeat(3, auto)" {...group} gap={4}>
             {options.map((value) => {
                 const radio = getRadioProps({ value, enterKeyHint: "enter" })
                 return (
                     <RadioTextCard key={value} {...radio}>
-                        {capitalize(value)}
+                        {t(value)}
                     </RadioTextCard>
                 )
             })}

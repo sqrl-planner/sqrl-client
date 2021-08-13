@@ -11,6 +11,7 @@ import {
     Tooltip,
     useToast,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import { BsFillCalendarFill } from "react-icons/bs"
 import { FaPalette } from "react-icons/fa"
@@ -99,6 +100,8 @@ const PreferencesTimetable = () => {
         })
     }, [start, times, end, toast])
 
+    const { t } = useTranslation("preferences")
+
     return (
         <Fragment>
             <PreferencesSection>
@@ -107,7 +110,7 @@ const PreferencesTimetable = () => {
                         <IconWrapper>
                             <Icon as={BsFillCalendarFill} />
                         </IconWrapper>
-                        Show semester
+                        {t("show-semester")}
                     </FormLabel>
                     <PreferencesShowSections />
                     {showSemester !== "both" && (
@@ -129,7 +132,7 @@ const PreferencesTimetable = () => {
                         as: Ri24HoursLine,
                     }}
                 >
-                    24-hour time
+                    {t("twenty-four")}
                 </PreferencesToggle>
                 <Grid gridTemplateColumns="1fr 1fr auto" gap={3} pb={2}>
                     <FormControl mr={3}>
@@ -137,7 +140,7 @@ const PreferencesTimetable = () => {
                             <IconWrapper>
                                 <TriangleDownIcon />
                             </IconWrapper>
-                            Start
+                            {t("start")}
                         </FormLabel>
                         <Select
                             id="start"
@@ -166,7 +169,7 @@ const PreferencesTimetable = () => {
                             <IconWrapper>
                                 <TriangleUpIcon />
                             </IconWrapper>
-                            End
+                            {t("end")}
                         </FormLabel>
                         <Select
                             id="end"
@@ -217,7 +220,7 @@ const PreferencesTimetable = () => {
                                     })
                                 }}
                             >
-                                Autoclamp
+                                {t("autoclamp")}
                             </Button>
                         </Tooltip>
                     </FormControl>
@@ -242,10 +245,11 @@ const PreferencesTimetable = () => {
                             : "hover"
                     }.`}
                 >
-                    Emphasize on{" "}
+                    {/* Emphasize on{" "}
                     {window.matchMedia("(hover: none)").matches
                         ? "tap"
-                        : "hover"}
+                        : "hover"} */}
+                    {t("emphasize-on-hover")}
                 </PreferencesToggle>
             </PreferencesSection>
             <PreferencesSection>
@@ -254,7 +258,7 @@ const PreferencesTimetable = () => {
                         <IconWrapper>
                             <Icon as={FaPalette} />
                         </IconWrapper>
-                        Palette
+                        {t("palette")}
                     </FormLabel>
                     <Select
                         id="palette"

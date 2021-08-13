@@ -3,6 +3,16 @@
 	"course": "Course",
 	"overview": "Overview",
 	"search-hint": "Try",
-	"search-hint-or": "or"
-
+	"search-hint-or": "or",
+	"lecture": "Lecture",
+	"tutorial": "Tutorial",
+	"practical": "Practical",
+	"description": "Description",
+	"prerequisites": "Prerequisites",
+	"credit": "Credit",
+	"credit_plural": "Credits",
+	"course_plural": "Courses",
+	"first": "First",
+	"second": "Second",
+	"year": "Year"
 }

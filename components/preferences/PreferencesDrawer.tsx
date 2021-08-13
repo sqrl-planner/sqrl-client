@@ -18,6 +18,7 @@ import { usePreferences } from "../../PreferencesContext"
 import PreferencesTimetable from "./PreferencesTimetable"
 import PreferencesMeeting from "./PreferencesMeeting"
 import PreferencesApplication from "./PreferencesApplication"
+import { useTranslation } from "next-i18next"
 
 const Tab = ({ children }: { children: React.ReactNode }) => (
     <ChakraTab
@@ -45,13 +46,14 @@ const PreferencesDrawer = (props: {
     const {
         state: { currentPrefTab },
     } = usePreferences()
+    const { t } = useTranslation("preferences")
     return (
         <Drawer {...props.drawerProps} size="md">
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton size="lg" />
                 <DrawerHeader fontSize="3xl" fontWeight="700" height="4.5rem">
-                    Preferences
+                    {t("preferences")}
                 </DrawerHeader>
 
                 <DrawerBody p={0} userSelect="none">
@@ -70,9 +72,9 @@ const PreferencesDrawer = (props: {
                             height="2.8rem"
                             boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
                         >
-                            <Tab>Application</Tab>
-                            <Tab>Timetable</Tab>
-                            <Tab>Meeting</Tab>
+                            <Tab>{t("application")}</Tab>
+                            <Tab>{t("timetable")}</Tab>
+                            <Tab>{t("meeting")}</Tab>
                         </TabList>
                         <TabPanels position="relative" top="10" zIndex="0">
                             <TabPanel>

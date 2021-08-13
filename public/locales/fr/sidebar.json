@@ -3,5 +3,15 @@
 	"course": "Cours",
 	"overview": "Aperçu",
 	"search-hint": "Essayez",
-	"search-hint-or": "ou"
+	"search-hint-or": "ou",
+	"lecture": "Cours",
+	"tutorial": "Totoriel",
+	"practical": "Pratique",
+	"description": "Description",
+	"prerequisites": "Prérequis",
+	"credit": "Crédit",
+	"credit_plural": "Crédits",
+	"first": "Première",
+	"second": "Deuxième",
+	"year": "Année"
 }

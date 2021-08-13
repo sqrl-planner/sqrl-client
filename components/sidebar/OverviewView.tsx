@@ -13,6 +13,7 @@ import {
     useColorModeValue,
     VStack,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useState } from "react"
 import { useAppContext } from "../../SqrlContext"
 import {
@@ -100,6 +101,8 @@ const OverviewView = () => {
         }
     }, [coursesToShow])
 
+    const { t } = useTranslation("sidebar")
+
     return (
         <Box width="100%" height="100%">
             {/* <Heading
@@ -123,7 +126,9 @@ const OverviewView = () => {
                             )
                             return (
                                 <Fragment>
-                                    <StatLabel>Credits</StatLabel>
+                                    <StatLabel>
+                                        {t("credit", { count: total })}
+                                    </StatLabel>
                                     <StatNumber
                                         color={useColorModeValue(
                                             "green.600",
@@ -143,15 +148,25 @@ const OverviewView = () => {
                     </Stat>
 
                     <Stat>
-                        <StatLabel>Courses</StatLabel>
-                        <StatNumber fontSize="3xl">
-                            {Object.values(coursesToShow).reduce(
+                        {(() => {
+                            const courses = Object.values(coursesToShow).reduce(
                                 (prev, courses) =>
                                     Object.keys(courses).length + prev,
                                 0
-                            )}
-                        </StatNumber>
-                        <StatHelpText>in this year.</StatHelpText>
+                            )
+                            return (
+                                <Fragment>
+                                    <StatLabel>
+                                        {t("course", { count: courses })}
+                                    </StatLabel>
+                                    <StatNumber fontSize="3xl">
+                                        {courses}
+                                    </StatNumber>
+                                    <StatHelpText>in this year.</StatHelpText>
+                                </Fragment>
+                            )
+                        })()}
+
                         {/* <StatHelpText>
                             {Object.keys(coursesToShow).map((term) => {
                                 return `${
@@ -180,17 +195,21 @@ const OverviewView = () => {
                                 justifyContent="space-between"
                             >
                                 <Box>
-                                    {term}:{" "}
+                                    {t(term)}:{" "}
                                     <Text as="span" fontWeight={500}>
-                                        {credits[term]} credit
-                                        {credits[term] !== 1 && "s"}
+                                        {credits[term]}{" "}
+                                        {t("credit", {
+                                            count: credits[term],
+                                        })}
                                         {term !== "year" &&
                                             `; ${(credits[term] / 2.5) * 100}%`}
                                     </Text>
                                 </Box>
                                 <Text as="span">
-                                    {coursesToShow[term].length} course
-                                    {coursesToShow[term].length !== 1 && "s"}
+                                    {coursesToShow[term].length}{" "}
+                                    {t("course", {
+                                        count: coursesToShow[term].length,
+                                    })}
                                 </Text>
                             </CourseSubheading>
 

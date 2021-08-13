@@ -18,6 +18,7 @@ import {
     useColorModeValue,
     VStack,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment } from "react"
 import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
 import { Course } from "../../Course"
@@ -81,6 +82,8 @@ const MeetingPicker = ({
             meeting.teachingMethod.toUpperCase() === method.toUpperCase()
     )
 
+    const { t } = useTranslation("sidebar")
+
     if (!matchingMethod.length) return <Fragment />
 
     return (
@@ -94,7 +97,7 @@ const MeetingPicker = ({
                 alignItems="center"
                 mb={1}
             >
-                    <CourseSubheading px={5}>{method}</CourseSubheading>
+                <CourseSubheading px={5}>{t(method)}</CourseSubheading>
                 <Icon
                     cursor="pointer"
                     as={FaTrashAlt}
