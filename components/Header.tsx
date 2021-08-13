@@ -7,6 +7,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import { useAppContext } from "../SqrlContext"
@@ -61,6 +62,9 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     }, [keydownListener])
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const { t } = useTranslation("common")
+
     return (
         <HeaderComponent bg={useColorModeValue("white", "gray.700")}>
             <Heading
@@ -106,7 +110,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
                     setSidebarOpen(true)
                     dispatch({ type: "SET_SIDEBAR", payload: 0 })
                 }}
-            >{`Search for anything (${osModifier}K)`}</Input>
+            >{`${t("search-anything")} (${osModifier}K)`}</Input>
 
             <div>
                 <Button

@@ -3,6 +3,12 @@
 	"tue": "mar",
 	"wed": "mer",
 	"thu": "jeu",
-	"fri": "ven"
+	"fri": "ven",
+	"lec": "CRS",
+	"tut": "TUT",
+	"pra": "PRA",
+	"first-semester": "1re",
+	"second-semester": "2e",
+	"search-anything": "Chercher n'importe quoi"
 
 }

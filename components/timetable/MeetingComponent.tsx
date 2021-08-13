@@ -6,6 +6,7 @@ import { capitalize } from "../../utils/misc"
 import { minuteOffsetToTime } from "../../utils/time"
 import { breakdownCourseCode } from "../../utils/course"
 import { Meeting } from "./Meeting"
+import { useTranslation } from "next-i18next"
 
 interface MeetingProps {
     meeting: Meeting
@@ -20,9 +21,9 @@ const deliveryAbbreviations = {
 }
 
 const categoryAbbreviations = {
-    tutorial: "TUT",
-    lecture: "LEC",
-    practical: "PRA",
+    tutorial: "tut",
+    lecture: "lec",
+    practical: "pra",
 }
 
 const MeetingTitle = styled.div`
@@ -122,6 +123,8 @@ const MeetingComponent = ({
     const startTime = minuteOffsetToTime(meeting.startTime, twentyFour)
     const endTime = minuteOffsetToTime(meeting.endTime, twentyFour)
 
+    const { t } = useTranslation("common")
+
     return (
         <MeetingInformation darkText={darkText}>
             <MeetingTitle>
@@ -172,7 +175,7 @@ const MeetingComponent = ({
                                 lineHeight="1em"
                             >
                                 <div>
-                                    {categoryAbbreviations[meeting.category]}
+                                    {t(categoryAbbreviations[meeting.category])}
                                 </div>
                                 {meeting.section}
                             </Flex>
@@ -185,7 +188,7 @@ const MeetingComponent = ({
                                 lineHeight="1em"
                             >
                                 <div>
-                                    {categoryAbbreviations[meeting.category]}
+                                    {t(categoryAbbreviations[meeting.category])}
                                 </div>
                             </Flex>
                         ) : (

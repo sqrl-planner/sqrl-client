@@ -9,6 +9,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
@@ -125,6 +126,8 @@ const Sqrl = () => {
         }
     }, [setColorMode])
 
+    const { t } = useTranslation("common")
+
     return (
         <Fragment>
             <DisclaimerModal
@@ -164,10 +167,10 @@ const Sqrl = () => {
                                     color="blue.600"
                                     fontWeight="800"
                                     position="absolute"
-                                    top={3}
+                                    top={2}
                                     left={3}
                                 >
-                                    1<sup>st</sup>
+                                    {t("first-semester")}
                                 </Heading>
                                 <Timetable
                                     meetings={firstMeetings}
@@ -191,10 +194,10 @@ const Sqrl = () => {
                                     color="green.600"
                                     fontWeight="800"
                                     position="absolute"
-                                    top={3}
+                                    top={2}
                                     left={3}
                                 >
-                                    2<sup>nd</sup>
+                                    {t("second-semester")}
                                 </Heading>
                                 <Timetable
                                     meetings={secondMeetings}

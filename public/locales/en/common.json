@@ -4,4 +4,10 @@
 	"wed": "wed",
 	"thu": "thu",
 	"fri": "fri",
+	"lec": "LEC",
+	"tut": "TUT",
+	"pra": "PRA",
+	"first-semester": "1st",
+	"second-semester": "2nd",
+	"search-anything": "Search for anything"
 }

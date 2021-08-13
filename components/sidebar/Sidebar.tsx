@@ -7,6 +7,7 @@ import {
     Tabs,
     useColorModeValue,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { useState } from "react"
 import { useAppContext } from "../../SqrlContext"
 import CourseView from "./CourseView"
@@ -41,6 +42,8 @@ const Sidebar = () => {
         dispatch,
     } = useAppContext()
 
+    const { t } = useTranslation("sidebar")
+
     return (
         <Box
             width="25rem"
@@ -74,9 +77,9 @@ const Sidebar = () => {
                     height="2.8rem"
                     boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
                 >
-                    <Tab>Search</Tab>
-                    <Tab>Course</Tab>
-                    <Tab>Overview</Tab>
+                    <Tab>{t("search")}</Tab>
+                    <Tab>{t("course")}</Tab>
+                    <Tab>{t("overview")}</Tab>
                 </TabList>
                 <TabPanels
                     position="relative"

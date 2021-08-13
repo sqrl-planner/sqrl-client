@@ -26,6 +26,7 @@ import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
 import { usePreferences } from "../../PreferencesContext"
 import { useAppContext } from "../../SqrlContext"
 import { breakdownCourseCode } from "../../utils/course"
+import { useTranslation } from "next-i18next"
 
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
@@ -101,12 +102,14 @@ const SearchView = ({
         },
     })
 
+    const { t } = useTranslation(["common", "sidebar"])
+
     return (
         <Box width="100%" height="100%">
             <FormControl p={5} py={7} pb={4}>
                 <Input
                     boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
-                    placeholder="Search for anything"
+                    placeholder={t("search-anything")}
                     ref={searchRef}
                     value={searchQuery}
                     onChange={(e) => {
@@ -127,7 +130,8 @@ const SearchView = ({
                     justifyContent="space-between"
                 >
                     <Box>
-                        Try "
+                        {t("sidebar:search-hint")}
+                        {/* "
                         <Button
                             variant="link"
                             fontSize="sm"
@@ -138,19 +142,19 @@ const SearchView = ({
                         >
                             breadth 2
                         </Button>
-                        ", "
+                        ", " */}{" "} "
                         <Button
                             variant="link"
                             fontSize="sm"
                             width="auto"
                             onClick={() => {
-                                setSearchQuery("PSY")
-                                debouncedZero("PSY")
+                                setSearchQuery("psy100")
+                                debouncedZero("psy100")
                             }}
                         >
-                            PSY
-                        </Button>
-                        ", or "
+                            psy100
+                        </Button>{" "}
+                         {t("sidebar:search-hint-or")} "
                         <Button
                             variant="link"
                             fontSize="sm"
