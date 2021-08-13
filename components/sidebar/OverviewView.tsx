@@ -28,6 +28,7 @@ export const CourseSubheading = ({
     ...rest
 }: {
     children: React.ReactNode
+    [key: string]: any
 }) => (
     <Text
         textTransform="uppercase"
@@ -124,7 +125,10 @@ const OverviewView = () => {
                                 <Fragment>
                                     <StatLabel>Credits</StatLabel>
                                     <StatNumber
-                                        color="green.600"
+                                        color={useColorModeValue(
+                                            "green.600",
+                                            "green.400"
+                                        )}
                                         fontSize="3xl"
                                     >
                                         {total.toFixed(1)}

@@ -101,20 +101,12 @@ const SearchView = ({
         },
     })
 
-    let osModifier: string = ""
-
-    if (typeof window !== "undefined") {
-        if (navigator.userAgent.indexOf("Mac OS X") !== -1) osModifier = "⌘"
-        if (navigator.userAgent.indexOf("Windows") !== -1)
-            osModifier = "Ctrl + "
-    }
-
     return (
         <Box width="100%" height="100%">
             <FormControl p={5} py={7} pb={4}>
                 <Input
                     boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
-                    placeholder={`Search for anything (${osModifier}K)`}
+                    placeholder="Search for anything"
                     ref={searchRef}
                     value={searchQuery}
                     onChange={(e) => {

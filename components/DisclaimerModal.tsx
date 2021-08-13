@@ -140,7 +140,7 @@ const DisclaimerModal = (props: {
                                     "disclaimed",
                                     JSON.stringify(true)
                                 )
-                                onClose()
+                                if (onClose) onClose()
                             }}
                         >
                             OK

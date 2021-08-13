@@ -6,6 +6,7 @@ import client from "../apollo-client"
 import { AppContextProvider } from "../SqrlContext"
 import { PreferencesProvider } from "../PreferencesContext"
 import { ApolloProvider } from "@apollo/client"
+import { appWithTranslation } from "next-i18next"
 
 export const theme = extendTheme({
     fonts: {
@@ -38,7 +39,7 @@ export const theme = extendTheme({
     },
 })
 
-function MyApp({ Component, pageProps }: AppProps) {
+function Application({ Component, pageProps }: AppProps) {
     return (
         <ChakraProvider theme={theme}>
             <PreferencesProvider>
@@ -51,4 +52,4 @@ function MyApp({ Component, pageProps }: AppProps) {
         </ChakraProvider>
     )
 }
-export default MyApp
+export default appWithTranslation(Application)

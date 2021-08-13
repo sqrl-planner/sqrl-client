@@ -7,11 +7,8 @@ import {
     Tabs,
     useColorModeValue,
 } from "@chakra-ui/react"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import { useAppContext } from "../../SqrlContext"
-import PreferencesApplication from "../preferences/PreferencesApplication"
-import PreferencesMeeting from "../preferences/PreferencesMeeting"
-import PreferencesTimetable from "../preferences/PreferencesTimetable"
 import CourseView from "./CourseView"
 import OverviewView from "./OverviewView"
 import SearchView from "./SearchView"

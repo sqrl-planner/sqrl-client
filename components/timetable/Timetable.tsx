@@ -1,4 +1,5 @@
 import { Flex } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { FunctionComponent, useMemo } from "react"
 import { useHoverContext } from "../../HoverContext"
 import { useAppContext } from "../../SqrlContext"
@@ -98,6 +99,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
         dispatch({ type: "SET_CURRENT_HOVER", payload: courseKey })
     }
 
+    const { t } = useTranslation("common")
+
     // TODO: Ensure 0 < minTime < maxTime <= 60 * 24
     // TODO: Ensure that 0 < resolution <= 60
 
@@ -124,7 +127,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
 
         for (const day of days) {
             let isOccupied = false
-            for (const group of groupsByDay.get(day)) {
+            for (const group of groupsByDay!.get(day) as any) {
                 const groupStartTime = group.getMinStartTime()
                 const groupEndTime = group.getMaxEndTime()
                 if (
@@ -405,7 +408,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                         <StyledTh dark={dark}></StyledTh>
                         {days.map((day, index) => (
                             <StyledTh key={index} dark={dark}>
-                                {day.toString().substr(0, 3)}
+                                {t(day.toString().substr(0, 3).toLowerCase())}
                             </StyledTh>
                         ))}
                     </StyledHead>

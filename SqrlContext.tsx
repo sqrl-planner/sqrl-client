@@ -5,7 +5,7 @@ import { usePreferences } from "./PreferencesContext"
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
 export interface UserMeeting {
-    lecture: string
+    lecture?: string
     tutorial?: string
     practical?: string
     hover?: string
@@ -225,7 +225,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }
 
     let appContext: AppData
-    if (lsAppContext) appContext = JSON.parse(lsAppContext) as AppData
+    if (lsAppContext)
+        appContext = { ...(JSON.parse(lsAppContext) as AppData), sidebar: 0 }
     else {
         appContext = {
             courses: {},

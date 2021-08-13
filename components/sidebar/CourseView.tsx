@@ -16,25 +16,8 @@ import { useAppContext } from "../../SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
 import { breakdownCourseCode } from "../../utils/course"
 import MeetingPicker from "./MeetingPicker"
+import { CourseSubheading } from "./OverviewView"
 
-export const CourseSubheading = ({
-    children,
-    ...rest
-}: {
-    children: React.ReactNode
-}) => (
-    <Text
-        textTransform="uppercase"
-        fontWeight={700}
-        letterSpacing="0.3px"
-        mt={5}
-        mb={1}
-        fontSize="0.8em"
-        {...rest}
-    >
-        {children}
-    </Text>
-)
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
@@ -170,9 +153,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                             justifyContent="space-between"
                             alignItems="center"
                         >
-                            <CourseSubheading my={2} px={5}>
-                                Description
-                            </CourseSubheading>
+                                <CourseSubheading my={2} px={5}>Description</CourseSubheading>
                             <AccordionIcon mr={5} />
                         </AccordionButton>
                         <AccordionPanel px={5} pt={0} pb={4}>

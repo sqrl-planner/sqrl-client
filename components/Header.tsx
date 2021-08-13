@@ -7,7 +7,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import React, { MutableRefObject, useCallback, useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import { useAppContext } from "../SqrlContext"
 import PreferencesDrawer from "./preferences/PreferencesDrawer"
@@ -27,23 +27,17 @@ const HeaderComponent = styled(chakra.header)`
     }
 `
 
-const Header = ({
-    setSidebarOpen,
-    sidebarOpen,
-}: {
-    setSidebarOpen: any
-    sidebarOpen: boolean
-}) => {
+const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     const { dispatch } = useAppContext()
-    const buttonRef = useRef<HTMLButtonElement | null>(null)
+    const buttonRef = useRef<any | null>(null)
 
-    let osModifier: string = ""
+    const [osModifier, setOsModifier] = useState("")
 
-    if (typeof window !== "undefined") {
-        if (navigator.userAgent.indexOf("Mac OS X") !== -1) osModifier = "⌘"
+    useEffect(() => {
+        if (navigator.userAgent.indexOf("Mac OS X") !== -1) setOsModifier("⌘")
         if (navigator.userAgent.indexOf("Windows") !== -1)
-            osModifier = "Ctrl + "
-    }
+            setOsModifier("Ctrl + ")
+    }, [])
 
     const keydownListener = useCallback(
         (e) => {
@@ -96,7 +90,6 @@ const Header = ({
             <Input
                 as="button"
                 boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
-                placeholder={`Search for anything (${osModifier}K)`}
                 ref={buttonRef}
                 position="absolute"
                 width="40%"

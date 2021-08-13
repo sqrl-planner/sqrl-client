@@ -30,7 +30,7 @@ import {
     MeetingGroup,
     partitionMeetingsByDay,
 } from "../timetable/Meeting"
-import { CourseSubheading } from "./CourseView"
+import { CourseSubheading } from "./OverviewView"
 
 export const ConditionalWrapper = ({
     condition,
@@ -94,7 +94,7 @@ const MeetingPicker = ({
                 alignItems="center"
                 mb={1}
             >
-                <CourseSubheading px={5}>{method}</CourseSubheading>
+                    <CourseSubheading px={5}>{method}</CourseSubheading>
                 <Icon
                     cursor="pointer"
                     as={FaTrashAlt}

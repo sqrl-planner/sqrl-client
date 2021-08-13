@@ -134,7 +134,7 @@ const Sqrl = () => {
                     onClose,
                 }}
             />
-            <Header setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
+            <Header setSidebarOpen={setSidebarOpen} />
 
             <Container
                 width={sidebarOpen ? "calc(100vw - 25rem)" : "100vw"}
