@@ -14,7 +14,7 @@ import {
     UseDisclosureProps,
 } from "@chakra-ui/react"
 import React from "react"
-import { usePreferences } from "../../PreferencesContext"
+import { usePreferences } from "../../src/PreferencesContext"
 import PreferencesTimetable from "./PreferencesTimetable"
 import PreferencesMeeting from "./PreferencesMeeting"
 import PreferencesApplication from "./PreferencesApplication"

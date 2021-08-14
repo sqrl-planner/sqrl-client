@@ -25,8 +25,8 @@ import { useTranslation } from "next-i18next"
 import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
-import { usePreferences } from "../../PreferencesContext"
-import { useAppContext } from "../../SqrlContext"
+import { usePreferences } from "../../src/PreferencesContext"
+import { useAppContext } from "../../src/SqrlContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
 
@@ -187,7 +187,7 @@ const PreferencesApplication = () => {
                         as: colorMode === "light" ? MoonIcon : FaSun,
                     }}
                 >
-                {t("dark-mode")}
+                    {t("dark-mode")}
                 </PreferencesToggle>
             </PreferencesSection>
         </Fragment>

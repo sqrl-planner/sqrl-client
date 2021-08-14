@@ -1,5 +1,5 @@
 import { useLazyQuery } from "@apollo/client"
-import { AddIcon } from "@chakra-ui/icons"
+import { AddIcon, QuestionIcon } from "@chakra-ui/icons"
 import {
     Box,
     Button,
@@ -17,16 +17,14 @@ import {
     useColorModeValue,
     VStack,
 } from "@chakra-ui/react"
-import { QuestionIcon } from "@chakra-ui/icons"
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion"
+import { useTranslation } from "next-i18next"
 import React, { MutableRefObject, useEffect, useRef, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 import { GET_COURSE_BY_ID } from "../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
-import { usePreferences } from "../../PreferencesContext"
-import { useAppContext } from "../../SqrlContext"
-import { breakdownCourseCode } from "../../utils/course"
-import { useTranslation } from "next-i18next"
+import { useAppContext } from "../../src/SqrlContext"
+import { breakdownCourseCode } from "../../src/utils/course"
 
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
@@ -142,7 +140,8 @@ const SearchView = ({
                         >
                             breadth 2
                         </Button>
-                        ", " */}{" "} "
+                        ", " */}{" "}
+                        "
                         <Button
                             variant="link"
                             fontSize="sm"
@@ -154,7 +153,7 @@ const SearchView = ({
                         >
                             psy100
                         </Button>{" "}
-                         {t("sidebar:search-hint-or")} "
+                        {t("sidebar:search-hint-or")} "
                         <Button
                             variant="link"
                             fontSize="sm"

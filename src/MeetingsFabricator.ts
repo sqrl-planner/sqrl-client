@@ -2,7 +2,7 @@ import {
     Meeting,
     MeetingCategoryType,
     MeetingDeliveryMode,
-} from "./components/timetable/Meeting"
+} from "../components/timetable/Meeting"
 import { Course } from "./Course"
 import { UserMeeting } from "./SqrlContext"
 import { Day, timeToMinuteOffset } from "./utils/time"

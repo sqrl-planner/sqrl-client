@@ -10,7 +10,7 @@ import {
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import { useAppContext } from "../SqrlContext"
+import { useAppContext } from "../src/SqrlContext"
 import PreferencesDrawer from "./preferences/PreferencesDrawer"
 
 const HeaderComponent = styled(chakra.header)`

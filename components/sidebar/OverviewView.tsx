@@ -15,12 +15,12 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useState } from "react"
-import { useAppContext } from "../../SqrlContext"
+import { useAppContext } from "../../src/SqrlContext"
 import {
     breakdownCourseCode,
     breakdownCourseIdentifier,
     getMeetingTypes,
-} from "../../utils/course"
+} from "../../src/utils/course"
 import { MeetingCategoryType } from "../timetable/Meeting"
 import { ConditionalWrapper } from "./MeetingPicker"
 

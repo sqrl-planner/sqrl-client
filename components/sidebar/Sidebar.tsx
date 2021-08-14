@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { useState } from "react"
-import { useAppContext } from "../../SqrlContext"
+import { useAppContext } from "../../src/SqrlContext"
 import CourseView from "./CourseView"
 import OverviewView from "./OverviewView"
 import SearchView from "./SearchView"

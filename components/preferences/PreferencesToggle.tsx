@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import React, { ChangeEvent } from "react"
 import styled from "styled-components"
-import { Action, usePreferences } from "../../PreferencesContext"
+import { Action, usePreferences } from "../../src/PreferencesContext"
 
 const IconWrapper = styled.div`
     padding-right: 0.6em;

@@ -21,10 +21,10 @@ import {
 import { useTranslation } from "next-i18next"
 import React, { Fragment } from "react"
 import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
-import { Course } from "../../Course"
-import MeetingsFabricator from "../../MeetingsFabricator"
-import { useAppContext, UserMeeting } from "../../SqrlContext"
-import { breakdownCourseCode } from "../../utils/course"
+import { Course } from "../../src/Course"
+import MeetingsFabricator from "../../src/MeetingsFabricator"
+import { useAppContext, UserMeeting } from "../../src/SqrlContext"
+import { breakdownCourseCode } from "../../src/utils/course"
 import {
     Meeting,
     MeetingCategoryType,

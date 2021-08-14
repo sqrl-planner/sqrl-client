@@ -7,7 +7,7 @@ import { FaClock, FaGlassMartiniAlt, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
 import { ImSection } from "react-icons/im"
 import styled from "styled-components"
-import { usePreferences } from "../../PreferencesContext"
+import { usePreferences } from "../../src/PreferencesContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
 

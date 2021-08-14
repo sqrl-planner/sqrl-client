@@ -1,4 +1,4 @@
-import { Day } from "../../utils/time"
+import { Day } from "../../src/utils/time"
 
 /**
  * The delivery mode for a meeting.

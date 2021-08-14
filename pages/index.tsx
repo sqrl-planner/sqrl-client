@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
-import Sqrl from "../Sqrl"
+import Sqrl from "../src/Sqrl"
 
 const Home: NextPage = () => {
     return <Sqrl />

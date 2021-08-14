@@ -1,14 +1,14 @@
 import { Flex } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { FunctionComponent, useMemo } from "react"
-import { useHoverContext } from "../../HoverContext"
-import { useAppContext } from "../../SqrlContext"
+import { useHoverContext } from "../../src/HoverContext"
+import { useAppContext } from "../../src/SqrlContext"
 import {
     Day,
     minuteOffsetToTime,
     timeToMinuteOffset,
     WEEK_DAYS,
-} from "../../utils/time"
+} from "../../src/utils/time"
 import { Meeting, MeetingGroup, partitionMeetingsByDay } from "./Meeting"
 import MeetingComponent from "./MeetingComponent"
 import {
