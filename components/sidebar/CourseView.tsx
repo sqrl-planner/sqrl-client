@@ -40,6 +40,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
 
     const [scrolling, setScrolling] = useState<boolean>(false)
 
+    const { t } = useTranslation("common")
+
     if (!course) {
         return (
             <Box p={5}>
@@ -59,8 +61,6 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     }
 
     const { department, numeral, suffix } = breakdownCourseCode(course.code)
-
-    const { t } = useTranslation("common")
 
     return (
         <Box
