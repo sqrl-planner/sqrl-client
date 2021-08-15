@@ -13,6 +13,17 @@ export function timeToMinuteOffset(
     return hour * 60 + minute
 }
 
+export const minuteOffsetToIcalArray = (
+    year: number,
+    month: number,
+    day: number,
+    minuteOffset: number
+): [number, number, number, number, number] => {
+    const hour = Math.floor(minuteOffset / 60)
+    const minute = minuteOffset % 60
+    return [year, month, day, hour, minute]
+}
+
 /**
  * Convert a minute offset (from midnight) to an HH:MM time.
  * @param time Minutes from midnight

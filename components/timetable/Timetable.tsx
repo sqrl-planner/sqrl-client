@@ -176,6 +176,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                             dark={dark}
                         >
                             <MeetingTime
+                                tabIndex={0}
                                 courseKey={meeting.courseKey}
                                 palette={palette}
                                 dark={dark}
@@ -264,6 +265,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                             items.push(
                                 <MeetingTime
                                     key={index}
+                                    tabIndex={0}
                                     onMouseEnter={() =>
                                         setHoverCourseKey(meeting.courseKey)
                                     }

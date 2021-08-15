@@ -138,6 +138,28 @@ const AppContextReducer = (state: AppData, action: Action) => {
                     },
                 },
             }
+            const { [identifier]: courseMeetings, ...restOfCourses } =
+                userMeetings
+
+            let allEmpty = true
+
+            for (const method of Object.values(
+                newContext.userMeetings[identifier]
+            )) {
+                if (method !== "") {
+                    allEmpty = false
+                    break
+                }
+            }
+
+            if (allEmpty) {
+                newContext = {
+                    ...state,
+                    userMeetings: {
+                        ...restOfCourses,
+                    },
+                }
+            }
             break
         }
 

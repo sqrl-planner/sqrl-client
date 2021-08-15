@@ -1,17 +1,31 @@
-import { SettingsIcon } from "@chakra-ui/icons"
+import { CalendarIcon, Icon, SettingsIcon } from "@chakra-ui/icons"
 import {
+    FormHelperText,
     Button,
     chakra,
+    Flex,
     Heading,
     Input,
     useColorModeValue,
     useDisclosure,
+    Modal,
+    Text,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    VStack,
+    FormControl,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useEffect, useRef, useState } from "react"
+import { FaShareSquare } from "react-icons/fa"
 import styled from "styled-components"
 import { useAppContext } from "../src/SqrlContext"
 import PreferencesDrawer from "./preferences/PreferencesDrawer"
+import ShareCalendar from "./ShareCalendar"
 
 const HeaderComponent = styled(chakra.header)`
     display: grid;
@@ -62,6 +76,11 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     }, [keydownListener])
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const {
+        isOpen: shareIsOpen,
+        onOpen: shareOnOpen,
+        onClose: shareOnClose,
+    } = useDisclosure()
 
     const { t } = useTranslation("common")
 
@@ -112,16 +131,73 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
                 }}
             >{`${t("search-anything")} (${osModifier}K)`}</Input>
 
-            <div>
+            <Flex alignItems="center">
+                <Button variant="link" mr={6}>
+                    About
+                </Button>
+
+                <Button mr={6} onClick={shareOnOpen}>
+                    Share <Icon as={FaShareSquare} ml={2} />
+                </Button>
+                <Modal isOpen={shareIsOpen} onClose={shareOnClose} size="xl">
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader fontSize="2xl">Share</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <VStack width="100%" fontWeight={500}>
+                                <Flex
+                                    width="100%"
+                                    alignItems="center"
+                                    justifyContent="space-between"
+                                    mb={6}
+                                >
+                                    <FormControl as="span">
+                                        <Text
+                                            as="span"
+                                            display="flex"
+                                            alignItems="center"
+                                        >
+                                            <Icon as={FaShareSquare} mr={2} />{" "}
+                                            Share read-only
+                                        </Text>
+                                        <Input
+                                            value="https://sqrl.uoft.in/timetable/507f1f77bcf86cd799439011"
+                                            my={1}
+                                            mt={2}
+                                            readOnly
+                                        />
+                                        <FormHelperText fontWeight={400}>
+                                            Anyone who views this timetable can
+                                            duplicate it.
+                                        </FormHelperText>
+                                    </FormControl>
+                                </Flex>
+                                <ShareCalendar />
+                            </VStack>
+                        </ModalBody>
+
+                        <ModalFooter>
+                            <Button
+                                colorScheme="blue"
+                                // mr={4}
+                                onClick={shareOnClose}
+                            >
+                                Close
+                            </Button>
+                            {/* <Button variant="ghost">Secondary Action</Button> */}
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
                 <Button
                     variant="link"
                     onClick={onOpen}
                     outline="none"
                     border="none"
                     m={0}
-                    mx={6}
-                    position="relative"
-                    top="0.2rem"
+                    mr={6}
+                    // position="relative"
+                    // top="0.2rem"
                     _hover={{
                         transform: "rotate(90deg)",
                     }}
@@ -132,7 +208,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
                 >
                     <SettingsIcon w={7} h={7} />
                 </Button>
-            </div>
+            </Flex>
             <PreferencesDrawer
                 disclosure={{ isOpen, onOpen, onClose }}
                 drawerProps={{
