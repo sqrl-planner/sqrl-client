@@ -160,11 +160,17 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                             </CourseSubheading>
                             <AccordionIcon mr={5} />
                         </AccordionButton>
-                        <AccordionPanel px={5} pt={0} pb={4}>
+                        <AccordionPanel px={5} pt={0} pb={2}>
+                            {!course.description.trim() && (
+                                <Text>No description available.</Text>
+                            )}
                             <Text
                                 className="course-info"
                                 dangerouslySetInnerHTML={{
-                                    __html: course.description,
+                                    __html: course.description.replace(
+                                        /<a/g,
+                                        '<a target="blank"'
+                                    ),
                                 }}
                             ></Text>
                         </AccordionPanel>
@@ -237,7 +243,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     <Text
                         className="course-info"
                         dangerouslySetInnerHTML={{
-                            __html: course.webTimetableInstructions,
+                            __html: course.webTimetableInstructions.replace(
+                                /<a/g,
+                                '<a target="blank"'
+                            ),
                         }}
                     />
                 </Box>

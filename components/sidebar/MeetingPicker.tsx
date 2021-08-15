@@ -259,7 +259,7 @@ const MeetingPicker = ({
                             <Grid
                                 fontSize="sm"
                                 // alignContent="center"
-                                // alignItems="center"
+                                alignItems="center"
                                 gridTemplateColumns="auto auto 1fr auto"
                                 width="100%"
                                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
@@ -278,7 +278,8 @@ const MeetingPicker = ({
                                         : hoverBackground,
                                 }}
                                 // border={hasConflict ? "1px solid red" : "none"}
-                                transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                // transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
+                                role="button"
                                 onClick={() => {
                                     dispatch({
                                         type: "SET_MEETING",
@@ -382,7 +383,7 @@ const MeetingPicker = ({
                                     )}
                                 </Flex> */}
 
-                                <Skeleton
+                                {/* <Skeleton
                                     width="90%"
                                     height="100%"
                                     justifySelf="center"
@@ -392,12 +393,13 @@ const MeetingPicker = ({
                                     margin="auto"
                                     // textAlign="left"
                                     isLoaded={true}
+                                > */}
+                                <Text
+                                    opacity={hasConflict ? 1 : 0.7}
+                                    lineHeight={1}
+                                    ml={2}
                                 >
-                                    <Text
-                                        opacity={hasConflict ? 1 : 0.7}
-                                        lineHeight={1}
-                                    >
-                                        {/* {Object.values(
+                                    {/* {Object.values(
                                         course.meetings[meeting].schedule
                                     ).reduce((prev, scheduledMeeting) => {
                                         return `${prev ? prev + ", " : ""}${
@@ -406,7 +408,7 @@ const MeetingPicker = ({
                                             scheduledMeeting.meetingStartTime
                                         }-${scheduledMeeting.meetingEndTime}`
                                     }, "")} */}
-                                        {/* {Object.values(
+                                    {/* {Object.values(
                                         course.meetings[meeting].instructors
                                     ).reduce(
                                         (prev, instructor) =>
@@ -415,31 +417,28 @@ const MeetingPicker = ({
                                             }, ${instructor.firstName}.`,
                                         ""
                                     )} */}
-                                        {parseInt(section.actualWaitlist)
-                                            ? `Waitlist ${
+                                    {parseInt(section.actualWaitlist)
+                                        ? `Waitlist ${
+                                              section.actualWaitlist
+                                          } student${
+                                              parseInt(
                                                   section.actualWaitlist
-                                              } student${
-                                                  parseInt(
-                                                      section.actualWaitlist
-                                                  ) === 1
-                                                      ? ""
-                                                      : "s"
-                                              }`
-                                            : `Enrol ${
-                                                  section.actualEnrolment
-                                              } of ${
-                                                  section.enrolmentCapacity
-                                              }${
-                                                  concerning &&
-                                                  !section.hasWaitlist
-                                                      ? "—No waitlist"
-                                                      : ""
-                                              }`}
-                                        {/* <Text as="span" ml={2}>
+                                              ) === 1
+                                                  ? ""
+                                                  : "s"
+                                          }`
+                                        : `Enrol ${
+                                              section.actualEnrolment
+                                          } of ${section.enrolmentCapacity}${
+                                              concerning && !section.hasWaitlist
+                                                  ? "—No waitlist"
+                                                  : ""
+                                          }`}
+                                    {/* <Text as="span" ml={2}>
                                         {meeting.enrolmentIndicator}
                                     </Text> */}
-                                    </Text>
-                                </Skeleton>
+                                </Text>
+                                {/* </Skeleton> */}
 
                                 <Flex mx={1} alignItems="center" fontSize="lg">
                                     {section.deliveryMode &&

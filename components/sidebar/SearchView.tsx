@@ -246,6 +246,7 @@ const SearchView = ({
                                                 key={course.id}
                                                 layout
                                                 layoutId={course.id}
+                                                role="button"
                                                 variants={{
                                                     hidden: {
                                                         opacity: 0,

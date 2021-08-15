@@ -105,17 +105,6 @@ const OverviewView = () => {
 
     return (
         <Box width="100%" height="100%">
-            {/* <Heading
-                p={5}
-                pb={0}
-                as="h3"
-                size="lg"
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                My courses
-            </Heading> */}
             <VStack spacing={0}>
                 <StatGroup width="100%" px={5} mt={5}>
                     <Stat>
@@ -166,14 +155,6 @@ const OverviewView = () => {
                                 </Fragment>
                             )
                         })()}
-
-                        {/* <StatHelpText>
-                            {Object.keys(coursesToShow).map((term) => {
-                                return `${
-                                    Object.keys(coursesToShow[term]).length
-                                } in ${term}${term === "year" ? "." : ", "}`
-                            })}
-                        </StatHelpText> */}
                     </Stat>
                 </StatGroup>
                 {(

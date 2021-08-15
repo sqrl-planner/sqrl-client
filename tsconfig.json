@@ -18,7 +18,9 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "next-i18next.config.js"
+        "next-i18next.config.js",
+        "jest.setup.js",
+        "tests/timetable.test.tss"
     ],
     "exclude": ["node_modules"]
 }
