@@ -14,14 +14,11 @@ export function timeToMinuteOffset(
 }
 
 export const minuteOffsetToIcalArray = (
-    year: number,
-    month: number,
-    day: number,
     minuteOffset: number
-): [number, number, number, number, number] => {
+): [number, number] => {
     const hour = Math.floor(minuteOffset / 60)
     const minute = minuteOffset % 60
-    return [year, month, day, hour, minute]
+    return [hour, minute]
 }
 
 /**

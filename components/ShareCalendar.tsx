@@ -3,10 +3,13 @@ import { Flex, Button, Text } from "@chakra-ui/react"
 import React, { useRef } from "react"
 import { useAppContext } from "../src/SqrlContext"
 // import ics from "ics"
+// import ical, { ICalCalendar, ICalCategory } from "ical-generator"
 import MeetingsFabricator from "../src/MeetingsFabricator"
 import { capitalize } from "../src/utils/misc"
 import { minuteOffsetToIcalArray } from "../src/utils/time"
-const ics = require("ics")
+import icalFabricator, { dateToIcsString, SqrlIcsEvent } from "../src/utils/ics"
+import { Meeting } from "./timetable/Meeting"
+// const ics = require("ics")
 
 const ShareCalendar = () => {
     const {
@@ -30,7 +33,7 @@ const ShareCalendar = () => {
                         first: { year: 2021, month: 12, day: 8 },
                         second: { year: 2022, month: 4, day: 8 },
                     }
-                    const events: Array<any> = []
+                    const events: Array<SqrlIcsEvent> = []
 
                     const segregatedMeetings = {
                         first: MeetingsFabricator(
@@ -41,60 +44,86 @@ const ShareCalendar = () => {
                         second: MeetingsFabricator(
                             courses,
                             userMeetings,
-                            "FIRST_SEMESTER"
+                            "SECOND_SEMESTER"
                         ),
                     }
 
                     for (const [semester, meetings] of Object.entries(
                         segregatedMeetings
                     )) {
-                        const endDate = `${
-                            endTimes[semester as "first" | "second"].year
-                        }${endTimes[semester as "first" | "second"].month
-                            .toString()
-                            .padStart(2, "0")}${endTimes[
-                            semester as "first" | "second"
-                        ].day
-                            .toString()
-                            .padStart(2, "0")}T000000Z`
-
                         for (const meeting of meetings) {
+                            const [startHour, startMinute] =
+                                minuteOffsetToIcalArray(meeting.startTime)
+                            const [endHour, endMinute] =
+                                minuteOffsetToIcalArray(meeting.endTime)
+
+                            // let firstStart =
+
+                            if (meeting.title === "MAT237Y1")
+                                console.log(semester, meeting)
+
                             events.push({
-                                title: `${meeting.title} ${meeting.category
-                                    .substring(0, 3)
-                                    .toUpperCase()} ${meeting.section}`,
-                                start: minuteOffsetToIcalArray(
-                                    startTimes[semester as "first" | "second"]
-                                        .year,
-                                    startTimes[semester as "first" | "second"]
-                                        .month,
-                                    startTimes[semester as "first" | "second"]
-                                        .day,
-                                    meeting.startTime
+                                summary: meeting.title,
+                                meeting,
+                                firstStart: new Date(
+                                    Date.UTC(
+                                        startTimes[
+                                            semester as "first" | "second"
+                                        ].year,
+                                        startTimes[
+                                            semester as "first" | "second"
+                                        ].month - 1,
+                                        startTimes[
+                                            semester as "first" | "second"
+                                        ].day,
+                                        startHour,
+                                        startMinute
+                                    )
                                 ),
-                                end: minuteOffsetToIcalArray(
-                                    startTimes[semester as "first" | "second"]
-                                        .year,
-                                    startTimes[semester as "first" | "second"]
-                                        .month,
-                                    startTimes[semester as "first" | "second"]
-                                        .day,
-                                    meeting.endTime
+                                firstEnd: new Date(
+                                    Date.UTC(
+                                        startTimes[
+                                            semester as "first" | "second"
+                                        ].year,
+                                        startTimes[
+                                            semester as "first" | "second"
+                                        ].month - 1,
+                                        startTimes[
+                                            semester as "first" | "second"
+                                        ].day,
+                                        endHour,
+                                        endMinute
+                                    )
                                 ),
-                                recurrenceRule: `FREQ=WEEKLY;BYDAY=${meeting.day
+                                rruleBeforeDate: `FREQ=WEEKLY;BYDAY=${meeting.day
                                     .substring(0, 2)
-                                    .toUpperCase()};INTERVAL=1;UNTIL=${endDate}`,
+                                    .toUpperCase()};INTERVAL=1;`,
+                                rruleUntil: `${dateToIcsString(
+                                    new Date(
+                                        Date.UTC(
+                                            endTimes[
+                                                semester as "first" | "second"
+                                            ].year,
+                                            endTimes[
+                                                semester as "first" | "second"
+                                            ].month - 1,
+                                            endTimes[
+                                                semester as "first" | "second"
+                                            ].day + 1
+                                        )
+                                    )
+                                )}`,
+                                tzid: `America/Toronto`,
                             })
                         }
                     }
-
-                    const { error, value } = ics.createEvents(events)
 
                     if (!value) return
                     if (!downloadRef.current) return
 
                     downloadRef.current.href =
-                        "data:text/calendar;charset=utf8," + escape(value)
+                        "data:text/calendar;charset=utf8," +
+                        escape(icalFabricator(events))
                     downloadRef.current.download = "Sqrl Timetable"
                     downloadRef.current.click()
                 }}
