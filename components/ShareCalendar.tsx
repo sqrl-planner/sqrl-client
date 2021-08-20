@@ -50,7 +50,7 @@ const ShareCalendar = () => {
 
                     for (const [semester, meetings] of Object.entries(
                         segregatedMeetings
-                    )) {
+                    ) as Array<["first" | "second", Meeting[]]>) {
                         for (const meeting of meetings) {
                             const [startHour, startMinute] =
                                 minuteOffsetToIcalArray(meeting.startTime)
@@ -67,30 +67,18 @@ const ShareCalendar = () => {
                                 meeting,
                                 firstStart: new Date(
                                     Date.UTC(
-                                        startTimes[
-                                            semester as "first" | "second"
-                                        ].year,
-                                        startTimes[
-                                            semester as "first" | "second"
-                                        ].month - 1,
-                                        startTimes[
-                                            semester as "first" | "second"
-                                        ].day,
+                                        startTimes[semester].year,
+                                        startTimes[semester].month - 1,
+                                        startTimes[semester].day,
                                         startHour,
                                         startMinute
                                     )
                                 ),
                                 firstEnd: new Date(
                                     Date.UTC(
-                                        startTimes[
-                                            semester as "first" | "second"
-                                        ].year,
-                                        startTimes[
-                                            semester as "first" | "second"
-                                        ].month - 1,
-                                        startTimes[
-                                            semester as "first" | "second"
-                                        ].day,
+                                        startTimes[semester].year,
+                                        startTimes[semester].month - 1,
+                                        startTimes[semester].day,
                                         endHour,
                                         endMinute
                                     )
@@ -101,15 +89,9 @@ const ShareCalendar = () => {
                                 rruleUntil: `${dateToIcsString(
                                     new Date(
                                         Date.UTC(
-                                            endTimes[
-                                                semester as "first" | "second"
-                                            ].year,
-                                            endTimes[
-                                                semester as "first" | "second"
-                                            ].month - 1,
-                                            endTimes[
-                                                semester as "first" | "second"
-                                            ].day + 1
+                                            endTimes[semester].year,
+                                            endTimes[semester].month - 1,
+                                            endTimes[semester].day + 1
                                         )
                                     )
                                 )}`,
@@ -118,7 +100,7 @@ const ShareCalendar = () => {
                         }
                     }
 
-                    if (!value) return
+                    // if (!value) return
                     if (!downloadRef.current) return
 
                     downloadRef.current.href =
