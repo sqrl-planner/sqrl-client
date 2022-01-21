@@ -167,7 +167,7 @@ const SearchView = ({
                         ".
                     </Box>
                     <Button variant="link" fontSize="sm">
-                        <QuestionIcon mr={1} /> Help
+                        <QuestionIcon mr={1} /> {t("sidebar:help")}
                     </Button>
                 </FormHelperText>
             </FormControl>

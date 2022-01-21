@@ -158,7 +158,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                         <Fragment>
                             <PopoverTrigger>
                                 <Button variant="solid" colorScheme="gray">
-                                    Remove {department + numeral}
+                                    {t("sidebar:remove")} {department + numeral}
                                 </Button>
                                 {/* <CloseButton /> */}
                             </PopoverTrigger>
@@ -193,7 +193,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                                                 // onClose()
                                             }}
                                         >
-                                            Remove {course.code}
+                                            {t("sidebar:remove")} {course.code}
                                         </Button>
                                     </ButtonGroup>
                                 </PopoverFooter>

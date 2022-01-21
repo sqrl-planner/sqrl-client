@@ -238,9 +238,19 @@ const OverviewView = () => {
                                         condition={missing.length}
                                         wrapper={(children: any) => (
                                             <Tooltip
-                                                label={`Missing a ${missing.join(
-                                                    ", "
-                                                )} section`}
+                                                label={
+                                                    `${t(
+                                                        "sidebar:missing-a"
+                                                    )} ${missing.map(
+                                                        (sectionName) =>
+                                                            t(
+                                                                `sidebar:${sectionName}`
+                                                            )
+                                                    )} ${t("sidebar:section")}`
+                                                    //   `Missing a ${missing.join(
+                                                    //     ", "
+                                                    // )} section`
+                                                }
                                             >
                                                 {children}
                                             </Tooltip>

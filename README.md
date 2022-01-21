@@ -12,6 +12,7 @@ Sqrl is a timetable planner for the University of Toronto.
 -   **Localized**: supports English, French, and Chinese (simplified), because why not.
 -   **Warns you**: about meetings that conflict with your existing meetings, and if you forgot to enroll in a particular section.
 -   **Modern stack**: built with React, GraphQL, and Jest, we are Facebook's bitch. Also uses TypeScript, Next.js, Chakra, Flask, Elasticsearch, and MongoDB.
+-   **NOT A CALENDAR**: Not a calendar app. Use a calendar app if you want to use a calendar.
 
 ## Contributing
 

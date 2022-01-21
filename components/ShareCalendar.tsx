@@ -110,7 +110,7 @@ const ShareCalendar = () => {
                     downloadRef.current.click()
                 }}
             >
-                Export iCalendar
+                Download .ics file
             </Button>
             <a ref={downloadRef} style={{ display: "none" }}></a>
         </Flex>
