@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useState } from "react"
+import CountUp from "react-countup"
 import { useAppContext } from "../../src/SqrlContext"
 import {
     breakdownCourseCode,
@@ -125,11 +126,20 @@ const OverviewView = () => {
                                         )}
                                         fontSize="3xl"
                                     >
-                                        {total.toFixed(1)}
+                                        {/* {total.toFixed(1)} */}
+                                        <CountUp
+                                            end={total}
+                                            decimals={1}
+                                            duration={0.5}
+                                        />
                                     </StatNumber>
                                     <StatHelpText>
-                                        {Math.round((total / 5) * 100)}% of
-                                        standard load.
+                                        <CountUp
+                                            duration={0.5}
+                                            end={Math.round((total / 5) * 100)}
+                                        />
+                                        {/* {Math.round((total / 5) * 100)} */}%
+                                        of standard load.
                                     </StatHelpText>
                                 </Fragment>
                             )
@@ -149,7 +159,8 @@ const OverviewView = () => {
                                         {t("course", { count: courses })}
                                     </StatLabel>
                                     <StatNumber fontSize="3xl">
-                                        {courses}
+                                        {/* {courses} */}
+                                        <CountUp duration={0.5} end={courses} />
                                     </StatNumber>
                                     <StatHelpText>in this year.</StatHelpText>
                                 </Fragment>
