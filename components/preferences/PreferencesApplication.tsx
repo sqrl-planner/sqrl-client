@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
+import { BiVideoPlus } from "react-icons/bi"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
 import { usePreferences } from "../../src/PreferencesContext"

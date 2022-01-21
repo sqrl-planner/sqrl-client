@@ -92,7 +92,8 @@ const PreferencesTimetable = () => {
         toastRef.current = toast({
             id: "warn-hidden",
             title: "Some meetings may be unintentionally hidden.",
-            description: "Run Autoclamp to fit timetable to meetings.",
+            // description: "Run Autoclamp to fit timetable to meetings.",
+            description: "Adjust your times to fit your meetings.",
             status: "warning",
             variant: "subtle",
             isClosable: true,
@@ -196,7 +197,7 @@ const PreferencesTimetable = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl display="flex" alignItems="flex-end">
+                    {/* <FormControl display="flex" alignItems="flex-end">
                         <Tooltip label="Determine earliest start and latest end">
                             <Button
                                 colorScheme="green"
@@ -223,13 +224,13 @@ const PreferencesTimetable = () => {
                                 {t("autoclamp")}
                             </Button>
                         </Tooltip>
-                    </FormControl>
-                    <FormControl alignSelf="start" gridColumn="span 3">
+                    </FormControl> */}
+                    {/* <FormControl alignSelf="start" gridColumn="span 3">
                         <FormHelperText>
                             Autoclamp is run only once on click. Autoclamps
                             based on both semesters' meeting times.
                         </FormHelperText>
-                    </FormControl>
+                    </FormControl> */}
                 </Grid>
             </PreferencesSection>
             <PreferencesSection>

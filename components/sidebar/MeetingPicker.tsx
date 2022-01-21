@@ -257,6 +257,13 @@ const MeetingPicker = ({
                             )}
                         >
                             <Grid
+                                tabIndex={0}
+                                _focus={{
+                                    background: isSelected
+                                        ? ""
+                                        : hoverBackground,
+                                }}
+                                outline="none"
                                 fontSize="sm"
                                 // alignContent="center"
                                 alignItems="center"

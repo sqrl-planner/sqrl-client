@@ -6,11 +6,21 @@ import {
     AccordionPanel,
     Box,
     Button,
+    ButtonGroup,
+    CloseButton,
+    Flex,
     Heading,
+    Popover,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverContent,
+    PopoverFooter,
+    PopoverHeader,
+    PopoverTrigger,
     Text,
     Tooltip,
 } from "@chakra-ui/react"
-import React, { useEffect, useRef, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
@@ -39,6 +49,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const scrollingTimeoutRef = useRef<any>(null)
 
     const [scrolling, setScrolling] = useState<boolean>(false)
+
+    const initRef = useRef<HTMLButtonElement>(null)
 
     const { t } = useTranslation("common")
 
@@ -140,6 +152,56 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     scrolling={scrolling}
                 />
             ))}
+            <Flex w="100%" justifyContent="center" py="2" pt="5">
+                <Popover initialFocusRef={initRef}>
+                    {({ onClose }) => (
+                        <Fragment>
+                            <PopoverTrigger>
+                                <Button variant="solid" colorScheme="gray">
+                                    Remove {department + numeral}
+                                </Button>
+                                {/* <CloseButton /> */}
+                            </PopoverTrigger>
+                            <PopoverContent
+                                style={{
+                                    boxShadow:
+                                        "1px 1px 18px -10px rgba(1,1,1,0.5)",
+                                }}
+                            >
+                                <PopoverArrow />
+                                <PopoverCloseButton />
+                                <PopoverHeader>Are you sure?</PopoverHeader>
+                                <PopoverFooter
+                                    d="flex"
+                                    justifyContent="flex-end"
+                                >
+                                    <ButtonGroup size="sm">
+                                        <Button
+                                            variant="ghost"
+                                            ref={initRef}
+                                            onClick={onClose}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            colorScheme="red"
+                                            onClick={() => {
+                                                dispatch({
+                                                    type: "REMOVE_COURSE",
+                                                    payload: identifier,
+                                                })
+                                                // onClose()
+                                            }}
+                                        >
+                                            Remove {course.code}
+                                        </Button>
+                                    </ButtonGroup>
+                                </PopoverFooter>
+                            </PopoverContent>
+                        </Fragment>
+                    )}
+                </Popover>
+            </Flex>
             <Box>
                 <Accordion
                     allowToggle
