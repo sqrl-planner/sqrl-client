@@ -1,17 +1,17 @@
 {
-	"search": "Recherche",
+	"search": "Rechercher",
 	"course": "Cours",
 	"overview": "Aperçu",
 	"search-hint": "Essayez",
 	"search-hint-or": "ou",
 	"lecture": "Cours",
-	"tutorial": "Totoriel",
+	"tutorial": "Travaux dirigés",
 	"practical": "Pratique",
 	"description": "Description",
 	"prerequisites": "Prérequis",
-	"credit": "Crédit",
-	"credit_plural": "Crédits",
+	"credit": "Unité",
+	"credit_plural": "Unités",
 	"first": "Première",
-	"second": "Deuxième",
+	"second": "Second",
 	"year": "Année"
 }
