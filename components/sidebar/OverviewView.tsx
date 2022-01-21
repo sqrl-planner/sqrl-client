@@ -128,12 +128,9 @@ const OverviewView = () => {
                                         {total.toFixed(1)}
                                     </StatNumber>
                                     <StatHelpText>
-                                        Money for me: ${(total / 0.5) * 2500}
-                                    </StatHelpText>
-                                    {/* <StatHelpText>
                                         {Math.round((total / 5) * 100)}% of
                                         standard load.
-                                    </StatHelpText> */}
+                                    </StatHelpText>
                                 </Fragment>
                             )
                         })()}

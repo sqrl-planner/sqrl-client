@@ -39,13 +39,13 @@ export const theme = extendTheme({
     },
 })
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
     return (
         <ChakraProvider theme={theme}>
             <PreferencesProvider>
                 <AppContextProvider>
                     <ApolloProvider client={client}>
-                        <Sqrl />{" "}
+                        <Sqrl />
                     </ApolloProvider>
                 </AppContextProvider>
             </PreferencesProvider>
