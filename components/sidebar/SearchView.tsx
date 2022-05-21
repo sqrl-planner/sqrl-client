@@ -151,7 +151,7 @@ const SearchView = ({
                                 debouncedZero("sds470")
                             }}
                         >
-                            psy100
+                            sds470
                         </Button>{" "}
                         {t("sidebar:search-hint-or")} "
                         <Button
