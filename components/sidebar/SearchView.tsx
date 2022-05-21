@@ -147,8 +147,8 @@ const SearchView = ({
                             fontSize="sm"
                             width="auto"
                             onClick={() => {
-                                setSearchQuery("psy100")
-                                debouncedZero("psy100")
+                                setSearchQuery("sds470")
+                                debouncedZero("sds470")
                             }}
                         >
                             psy100
