@@ -65,7 +65,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     justifyContent="space-between"
                     alignItems="center"
                 >
-                    No course
+                    No course selected.
                 </Heading>
                 <Text>Pick a course to see information regarding it.</Text>
             </Box>
@@ -123,10 +123,12 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                 <Box>
                     <Tooltip label={course.breadthCategories}>
                         <Text
-                            fontSize="0.7em"
+                            fontSize="0.6em"
                             width="1.5em"
                             height="1.5em"
-                            backgroundColor="rgba(221, 221, 221, 0.2)"
+                            backgroundColor="green.100"
+                            color="green.800"
+                            shadow="md"
                             padding={2}
                             borderRadius="100rem"
                             display="flex"
