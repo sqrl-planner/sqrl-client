@@ -162,7 +162,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
                                             Share read-only
                                         </Text>
                                         <Input
-                                            value="https://sqrl.uoft.in/timetable/507f1f77bcf86cd799439011"
+                                            value="https://sqrlplanner.com/timetable/507f1f77bcf86cd799439011"
                                             my={1}
                                             mt={2}
                                             readOnly
