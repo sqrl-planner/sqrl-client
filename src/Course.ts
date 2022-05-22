@@ -32,7 +32,14 @@ export interface StandardMeeting {
     subtitle: string
     cancel: string
     waitlist: string
-    deliveryMode: "ONLSYNC" | "ONLASYNC" | "CLASS"
+    deliveryMode:
+        | "ONLSYNC"
+        | "ONLASYNC"
+        | "CLASS"
+        | "SYNC"
+        | "ASYNC"
+        | "ASYIF"
+        | "SYNIF"
     online?: string
     enrollmentCapacity: string
     actualEnrolment: string

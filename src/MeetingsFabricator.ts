@@ -19,6 +19,11 @@ const standardMeetingDeliveryMode = {
     ONLSYNC: MeetingDeliveryMode.OnlineSync,
     ONLASYNC: MeetingDeliveryMode.OnlineAsync,
     CLASS: MeetingDeliveryMode.InPerson,
+    IN_PERSON: MeetingDeliveryMode.InPerson,
+    SYNC: MeetingDeliveryMode.Sync,
+    ASYNC: MeetingDeliveryMode.Async,
+    ASYIF: MeetingDeliveryMode.AsyIf,
+    SYNIF: MeetingDeliveryMode.SynIf,
 }
 
 const standardMeetingCategoryType = {

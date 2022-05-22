@@ -4,9 +4,13 @@ import { Day } from "../../src/utils/time"
  * The delivery mode for a meeting.
  */
 export enum MeetingDeliveryMode {
-    OnlineAsync = "online asynchronous",
-    OnlineSync = "online synchronous",
+    // OnlineAsync = "online asynchronous",
+    // OnlineSync = "online synchronous",
     InPerson = "in person",
+    Sync = "online synchronous",
+    Async = "online asynchronous",
+    AsyIf = "online asynchronous with in-person final",
+    SynIf = "online synchronous with in-person final",
 }
 
 /**
