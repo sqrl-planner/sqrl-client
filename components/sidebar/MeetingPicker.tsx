@@ -12,7 +12,6 @@ import {
     Flex,
     Grid,
     Icon,
-    Skeleton,
     Text,
     Tooltip,
     useColorModeValue,
@@ -98,19 +97,12 @@ const MeetingPicker = ({
                 mb={1}
             >
                 <CourseSubheading px={5}>{t(method)}</CourseSubheading>
-                <Icon
-                    cursor="pointer"
-                    as={FaTrashAlt}
-                    position="relative"
-                    top={1.5}
-                    fontSize="sm"
-                    pl={0.5}
-                    mr={7}
-                    opacity={
-                        userMeetings[identifier] &&
-                        userMeetings[identifier][method]
-                            ? ""
-                            : "0.5"
+                <button
+                    disabled={
+                        !(
+                            userMeetings[identifier] &&
+                            userMeetings[identifier][method]
+                        )
                     }
                     onClick={() => {
                         dispatch({
@@ -121,7 +113,22 @@ const MeetingPicker = ({
                             },
                         })
                     }}
-                />
+                >
+                    <Icon
+                        as={FaTrashAlt}
+                        position="relative"
+                        top={1.5}
+                        fontSize="sm"
+                        pl={0.5}
+                        mr={7}
+                        opacity={
+                            userMeetings[identifier] &&
+                            userMeetings[identifier][method]
+                                ? ""
+                                : "0.5"
+                        }
+                    />
+                </button>
             </Flex>
             <VStack spacing={0}>
                 {matchingMethod.map((section) => {

@@ -65,12 +65,13 @@ const PreferencesApplication = () => {
                         </IconWrapper>
                         {t("programs-focuses")}
                     </FormLabel>
-                    <Input
+                    {/* <Input
                         variant="outline"
                         boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
                         placeholder="Search for a program or focus"
                         my={2}
                         onClick={(e: MouseEvent) => {
+                            return
                             dispatchAppContext({
                                 type: "ADD_PROGRAM",
                                 payload: {
@@ -83,7 +84,8 @@ const PreferencesApplication = () => {
                                 },
                             })
                         }}
-                    />
+                    /> */}
+                    Programs and focuses is not yet implemented.
                     <UnorderedList my={4} fontWeight="500">
                         {programs.map((program) => (
                             <ListItem mb={2} key={program.code}>
@@ -174,8 +176,9 @@ const PreferencesApplication = () => {
                         </IconWrapper>
                         {t("campus")}
                     </FormLabel>
-                    {JSON.stringify(campus, null, 2)} <br />
-                    TODO: Add campus selection
+                    Campus selection is not yet implemented.
+                    {/* {JSON.stringify(campus, null, 2)} <br />
+                    TODO: Add campus selection */}
                 </FormControl>
             </PreferencesSection>
 
