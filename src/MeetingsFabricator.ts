@@ -16,8 +16,8 @@ const standardMeetingDays = {
 }
 
 const standardMeetingDeliveryMode = {
-    ONLSYNC: MeetingDeliveryMode.OnlineSync,
-    ONLASYNC: MeetingDeliveryMode.OnlineAsync,
+    // ONLSYNC: MeetingDeliveryMode.OnlineSync,
+    // ONLASYNC: MeetingDeliveryMode.OnlineAsync,
     CLASS: MeetingDeliveryMode.InPerson,
     IN_PERSON: MeetingDeliveryMode.InPerson,
     SYNC: MeetingDeliveryMode.Sync,
