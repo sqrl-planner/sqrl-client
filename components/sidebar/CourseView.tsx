@@ -248,7 +248,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     </CourseSubheading>
                     <Text>
                         {reactStringReplace(
-                            course.prerequisites,
+                            course.prerequisites
+                                // replace html tags
+                                .replace(/(<([^>]+)>)/gi, "")
+                                .replace(/&amp;/g, "&"),
                             // three to four alpha characters, two to four digits, H or Y, and a digit
                             /([A-Za-z]{3,4}\d{2,4}[H,Y]\d?)/g,
                             (match, i) => (
@@ -279,6 +282,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     <Text>
                         {reactStringReplace(
                             course.exclusions
+                                // replace html tags
                                 .replace(/(<([^>]+)>)/gi, "")
                                 .replace(/&amp;/g, "&"),
                             /([A-Za-z]{3,4}\d{2,4}[H,Y]\d?)/g,
