@@ -448,15 +448,31 @@ const MeetingPicker = ({
                                 {/* </Skeleton> */}
 
                                 <Flex mx={1} alignItems="center" fontSize="lg">
-                                    {section.deliveryMode &&
-                                        section.deliveryMode.toUpperCase() ===
-                                            "ONLINE_ASYNC" && (
-                                            <Tooltip label="Asynchronous—no time on timetable.">
-                                                <chakra.span mr={2}>
-                                                    <FaInternetExplorer />
-                                                </chakra.span>
-                                            </Tooltip>
-                                        )}
+                                    {(() => {
+                                        const deliveryMode =
+                                            section.deliveryMode
+                                        if (!deliveryMode) return
+
+                                        switch (deliveryMode) {
+                                            case "ONLINE_ASYNC":
+                                            case "ASYNC":
+                                            case "SYNC":
+                                            case "SYNIF":
+                                            case "ASYIF":
+                                                return (
+                                                    <Tooltip
+                                                        label={`${section.deliveryMode}—no time on timetable.`}
+                                                    >
+                                                        <chakra.span mr={2}>
+                                                            <FaInternetExplorer />
+                                                        </chakra.span>
+                                                    </Tooltip>
+                                                )
+                                                break
+                                                defualt: return
+                                        }
+                                    })()}
+
                                     {hasConflict ? (
                                         <WarningTwoIcon />
                                     ) : concerning ? (

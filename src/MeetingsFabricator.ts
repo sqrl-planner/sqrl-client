@@ -7,7 +7,7 @@ import { Course } from "./Course"
 import { UserMeeting } from "./SqrlContext"
 import { Day, timeToMinuteOffset } from "./utils/time"
 
-const standardMeetingDays = {
+const standardMeetingDays: { [key in keyof typeof Day]: Day } = {
     MONDAY: Day.MONDAY,
     TUESDAY: Day.TUESDAY,
     WEDNESDAY: Day.WEDNESDAY,
@@ -15,10 +15,26 @@ const standardMeetingDays = {
     FRIDAY: Day.FRIDAY,
 }
 
-const standardMeetingDeliveryMode = {
-    ONLSYNC: MeetingDeliveryMode.OnlineSync,
-    ONLASYNC: MeetingDeliveryMode.OnlineAsync,
+export enum StandardMeetingDeliveryMode {
+    CLASS = "CLASS",
+    IN_PERSON = "IN_PERSON",
+    SYNIF = "SYNIF",
+    ASYIF = "ASYIF",
+    ASYNC = "ASYNC",
+    SYNC = "SYNC",
+}
+
+const standardMeetingDeliveryMode: {
+    [k in keyof typeof StandardMeetingDeliveryMode]: MeetingDeliveryMode
+} = {
+    // ONLSYNC: MeetingDeliveryMode.OnlineSync,
+    // ONLASYNC: MeetingDeliveryMode.OnlineAsync,
     CLASS: MeetingDeliveryMode.InPerson,
+    IN_PERSON: MeetingDeliveryMode.InPerson,
+    SYNC: MeetingDeliveryMode.Sync,
+    ASYNC: MeetingDeliveryMode.Async,
+    ASYIF: MeetingDeliveryMode.AsyIf,
+    SYNIF: MeetingDeliveryMode.SynIf,
 }
 
 const standardMeetingCategoryType = {
@@ -62,14 +78,7 @@ const MeetingsFabricator = (
 
                 for (const schedule of meeting.meetings as any) {
                     const day =
-                        standardMeetingDays[
-                            schedule.day as
-                                | "MONDAY"
-                                | "TUESDAY"
-                                | "WEDNESDAY"
-                                | "THURSDAY"
-                                | "FRIDAY"
-                        ]
+                        standardMeetingDays[schedule.day as keyof typeof Day]
 
                     meetings.push(
                         new Meeting(
@@ -85,10 +94,7 @@ const MeetingsFabricator = (
                             course.code as string | undefined,
                             index,
                             standardMeetingDeliveryMode[
-                                meeting.deliveryMode as
-                                    | "CLASS"
-                                    | "ONLSYNC"
-                                    | "ONLASYNC"
+                                meeting.deliveryMode as StandardMeetingDeliveryMode
                             ],
                             standardMeetingCategoryType[
                                 meeting.teachingMethod as

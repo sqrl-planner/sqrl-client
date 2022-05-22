@@ -5,7 +5,7 @@ import { usePreferences } from "../../src/PreferencesContext"
 import { capitalize } from "../../src/utils/misc"
 import { minuteOffsetToTime } from "../../src/utils/time"
 import { breakdownCourseCode } from "../../src/utils/course"
-import { Meeting } from "./Meeting"
+import { Meeting, MeetingDeliveryMode } from "./Meeting"
 import { useTranslation } from "next-i18next"
 
 interface MeetingProps {
@@ -14,10 +14,16 @@ interface MeetingProps {
     twentyFour: boolean
 }
 
-const deliveryAbbreviations = {
-    "online asynchronous": "OA",
-    "online synchronous": "OS",
+const deliveryAbbreviations: {
+    [k in MeetingDeliveryMode]: string
+} = {
+    // "online asynchronous": "OA",
+    // "online synchronous": "OS",
     "in person": "IP",
+    "online synchronous": "SY",
+    "online asynchronous": "AY",
+    "online asynchronous with in-person final": "AY*",
+    "online synchronous with in-person final": "SY*",
 }
 
 const categoryAbbreviations = {

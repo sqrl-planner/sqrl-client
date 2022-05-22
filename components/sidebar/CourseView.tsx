@@ -278,7 +278,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     <CourseSubheading>Exclusions</CourseSubheading>
                     <Text>
                         {reactStringReplace(
-                            course.exclusions,
+                            course.exclusions
+                                .replace(/(<([^>]+)>)/gi, "")
+                                .replace(/&amp;/g, "&"),
                             /([A-Za-z]{3,4}\d{2,4}[H,Y]\d?)/g,
                             (match, i) => (
                                 <Button

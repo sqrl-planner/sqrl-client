@@ -2,6 +2,7 @@
  * Across this project, "Standard" refers to a schema derived from the official Timetable
  */
 
+import { StandardMeetingDeliveryMode } from "./MeetingsFabricator"
 import { StandardDayOfWeek } from "./utils/time"
 
 export interface Schedule {
@@ -32,7 +33,8 @@ export interface StandardMeeting {
     subtitle: string
     cancel: string
     waitlist: string
-    deliveryMode: "ONLSYNC" | "ONLASYNC" | "CLASS"
+    deliveryMode: keyof StandardMeetingDeliveryMode
+
     online?: string
     enrollmentCapacity: string
     actualEnrolment: string

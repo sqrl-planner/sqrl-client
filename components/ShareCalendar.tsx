@@ -57,11 +57,6 @@ const ShareCalendar = () => {
                             const [endHour, endMinute] =
                                 minuteOffsetToIcalArray(meeting.endTime)
 
-                            // let firstStart =
-
-                            if (meeting.title === "MAT237Y1")
-                                console.log(semester, meeting)
-
                             events.push({
                                 summary: meeting.title,
                                 meeting,
