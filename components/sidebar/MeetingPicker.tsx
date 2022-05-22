@@ -463,8 +463,6 @@ const MeetingPicker = ({
                                         switch (deliveryMode) {
                                             case "ONLINE_ASYNC":
                                             case "ASYNC":
-                                            case "SYNC":
-                                            case "SYNIF":
                                             case "ASYIF":
                                                 return (
                                                     <Tooltip
