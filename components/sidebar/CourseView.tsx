@@ -20,7 +20,13 @@ import {
     Text,
     Tooltip,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useRef, useState } from "react"
+import React, {
+    Fragment,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
@@ -51,6 +57,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const [scrolling, setScrolling] = useState<boolean>(false)
 
     const initRef = useRef<HTMLButtonElement>(null)
+
+    useLayoutEffect(() => {
+        return () => {}
+    }, [])
 
     const { t } = useTranslation("common")
 

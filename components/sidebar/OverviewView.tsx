@@ -21,6 +21,7 @@ import {
     breakdownCourseCode,
     breakdownCourseIdentifier,
     getMeetingTypes,
+    meetingsMissing,
 } from "../../src/utils/course"
 import { MeetingCategoryType } from "../timetable/Meeting"
 import { ConditionalWrapper } from "./MeetingPicker"
@@ -209,27 +210,33 @@ const OverviewView = () => {
                                 const course = courses[identifier]
                                 const { department, numeral, suffix } =
                                     breakdownCourseCode(course.code)
-                                const courseMeetingTypes =
-                                    getMeetingTypes(course)
 
-                                let missing: Array<MeetingCategoryType> = []
+                                const missing = meetingsMissing(
+                                    course,
+                                    userMeetings,
+                                    identifier
+                                )
+                                // const courseMeetingTypes =
+                                //     getMeetingTypes(course)
 
-                                for (const [
-                                    meetingType,
-                                    meetingTypeExists,
-                                ] of Object.entries(courseMeetingTypes)) {
-                                    if (!meetingTypeExists) continue
+                                // let missing: Array<MeetingCategoryType> = []
 
-                                    if (
-                                        !userMeetings[identifier][
-                                            meetingType as MeetingCategoryType
-                                        ]
-                                    ) {
-                                        missing.push(
-                                            meetingType as MeetingCategoryType
-                                        )
-                                    }
-                                }
+                                // for (const [
+                                //     meetingType,
+                                //     meetingTypeExists,
+                                // ] of Object.entries(courseMeetingTypes)) {
+                                //     if (!meetingTypeExists) continue
+
+                                //     if (
+                                //         !userMeetings[identifier][
+                                //             meetingType as MeetingCategoryType
+                                //         ]
+                                //     ) {
+                                //         missing.push(
+                                //             meetingType as MeetingCategoryType
+                                //         )
+                                //     }
+                                // }
 
                                 // return <Text>{course.code}</Text>
                                 return (

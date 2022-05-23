@@ -5,6 +5,7 @@ import {
     InMemoryCache,
 } from "@apollo/client"
 // import "./global.css"
+import fetch from "cross-fetch"
 
 const httpLink = createHttpLink({
     uri:
@@ -12,6 +13,7 @@ const httpLink = createHttpLink({
         //     ? "https://api.uoft.in/graphql"
         //     : "http://localhost:5000/graphql",
         "https://api.staging.sqrlplanner.com/graphql",
+    fetch,
 })
 
 // https://dev.to/tmaximini/accessing-authorization-headers-in-apollo-graphql-client-3b50

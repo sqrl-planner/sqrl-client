@@ -72,8 +72,6 @@ const Sidebar = () => {
                     zIndex="1"
                     width="25rem"
                     bg={useColorModeValue("gray.75", "gray.700")}
-                    // px={6}
-
                     height="2.8rem"
                     boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
                 >

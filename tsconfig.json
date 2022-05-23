@@ -12,15 +12,16 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "jsx": "preserve"
+        // "jsx": "preserve"
+        "jsx": "react"
     },
     "include": [
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
         "next-i18next.config.js",
-        "jest.setup.ts",
-        "tests/timetable.test.tss"
+        "jest.setup.js",
+        "__tests__/timetable.test.tsx"
     ],
     "exclude": ["node_modules"]
 }

@@ -19,7 +19,13 @@ import {
 } from "@chakra-ui/react"
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion"
 import { useTranslation } from "next-i18next"
-import React, { MutableRefObject, useEffect, useRef, useState } from "react"
+import React, {
+    MutableRefObject,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from "react"
 import { useDebouncedCallback } from "use-debounce"
 import { GET_COURSE_BY_ID } from "../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"

@@ -1,5 +1,4 @@
 import { Meeting } from "../../components/timetable/Meeting"
-import { v4 as uuidv4 } from "uuid"
 
 export interface SqrlIcsEvent {
     summary: string
@@ -51,7 +50,7 @@ const icalFabricator = (events: Array<SqrlIcsEvent>): string => {
     for (const event of events) {
         ics += `
 BEGIN:VEVENT
-UID:${uuidv4()}
+UID:${generateUid(event.meeting)}
 SUMMARY:${event.summary}
 DTSTAMP:${currentTimeStamp}Z
 DTSTART;TZID=${event.tzid}:${dateToIcsString(event.firstStart)}

@@ -360,7 +360,8 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                                                 ) ===
                                                     meeting.category
                                                         .substring(0, 3)
-                                                        .toUpperCase())
+                                                        .toUpperCase() &&
+                                                !dark)
                                             //  || meeting.identifier === sidebarCourse
                                         }
                                         meeting={meeting}
