@@ -62,25 +62,16 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
 
     const toast = useToast()
 
-    // useEffect(() => {
-    //     // if (!times) return
-
-    // }, [toast, ])
-
     useLayoutEffect(() => {
         return () => {
             if (!userMeetings[identifier]) return
             const missing = meetingsMissing(course, userMeetings, identifier)
             if (missing.length == 0) return
 
-            // if (!(start > times.start || end < times.end))
-            // return toast.close(toastRef.current as ToastId)
-
             if (toast.isActive("warn-missing-section")) return
             toast({
                 id: "warn-missing-section",
                 title: "Some courses are missing a section.",
-                // description: "Run Autoclamp to fit timetable to meetings.",
                 description: "Check Overview to see missing meetings.",
                 status: "warning",
                 // variant: "subtle",
