@@ -18,7 +18,9 @@ import {
     PopoverHeader,
     PopoverTrigger,
     Text,
+    ToastId,
     Tooltip,
+    useToast,
 } from "@chakra-ui/react"
 import React, {
     Fragment,
@@ -30,14 +32,14 @@ import React, {
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
-import { breakdownCourseCode } from "../../src/utils/course"
+import { breakdownCourseCode, meetingsMissing } from "../../src/utils/course"
 import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
-        state: { courses, sidebarCourse: identifier },
+        state: { courses, sidebarCourse: identifier, userMeetings },
         dispatch,
     } = useAppContext()
 
@@ -58,8 +60,28 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
 
     const initRef = useRef<HTMLButtonElement>(null)
 
+    const toast = useToast()
+
     useLayoutEffect(() => {
-        return () => {}
+        return () => {
+            if (!userMeetings[identifier]) return
+            const missing = meetingsMissing(course, userMeetings, identifier)
+            if (missing.length == 0) return
+
+            if (toast.isActive("warn-missing-section")) return
+            toast({
+                id: "warn-missing-section",
+                title: "Some courses are missing a section.",
+                description: "Check Overview to see missing meetings.",
+                status: "warning",
+                // variant: "subtle",
+                variant: "solid",
+                isClosable: true,
+                duration: null,
+                onCloseComplete: () =>
+                    dispatch({ type: "SET_SIDEBAR", payload: 2 }),
+            })
+        }
     }, [])
 
     const { t } = useTranslation("common")
