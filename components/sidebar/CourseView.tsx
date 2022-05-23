@@ -65,14 +65,18 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     useLayoutEffect(() => {
         return () => {
             if (!userMeetings[identifier]) return
+
             const missing = meetingsMissing(course, userMeetings, identifier)
+
             if (missing.length == 0) return
 
+            if (toast.isActive("warn-missing-section")) return
+
             toast({
+                id: "warn-missing-section",
                 title: "Some courses are missing a section.",
                 description: "Check Overview to see missing meetings.",
                 status: "warning",
-                // variant: "subtle",
                 variant: "solid",
                 isClosable: true,
                 duration: null,
@@ -176,15 +180,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             <Heading as="h4" size="md" opacity="0.6" mb={2} px={5}>
                 {course.title}
             </Heading>
-            {Object.values(MeetingCategoryType).map((method) => (
-                <MeetingPicker
-                    key={method}
-                    method={method}
-                    course={course}
-                    scrolling={scrolling}
-                />
-            ))}
-            <Flex w="100%" justifyContent="center" py="2" pt="5">
+            <Flex w="100%" justifyContent="start" py="2" pt={4} px={5}>
                 <Popover initialFocusRef={initRef}>
                     {({ onClose }) => (
                         <Fragment>
@@ -234,6 +230,15 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     )}
                 </Popover>
             </Flex>
+            {Object.values(MeetingCategoryType).map((method) => (
+                <MeetingPicker
+                    key={method}
+                    method={method}
+                    course={course}
+                    scrolling={scrolling}
+                />
+            ))}
+
             <Box>
                 <Accordion
                     allowToggle

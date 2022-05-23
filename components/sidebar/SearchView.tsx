@@ -53,7 +53,7 @@ const SearchView = ({
 
     useEffect(() => {
         searchRef.current.focus()
-    })
+    }, [])
 
     if (searchRef.current) {
         searchRef.current.focus()
@@ -65,7 +65,7 @@ const SearchView = ({
     const debounced = useDebouncedCallback((query) => {
         if (!query) return
         search({ variables: { query, offset: searchOffset } })
-    }, 300)
+    }, 400)
 
     const debouncedZero = useDebouncedCallback((query) => {
         if (!query) return
