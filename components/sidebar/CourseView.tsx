@@ -68,9 +68,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             const missing = meetingsMissing(course, userMeetings, identifier)
             if (missing.length == 0) return
 
-            if (toast.isActive("warn-missing-section")) return
             toast({
-                id: "warn-missing-section",
                 title: "Some courses are missing a section.",
                 description: "Check Overview to see missing meetings.",
                 status: "warning",
