@@ -11,7 +11,7 @@ export interface UserMeeting {
     hover?: string
 }
 
-interface AppData {
+export interface AppData {
     courses: { [key: string]: Course }
     userMeetings: { [key: string]: UserMeeting }
     programs: Array<{ code: string; title: string }>

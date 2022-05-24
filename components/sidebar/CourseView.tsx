@@ -18,20 +18,28 @@ import {
     PopoverHeader,
     PopoverTrigger,
     Text,
+    ToastId,
     Tooltip,
+    useToast,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useRef, useState } from "react"
+import React, {
+    Fragment,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
-import { breakdownCourseCode } from "../../src/utils/course"
+import { breakdownCourseCode, meetingsMissing } from "../../src/utils/course"
 import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
-        state: { courses, sidebarCourse: identifier },
+        state: { courses, sidebarCourse: identifier, userMeetings },
         dispatch,
     } = useAppContext()
 
@@ -51,6 +59,32 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const [scrolling, setScrolling] = useState<boolean>(false)
 
     const initRef = useRef<HTMLButtonElement>(null)
+
+    const toast = useToast()
+
+    useLayoutEffect(() => {
+        return () => {
+            if (!userMeetings[identifier]) return
+
+            const missing = meetingsMissing(course, userMeetings, identifier)
+
+            if (missing.length == 0) return
+
+            if (toast.isActive("warn-missing-section")) return
+
+            toast({
+                id: "warn-missing-section",
+                title: "Some courses are missing a section.",
+                description: "Check Overview to see missing meetings.",
+                status: "warning",
+                variant: "solid",
+                isClosable: true,
+                duration: null,
+                onCloseComplete: () =>
+                    dispatch({ type: "SET_SIDEBAR", payload: 2 }),
+            })
+        }
+    }, [])
 
     const { t } = useTranslation("common")
 
@@ -146,15 +180,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             <Heading as="h4" size="md" opacity="0.6" mb={2} px={5}>
                 {course.title}
             </Heading>
-            {Object.values(MeetingCategoryType).map((method) => (
-                <MeetingPicker
-                    key={method}
-                    method={method}
-                    course={course}
-                    scrolling={scrolling}
-                />
-            ))}
-            <Flex w="100%" justifyContent="center" py="2" pt="5">
+            <Flex w="100%" justifyContent="start" py="2" pt={4} px={5}>
                 <Popover initialFocusRef={initRef}>
                     {({ onClose }) => (
                         <Fragment>
@@ -204,6 +230,15 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     )}
                 </Popover>
             </Flex>
+            {Object.values(MeetingCategoryType).map((method) => (
+                <MeetingPicker
+                    key={method}
+                    method={method}
+                    course={course}
+                    scrolling={scrolling}
+                />
+            ))}
+
             <Box>
                 <Accordion
                     allowToggle
