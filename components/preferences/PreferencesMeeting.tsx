@@ -67,7 +67,7 @@ const PreferencesMeeting = () => {
                     iconProps={{
                         as: FaTruckMoving,
                     }}
-                    helperText="Show medium of delivery (OS, OA, IP)."
+                    helperText="Show medium of delivery (SY, AS, IP, etc.)."
                 >
                     {t("delivery-method")}
                 </PreferencesToggle>
