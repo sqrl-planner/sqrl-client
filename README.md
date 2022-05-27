@@ -18,7 +18,9 @@ Sqrl is a timetable planner for the University of Toronto.
 
 ### Development
 
-Clone the repo, then run `npm i` to install dependencies. Run `npm run dev` to start the development server. Run `npm run build && npm start` to create a production build and serve the application. Run `npm test` to run tests.
+Clone the repo, then run `npm i` to install dependencies. Duplicate `.env.local.example` and rename it `.env.local`, then run `npm run dev` to start the development server.
+
+Run `npm run build && npm start` to create a production build and serve the application. Run `npm test` to run tests.
 
 ### Bugs
 
