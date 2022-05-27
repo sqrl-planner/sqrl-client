@@ -10,6 +10,7 @@ import {
     CloseButton,
     Flex,
     Heading,
+    Icon,
     Popover,
     PopoverArrow,
     PopoverCloseButton,
@@ -36,6 +37,7 @@ import { breakdownCourseCode, meetingsMissing } from "../../src/utils/course"
 import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
+import { FaTrashAlt } from "react-icons/fa"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     const {
@@ -185,8 +187,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     {({ onClose }) => (
                         <Fragment>
                             <PopoverTrigger>
-                                <Button variant="solid" colorScheme="gray">
-                                    {t("sidebar:remove")} {department + numeral}
+                                <Button variant="solid" colorScheme="gray" display="flex" alignItems="center" gap={2}>
+                                    <Icon as={FaTrashAlt} />
+                                    {t("sidebar:remove")} {course.code}
                                 </Button>
                                 {/* <CloseButton /> */}
                             </PopoverTrigger>
