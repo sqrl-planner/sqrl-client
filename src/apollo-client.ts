@@ -4,15 +4,11 @@ import {
     createHttpLink,
     InMemoryCache,
 } from "@apollo/client"
-// import "./global.css"
+
 import fetch from "cross-fetch"
 
 const httpLink = createHttpLink({
-    uri:
-        // process.env.NODE_ENV === "production"
-        //     ? "https://api.uoft.in/graphql"
-        //     : "http://localhost:5000/graphql",
-        "https://api.staging.sqrlplanner.com/graphql",
+    uri: process.env.NEXT_PUBLIC_API_URI,
     fetch,
 })
 
