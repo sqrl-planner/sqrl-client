@@ -16,6 +16,7 @@ import {
 import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useState } from "react"
 import CountUp from "react-countup"
+import { Course } from "../../src/Course"
 import { useAppContext } from "../../src/SqrlContext"
 import {
   breakdownCourseCode,
@@ -79,6 +80,7 @@ const OverviewView = () => {
   }, [setCoursesToShow, userMeetings])
 
   const missingColour = useColorModeValue("yellow.600", "yellow.100")
+  const attentionColour = useColorModeValue("red.600", "red.200")
 
   const [credits, setCredits] = useState<{
     first: number
@@ -89,10 +91,11 @@ const OverviewView = () => {
   useEffect(() => {
     if (!Object.keys(coursesToShow).length) return
 
-    for (const [term, courses] of Object.entries(coursesToShow)) {
-      const termCredits = courses.reduce((prev, identifier) => {
+    for (const [term, courseIdentifiers] of Object.entries(coursesToShow)) {
+      const termCredits = courseIdentifiers.reduce((prev, identifier) => {
         const { suffix } = breakdownCourseIdentifier(identifier)
-        const credit = suffix.substring(0, 1) === "H" ? 0.5 : 1
+        let credit = suffix.substring(0, 1) === "H" ? 0.5 : 1
+        if ((courses[identifier] as Course).breadthCategories.trim() === "") credit = 0
 
         return prev + credit
       }, 0)
@@ -256,6 +259,17 @@ const OverviewView = () => {
                               if (course.term === "SECOND_SEMESTER") return "S"
                               return "Y"
                             })()}
+                            {courses[identifier].breadthCategories.trim() === "" && (
+                              <Text
+                                as="span"
+                                display="inline-block"
+                                ml={1}
+                                fontSize={14}
+                                color={attentionColour}
+                              >
+                                (No credit)
+                              </Text>
+                            )}
                           </Text>
                         </Box>
                         <Flex alignItems="center" fontFamily="interstate-mono, monospace">
