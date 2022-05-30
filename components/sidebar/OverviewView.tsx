@@ -151,7 +151,8 @@ const OverviewView = () => {
           // term = term as "first" | "second" | "year"
           if (!Object.keys(coursesToShow).length) return <Fragment key={term} />
 
-          if (!credits[term]) return <Fragment key={term} />
+          // if (!credits[term]) return <Fragment key={term} />
+          if (coursesToShow[term].length === 0) return <Fragment key={term} />
 
           return (
             <Box width="100%" key={term} pb={2}>
