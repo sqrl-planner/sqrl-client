@@ -3,63 +3,58 @@ import { Course } from "../Course"
 import { AppData } from "../SqrlContext"
 
 export const breakdownCourseCode = (title: string) => {
-    const firstDigitContent = title.match(/\d{3,}/g)
-    let firstDigit = 0
+  const firstDigitContent = title.match(/\d{3,}/g)
+  let firstDigit = 0
 
-    if (firstDigitContent) firstDigit = title.indexOf(firstDigitContent[0])
+  if (firstDigitContent) firstDigit = title.indexOf(firstDigitContent[0])
 
-    const department = title.substring(0, firstDigit)
-    const numeral = firstDigitContent
-        ? title.substr(firstDigit, firstDigitContent[0].length)
-        : title
+  const department = title.substring(0, firstDigit)
+  const numeral = firstDigitContent ? title.substr(firstDigit, firstDigitContent[0].length) : title
 
-    const suffix = firstDigitContent
-        ? title.substring(firstDigitContent[0].length + department.length)
-        : ""
+  const suffix = firstDigitContent
+    ? title.substring(firstDigitContent[0].length + department.length)
+    : ""
 
-    return { department, numeral, suffix }
+  return { department, numeral, suffix }
 }
 
 export const breakdownCourseIdentifier = (identifier: string) => {
-    const brokenIdentifier = identifier.split("-")
+  const brokenIdentifier = identifier.split("-")
 
-    return {
-        ...breakdownCourseCode(brokenIdentifier[0]),
-        term: brokenIdentifier[1],
-        terminal: brokenIdentifier[2],
-    }
+  return {
+    ...breakdownCourseCode(brokenIdentifier[0]),
+    term: brokenIdentifier[1],
+    terminal: brokenIdentifier[2],
+  }
 }
 
 export const getMeetingTypes = (course: Course) => ({
-    lecture: course.sections.some(
-        (section) => section.teachingMethod === "LECTURE"
-    ),
-    tutorial: course.sections.some(
-        (section) => section.teachingMethod === "TUTORIAL"
-    ),
-    practical: course.sections.some(
-        (section) => section.teachingMethod === "PRACTICAL"
-    ),
+  lecture: course.sections.some((section) => section.teachingMethod === "LECTURE"),
+  tutorial: course.sections.some((section) => section.teachingMethod === "TUTORIAL"),
+  practical: course.sections.some((section) => section.teachingMethod === "PRACTICAL"),
 })
 
 export const meetingsMissing = (
-    course: Course,
-    userMeetings: AppData["userMeetings"],
-    identifier: string
+  course: Course,
+  userMeetings: AppData["userMeetings"],
+  identifier: string
 ) => {
-    const courseMeetingTypes = getMeetingTypes(course)
+  const courseMeetingTypes = getMeetingTypes(course)
 
-    let missing: Array<MeetingCategoryType> = []
+  let missing: Array<MeetingCategoryType> = []
 
-    for (const [meetingType, meetingTypeExists] of Object.entries(
-        courseMeetingTypes
-    )) {
-        if (!meetingTypeExists) continue
+  for (const [meetingType, meetingTypeExists] of Object.entries(courseMeetingTypes)) {
+    if (!meetingTypeExists) continue
 
-        if (!userMeetings[identifier][meetingType as MeetingCategoryType]) {
-            missing.push(meetingType as MeetingCategoryType)
-        }
+    if (!userMeetings[identifier][meetingType as MeetingCategoryType]) {
+      missing.push(meetingType as MeetingCategoryType)
     }
+  }
 
-    return missing
+  return missing
+}
+
+export const courseIsForCredit = (course: Course) => {
+  if (course.description.includes("does not carry credit weight")) return false
+  return true
 }
