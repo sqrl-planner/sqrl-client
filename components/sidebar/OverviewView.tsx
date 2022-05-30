@@ -21,6 +21,7 @@ import { useAppContext } from "../../src/SqrlContext"
 import {
   breakdownCourseCode,
   breakdownCourseIdentifier,
+  courseIsForCredit,
   getMeetingTypes,
   meetingsMissing,
 } from "../../src/utils/course"
@@ -94,8 +95,10 @@ const OverviewView = () => {
     for (const [term, courseIdentifiers] of Object.entries(coursesToShow)) {
       const termCredits = courseIdentifiers.reduce((prev, identifier) => {
         const { suffix } = breakdownCourseIdentifier(identifier)
-        let credit = suffix.substring(0, 1) === "H" ? 0.5 : 1
-        if ((courses[identifier] as Course).breadthCategories.trim() === "") credit = 0
+        let credit = 0
+        if (courseIsForCredit(courses[identifier])) {
+          credit = suffix.substring(0, 1) === "H" ? 0.5 : 1
+        }
 
         return prev + credit
       }, 0)
@@ -148,10 +151,8 @@ const OverviewView = () => {
           </Stat>
         </StatGroup>
         {(Object.keys(coursesToShow) as Array<"first" | "second" | "year">).map((term) => {
-          // term = term as "first" | "second" | "year"
           if (!Object.keys(coursesToShow).length) return <Fragment key={term} />
 
-          // if (!credits[term]) return <Fragment key={term} />
           if (coursesToShow[term].length === 0) return <Fragment key={term} />
 
           return (
@@ -260,7 +261,7 @@ const OverviewView = () => {
                               if (course.term === "SECOND_SEMESTER") return "S"
                               return "Y"
                             })()}
-                            {courses[identifier].breadthCategories.trim() === "" && (
+                            {!courseIsForCredit(courses[identifier]) && (
                               <Text
                                 as="span"
                                 display="inline-block"
