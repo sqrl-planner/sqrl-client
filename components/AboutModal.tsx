@@ -24,6 +24,7 @@ import {
 
 import { FaShareSquare, FaGithub } from "react-icons/fa"
 import ShareCalendar from "./ShareCalendar"
+import { ExternalLinkIcon } from "@chakra-ui/icons"
 
 type props = {
   isOpen: boolean
@@ -38,27 +39,31 @@ const AboutModal = ({ isOpen, onClose }: props) => {
       <ModalCloseButton />
       <ModalBody>
         Sqrl is a modern timetable planner for the University of Toronto.
-        <Flex flexDir="column" mt={4} gap={2}>
-          <Heading as="h3" size="md">Repositories</Heading>
-          <Flex gap={6}>
-            <Button variant="link">
-              <Link p={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-client">
-                <Icon as={FaGithub} /> sqrl-client
+        <Flex flexDir="column" mt={8} gap={2}>
+          <Heading as="h3" size="md" fontWeight={500}>Repositories</Heading>
+          <Flex flexDir="column" alignItems="start" gap={4} fontWeight="500">
+            <Flex flexDir="column" alignItems="start">
+              <Link isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-client">
+                <Icon as={FaGithub} /> sqrl-client <ExternalLinkIcon />
               </Link>
-            </Button>
+              <Box opacity={0.8}>The frontend React/Next.js client that consumes sqrl-server, with TypeScript and Chakra UI.</Box></Flex>
 
-            <Button variant="link">
-              <Link p={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-server">
-                <Icon as={FaGithub} /> sqrl-server
+            <Flex flexDir="column" alignItems="start">
+              <Link isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-server">
+                <Icon as={FaGithub} /> sqrl-server <ExternalLinkIcon />
               </Link>
-            </Button>
+
+              <Box opacity={0.8}>A GraphQL API and gateway that persists timetables and proxies course information from gator.</Box>
+
+            </Flex>
 
 
-            <Button variant="link">
-              <Link p={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/gator">
-                <Icon as={FaGithub} /> gator
+            <Flex flexDir="column" alignItems="start">
+              <Link isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/gator">
+                <Icon as={FaGithub} /> gator <ExternalLinkIcon />
               </Link>
-            </Button>
+              <Box opacity={0.8}>A central dataset aggregator and content manager.</Box>
+            </Flex>
 
           </Flex>
         </Flex>

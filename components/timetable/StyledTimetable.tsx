@@ -234,10 +234,10 @@ export const MeetingTime = styled.div<{
   conflict?: boolean
 }>`
     position: absolute;
-    top: 0em;
-    right: 0.0em;
-    bottom: 0em;
-    left: 0.0em;
+    top: 0.2em;
+    right: 0.1em;
+    bottom: 0.1em;
+    left: 0.2em;
 
     cursor: pointer;
     /* border-radius: 0.4em; */
