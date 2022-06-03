@@ -5,6 +5,7 @@ import {
     DrawerContent,
     DrawerHeader,
     DrawerOverlay,
+    DrawerProps,
     Tab as ChakraTab,
     TabList,
     TabPanel,
@@ -41,7 +42,7 @@ const Tab = ({ children }: { children: React.ReactNode }) => (
 
 const PreferencesDrawer = (props: {
     disclosure: UseDisclosureProps
-    drawerProps: any
+    drawerProps: Omit<DrawerProps, "children">
 }) => {
     const {
         state: { currentPrefTab },
