@@ -18,6 +18,7 @@ import {
     StyledHead,
     StyledTbody,
     StyledTh,
+    StyledThead,
     StyledTimeLabelTd,
     StyledTimetable,
     StyledTimetableContainer,
@@ -406,7 +407,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     return (
         <StyledTimetableContainer>
             <StyledTimetable>
-                <thead>
+                <StyledThead dark={dark}>
                     <StyledHead>
                         <StyledTh dark={dark}></StyledTh>
                         {days.map((day, index) => (
@@ -415,7 +416,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
                             </StyledTh>
                         ))}
                     </StyledHead>
-                </thead>
+                </StyledThead>
                 <StyledTbody>{tableRows}</StyledTbody>
             </StyledTimetable>
         </StyledTimetableContainer>
