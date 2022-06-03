@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import ShareModal from "./ShareModal"
 import styled from "styled-components"
 import { Button, chakra, Flex, Heading, Input, useColorModeValue, useDisclosure, ButtonGroup, } from "@chakra-ui/react"
-import { CalendarIcon, Icon, SettingsIcon } from "@chakra-ui/icons"
+import { CalendarIcon, Icon, InfoIcon, SettingsIcon } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
 import { useTranslation } from "next-i18next"
@@ -119,12 +119,12 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
       >{`${t("search-anything")} (${osModifier}K)`}</Input>
 
       <Flex alignItems="center">
-        <Button shadow="sm" variant="solid" colorScheme="blue" bg={"blue.700"} onClick={onOpenShare} mr={6}><Icon mr={2} as={FaShareSquare} />Share</Button>
+        <Button shadow="sm" variant="solid" colorScheme="blue" bg={useColorModeValue("blue.700", "blue.400")} onClick={onOpenShare} mr={6}><Icon mr={2} as={FaShareSquare} />Share</Button>
         <ButtonGroup shadow="sm" rounded="md" variant="outline" isAttached mr={6}>
-          <Button onClick={onOpenAbout}>About</Button>
+          <Button onClick={onOpenAbout}><Icon mr={2} as={InfoIcon} /> About</Button>
           <Button
             onClick={onOpenSettings}
-          >Preferences</Button>
+          ><Icon mr={2} as={SettingsIcon} /> Preferences</Button>
         </ButtonGroup>
       </Flex>
       <PreferencesDrawer
