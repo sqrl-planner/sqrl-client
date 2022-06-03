@@ -7,6 +7,7 @@ import { CalendarIcon, Icon, SettingsIcon } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
 import { useTranslation } from "next-i18next"
+import AboutModal from "./AboutModal"
 
 const HeaderComponent = styled(chakra.header)`
     display: grid;
@@ -58,16 +59,22 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const { isOpen: isSettingsOpen, onOpen: onOpenSettings, onClose: onCloseSettings } = useDisclosure()
   const {
-    isOpen: shareIsOpen,
-    onOpen: shareOnOpen,
-    onClose: shareOnClose,
+    isOpen: isAboutOpen,
+    onOpen: onOpenAbout,
+    onClose: onCloseAbout,
+  } = useDisclosure()
+  const {
+    isOpen: isShareOpen,
+    onOpen: onOpenShare,
+    onClose: onCloseShare,
   } = useDisclosure()
 
   const { t } = useTranslation("common")
 
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
-      <ShareModal shareIsOpen={shareIsOpen} shareOnClose={shareOnClose} />
+      <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
+      <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
       <Heading
         m={4}
         ml={6}
@@ -112,9 +119,9 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
       >{`${t("search-anything")} (${osModifier}K)`}</Input>
 
       <Flex alignItems="center">
-        <Button shadow="sm" variant="solid" colorScheme="blue" bg={"blue.700"} onClick={shareOnOpen} mr={6}><Icon mr={2} as={FaShareSquare} />Share</Button>
+        <Button shadow="sm" variant="solid" colorScheme="blue" bg={"blue.700"} onClick={onOpenShare} mr={6}><Icon mr={2} as={FaShareSquare} />Share</Button>
         <ButtonGroup shadow="sm" rounded="md" variant="outline" isAttached mr={6}>
-          <Button>About</Button>
+          <Button onClick={onOpenAbout}>About</Button>
           <Button
             onClick={onOpenSettings}
           >Preferences</Button>

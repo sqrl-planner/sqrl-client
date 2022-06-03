@@ -22,12 +22,12 @@ import { FaShareSquare } from "react-icons/fa"
 import ShareCalendar from "./ShareCalendar"
 
 type props = {
-  shareIsOpen: boolean
-  shareOnClose: () => any
+  isOpen: boolean
+  onClose: () => any
 }
 
-const ShareModal = ({ shareIsOpen, shareOnClose }: props) => {
-  return (<Modal isOpen={shareIsOpen} onClose={shareOnClose} size="xl">
+const ShareModal = ({ isOpen, onClose }: props) => {
+  return (<Modal isOpen={isOpen} onClose={onClose} size="xl">
     <ModalOverlay />
     <ModalContent>
       <ModalHeader fontSize="2xl">Share</ModalHeader>
@@ -68,7 +68,7 @@ const ShareModal = ({ shareIsOpen, shareOnClose }: props) => {
       <ModalFooter>
         <Button
           colorScheme="blue"
-          onClick={shareOnClose}
+          onClick={onClose}
         >
           Close
         </Button>

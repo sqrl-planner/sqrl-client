@@ -75,7 +75,7 @@ const Sidebar = () => {
           width="25rem"
           bg={useColorModeValue("gray.75", "gray.700")}
           height="2.8rem"
-          boxShadow="0px 4px 6px -4px rgba(0,0,0,0.1)"
+          boxShadow="0px 4px 6px -5px rgba(0,0,0,0.1)"
         >
           <Tab>{t("search")}</Tab>
           <Tab>{t("course")}</Tab>
