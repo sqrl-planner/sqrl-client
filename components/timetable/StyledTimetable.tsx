@@ -175,6 +175,12 @@ export const StyledTr = styled.tr<{
             }
         }
     }
+
+    &:nth-child(1) {
+      &::after {
+        border-bottom: none;
+      }
+    }
 `
 
 export const StyledTbody = styled.tbody``

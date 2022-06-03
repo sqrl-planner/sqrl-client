@@ -296,6 +296,7 @@ const MeetingPicker = ({
                 // transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
                 role="button"
                 onClick={() => {
+                  if(!sectionCode ) return
                   dispatch({
                     type: "SET_MEETING",
                     payload: {
@@ -313,7 +314,7 @@ const MeetingPicker = ({
                   })
                 }}
                 onMouseEnter={() => {
-                  if (isSelected) return
+                  if (isSelected || !sectionCode) return
                   dispatch({
                     type: "SET_HOVER_MEETING",
                     payload: {
