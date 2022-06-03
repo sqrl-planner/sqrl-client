@@ -112,7 +112,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
       >{`${t("search-anything")} (${osModifier}K)`}</Input>
 
       <Flex alignItems="center">
-        <Button shadow="sm" variant="solid" colorScheme="blue" onClick={shareOnOpen} mr={6}><Icon mr={2} as={FaShareSquare} />Share </Button>
+        <Button shadow="sm" variant="solid" colorScheme="blue" bg={"blue.700"} onClick={shareOnOpen} mr={6}><Icon mr={2} as={FaShareSquare} />Share</Button>
         <ButtonGroup shadow="sm" rounded="md" variant="outline" isAttached mr={6}>
           <Button>About</Button>
           <Button
