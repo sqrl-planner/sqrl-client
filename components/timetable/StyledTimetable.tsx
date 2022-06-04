@@ -268,10 +268,10 @@ export const MeetingTime = styled.div<{
     courseKeyToColour(courseKey, dark, palettes[palette] as any)};
 
     box-shadow: ${({ highlight, dark }) => {
-    if (!highlight) return `1px 1px 4px -2.6px rgba(0, 0, 0, 0.4);`
+    if (!highlight) return `1px 1px 4px -2.6px rgba(0, 0, 0, 0.8);`
 
     if (!dark) return ` 0 0 0 0.1rem rgba(0,0,0,0.6)`
-    return ` 0 0 0 0.1rem rgba(255, 255, 255, 0.6)`
+    return ` 0 0 0 0.1rem rgba(255, 255, 255, 0.8)`
     // if (!dark) return `inset 0 0 0 2px rgba(0,0,0,0.6)`
     // return `inset 0 0 0 2px rgba(255, 255, 255, 0.6)`
   }};
@@ -311,7 +311,7 @@ export const courseKeyToColour = (
 const HSLDarken = (colours: string[]) =>
   colours.map((colour) =>
     // Colour(colour, "hsl").darken(0.75).saturate(1.2).toString()
-    Colour(colour, "hsl").darken(0.3).alpha(0.2).toString()
+    Colour(colour, "hsl").darken(0.7).desaturate(0.4).alpha(1).toString()
   )
 
 const HSLAlpha = (colours: string[], alpha: number = 0.5) =>
