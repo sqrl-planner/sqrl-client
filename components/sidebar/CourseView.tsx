@@ -31,7 +31,7 @@ import { breakdownCourseCode, meetingsMissing } from "../../src/utils/course"
 import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
-import { FaTrashAlt } from "react-icons/fa"
+import { FaTrashAlt, FaShareSquare } from "react-icons/fa"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const {
@@ -81,6 +81,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     }
   }, [])
 
+  const removePopoverTriggerRef = useRef<HTMLButtonElement>(null)
   const { t } = useTranslation("common")
 
   if (!course) {
@@ -177,9 +178,12 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                 <Button
                   variant="solid"
                   colorScheme="gray"
-                  display="flex"
+                  width="0"
+                  position="absolute"
+                  visibility="hidden"
                   alignItems="center"
                   gap={2}
+                  ref={removePopoverTriggerRef}
                 >
                   <Icon as={FaTrashAlt} />
                   {t("sidebar:remove")} {course.code}
@@ -208,7 +212,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                         })
                         // onClose()
                       }}
+                      gap={2}
                     >
+                      <Icon as={FaTrashAlt} />
                       {t("sidebar:remove")} {course.code}
                     </Button>
                   </ButtonGroup>
@@ -217,6 +223,35 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             </Fragment>
           )}
         </Popover>
+        <ButtonGroup isAttached display="flex" width="100%" variant="outline" colorScheme="gray">
+          <Button
+            // variant="solid"
+            // colorScheme="red"
+            alignItems="center"
+            gap={2}
+            onClick={() => {
+              if (!removePopoverTriggerRef.current) return
+              removePopoverTriggerRef.current.click()
+            }}
+            disabled={!(Object.keys(userMeetings).some((courseCode) => {console.log(courseCode); return courseCode === course.id}))}
+          >
+            <Icon as={FaTrashAlt} />
+            {t("sidebar:remove")}
+          </Button>
+
+          <Button
+            // variant="solid"
+            // colorScheme="blue"
+            alignItems="center"
+            gap={2}
+            disabled={!(Object.keys(userMeetings).some((courseCode) => {console.log(courseCode); return courseCode === course.id}))}
+          >
+            {/* <Icon as={FaTrashAlt} /> */}
+            {/* {t("sidebar:remove")} {course.code} */}
+            <Icon as={FaShareSquare} />
+            Share with selections
+          </Button>
+        </ButtonGroup>
       </Flex>
       {Object.values(MeetingCategoryType).map((method) => (
         <MeetingPicker key={method} method={method} course={course} scrolling={scrolling} />
