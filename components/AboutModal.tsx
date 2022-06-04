@@ -19,7 +19,8 @@ import {
   HStack,
   Heading,
   Box,
-  Link
+  Link,
+  useColorModeValue
 } from "@chakra-ui/react"
 
 import { FaShareSquare, FaGithub } from "react-icons/fa"
@@ -43,13 +44,13 @@ const AboutModal = ({ isOpen, onClose }: props) => {
           <Heading as="h3" size="md" fontWeight={500}>Repositories</Heading>
           <Flex flexDir="column" alignItems="start" gap={4} fontWeight="500">
             <Flex flexDir="column" alignItems="start">
-              <Link isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-client">
+              <Link color={useColorModeValue("blue.800", "blue.300")} isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-client">
                 <Icon as={FaGithub} /> sqrl-client <ExternalLinkIcon />
               </Link>
               <Box opacity={0.8}>The frontend React/Next.js client that consumes sqrl-server, with TypeScript and Chakra UI.</Box></Flex>
 
             <Flex flexDir="column" alignItems="start">
-              <Link isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-server">
+              <Link color={useColorModeValue("blue.800", "blue.300")} isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/sqrl-server">
                 <Icon as={FaGithub} /> sqrl-server <ExternalLinkIcon />
               </Link>
 
@@ -59,7 +60,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
 
 
             <Flex flexDir="column" alignItems="start">
-              <Link isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/gator">
+              <Link color={useColorModeValue("blue.800", "blue.300")} isExternal py={2} display="flex" alignItems="center" gap={2} href="https://github.com/sqrl-planner/gator">
                 <Icon as={FaGithub} /> gator <ExternalLinkIcon />
               </Link>
               <Box opacity={0.8}>A central dataset aggregator and content manager.</Box>
@@ -110,6 +111,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
       <ModalFooter>
         <Button
           colorScheme="blue"
+          bg={useColorModeValue("blue.700", "blue.400")}
           onClick={onClose}
         >
           Close

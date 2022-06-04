@@ -21,9 +21,16 @@ import {
   Text,
   ToastId,
   Tooltip,
+  useClipboard,
   useToast,
 } from "@chakra-ui/react"
-import React, { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react"
+import React, {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
@@ -84,6 +91,21 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const removePopoverTriggerRef = useRef<HTMLButtonElement>(null)
   const { t } = useTranslation("common")
 
+  const shareUrl = `https://app.sqrlplanner.com/course/<:id>/share?sections=<:id1>,<:id2>`
+
+  const { onCopy, hasCopied } = useClipboard(shareUrl)
+
+  useEffect(() => {
+    if (!hasCopied) return
+
+    toast({
+      title: "Copied to clipboard",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    })
+  }, [hasCopied])
+
   if (!course) {
     return (
       <Box p={5}>
@@ -120,7 +142,13 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
         }, 200)
       }}
     >
-      <Box ref={boxRef} position="relative" bottom="100rem" visibility="hidden" role="none"></Box>
+      <Box
+        ref={boxRef}
+        position="relative"
+        bottom="100rem"
+        visibility="hidden"
+        role="none"
+      ></Box>
 
       <Heading
         p={5}
@@ -149,19 +177,25 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           {course.breadthCategories.trim() !== "" && (
             <Tooltip label={course.breadthCategories}>
               <Text
-                fontSize="0.6em"
-                width="1.5em"
-                height="1.5em"
-                backgroundColor="green.100"
-                color="green.800"
-                shadow="md"
-                padding={2}
+                fontSize="0.5em"
+                backgroundColor="blue.100"
+                color="blue.800"
+                // colorScheme="blue"
+                shadow="sm"
+                p={1}
+                px={3}
                 borderRadius="100rem"
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
               >
-                {course.breadthCategories.match(/\d/g)?.sort().join("&")}
+                {(() => {
+                  const categories =
+                    course.breadthCategories.match(/\d/g)?.sort() || []
+                  return `Breadth${
+                    categories?.length > 1 ? "s" : ""
+                  } ${categories?.join(", ")}`
+                })()}
               </Text>
             </Tooltip>
           )}
@@ -223,7 +257,13 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             </Fragment>
           )}
         </Popover>
-        <ButtonGroup isAttached display="flex" width="100%" variant="outline" colorScheme="gray">
+        <ButtonGroup
+          isAttached
+          display="flex"
+          width="100%"
+          variant="outline"
+          colorScheme="gray"
+        >
           <Button
             // variant="solid"
             // colorScheme="red"
@@ -233,7 +273,12 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
               if (!removePopoverTriggerRef.current) return
               removePopoverTriggerRef.current.click()
             }}
-            disabled={!(Object.keys(userMeetings).some((courseCode) => {console.log(courseCode); return courseCode === course.id}))}
+            disabled={
+              !Object.keys(userMeetings).some((courseCode) => {
+                console.log(courseCode)
+                return courseCode === course.id
+              })
+            }
           >
             <Icon as={FaTrashAlt} />
             {t("sidebar:remove")}
@@ -244,7 +289,13 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             // colorScheme="blue"
             alignItems="center"
             gap={2}
-            disabled={!(Object.keys(userMeetings).some((courseCode) => {console.log(courseCode); return courseCode === course.id}))}
+            disabled={
+              !Object.keys(userMeetings).some((courseCode) => {
+                console.log(courseCode)
+                return courseCode === course.id
+              })
+            }
+            onClick={onCopy}
           >
             {/* <Icon as={FaTrashAlt} /> */}
             {/* {t("sidebar:remove")} {course.code} */}
@@ -254,11 +305,21 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
         </ButtonGroup>
       </Flex>
       {Object.values(MeetingCategoryType).map((method) => (
-        <MeetingPicker key={method} method={method} course={course} scrolling={scrolling} />
+        <MeetingPicker
+          key={method}
+          method={method}
+          course={course}
+          scrolling={scrolling}
+        />
       ))}
 
       <Box>
-        <Accordion allowToggle mt={4} borderColor="rgba(0,0,0,0)" defaultIndex={0}>
+        <Accordion
+          allowToggle
+          mt={4}
+          borderColor="rgba(0,0,0,0)"
+          defaultIndex={0}
+        >
           <AccordionItem>
             <AccordionButton
               p={0}
@@ -273,11 +334,16 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
               <AccordionIcon mr={5} />
             </AccordionButton>
             <AccordionPanel px={5} pt={0} pb={2}>
-              {!course.description.trim() && <Text>No description available.</Text>}
+              {!course.description.trim() && (
+                <Text>No description available.</Text>
+              )}
               <Text
                 className="course-info"
                 dangerouslySetInnerHTML={{
-                  __html: course.description.replace(/<a/g, '<a target="blank"'),
+                  __html: course.description.replace(
+                    /<a/g,
+                    '<a target="blank"'
+                  ),
                 }}
               ></Text>
             </AccordionPanel>
@@ -354,7 +420,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           <Text
             className="course-info"
             dangerouslySetInnerHTML={{
-              __html: course.webTimetableInstructions.replace(/<a/g, '<a target="blank"'),
+              __html: course.webTimetableInstructions.replace(
+                /<a/g,
+                '<a target="blank"'
+              ),
             }}
           />
         </Box>
