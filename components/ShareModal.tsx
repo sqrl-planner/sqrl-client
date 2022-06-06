@@ -67,7 +67,6 @@ const ShareModal = ({ isOpen, onClose }: props) => {
 
       <ModalFooter>
         <Button
-          colorScheme="blue"
           onClick={onClose}
         >
           Close

@@ -36,6 +36,7 @@ export const CourseSubheading = ({
   [key: string]: any
 }) => (
   <Text
+    as="div"
     textTransform="uppercase"
     fontWeight={700}
     letterSpacing="0.3px"

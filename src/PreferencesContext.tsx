@@ -159,7 +159,7 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
         end: 22,
         highlightConflicts: true,
         twentyFour: true,
-        emphasize: false,
+        emphasize: true,
         showSemester: "both",
         currentPrefTab: 0,
     }
