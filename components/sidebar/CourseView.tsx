@@ -331,7 +331,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
               <CourseSubheading my={2} px={5}>
                 {t("sidebar:description")}
               </CourseSubheading>
-              <AccordionIcon mr={5} />
+              {/* <AccordionIcon mr={5} /> */}
+              <Icon as={AccordionIcon} mr={5} />
             </AccordionButton>
             <AccordionPanel px={5} pt={0} pb={2}>
               {!course.description.trim() && (
