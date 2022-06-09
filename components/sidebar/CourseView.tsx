@@ -232,7 +232,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                 <PopoverArrow />
                 <PopoverCloseButton />
                 <PopoverHeader>Are you sure?</PopoverHeader>
-                <PopoverFooter d="flex" justifyContent="flex-end">
+                <PopoverFooter display="flex" justifyContent="flex-end">
                   <ButtonGroup size="sm">
                     <Button variant="ghost" ref={initRef} onClick={onClose}>
                       Cancel
@@ -265,8 +265,6 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           colorScheme="gray"
         >
           <Button
-            // variant="solid"
-            // colorScheme="red"
             alignItems="center"
             gap={2}
             onClick={() => {
@@ -285,8 +283,6 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           </Button>
 
           <Button
-            // variant="solid"
-            // colorScheme="blue"
             alignItems="center"
             gap={2}
             disabled={
@@ -297,8 +293,6 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             }
             onClick={onCopy}
           >
-            {/* <Icon as={FaTrashAlt} /> */}
-            {/* {t("sidebar:remove")} {course.code} */}
             <Icon as={FaShareSquare} />
             Share with selections
           </Button>

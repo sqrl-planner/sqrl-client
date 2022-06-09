@@ -115,7 +115,7 @@ const PreferencesApplication = () => {
                           <PopoverArrow />
                           <PopoverCloseButton />
                           <PopoverHeader>Are you sure?</PopoverHeader>
-                          <PopoverFooter d="flex" justifyContent="flex-end">
+                          <PopoverFooter display="flex" justifyContent="flex-end">
                             <ButtonGroup size="sm">
                               <Button
                                 variant="ghost"
