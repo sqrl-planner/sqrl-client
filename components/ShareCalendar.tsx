@@ -29,12 +29,12 @@ const ShareCalendar = () => {
         bg="blue.700"
         onClick={() => {
           const startTimes = {
-            first: { year: 2021, month: 9, day: 9 },
-            second: { year: 2022, month: 1, day: 3 },
+            first: { year: 2022, month: 9, day: 8 },
+            second: { year: 2023, month: 1, day: 9 },
           }
           const endTimes = {
-            first: { year: 2021, month: 12, day: 8 },
-            second: { year: 2022, month: 4, day: 8 },
+            first: { year: 2022, month: 12, day: 8 },
+            second: { year: 2023, month: 4, day: 6 },
           }
           const events: Array<SqrlIcsEvent> = []
 
