@@ -491,7 +491,7 @@ const MeetingPicker = ({
 
                   <Button
                     variant="link"
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.stopPropagation()
                     }}
                   >

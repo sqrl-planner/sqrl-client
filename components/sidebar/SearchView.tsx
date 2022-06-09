@@ -116,14 +116,14 @@ const SearchView = ({
                     placeholder={t("search-anything")}
                     ref={searchRef}
                     value={searchQuery}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setSearchQuery(e.target.value)
                         debounced(e.target.value)
                     }}
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="off"
-                    onFocus={(e) => {
+                    onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                         e.target.select()
                     }}
                 />

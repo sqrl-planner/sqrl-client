@@ -118,7 +118,7 @@ const PreferencesMeeting = () => {
                     <Select
                         id="scale"
                         value={scale}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<any>) => {
                             const payload = parseInt(e.target.value)
 
                             dispatch({

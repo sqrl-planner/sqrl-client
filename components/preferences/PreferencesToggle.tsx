@@ -58,7 +58,7 @@ const PreferencesToggle = ({
                     onChange={
                         onToggle
                             ? onToggle
-                            : (e) => {
+                            : (e: React.ChangeEvent<any>) => {
                                   const payload = e.target.checked
 
                                   dispatch({
