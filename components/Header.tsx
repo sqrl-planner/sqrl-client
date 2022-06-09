@@ -45,7 +45,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
   }, [])
 
   const keydownListener = useCallback(
-    (e) => {
+    (e: KeyboardEvent) => {
       if (!buttonRef.current) return
       if (e.repeat) return
 
@@ -122,7 +122,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
         bottom="0"
         left="0"
         margin="auto"
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent<HTMLInputElement>) => {
           e.preventDefault()
           setSidebarOpen(true)
           dispatch({ type: "SET_SIDEBAR", payload: 0 })

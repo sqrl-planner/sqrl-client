@@ -109,6 +109,8 @@ const OverviewView = () => {
 
   const { t } = useTranslation("sidebar")
 
+  const greenColour = useColorModeValue("green.600", "green.400")
+
   return (
     <Box width="100%" height="100%">
       <VStack spacing={0}>
@@ -119,7 +121,7 @@ const OverviewView = () => {
               return (
                 <Fragment>
                   <StatLabel>{t("credit", { count: total })}</StatLabel>
-                  <StatNumber color={useColorModeValue("green.600", "green.400")} fontSize="3xl">
+                  <StatNumber color={greenColour} fontSize="3xl">
                     {/* {total.toFixed(1)} */}
                     <CountUp end={total} decimals={1} duration={0.5} />
                   </StatNumber>

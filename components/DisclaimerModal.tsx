@@ -41,7 +41,7 @@ const DisclaimerModal = (props: {
                         <Checkbox
                             isChecked={allChecked}
                             isIndeterminate={isIndeterminate}
-                            onChange={(e) =>
+                            onChange={(e: React.ChangeEvent<any>) =>
                                 setCheckedItems(() => [
                                     e.target.checked,
                                     e.target.checked,
@@ -55,7 +55,7 @@ const DisclaimerModal = (props: {
                         <Stack pl={6} mt={1} spacing={1}>
                             <Checkbox
                                 isChecked={checkedItems[0]}
-                                onChange={(e) =>
+                                onChange={(e: React.ChangeEvent<any>) =>
                                     setCheckedItems([
                                         e.target.checked,
                                         checkedItems[1],
@@ -72,7 +72,7 @@ const DisclaimerModal = (props: {
                             </Checkbox>
                             <Checkbox
                                 isChecked={checkedItems[1]}
-                                onChange={(e) =>
+                                onChange={(e: React.ChangeEvent<any>) =>
                                     setCheckedItems([
                                         checkedItems[0],
                                         e.target.checked,
@@ -86,7 +86,7 @@ const DisclaimerModal = (props: {
                             </Checkbox>
                             <Checkbox
                                 isChecked={checkedItems[2]}
-                                onChange={(e) =>
+                                onChange={(e: React.ChangeEvent<any>) =>
                                     setCheckedItems([
                                         checkedItems[0],
                                         checkedItems[1],

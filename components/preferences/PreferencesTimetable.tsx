@@ -146,7 +146,7 @@ const PreferencesTimetable = () => {
                         <Select
                             id="start"
                             value={start}
-                            onChange={(e) => {
+                            onChange={(e: React.ChangeEvent<any>) => {
                                 const payload = parseInt(e.target.value as any)
 
                                 dispatch({
@@ -175,7 +175,7 @@ const PreferencesTimetable = () => {
                         <Select
                             id="end"
                             value={end}
-                            onChange={(e) => {
+                            onChange={(e: React.ChangeEvent<any>) => {
                                 const payload = parseInt(e.target.value as any)
 
                                 dispatch({
@@ -264,7 +264,7 @@ const PreferencesTimetable = () => {
                     <Select
                         id="palette"
                         value={palette}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<any>) => {
                             const payload = e.target.value as any
 
                             dispatch({

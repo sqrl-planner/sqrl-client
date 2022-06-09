@@ -73,7 +73,7 @@ type TimetableProps = {
     days?: Day[]
 }
 
-export const Timetable: FunctionComponent<TimetableProps> = ({
+export const Timetable = ({
     meetings,
     minTime = timeToMinuteOffset(8),
     maxTime = timeToMinuteOffset(22),
@@ -85,7 +85,7 @@ export const Timetable: FunctionComponent<TimetableProps> = ({
     dark = false,
     emphasizeOnHover = true,
     days = WEEK_DAYS,
-}) => {
+}: TimetableProps) => {
     const {
         state: { hoverCourseKey },
         dispatch,
