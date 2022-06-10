@@ -90,7 +90,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
         m={4}
         ml={6}
         as="h1"
-        fontSize={{base:"3xl", md:"4xl"}}
+        fontSize={{ base: "3xl", md: "4xl" }}
         _before={{
           content: `"for ${2022}-${2023}"`,
           fontSize: "0.65rem",
@@ -143,7 +143,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           colorScheme="blue"
           bg={useColorModeValue("blue.700", "blue.400")}
           onClick={onOpenShare}
-          mr={{base: 2, xl: 6}}
+          mr={{ base: 2, xl: 6 }}
         >
           <Icon mr={{ md: 2 }} as={FaShareSquare} />
           <chakra.span display={{ base: "none", md: "inline" }}>
