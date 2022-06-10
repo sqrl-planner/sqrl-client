@@ -16,6 +16,7 @@ import {
   Tooltip,
   useColorModeValue,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useTranslation } from "next-i18next"
@@ -31,6 +32,7 @@ import { GET_COURSE_BY_ID } from "../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
 import { useAppContext } from "../../src/SqrlContext"
 import { breakdownCourseCode } from "../../src/utils/course"
+import HelpModal from "./HelpModal"
 
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
@@ -50,6 +52,12 @@ const SearchView = ({
   const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
   const { dispatch } = useAppContext()
+
+  const {
+    isOpen: isHelpOpen,
+    onOpen: onOpenHelp,
+    onClose: onCloseHelp,
+  } = useDisclosure()
 
   useEffect(() => {
     searchRef.current.focus()
@@ -173,7 +181,8 @@ const SearchView = ({
             </Button>
             {'".'}
           </Box>
-          <Button variant="link" fontSize="sm">
+          <HelpModal isOpen={isHelpOpen} onClose={onCloseHelp} />
+          <Button variant="link" fontSize="sm" onClick={onOpenHelp}>
             <QuestionIcon mr={1} /> {t("sidebar:help")}
           </Button>
         </FormHelperText>
