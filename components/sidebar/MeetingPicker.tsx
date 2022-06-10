@@ -58,10 +58,7 @@ const MeetingPicker = ({
 
   const conflictPillTextColour = useColorModeValue("red.700", "red.100")
 
-  const concerningPillTextColour = useColorModeValue(
-    "yellow.700",
-    "yellow.100"
-  )
+  const concerningPillTextColour = useColorModeValue("yellow.700", "yellow.100")
   // const waitlistPillColour = useColorModeValue("yellow.100", "yellow.900")
 
   const boxShadowColour = useColorModeValue(
@@ -77,10 +74,8 @@ const MeetingPicker = ({
   } = useAppContext()
 
   const matchingMethods: typeof course.sections = course.sections.filter(
-    (meeting) =>
-      meeting.teachingMethod.toUpperCase() === method.toUpperCase()
+    (meeting) => meeting.teachingMethod.toUpperCase() === method.toUpperCase()
   )
-
 
   const { t } = useTranslation("sidebar")
 
@@ -100,10 +95,7 @@ const MeetingPicker = ({
         <CourseSubheading px={5}>{t(method)}</CourseSubheading>
         <button
           disabled={
-            !(
-              userMeetings[identifier] &&
-              userMeetings[identifier][method]
-            )
+            !(userMeetings[identifier] && userMeetings[identifier][method])
           }
           onClick={() => {
             dispatch({
@@ -123,8 +115,7 @@ const MeetingPicker = ({
             pl={0.5}
             mr={7}
             opacity={
-              userMeetings[identifier] &&
-                userMeetings[identifier][method]
+              userMeetings[identifier] && userMeetings[identifier][method]
                 ? ""
                 : "0.5"
             }
@@ -139,8 +130,7 @@ const MeetingPicker = ({
             userMeetings[identifier][method] === sectionCode
 
           // A section is concerning if it is waitlisting or it has no waitlist and is fully enrolled
-          let concerning = !!parseInt(section?.actualWaitlist as string || "")
-
+          let concerning = !!parseInt((section?.actualWaitlist as string) || "")
 
           if (section?.enrolmentCapacity === section?.actualEnrolment)
             concerning = true
@@ -194,8 +184,7 @@ const MeetingPicker = ({
               group.meetings.length > 1 &&
               group.meetings.filter(
                 (meeting: Meeting) =>
-                  meeting.getUniqueKey() ===
-                  newMeeting.getUniqueKey()
+                  meeting.getUniqueKey() === newMeeting.getUniqueKey()
               ).length
             ) {
               for (const m of group.meetings) {
@@ -212,14 +201,9 @@ const MeetingPicker = ({
             }
           }
 
-          if (
-            course.term === "FIRST_SEMESTER" ||
-            course.term === "FULL_YEAR"
-          ) {
+          if (course.term === "FIRST_SEMESTER" || course.term === "FULL_YEAR") {
             for (const newMeeting of newMeetingsFirst) {
-              for (const group of groupsFirst.get(
-                newMeeting.day
-              ) as any) {
+              for (const group of groupsFirst.get(newMeeting.day) as any) {
                 detectConflicts(group, newMeeting)
               }
             }
@@ -230,9 +214,7 @@ const MeetingPicker = ({
             course.term === "FULL_YEAR"
           ) {
             for (const newMeeting of newMeetingsSecond) {
-              for (const group of groupsSecond.get(
-                newMeeting.day
-              ) as any) {
+              for (const group of groupsSecond.get(newMeeting.day) as any) {
                 detectConflicts(group, newMeeting)
               }
             }
@@ -249,17 +231,14 @@ const MeetingPicker = ({
                     conflicts.values()
                   )
                     .map((conflict) => {
-                      const { department, numeral } =
-                        breakdownCourseCode(
-                          conflict.title
-                        )
+                      const { department, numeral } = breakdownCourseCode(
+                        conflict.title
+                      )
                       return `${department}${numeral} ${conflict.category
                         .substring(0, 3)
-                        .toUpperCase()}${conflict.section
-                        }`
+                        .toUpperCase()}${conflict.section}`
                     })
-                    .join(", ")}${concerning ? ", and may be full" : ""
-                    }`}
+                    .join(", ")}${concerning ? ", and may be full" : ""}`}
                 >
                   {children}
                 </Tooltip>
@@ -268,9 +247,7 @@ const MeetingPicker = ({
               <Grid
                 tabIndex={0}
                 _focus={{
-                  background: isSelected
-                    ? ""
-                    : hoverBackground,
+                  background: isSelected ? "" : hoverBackground,
                 }}
                 outline="none"
                 fontSize="sm"
@@ -278,25 +255,22 @@ const MeetingPicker = ({
                 alignItems="center"
                 gridTemplateColumns="auto auto 1fr auto"
                 width="100%"
-                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${isSelected
-                    ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)`
-                    : ""
-                  }`}
+                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
+                  isSelected ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)` : ""
+                }`}
                 margin={0}
                 p={2.5}
                 pl={5}
                 fontWeight="600"
                 cursor={isSelected ? "default" : "pointer"}
                 _hover={{
-                  background: isSelected
-                    ? ""
-                    : hoverBackground,
+                  background: isSelected ? "" : hoverBackground,
                 }}
                 // border={hasConflict ? "1px solid red" : "none"}
                 // transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
                 role="button"
                 onClick={() => {
-                  if(!sectionCode ) return
+                  if (!sectionCode) return
                   dispatch({
                     type: "SET_MEETING",
                     payload: {
@@ -333,25 +307,18 @@ const MeetingPicker = ({
                     },
                   })
                 }}
-                background={
-                  isSelected ? activePillColour : pillColour
-                }
+                background={isSelected ? activePillColour : pillColour}
                 color={
                   isSelected
                     ? activePillTextColour
                     : hasConflict
-                      ? conflictPillTextColour
-                      : concerning
-                        ? concerningPillTextColour
-                        : pillTextColour
+                    ? conflictPillTextColour
+                    : concerning
+                    ? concerningPillTextColour
+                    : pillTextColour
                 }
               >
-                <Box
-                  mr={3}
-                  position="relative"
-                  bottom="0.1rem"
-                  fontSize="md"
-                >
+                <Box mr={3} position="relative" bottom="0.1rem" fontSize="md">
                   {isSelected ? (
                     <CheckIcon />
                   ) : (
@@ -410,11 +377,7 @@ const MeetingPicker = ({
                                     // textAlign="left"
                                     isLoaded={true}
                                 > */}
-                <Text
-                  opacity={hasConflict ? 1 : 0.7}
-                  lineHeight={1}
-                  ml={2}
-                >
+                <Text opacity={hasConflict ? 1 : 0.7} lineHeight={1} ml={2}>
                   {/* {Object.values(
                                         course.meetings[meeting].schedule
                                     ).reduce((prev, scheduledMeeting) => {
@@ -434,20 +397,18 @@ const MeetingPicker = ({
                                         ""
                                     )} */}
 
-                  {section.instructors.join(", ") || parseInt(section?.actualWaitlist as string)
-                    ? `Waitlist ${section?.actualWaitlist
-                    } student${parseInt(
-                      section?.actualWaitlist as string
-                    ) === 1
-                      ? ""
-                      : "s"
-                    }`
-                    : `Enrol ${section.actualEnrolment
-                    } of ${section.enrolmentCapacity}${concerning && !section.hasWaitlist
-                      ? "—No waitlist"
-                      : ""
-                    }`}
-
+                  {section.instructors.join(", ") ||
+                  parseInt(section?.actualWaitlist as string)
+                    ? `Waitlist ${section?.actualWaitlist} student${
+                        parseInt(section?.actualWaitlist as string) === 1
+                          ? ""
+                          : "s"
+                      }`
+                    : `Enrol ${section.actualEnrolment} of ${
+                        section.enrolmentCapacity
+                      }${
+                        concerning && !section.hasWaitlist ? "—No waitlist" : ""
+                      }`}
 
                   {/* <Text as="span" ml={2}>
                                         {meeting.enrolmentIndicator}
@@ -457,8 +418,7 @@ const MeetingPicker = ({
 
                 <Flex mx={1} alignItems="center" fontSize="lg">
                   {(() => {
-                    const deliveryMode =
-                      section.deliveryMode
+                    const deliveryMode = section.deliveryMode
                     if (!deliveryMode) return
 
                     switch (deliveryMode) {
