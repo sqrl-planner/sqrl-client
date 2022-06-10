@@ -14,6 +14,8 @@ import {
   Flex,
   FormHelperText,
   Button,
+  UnorderedList,
+  ListItem
 } from "@chakra-ui/react"
 
 type props = {
@@ -45,12 +47,12 @@ const HelpModal = ({ isOpen, onClose }: props) => {
               </Text>
               <FormHelperText fontWeight={400}>
                 For instance, 
-                <ul>
-                  <li>- if you know the specific course code for a first year political science course you need to take, you can search for "pol101";</li>
-                  <li>- if you know you want to take a course in pseudoscience, you can search for "eco";</li>
-                  <li>- if you know you want to take a course about global affairs, you can search for "human rights";</li>
-                  <li>- if you know you want to take the easiest course at the university, you can search for "mat337"</li>
-                </ul>
+                <UnorderedList>
+                  <ListItem>if you know the specific course code for a first year political science course you need to take, you can search for "pol101";</ListItem>
+                  <ListItem>if you know you want to take a course in pseudoscience, you can search for "eco";</ListItem>
+                  <ListItem>if you know you want to take a course about global affairs, you can search for "human rights";</ListItem>
+                  <ListItem>if you know you want to take the easiest course at the university, you can search for "mat337"</ListItem>
+                </UnorderedList>
               </FormHelperText>
             </FormControl>
           </Flex>
