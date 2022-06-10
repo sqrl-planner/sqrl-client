@@ -143,7 +143,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   Contributors
                 </Heading>
 
-                <Flex gap={8} flexWrap="wrap" justifyContent="stretch">
+                <Flex gap={4} flexWrap="wrap" justifyContent="stretch">
                   {contributors?.sqrlClient &&
                     contributors?.sqrlClient.map((contributor) => (
                       <Contributor
@@ -189,7 +189,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   Contributors
                 </Heading>
 
-                <Flex gap={8} flexWrap="wrap" justifyContent="stretch">
+                <Flex gap={4} flexWrap="wrap" justifyContent="stretch">
                   {contributors?.sqrlServer &&
                     contributors?.sqrlServer.map((contributor) => (
                       <Contributor
@@ -232,7 +232,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   Contributors
                 </Heading>
 
-                <Flex gap={8} flexWrap="wrap" justifyContent="stretch">
+                <Flex gap={4} flexWrap="wrap" justifyContent="stretch">
                   {contributors?.gator &&
                     contributors?.gator.map((contributor) => (
                       <Contributor
