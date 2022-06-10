@@ -12,13 +12,9 @@ import {
   VStack,
   FormControl,
   Flex,
-  Icon,
-  Input,
   FormHelperText,
-  Button
+  Button,
 } from "@chakra-ui/react"
-
-import { QuestionIcon } from "@chakra-ui/icons"
 
 type props = {
   isOpen: boolean
@@ -29,7 +25,7 @@ const HelpModal = ({ isOpen, onClose }: props) => {
   return (<Modal isOpen={isOpen} onClose={onClose} size="xl">
     <ModalOverlay />
     <ModalContent>
-      <ModalHeader fontSize="2xl">Help</ModalHeader>
+      <ModalHeader fontSize="2xl">About Search</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <VStack width="100%" fontWeight={500}>
@@ -45,11 +41,16 @@ const HelpModal = ({ isOpen, onClose }: props) => {
                 display="flex"
                 alignItems="center"
               >
-                <QuestionIcon mr={1} />
-                Test1
+                Use the search function to search for anything in a course, including course code, substrings of course code, course title, or description. 
               </Text>
               <FormHelperText fontWeight={400}>
-                HELLO THIS IS A HELP BOX
+                For instance, 
+                <ul>
+                  <li>- if you know the specific course code for a first year political science course you need to take, you can search for "pol101";</li>
+                  <li>- if you know you want to take a course in pseudoscience, you can search for "eco";</li>
+                  <li>- if you know you want to take a course about global affairs, you can search for "human rights";</li>
+                  <li>- if you know you want to take the easiest course at the university, you can search for "mat337"</li>
+                </ul>
               </FormHelperText>
             </FormControl>
           </Flex>
