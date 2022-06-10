@@ -4,7 +4,7 @@ import React from "react"
 import "../styles/globals.css"
 
 function Application({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />
+  return <Component {...pageProps} />
 }
 
 export default appWithTranslation(Application)

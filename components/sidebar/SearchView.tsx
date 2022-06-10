@@ -301,11 +301,11 @@ const SearchView = ({
                   >
                     <Flex ml={5} mr={4} w={4} h={4} alignItems="center">
                       {(fullCourseLoading || !fullCourseData) &&
-                        chosenCourse === course.id ? (
-                          <Spinner size="sm" />
-                        ) : (
-                          <AddIcon h={4} w={4} />
-                        )}
+                      chosenCourse === course.id ? (
+                        <Spinner size="sm" />
+                      ) : (
+                        <AddIcon h={4} w={4} />
+                      )}
                     </Flex>
                     <Flex
                       key={course.code}
@@ -330,8 +330,7 @@ const SearchView = ({
                           <Text as="span" ml={1}>
                             {(() => {
                               if (course.term === "FIRST_SEMESTER") return "F"
-                              if (course.term === "SECOND_SEMESTER")
-                              return "S"
+                              if (course.term === "SECOND_SEMESTER") return "S"
                               return "Y"
                             })()}
                           </Text>
@@ -348,15 +347,11 @@ const SearchView = ({
                           </Text>
                           {(() => {
                             const categories =
-                            course.breadthCategories.match(/\d/g)
+                              course.breadthCategories.match(/\d/g)
                             if (!categories) return ""
                             return (
                               <Text>
-                                <Text
-                                  as="span"
-                                  fontWeight={500}
-                                  opacity={0.8}
-                                >
+                                <Text as="span" fontWeight={500} opacity={0.8}>
                                   {categories.length > 1
                                     ? "BREADTHS"
                                     : "BREADTH"}
@@ -382,7 +377,7 @@ const SearchView = ({
                 mb={8}
                 fontWeight={500}
               >
-                No results for 
+                No results for
                 {'"'}
                 {searchQuery}
                 {'".'}
@@ -421,22 +416,22 @@ const SearchView = ({
                 More results...
               </MotionButton>
             ) : (
-                <Tooltip label="No more results.">
-                  <Divider
-                    style={{
-                      marginTop: `calc(var(--chakra-space-4) * -1)`,
-                    }}
-                    _after={{
-                      content: `""`,
-                      height: 8,
-                      width: "100%",
-                      position: "absolute",
-                      left: 0,
-                      right: 0,
-                    }}
-                    />
-                </Tooltip>
-              )}
+              <Tooltip label="No more results.">
+                <Divider
+                  style={{
+                    marginTop: `calc(var(--chakra-space-4) * -1)`,
+                  }}
+                  _after={{
+                    content: `""`,
+                    height: 8,
+                    width: "100%",
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                  }}
+                />
+              </Tooltip>
+            )}
           </VStack>
         )}
       </AnimatePresence>
