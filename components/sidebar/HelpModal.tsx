@@ -48,10 +48,10 @@ const HelpModal = ({ isOpen, onClose }: props) => {
               <FormHelperText fontWeight={400}>
                 For instance, 
                 <UnorderedList>
-                  <ListItem>if you know the specific course code for a first year political science course you need to take, you can search for "pol101";</ListItem>
-                  <ListItem>if you know you want to take a course in pseudoscience, you can search for "eco";</ListItem>
-                  <ListItem>if you know you want to take a course about global affairs, you can search for "human rights";</ListItem>
-                  <ListItem>if you know you want to take the easiest course at the university, you can search for "mat337"</ListItem>
+                  <ListItem>if you know the specific course code for a first year political science course you need to take, you can search for {'"pol101"'};</ListItem>
+                  <ListItem>if you know you want to take a course in pseudoscience, you can search for {'"eco"'};</ListItem>
+                  <ListItem>if you know you want to take a course about global affairs, you can search for {'"human rights"'};</ListItem>
+                  <ListItem>if you know you want to take the easiest course at the university, you can search for {'"mat337"'}</ListItem>
                 </UnorderedList>
               </FormHelperText>
             </FormControl>
