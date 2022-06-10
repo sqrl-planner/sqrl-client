@@ -3,27 +3,27 @@ import Colour from "color"
 import styled from "styled-components"
 
 export const StyledTimetableContainer = styled(chakra.div)`
-    width: 100%;
-    /* overflow-x: scroll; */
-    font-size: 0.625rem;
-    /* background: #fafafa; */
+  width: 100%;
+  /* overflow-x: scroll; */
+  font-size: 0.625rem;
+  /* background: #fafafa; */
 `
 
 export const StyledTimetable = styled.table`
-    display: table;
-    position: relative;
-    width: calc(100% - 0.25rem);
-    min-width: 450px;
-    margin: 1rem;
-    margin-left: 0;
-    margin-top: 0;
-    padding: 0;
+  display: table;
+  position: relative;
+  width: calc(100% - 0.25rem);
+  min-width: 450px;
+  margin: 1rem;
+  margin-left: 0;
+  margin-top: 0;
+  padding: 0;
 
-    border-collapse: collapse;
-    @media print {
-        width: 100vw;
-        margin: 0;
-    }
+  border-collapse: collapse;
+  @media print {
+    width: 100vw;
+    margin: 0;
+  }
 `
 
 export const StyledThead = styled.thead<{ dark: boolean }>`
@@ -31,7 +31,8 @@ export const StyledThead = styled.thead<{ dark: boolean }>`
     /* position: sticky; */
     /* top: 0; */
     /* z-index: 10; */
-    /* background: var(${({ dark }) => dark ? "--chakra-colors-gray-500" : "--chakra-colors-gray-100"}); */
+    /* background: var(${({ dark }) =>
+      dark ? "--chakra-colors-gray-500" : "--chakra-colors-gray-100"}); */
 
     /* &:first-of-type { */
     /*   background: transparent; */
@@ -41,50 +42,52 @@ export const StyledThead = styled.thead<{ dark: boolean }>`
 `
 
 export const StyledHead = styled.tr`
-    position: relative;
-    /* position: fixed; */
-    /* top: 5rem; */
-    opacity: 0.8;
-    z-index: 1;
+  position: relative;
+  /* position: fixed; */
+  /* top: 5rem; */
+  opacity: 0.8;
+  z-index: 1;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
 
-    /* background-color: red; */
+  /* background-color: red; */
 `
 
 export const StyledTh = styled.th<{ dark: boolean; days?: number }>`
-    /* z-index: 1;
+  /* z-index: 1;
     position: sticky;
     top: 0; */
-    /* position: fixed; */
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(${({ dark }) => dark ? "--chakra-colors-gray-800" : "--chakra-colors-gray-75"});
-    backdrop-filter: blur(3px);
+  /* position: fixed; */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(
+    ${({ dark }) =>
+      dark ? "--chakra-colors-gray-800" : "--chakra-colors-gray-75"}
+  );
+  backdrop-filter: blur(3px);
 
-    /* &:first-child { */
-    /*   background: transparent; */
-    /* } */
+  /* &:first-child { */
+  /*   background: transparent; */
+  /* } */
 
+  /* border-left: 3px solid red; */
+  /* box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.4); */
+  /* border-left: 1px solid ${({ dark }) => (dark ? `#414141` : `#e2e8f0`)}; */
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  padding: 0.6em 0;
 
-    /* border-left: 3px solid red; */
-    /* box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.4); */
-    /* border-left: 1px solid ${({ dark }) => (dark ? `#414141` : `#e2e8f0`)}; */
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    padding: 0.6em 0;
+  /* background-color: #fafafa; */
 
-    /* background-color: #fafafa; */
+  &:first-of-type {
+    border-left: none;
+    opacity: 0;
+  }
 
-    &:first-of-type {
-        border-left: none;
-        opacity: 0;
-    }
-
-    &:first-of-type:not() {
-        width: ${({ days = 5 }) => `calc((100% - 4em) / ${days})`};
-    }
+  &:first-of-type:not() {
+    width: ${({ days = 5 }) => `calc((100% - 4em) / ${days})`};
+  }
 `
 
 export const StyledTr = styled.tr<{
@@ -92,39 +95,41 @@ export const StyledTr = styled.tr<{
   resolution: number
   dark: boolean
 }>`
-    & .time {
-        text-align: right;
-        color: rgba(0, 0, 0, 0);
-        font-size: 1.4em;
-        transform: scale(0.8);
-        transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-      z-index: 10;
-        background: var(${({ dark }) => dark ? "--chakra-colors-gray-800" : "--chakra-colors-gray-75"});
-      /* background: var(--chakra-colors-gray-700); */
-        &:hover {
-            color: ${({ dark }) =>
-    dark ? `rgba(230, 230, 230, 0.6)` : `rgba(0,0,0,0.6)`};
-        }
-        &::after {
-            content: "-";
-            transform: scale(1);
-            color: ${({ dark }) =>
-    dark ? `rgba(255,255,255, 0.2)` : `rgba(0, 0, 0, 0.2)`};
-        }
+  & .time {
+    text-align: right;
+    color: rgba(0, 0, 0, 0);
+    font-size: 1.4em;
+    transform: scale(0.8);
+    transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: 10;
+    background: var(
+      ${({ dark }) =>
+        dark ? "--chakra-colors-gray-800" : "--chakra-colors-gray-75"}
+    );
+    /* background: var(--chakra-colors-gray-700); */
+    &:hover {
+      color: ${({ dark }) =>
+        dark ? `rgba(230, 230, 230, 0.6)` : `rgba(0,0,0,0.6)`};
     }
-
-    /* set line height for noninteger times */
-    & td {
-        line-height: ${({ size = 20 }: { size?: number }) =>
-    (size / 100) * 2 + "em"};
-
-        transition: line-height 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &::after {
+      content: "-";
+      transform: scale(1);
+      color: ${({ dark }) =>
+        dark ? `rgba(255,255,255, 0.2)` : `rgba(0, 0, 0, 0.2)`};
     }
+  }
 
-     /* border-bottom: 1px solid red; */
+  /* set line height for noninteger times */
+  & td {
+    line-height: ${({ size = 20 }: { size?: number }) =>
+      (size / 100) * 2 + "em"};
 
+    transition: line-height 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
 
-    /* &:hover::after {
+  /* border-bottom: 1px solid red; */
+
+  /* &:hover::after {
         content: "";
         width: 100%;
         display: block;
@@ -137,93 +142,93 @@ export const StyledTr = styled.tr<{
         border-top: 1px solid black;
     } */
 
-      /* &::after { */
-      /*   content: ""; */
-      /*   position: absolute; */
-      /*   left: 0; */
-      /*   right: 0; */
-      /*   width: 100%; */
-      /*   border-bottom: 1px solid red; */
-      /* } */
+  /* &::after { */
+  /*   content: ""; */
+  /*   position: absolute; */
+  /*   left: 0; */
+  /*   right: 0; */
+  /*   width: 100%; */
+  /*   border-bottom: 1px solid red; */
+  /* } */
 
-    &:nth-child(${({ resolution = 15 }: { resolution?: number }) =>
-    `${60 / resolution}n - ${60 / resolution - 1}`}) {
+  &:nth-child(${({ resolution = 15 }: { resolution?: number }) =>
+        `${60 / resolution}n - ${60 / resolution - 1}`}) {
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -10;
+      /* left: calc(100% / 6); */
+      right: 0;
+      width: calc(100%);
+      /* border-bottom: 1px solid red; */
+      border-bottom: 1px solid
+        ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)};
+    }
+    & td {
+      line-height: var(--chakra-lineHeights-base);
+    }
+
+    position: relative;
+
+    .time {
+      transform: scale(1);
+      color: ${({ dark }) => (dark ? `#dcdcdc` : `#333`)};
+      font-weight: 500;
 
       &::after {
         content: "";
-        position: absolute;
-          z-index: -10;
-        /* left: calc(100% / 6); */
-        right: 0;
-        width: calc(100%);
-        /* border-bottom: 1px solid red; */
-        border-bottom: 1px solid ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)};
-      }
-        & td {
-            line-height: var(--chakra-lineHeights-base);
-        }
-
-        position: relative;
-
-        .time {
-            transform: scale(1);
-            color: ${({ dark }) => (dark ? `#dcdcdc` : `#333`)};
-            font-weight: 500;
-
-            &::after {
-                content: "";
-            }
-        }
-    }
-
-    &:nth-child(1) {
-      &::after {
-        border-bottom: none;
       }
     }
+  }
+
+  &:nth-child(1) {
+    &::after {
+      border-bottom: none;
+    }
+  }
 `
 
 export const StyledTbody = styled.tbody``
 
 export const StyledTimeLabelTd = styled.td`
-    width: 1px;
-    font-variant-numeric: proportional-nums;
-    font-family: interstate-mono, monospace;
-    padding-right: 1em;
-    position: relative;
-    top: -0.7em;
+  width: 1px;
+  font-variant-numeric: proportional-nums;
+  font-family: interstate-mono, monospace;
+  padding-right: 1em;
+  position: relative;
+  top: -0.7em;
 
-    font-size: 1.4em;
-    line-height: 1.4em;
-    user-select: none;
+  font-size: 1.4em;
+  line-height: 1.4em;
+  user-select: none;
 `
 
 export const MeetingTimeCell = styled.td<{ days: number; dark: boolean }>`
-    padding: 0;
-    position: relative;
-    font-size: 1.2em;
-    width: ${({ days = 5 }: { days: number }) => `calc((100%)  / ${days})`};
+  padding: 0;
+  position: relative;
+  font-size: 1.2em;
+  width: ${({ days = 5 }: { days: number }) => `calc((100%)  / ${days})`};
 
-    /*   border-bottom: 1px solid */
-    /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
+  /*   border-bottom: 1px solid */
+  /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
 
-    /* } */
+  /* } */
 
-    /* &:nth-child(5) { */
-    /* border-bottom: 1px solid */
-    /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
+  /* &:nth-child(5) { */
+  /* border-bottom: 1px solid */
+  /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
 
-    /* } */
+  /* } */
 
-    /* border-right: 1px solid */
-    /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
+  /* border-right: 1px solid */
+  /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
 
-    /* border-left: 1px solid */
-    /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
+  /* border-left: 1px solid */
+  /*     ${({ dark }: { dark: boolean }) => (dark ? `#414141` : `#e2e8f0`)}; */
 
-    &:first-of-type {
-        border-left: none;
-    }
+  &:first-of-type {
+    border-left: none;
+  }
 `
 
 export const MeetingTime = styled.div<{
@@ -233,41 +238,41 @@ export const MeetingTime = styled.div<{
   highlight: boolean
   conflict?: boolean
 }>`
-    position: absolute;
-    top: 0.2em;
-    right: 0.1em;
-    bottom: 0.1em;
-    left: 0.2em;
+  position: absolute;
+  top: 0.2em;
+  right: 0.1em;
+  bottom: 0.1em;
+  left: 0.2em;
 
-    cursor: pointer;
-    /* border-radius: 0.4em; */
+  cursor: pointer;
+  /* border-radius: 0.4em; */
 
-    &,
-    & > * {
-        /* flex: 1; */
-        word-break: keep-all;
-        /* white-space: nowrap; */
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  &,
+  & > * {
+    /* flex: 1; */
+    word-break: keep-all;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    font-weight: 500;
-    /* line-height: 1.5em; */
+  font-weight: 500;
+  /* line-height: 1.5em; */
 
-    padding: 0.4rem;
+  padding: 0.4rem;
 
-    @media (max-width: 800px) {
-        padding: 0.3rem;
-        padding-left: 0.4rem;
-    }
+  @media (max-width: 800px) {
+    padding: 0.3rem;
+    padding-left: 0.4rem;
+  }
 
-    padding-right: 0.3em;
-    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        box-shadow 0s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background-color: ${({ courseKey = 0, palette, dark }) =>
+  padding-right: 0.3em;
+  transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+    box-shadow 0s cubic-bezier(0.645, 0.045, 0.355, 1);
+  background-color: ${({ courseKey = 0, palette, dark }) =>
     courseKeyToColour(courseKey, dark, palettes[palette] as any)};
 
-    box-shadow: ${({ highlight, dark }) => {
+  box-shadow: ${({ highlight, dark }) => {
     if (!highlight) return `1px 1px 4px -2.6px rgba(0, 0, 0, 0.8);`
 
     if (!dark) return ` 0 0 0 0.1rem rgba(0,0,0,0.6)`
@@ -276,20 +281,20 @@ export const MeetingTime = styled.div<{
     // return `inset 0 0 0 2px rgba(255, 255, 255, 0.6)`
   }};
 
-    @media print {
-        font-size: 10pt;
-        line-height: 14pt;
-        padding: 0.6rem;
-        border: ${({ conflict = false }) =>
-    conflict ? "1px solid #c53030" : "1px solid black"};
+  @media print {
+    font-size: 10pt;
+    line-height: 14pt;
+    padding: 0.6rem;
+    border: ${({ conflict = false }) =>
+      conflict ? "1px solid #c53030" : "1px solid black"};
 
-        box-shadow: none !important;
+    box-shadow: none !important;
 
-        &,
-        & > * {
-            overflow: visible;
-        }
+    &,
+    & > * {
+      overflow: visible;
     }
+  }
 `
 
 export const courseKeyToColour = (
