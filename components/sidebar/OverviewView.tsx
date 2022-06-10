@@ -117,7 +117,10 @@ const OverviewView = () => {
         <StatGroup width="100%" px={5} mt={5}>
           <Stat>
             {(() => {
-              const total = Object.values(credits).reduce((prev, curr) => prev + curr, 0)
+              const total = Object.values(credits).reduce(
+                (prev, curr) => prev + curr,
+                0
+              )
               return (
                 <Fragment>
                   <StatLabel>{t("credit", { count: total })}</StatLabel>
@@ -126,7 +129,10 @@ const OverviewView = () => {
                     <CountUp end={total} decimals={1} duration={0.5} />
                   </StatNumber>
                   <StatHelpText>
-                    <CountUp duration={0.5} end={Math.round((total / 5) * 100)} />
+                    <CountUp
+                      duration={0.5}
+                      end={Math.round((total / 5) * 100)}
+                    />
                     {/* {Math.round((total / 5) * 100)} */}% of standard load.
                   </StatHelpText>
                 </Fragment>
@@ -153,161 +159,179 @@ const OverviewView = () => {
             })()}
           </Stat>
         </StatGroup>
-        {(Object.keys(coursesToShow) as Array<"first" | "second" | "year">).map((term) => {
-          if (!Object.keys(coursesToShow).length) return <Fragment key={term} />
+        {(Object.keys(coursesToShow) as Array<"first" | "second" | "year">).map(
+          (term) => {
+            if (!Object.keys(coursesToShow).length)
+              return <Fragment key={term} />
 
-          if (coursesToShow[term].length === 0) return <Fragment key={term} />
+            if (coursesToShow[term].length === 0) return <Fragment key={term} />
 
-          return (
-            <Box width="100%" key={term} pb={2}>
-              <CourseSubheading px={5} display="flex" justifyContent="space-between">
-                <Box>
-                  {t(term)}:{" "}
-                  <Text as="span" fontWeight={500}>
-                    {credits[term]}{" "}
-                    {t("credit", {
-                      count: credits[term],
+            return (
+              <Box width="100%" key={term} pb={2}>
+                <CourseSubheading
+                  px={5}
+                  display="flex"
+                  justifyContent="space-between"
+                >
+                  <Box>
+                    {t(term)}:{" "}
+                    <Text as="span" fontWeight={500}>
+                      {credits[term]}{" "}
+                      {t("credit", {
+                        count: credits[term],
+                      })}
+                      {term !== "year" && `; ${(credits[term] / 2.5) * 100}%`}
+                    </Text>
+                  </Box>
+                  <Text as="span">
+                    {coursesToShow[term].length}{" "}
+                    {t("course", {
+                      count: coursesToShow[term].length,
                     })}
-                    {term !== "year" && `; ${(credits[term] / 2.5) * 100}%`}
                   </Text>
-                </Box>
-                <Text as="span">
-                  {coursesToShow[term].length}{" "}
-                  {t("course", {
-                    count: coursesToShow[term].length,
-                  })}
-                </Text>
-              </CourseSubheading>
+                </CourseSubheading>
 
-              {coursesToShow[term].map((identifier: string) => {
-                const course = courses[identifier]
-                const { department, numeral, suffix } = breakdownCourseCode(course.code)
+                {coursesToShow[term].map((identifier: string) => {
+                  const course = courses[identifier]
+                  const { department, numeral, suffix } = breakdownCourseCode(
+                    course.code
+                  )
 
-                const missing = meetingsMissing(course, userMeetings, identifier)
-                // const courseMeetingTypes =
-                //     getMeetingTypes(course)
+                  const missing = meetingsMissing(
+                    course,
+                    userMeetings,
+                    identifier
+                  )
+                  // const courseMeetingTypes =
+                  //     getMeetingTypes(course)
 
-                // let missing: Array<MeetingCategoryType> = []
+                  // let missing: Array<MeetingCategoryType> = []
 
-                // for (const [
-                //     meetingType,
-                //     meetingTypeExists,
-                // ] of Object.entries(courseMeetingTypes)) {
-                //     if (!meetingTypeExists) continue
+                  // for (const [
+                  //     meetingType,
+                  //     meetingTypeExists,
+                  // ] of Object.entries(courseMeetingTypes)) {
+                  //     if (!meetingTypeExists) continue
 
-                //     if (
-                //         !userMeetings[identifier][
-                //             meetingType as MeetingCategoryType
-                //         ]
-                //     ) {
-                //         missing.push(
-                //             meetingType as MeetingCategoryType
-                //         )
-                //     }
-                // }
+                  //     if (
+                  //         !userMeetings[identifier][
+                  //             meetingType as MeetingCategoryType
+                  //         ]
+                  //     ) {
+                  //         missing.push(
+                  //             meetingType as MeetingCategoryType
+                  //         )
+                  //     }
+                  // }
 
-                // return <Text>{course.code}</Text>
-                return (
-                  <ConditionalWrapper
-                    key={identifier}
-                    condition={missing.length}
-                    wrapper={(children: any) => (
-                      <Tooltip
-                        label={
-                          `${t("sidebar:missing-a")} ${missing.map((sectionName) =>
-                            t(`sidebar:${sectionName}`)
-                          )} ${t("sidebar:section")}`
-                          //   `Missing a ${missing.join(
-                          //     ", "
-                          // )} section`
-                        }
-                      >
-                        {children}
-                      </Tooltip>
-                    )}
-                  >
-                    <Flex
-                      flexDirection="column"
-                      _hover={{
-                        background: hoverBackground,
-                      }}
-                      cursor="pointer"
-                      width="100%"
-                      m={0}
-                      px={5}
-                      py={3}
-                      boxShadow={`inset 0 2px 3px -3px rgba(0,0,0,0.5)`}
-                      color={missing.length ? missingColour : ""}
-                      fontWeight={500}
-                      alignItems="baseline"
-                      justifyContent="space-between"
-                      onClick={() => {
-                        dispatch({
-                          type: "SET_SIDEBAR",
-                          payload: 1,
-                        })
-                        dispatch({
-                          type: "SET_SIDEBAR_COURSE",
-                          payload: identifier,
-                        })
-                      }}
+                  // return <Text>{course.code}</Text>
+                  return (
+                    <ConditionalWrapper
+                      key={identifier}
+                      condition={missing.length}
+                      wrapper={(children: any) => (
+                        <Tooltip
+                          label={
+                            `${t("sidebar:missing-a")} ${missing.map(
+                              (sectionName) => t(`sidebar:${sectionName}`)
+                            )} ${t("sidebar:section")}`
+                            //   `Missing a ${missing.join(
+                            //     ", "
+                            // )} section`
+                          }
+                        >
+                          {children}
+                        </Tooltip>
+                      )}
                     >
-                      <Flex width="100%" justifyContent="space-between">
-                        <Box>
-                          <Text fontSize="1.25em" as="span" fontWeight={600}>
-                            {department + numeral}
-                          </Text>
-                          <Text as="span">{suffix}</Text>
-                          <Text as="span" ml={1}>
-                            {(() => {
-                              if (course.term === "FIRST_SEMESTER") return "F"
-                              if (course.term === "SECOND_SEMESTER") return "S"
-                              return "Y"
-                            })()}
-                            {!courseIsForCredit(courses[identifier]) && (
-                              <Text
-                                as="span"
-                                display="inline-block"
-                                ml={1}
-                                fontSize={14}
-                                color={attentionColour}
-                              >
-                                (No credit)
-                              </Text>
-                            )}
-                          </Text>
-                        </Box>
-                        <Flex alignItems="center" fontFamily="interstate-mono, monospace">
-                          {Object.keys(userMeetings[identifier]).map((method: any) => (
-                            <Tag key={method} ml={2}>
-                              {userMeetings[identifier][method as MeetingCategoryType]?.replace(
-                                "-",
-                                " "
-                              )}
-                              {/* {userMeetings[identifier][method]} */}
-                            </Tag>
-                          ))}
-                          {!!missing.length && <WarningTwoIcon ml={2} />}
-                        </Flex>
-                      </Flex>
-
-                      <Box
-                        opacity="0.8"
-                        whiteSpace="nowrap"
-                        textOverflow="ellipsis"
-                        overflow="hidden"
-                        position="relative"
+                      <Flex
+                        flexDirection="column"
+                        _hover={{
+                          background: hoverBackground,
+                        }}
+                        cursor="pointer"
                         width="100%"
+                        m={0}
+                        px={5}
+                        py={3}
+                        boxShadow={`inset 0 2px 3px -3px rgba(0,0,0,0.5)`}
+                        color={missing.length ? missingColour : ""}
+                        fontWeight={500}
+                        alignItems="baseline"
+                        justifyContent="space-between"
+                        onClick={() => {
+                          dispatch({
+                            type: "SET_SIDEBAR",
+                            payload: 1,
+                          })
+                          dispatch({
+                            type: "SET_SIDEBAR_COURSE",
+                            payload: identifier,
+                          })
+                        }}
                       >
-                        {course.title}
-                      </Box>
-                    </Flex>
-                  </ConditionalWrapper>
-                )
-              })}
-            </Box>
-          )
-        })}
+                        <Flex width="100%" justifyContent="space-between">
+                          <Box>
+                            <Text fontSize="1.25em" as="span" fontWeight={600}>
+                              {department + numeral}
+                            </Text>
+                            <Text as="span">{suffix}</Text>
+                            <Text as="span" ml={1}>
+                              {(() => {
+                                if (course.term === "FIRST_SEMESTER") return "F"
+                                if (course.term === "SECOND_SEMESTER")
+                                  return "S"
+                                return "Y"
+                              })()}
+                              {!courseIsForCredit(courses[identifier]) && (
+                                <Text
+                                  as="span"
+                                  display="inline-block"
+                                  ml={1}
+                                  fontSize={14}
+                                  color={attentionColour}
+                                >
+                                  (No credit)
+                                </Text>
+                              )}
+                            </Text>
+                          </Box>
+                          <Flex
+                            alignItems="center"
+                            fontFamily="interstate-mono, monospace"
+                          >
+                            {Object.keys(userMeetings[identifier]).map(
+                              (method: any) => (
+                                <Tag key={method} ml={2}>
+                                  {userMeetings[identifier][
+                                    method as MeetingCategoryType
+                                  ]?.replace("-", " ")}
+                                  {/* {userMeetings[identifier][method]} */}
+                                </Tag>
+                              )
+                            )}
+                            {!!missing.length && <WarningTwoIcon ml={2} />}
+                          </Flex>
+                        </Flex>
+
+                        <Box
+                          opacity="0.8"
+                          whiteSpace="nowrap"
+                          textOverflow="ellipsis"
+                          overflow="hidden"
+                          position="relative"
+                          width="100%"
+                        >
+                          {course.title}
+                        </Box>
+                      </Flex>
+                    </ConditionalWrapper>
+                  )
+                })}
+              </Box>
+            )
+          }
+        )}
       </VStack>
     </Box>
   )

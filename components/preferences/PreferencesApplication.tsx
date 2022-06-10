@@ -60,10 +60,10 @@ const PreferencesApplication = () => {
       <PreferencesSection>
         <FormControl>
           <FormLabel mb={3}>
-              <IconWrapper>
-                <Icon as={FaTemperatureHigh} />
-              </IconWrapper>
-              {t("programs-focuses")}
+            <IconWrapper>
+              <Icon as={FaTemperatureHigh} />
+            </IconWrapper>
+            {t("programs-focuses")}
           </FormLabel>
           {/* <Input
                         variant="outline"
@@ -115,7 +115,10 @@ const PreferencesApplication = () => {
                           <PopoverArrow />
                           <PopoverCloseButton />
                           <PopoverHeader>Are you sure?</PopoverHeader>
-                          <PopoverFooter display="flex" justifyContent="flex-end">
+                          <PopoverFooter
+                            display="flex"
+                            justifyContent="flex-end"
+                          >
                             <ButtonGroup size="sm">
                               <Button
                                 variant="ghost"
