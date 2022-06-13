@@ -12,7 +12,7 @@ import React, { useState } from "react"
 import { useAppContext } from "../../src/SqrlContext"
 import CourseView from "./CourseView"
 import OverviewView from "./OverviewView"
-import SearchView from "./SearchView"
+import SearchView from "./SearchView/SearchView"
 
 const Tab = ({ children }: { children: React.ReactNode }) => (
   <ChakraTab
