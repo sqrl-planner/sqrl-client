@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from "@testing-library/react"
-// import LinkText from "./LinkText"
 import { Timetable } from "./Timetable"
 import { HoverContextProvider } from "../../src/HoverContext"
 import { AppContextProvider } from "../../src/SqrlContext"
