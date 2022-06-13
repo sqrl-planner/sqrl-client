@@ -1,4 +1,4 @@
-# [Sqrl](https://sqrl.uoft.in)
+# [Sqrl](https://sqrlplanner.com/)
 
 ![sqrl](https://user-images.githubusercontent.com/16643012/129467460-56777de2-8bb5-4d09-8e84-7d9e2b19ceae.jpg)
 
