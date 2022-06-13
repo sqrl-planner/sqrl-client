@@ -1,6 +1,6 @@
 import { MeetingCategoryType } from "../../components/timetable/Meeting"
 import { Course } from "../Course"
-import { AppData } from "../SqrlContext"
+import { TimetableData } from "../SqrlContext"
 
 export const breakdownCourseCode = (title: string) => {
   const firstDigitContent = title.match(/\d{3,}/g)
@@ -36,7 +36,7 @@ export const getMeetingTypes = (course: Course) => ({
 
 export const meetingsMissing = (
   course: Course,
-  userMeetings: AppData["userMeetings"],
+  userMeetings: TimetableData["userMeetings"],
   identifier: string
 ) => {
   const courseMeetingTypes = getMeetingTypes(course)
