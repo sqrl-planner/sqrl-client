@@ -12,6 +12,10 @@ export interface UserMeeting {
 }
 
 export interface AppData {
+  [key: string]: TimetableData
+}
+
+export interface TimetableData {
   courses: { [key: string]: Course }
   userMeetings: { [key: string]: UserMeeting }
   programs: Array<{ code: string; title: string }>
@@ -65,7 +69,7 @@ type Dispatch = (action: Action) => void
 
 const AppContext = createContext<
   | {
-      state: AppData
+      state: TimetableData
       dispatch: Dispatch
     }
   | undefined
@@ -73,8 +77,12 @@ const AppContext = createContext<
 
 type AppContextProviderProps = { children: React.ReactNode }
 
-const AppContextReducer = (state: AppData, action: Action) => {
-  let newContext: AppData = {
+const AppContextReducer = (
+  state: AppData,
+  action: Action,
+  timetableId: string
+) => {
+  let newContext: TimetableData = {
     courses: {},
     userMeetings: {},
     programs: [],
@@ -83,12 +91,15 @@ const AppContextReducer = (state: AppData, action: Action) => {
     hoverMeeting: { courseIdentifier: "", meeting: "" },
     sidebar: 0,
   }
-  const { courses, userMeetings, programs, campus } = state
+
+  const timetableState = state[timetableId]
+
+  const { courses, userMeetings, programs, campus } = timetableState
 
   switch (action.type) {
     case "ADD_COURSE": {
       newContext = {
-        ...state,
+        ...timetableState,
         courses: {
           ...courses,
           [action.payload.identifier]: action.payload.course,
@@ -102,7 +113,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
       const { [action.payload]: _, ...rest } = courses
       const { [action.payload]: __, ...restOfMeetings } = userMeetings
       newContext = {
-        ...state,
+        ...timetableState,
         courses: rest,
         userMeetings: {
           ...restOfMeetings,
@@ -114,7 +125,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
     case "SET_MEETING": {
       const { identifier, meeting, method } = action.payload
       newContext = {
-        ...state,
+        ...timetableState,
         userMeetings: {
           ...userMeetings,
           [identifier]: {
@@ -130,7 +141,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
       const { identifier, method } = action.payload
       const { [method]: _, ...rest } = userMeetings[identifier]
       newContext = {
-        ...state,
+        ...timetableState,
         userMeetings: {
           ...userMeetings,
           [identifier]: {
@@ -151,7 +162,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
       if (allEmpty) {
         newContext = {
-          ...state,
+          ...timetableState,
           userMeetings: {
             ...restOfCourses,
           },
@@ -162,7 +173,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
     case "ADD_PROGRAM": {
       newContext = {
-        ...state,
+        ...timetableState,
         programs: [...programs, action.payload],
       }
       break
@@ -170,7 +181,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
     case "REMOVE_PROGRAM": {
       newContext = {
-        ...state,
+        ...timetableState,
         programs: programs.filter((program) => program.code !== action.payload),
       }
       break
@@ -178,7 +189,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
     case "SET_CAMPUS": {
       newContext = {
-        ...state,
+        ...timetableState,
         campus: {
           ...campus,
           [action.payload.campus]: action.payload.status,
@@ -189,7 +200,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
     case "SET_SIDEBAR_COURSE": {
       newContext = {
-        ...state,
+        ...timetableState,
         sidebarCourse: action.payload,
       }
       break
@@ -199,7 +210,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
       const { courseIdentifier, meeting } = action.payload
 
       newContext = {
-        ...state,
+        ...timetableState,
         hoverMeeting: { courseIdentifier, meeting },
       }
 
@@ -208,7 +219,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
 
     case "SET_SIDEBAR": {
       newContext = {
-        ...state,
+        ...timetableState,
         sidebar: action.payload,
       }
       if (action.payload !== 1) {
@@ -231,7 +242,7 @@ const AppContextReducer = (state: AppData, action: Action) => {
     localStorage.setItem("appContext", JSON.stringify(newContext))
   }
 
-  return newContext
+  return { [timetableId]: newContext }
 }
 
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
@@ -241,9 +252,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     lsAppContext = localStorage.getItem("appContext")
   }
 
-  let appContext: AppData
+  let appContext: TimetableData
   if (lsAppContext)
-    appContext = { ...(JSON.parse(lsAppContext) as AppData), sidebar: 0 }
+    appContext = { ...(JSON.parse(lsAppContext) as TimetableData), sidebar: 0 }
   else {
     appContext = {
       courses: {},
@@ -259,9 +270,15 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }
   }
 
-  const [state, dispatch] = React.useReducer(AppContextReducer, appContext)
+  const [state, dispatch] = React.useReducer(
+    (state: AppData, action: Action) =>
+      AppContextReducer(state, action, "new_timetable"),
+    {
+      new_timetable: appContext,
+    }
+  )
 
-  const value = { state, dispatch }
+  const value = { state: state["new_timetable"], dispatch }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
