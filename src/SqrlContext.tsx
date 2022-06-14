@@ -261,12 +261,6 @@ const AppContextProvider = ({
 
   const [lsAppContext, setLsAppContext] = useState<string | null>()
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     setLsAppContext(localStorage.getItem("appContext") as string)
-  //   }
-  // }, [])
-
   const [appContext, setAppContext] = useState<AppData>({
     [timetableId]: {
       // courses: {},
