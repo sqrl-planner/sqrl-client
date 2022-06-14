@@ -9,7 +9,9 @@ export const breakdownCourseCode = (title: string) => {
   if (firstDigitContent) firstDigit = title.indexOf(firstDigitContent[0])
 
   const department = title.substring(0, firstDigit)
-  const numeral = firstDigitContent ? title.substr(firstDigit, firstDigitContent[0].length) : title
+  const numeral = firstDigitContent
+    ? title.substr(firstDigit, firstDigitContent[0].length)
+    : title
 
   const suffix = firstDigitContent
     ? title.substring(firstDigitContent[0].length + department.length)
@@ -28,10 +30,26 @@ export const breakdownCourseIdentifier = (identifier: string) => {
   }
 }
 
+export const getMeetingsFromSections = (sections: Array<string>) => {
+  return {
+    lecture: sections.find((section) => section.toLowerCase().includes("lec")),
+    tutorial: sections.find((section) => section.toLowerCase().includes("tut")),
+    practical: sections.find((section) =>
+      section.toLowerCase().includes("pra")
+    ),
+  }
+}
+
 export const getMeetingTypes = (course: Course) => ({
-  lecture: course.sections.some((section) => section.teachingMethod === "LECTURE"),
-  tutorial: course.sections.some((section) => section.teachingMethod === "TUTORIAL"),
-  practical: course.sections.some((section) => section.teachingMethod === "PRACTICAL"),
+  lecture: course.sections.some(
+    (section) => section.teachingMethod === "LECTURE"
+  ),
+  tutorial: course.sections.some(
+    (section) => section.teachingMethod === "TUTORIAL"
+  ),
+  practical: course.sections.some(
+    (section) => section.teachingMethod === "PRACTICAL"
+  ),
 })
 
 export const meetingsMissing = (
@@ -43,7 +61,9 @@ export const meetingsMissing = (
 
   let missing: Array<MeetingCategoryType> = []
 
-  for (const [meetingType, meetingTypeExists] of Object.entries(courseMeetingTypes)) {
+  for (const [meetingType, meetingTypeExists] of Object.entries(
+    courseMeetingTypes
+  )) {
     if (!meetingTypeExists) continue
 
     if (!userMeetings[identifier][meetingType as MeetingCategoryType]) {
