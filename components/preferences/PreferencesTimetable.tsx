@@ -52,7 +52,6 @@ const PreferencesTimetable = () => {
   const sections = useSections({ id: (router.query.id as string) || "" })
   const { courses, userMeetings } = useCourses({
     sections,
-    sidebarCourse,
   })
 
   const [meetingGroup, setMeetingGroup] = useState<MeetingGroup | null>(null)

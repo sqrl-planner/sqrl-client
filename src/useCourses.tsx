@@ -4,21 +4,24 @@ import { useLazyQuery } from "@apollo/client"
 import { memo, useEffect, useState } from "react"
 import { GET_COURSES_BY_ID } from "../operations/queries/getCoursesById"
 import { Course } from "./Course"
-import { UserMeeting } from "./SqrlContext"
+import { useAppContext, UserMeeting } from "./SqrlContext"
 import { getMeetingsFromSections } from "./utils/course"
 
 type Props = {
   sections: { [key: string]: Array<string> }
-  sidebarCourse?: string
 }
 
 // Create user meetings
-const useCourses = ({ sections, sidebarCourse }: Props) => {
+const useCourses = ({ sections }: Props) => {
   const [courses, setCourses] = useState<{ [key: string]: Course }>({})
   const [userMeetings, setUserMeetings] = useState<{
     [key: string]: UserMeeting
   }>({})
 
+  const {
+    state: { sidebarCourse },
+  } = useAppContext()
+  
   const [getCoursesById, { loading, error, data }] = useLazyQuery(
     GET_COURSES_BY_ID,
     {
@@ -29,14 +32,14 @@ const useCourses = ({ sections, sidebarCourse }: Props) => {
   useEffect(() => {
     if (!sections) return
     const coursesToGet = Object.keys(sections)
-    if(sidebarCourse) coursesToGet.push(sidebarCourse)
+    if (sidebarCourse) coursesToGet.push(sidebarCourse)
 
     getCoursesById({
       variables: {
-        ids: Object.keys(sections),
+        ids: coursesToGet,
       },
     })
-  }, [sections])
+  }, [sections, sidebarCourse])
 
   useEffect(() => {
     if (!data || !data.coursesById) return
@@ -44,7 +47,7 @@ const useCourses = ({ sections, sidebarCourse }: Props) => {
     const coursesToBeSet: { [key: string]: Course } = {}
 
     for (const course of data.coursesById) {
-      if(!course) continue
+      if (!course) continue
       coursesToBeSet[course.id] = course
     }
 

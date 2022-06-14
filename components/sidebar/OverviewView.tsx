@@ -62,7 +62,6 @@ const OverviewView = () => {
   const sections = useSections({ id: (router.query.id as string) || "" })
   const { courses, userMeetings } = useCourses({
     sections,
-    sidebarCourse,
   })
 
   const [coursesToShow, setCoursesToShow] = useState<{

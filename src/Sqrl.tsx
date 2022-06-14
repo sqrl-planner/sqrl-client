@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react"
 import { log } from "console"
 import { useTranslation } from "next-i18next"
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useEffect, useMemo, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
 import DisclaimerModal from "../components/DisclaimerModal"
@@ -60,14 +60,12 @@ const Sqrl = ({ sections }: Props) => {
   } = usePreferences()
 
   const {
-    state: { sidebarCourse, hoverMeeting },
+    state: { hoverMeeting, sidebarCourse },
   } = useAppContext()
 
-  const { courses, userMeetings } = useCourses({ sections, sidebarCourse })
+  const { courses, userMeetings } = useCourses({ sections })
 
   const [timetableSize, setTimetableSize] = useState(40)
-  const [firstMeetings, setFirstMeetings] = useState<Array<Meeting>>([])
-  const [secondMeetings, setSecondMeetings] = useState<Array<Meeting>>([])
   const [disclaimed, setDisclaimed] = useState<boolean | null>(null)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -78,8 +76,8 @@ const Sqrl = ({ sections }: Props) => {
 
   const { colorMode, setColorMode } = useColorMode()
 
-  useEffect(() => {
-    const meetings = {
+  const meetings = useMemo(() => {
+    const memoizedMeetings = {
       ...userMeetings,
       [hoverMeeting.courseIdentifier]: {
         ...userMeetings[hoverMeeting.courseIdentifier],
@@ -87,9 +85,17 @@ const Sqrl = ({ sections }: Props) => {
       },
     }
 
-    setFirstMeetings(MeetingsFabricator(courses, meetings, "FIRST_SEMESTER"))
-    setSecondMeetings(MeetingsFabricator(courses, meetings, "SECOND_SEMESTER"))
-  }, [setFirstMeetings, setSecondMeetings, courses, userMeetings, hoverMeeting])
+    return memoizedMeetings
+  }, [userMeetings, hoverMeeting])
+
+  const firstMeetings = useMemo<Array<Meeting>>(
+    () => MeetingsFabricator(courses, meetings, "FIRST_SEMESTER"),
+    [courses, meetings]
+  )
+  const secondMeetings = useMemo<Array<Meeting>>(
+    () => MeetingsFabricator(courses, meetings, "SECOND_SEMESTER"),
+    [courses, meetings]
+  )
 
   useEffect(() => {
     const lsDisclaimed = localStorage.getItem("disclaimed")
