@@ -254,10 +254,7 @@ const AppContextReducer = (
 
 const AppContextProvider = ({
   children,
-  sections,
-}: AppContextProviderProps & { sections: Array<string> }) => {
-  console.log("timetable"+JSON.stringify(sections));
-  
+}: AppContextProviderProps) => {
   const router = useRouter()
 
   const timetableId = (router.query.id as string) || "new_timetable"

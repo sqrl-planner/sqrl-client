@@ -75,34 +75,6 @@ const SearchView = ({
     debounced(searchQuery)
   }, [searchQuery])
 
-  const [
-    getFullCourse,
-    {
-      loading: fullCourseLoading,
-      data: fullCourseData,
-      error: fullCourseError,
-    },
-  ] = useLazyQuery(GET_COURSE_BY_ID, {
-    onCompleted: (data) => {
-      const { courseById: course } = data
-      dispatch({
-        type: "ADD_COURSE",
-        payload: {
-          identifier: course.id,
-          course: course,
-        },
-      })
-      dispatch({
-        type: "SET_SIDEBAR",
-        payload: 1,
-      })
-      dispatch({
-        type: "SET_SIDEBAR_COURSE",
-        payload: course.id,
-      })
-    },
-  })
-
   const { t } = useTranslation(["common", "sidebar"])
 
   return (
@@ -169,15 +141,11 @@ const SearchView = ({
           <VStack
             alignItems="flex-start"
             spacing={0}
-            opacity={fullCourseLoading ? 0.6 : 1}
           >
             {!!data.searchCourses.length && (
               <SearchResults
                 chosenCourse={chosenCourse}
-                fullCourseData={fullCourseData}
-                getFullCourse={getFullCourse}
                 setChosenCourse={setChosenCourse}
-                fullCourseLoading={fullCourseLoading}
                 courses={data.searchCourses}
               />
             )}

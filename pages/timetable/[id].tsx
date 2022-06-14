@@ -2,7 +2,7 @@ import { ApolloClient, ApolloProvider } from "@apollo/client"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import React from "react"
+import React, { useState } from "react"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
 import client, { apolloClientParams } from "../../src/apollo-client"
@@ -56,7 +56,7 @@ export const Home: NextPage = (props: any) => {
     <ChakraProvider theme={theme}>
       <PreferencesProvider>
         <ApolloProvider client={client}>
-          <AppContextProvider sections={props.sections}>
+          <AppContextProvider>
             <Sqrl sections={props.sections} />
           </AppContextProvider>
         </ApolloProvider>
@@ -98,12 +98,10 @@ export async function getServerSideProps({
     return {
       props: {
         ...translationProps,
-        sections: JSON.parse(data.timetableById.sections)
+        sections: JSON.parse(data.timetableById.sections),
       },
     }
   } catch (e) {
-    console.log("error"+e);
-    
     return {
       props: {},
       redirect: {
