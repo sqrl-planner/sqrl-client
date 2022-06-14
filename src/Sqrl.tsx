@@ -1,3 +1,4 @@
+import { useLazyQuery, useQuery } from "@apollo/client"
 import {
   Box,
   chakra,
@@ -8,7 +9,9 @@ import {
   useColorMode,
   useColorModeValue,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react"
+import { log } from "console"
 import { useTranslation } from "next-i18next"
 import React, { Fragment, useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
@@ -18,10 +21,14 @@ import Header from "../components/Header"
 import Sidebar from "../components/sidebar/Sidebar"
 import { Meeting } from "../components/timetable/Meeting"
 import { Timetable } from "../components/timetable/Timetable"
+import { GET_COURSE_BY_ID } from "../operations/queries/getCourseById"
+import { GET_COURSES_BY_ID } from "../operations/queries/getCoursesById"
+import { Course } from "./Course"
 import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
-import { useAppContext } from "./SqrlContext"
+import { useAppContext, UserMeeting } from "./SqrlContext"
+import { getMeetingsFromSections } from "./utils/course"
 import { timeToMinuteOffset } from "./utils/time"
 
 const Container = styled(chakra.div)`
@@ -33,7 +40,11 @@ const Container = styled(chakra.div)`
   width: 100vw;
 `
 
-const Sqrl = () => {
+type Props = {
+  sections: { [key: string]: Array<string> }
+}
+
+const Sqrl = ({ sections }: Props) => {
   const {
     state: {
       scale,
@@ -47,8 +58,73 @@ const Sqrl = () => {
     },
   } = usePreferences()
 
+  const [courses, setCourses] = useState<{ [key: string]: Course }>({})
+  const [userMeetings, setUserMeetings] = useState<{
+    [key: string]: UserMeeting
+  }>({})
+
+  const [getCoursesById, { loading, error, data }] = useLazyQuery(
+    GET_COURSES_BY_ID,
+    {
+      errorPolicy: "all",
+    }
+  )
+
+  const toast = useToast()
+
+  useEffect(() => {
+    if (!sections) return
+
+    getCoursesById({
+      variables: {
+        ids: Object.keys(sections),
+      },
+    })
+  }, [sections])
+
+  useEffect(() => {
+    if (!data) return
+    if (error) {
+      toast({
+        id: "critical-error",
+        title: "An error occured when fetching the courses.",
+        description: "Try again later.",
+        status: "error",
+        variant: "solid",
+        isClosable: true,
+        duration: 9000,
+      })
+      return
+    }
+
+    // setCourses(data.coursesById)
+    const coursesToBeSet: { [key: string]: Course } = {}
+
+    for (const course of data.coursesById) {
+      coursesToBeSet[course.id] = course
+    }
+
+    setCourses(coursesToBeSet)
+  }, [data, error])
+
+  useEffect(() => {
+    if (!courses || !sections) return
+
+    const userMeetingsToBeSet: { [key: string]: UserMeeting } = {}
+
+    for (const [courseId, meetings] of Object.entries(sections)) {
+      userMeetingsToBeSet[courseId] = getMeetingsFromSections(meetings)
+    }
+
+    setUserMeetings(userMeetingsToBeSet)
+  }, [courses, sections])
+
   const {
-    state: { courses, userMeetings, sidebarCourse, hoverMeeting },
+    state: {
+      // courses, userMeetings,
+      sidebarCourse,
+      hoverMeeting,
+    },
   } = useAppContext()
 
   const [timetableSize, setTimetableSize] = useState(40)

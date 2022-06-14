@@ -1,4 +1,7 @@
-import React, { createContext } from "react"
+import { useQuery } from "@apollo/client"
+import { useRouter } from "next/router"
+import React, { createContext, useEffect, useState } from "react"
+import { GET_TIMETABLE_BY_ID } from "../operations/queries/getTimetableById"
 import { Course } from "./Course"
 import { usePreferences } from "./PreferencesContext"
 
@@ -16,8 +19,8 @@ export interface AppData {
 }
 
 export interface TimetableData {
-  courses: { [key: string]: Course }
-  userMeetings: { [key: string]: UserMeeting }
+  // courses: { [key: string]: Course }
+  // userMeetings: { [key: string]: UserMeeting }
   programs: Array<{ code: string; title: string }>
   campus: { sg: boolean; sc: boolean; ms: boolean }
   hoverMeeting: { courseIdentifier: string; meeting: string }
@@ -26,26 +29,26 @@ export interface TimetableData {
 }
 
 export type Action =
-  | {
-      type: "ADD_COURSE"
-      payload: { identifier: string; course: Course }
-    }
-  | { type: "REMOVE_COURSE"; payload: string }
-  | {
-      type: "SET_MEETING"
-      payload: {
-        identifier: string
-        meeting: string
-        method: "lecture" | "tutorial" | "practical"
-      }
-    }
-  | {
-      type: "REMOVE_MEETING"
-      payload: {
-        identifier: string
-        method: "lecture" | "tutorial" | "practical" | "hover"
-      }
-    }
+  // | {
+  //     type: "ADD_COURSE"
+  //     payload: { identifier: string; course: Course }
+  //   }
+  // | { type: "REMOVE_COURSE"; payload: string }
+  // | {
+  //     type: "SET_MEETING"
+  //     payload: {
+  //       identifier: string
+  //       meeting: string
+  //       method: "lecture" | "tutorial" | "practical"
+  //     }
+  //   }
+  // | {
+  //     type: "REMOVE_MEETING"
+  //     payload: {
+  //       identifier: string
+  //       method: "lecture" | "tutorial" | "practical" | "hover"
+  //     }
+  //   }
   | { type: "ADD_PROGRAM"; payload: { code: string; title: string } }
   | { type: "REMOVE_PROGRAM"; payload: string }
   | {
@@ -83,8 +86,8 @@ const AppContextReducer = (
   timetableId: string
 ) => {
   let newContext: TimetableData = {
-    courses: {},
-    userMeetings: {},
+    // courses: {},
+    // userMeetings: {},
     programs: [],
     campus: { sg: true, sc: false, ms: false },
     sidebarCourse: "",
@@ -94,82 +97,84 @@ const AppContextReducer = (
 
   const timetableState = state[timetableId]
 
-  const { courses, userMeetings, programs, campus } = timetableState
+  const { 
+    // courses, userMeetings, 
+    programs, campus } = timetableState
 
   switch (action.type) {
-    case "ADD_COURSE": {
-      newContext = {
-        ...timetableState,
-        courses: {
-          ...courses,
-          [action.payload.identifier]: action.payload.course,
-        },
-      }
-      break
-    }
+    // case "ADD_COURSE": {
+    //   newContext = {
+    //     ...timetableState,
+    //     courses: {
+    //       ...courses,
+    //       [action.payload.identifier]: action.payload.course,
+    //     },
+    //   }
+    //   break
+    // }
 
-    case "REMOVE_COURSE": {
-      // Destructure everything, discard the course to remove
-      const { [action.payload]: _, ...rest } = courses
-      const { [action.payload]: __, ...restOfMeetings } = userMeetings
-      newContext = {
-        ...timetableState,
-        courses: rest,
-        userMeetings: {
-          ...restOfMeetings,
-        },
-      }
-      break
-    }
+    // case "REMOVE_COURSE": {
+    //   // Destructure everything, discard the course to remove
+    //   const { [action.payload]: _, ...rest } = courses
+    //   const { [action.payload]: __, ...restOfMeetings } = userMeetings
+    //   newContext = {
+    //     ...timetableState,
+    //     courses: rest,
+    //     userMeetings: {
+    //       ...restOfMeetings,
+    //     },
+    //   }
+    //   break
+    // }
 
-    case "SET_MEETING": {
-      const { identifier, meeting, method } = action.payload
-      newContext = {
-        ...timetableState,
-        userMeetings: {
-          ...userMeetings,
-          [identifier]: {
-            ...userMeetings[identifier],
-            [method]: meeting,
-          },
-        },
-      }
-      break
-    }
+    // case "SET_MEETING": {
+    //   const { identifier, meeting, method } = action.payload
+    //   newContext = {
+    //     ...timetableState,
+    //     userMeetings: {
+    //       ...userMeetings,
+    //       [identifier]: {
+    //         ...userMeetings[identifier],
+    //         [method]: meeting,
+    //       },
+    //     },
+    //   }
+    //   break
+    // }
 
-    case "REMOVE_MEETING": {
-      const { identifier, method } = action.payload
-      const { [method]: _, ...rest } = userMeetings[identifier]
-      newContext = {
-        ...timetableState,
-        userMeetings: {
-          ...userMeetings,
-          [identifier]: {
-            ...rest,
-          },
-        },
-      }
-      const { [identifier]: courseMeetings, ...restOfCourses } = userMeetings
+    // case "REMOVE_MEETING": {
+    //   const { identifier, method } = action.payload
+    //   const { [method]: _, ...rest } = userMeetings[identifier]
+    //   newContext = {
+    //     ...timetableState,
+    //     userMeetings: {
+    //       ...userMeetings,
+    //       [identifier]: {
+    //         ...rest,
+    //       },
+    //     },
+    //   }
+    //   const { [identifier]: courseMeetings, ...restOfCourses } = userMeetings
 
-      let allEmpty = true
+    //   let allEmpty = true
 
-      for (const method of Object.values(newContext.userMeetings[identifier])) {
-        if (method !== "") {
-          allEmpty = false
-          break
-        }
-      }
+    //   for (const method of Object.values(newContext.userMeetings[identifier])) {
+    //     if (method !== "") {
+    //       allEmpty = false
+    //       break
+    //     }
+    //   }
 
-      if (allEmpty) {
-        newContext = {
-          ...timetableState,
-          userMeetings: {
-            ...restOfCourses,
-          },
-        }
-      }
-      break
-    }
+    //   if (allEmpty) {
+    //     newContext = {
+    //       ...timetableState,
+    //       userMeetings: {
+    //         ...restOfCourses,
+    //       },
+    //     }
+    //   }
+    //   break
+    // }
 
     case "ADD_PROGRAM": {
       newContext = {
@@ -238,27 +243,37 @@ const AppContextReducer = (
     }
   }
 
+  const fullContext = { [timetableId]: newContext }
+
   if (typeof window !== "undefined") {
-    localStorage.setItem("appContext", JSON.stringify(newContext))
+    localStorage.setItem("appContext", JSON.stringify(fullContext))
   }
 
-  return { [timetableId]: newContext }
+  return fullContext
 }
 
-const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  let lsAppContext: null | string = null
+const AppContextProvider = ({
+  children,
+  sections,
+}: AppContextProviderProps & { sections: Array<string> }) => {
+  console.log("timetable"+JSON.stringify(sections));
+  
+  const router = useRouter()
 
-  if (typeof window !== "undefined") {
-    lsAppContext = localStorage.getItem("appContext")
-  }
+  const timetableId = (router.query.id as string) || "new_timetable"
 
-  let appContext: TimetableData
-  if (lsAppContext)
-    appContext = { ...(JSON.parse(lsAppContext) as TimetableData), sidebar: 0 }
-  else {
-    appContext = {
-      courses: {},
-      userMeetings: {},
+  const [lsAppContext, setLsAppContext] = useState<string | null>()
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     setLsAppContext(localStorage.getItem("appContext") as string)
+  //   }
+  // }, [])
+
+  const [appContext, setAppContext] = useState<AppData>({
+    [timetableId]: {
+      // courses: {},
+      // userMeetings: {},
       programs: [],
       campus: { sg: true, sc: false, ms: false },
       sidebarCourse: "",
@@ -267,18 +282,28 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         meeting: "",
       },
       sidebar: 0,
-    }
-  }
+    },
+  })
+
+  // useEffect(() => {
+  //   console.log(appContext)
+  // }, [appContext])
+
+  useEffect(() => {
+    if (!lsAppContext) return
+
+    setAppContext({
+      ...(JSON.parse(lsAppContext) as AppData),
+    } as AppData)
+  }, [lsAppContext])
 
   const [state, dispatch] = React.useReducer(
     (state: AppData, action: Action) =>
-      AppContextReducer(state, action, "new_timetable"),
-    {
-      new_timetable: appContext,
-    }
+      AppContextReducer(state, action, timetableId),
+    appContext
   )
 
-  const value = { state: state["new_timetable"], dispatch }
+  const value = { state: state[timetableId], dispatch }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

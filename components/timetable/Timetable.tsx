@@ -25,7 +25,7 @@ import {
   StyledTr,
 } from "./StyledTimetable"
 
-type TimetableProps = {
+type Props = {
   /**
    * The meetings to display on the timetable.
    */
@@ -85,7 +85,7 @@ export const Timetable = ({
   dark = false,
   emphasizeOnHover = true,
   days = WEEK_DAYS,
-}: TimetableProps) => {
+}: Props) => {
   const {
     state: { hoverCourseKey },
     dispatch,

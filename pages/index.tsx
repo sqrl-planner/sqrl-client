@@ -52,13 +52,14 @@ export const theme = extendTheme({
 export const Home: NextPage = () => {
   return (
     <ChakraProvider theme={theme}>
-      <PreferencesProvider>
-        <AppContextProvider>
-          <ApolloProvider client={client}>
-            <Sqrl />
-          </ApolloProvider>
-        </AppContextProvider>
-      </PreferencesProvider>
+      yee
+      {/* <PreferencesProvider> */}
+      {/*   <AppContextProvider> */}
+      {/*     <ApolloProvider client={client}> */}
+      {/*       <Sqrl /> */}
+      {/*     </ApolloProvider> */}
+      {/*   </AppContextProvider> */}
+      {/* </PreferencesProvider> */}
     </ChakraProvider>
   )
 }
