@@ -12,27 +12,19 @@ import { motion } from "framer-motion"
 import React, { SetStateAction } from "react"
 import { Dispatch } from "react"
 import { Course } from "../../../src/Course"
+import { useAppContext } from "../../../src/SqrlContext"
 import { breakdownCourseCode } from "../../../src/utils/course"
 
 type Props = {
   courses: Array<Course>
-  fullCourseLoading: boolean
-  fullCourseData: any
-  getFullCourse: (any: any) => any
   setChosenCourse: Dispatch<SetStateAction<string>>
   chosenCourse: string
 }
 
 const MotionFlex = motion<FlexProps>(Flex)
 
-const SearchResults = ({
-  courses,
-  fullCourseLoading,
-  setChosenCourse,
-  getFullCourse,
-  fullCourseData,
-  chosenCourse,
-}: Props) => {
+const SearchResults = ({ courses, setChosenCourse, chosenCourse }: Props) => {
+  const { dispatch } = useAppContext()
   const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
   return (
@@ -74,25 +66,20 @@ const SearchResults = ({
             }}
             tabIndex={0}
             onClick={() => {
-              if (fullCourseLoading) return
-
               setChosenCourse(course.id)
-
-              getFullCourse({
-                variables: {
-                  id: course.id,
-                },
+              dispatch({
+                type: "SET_SIDEBAR",
+                payload: 1,
+              })
+              dispatch({
+                type: "SET_SIDEBAR_COURSE",
+                payload: course.id,
               })
             }}
-            cursor={fullCourseLoading ? "not-allowed" : "pointer"}
+            cursor="pointer"
           >
             <Flex ml={5} mr={4} w={4} h={4} alignItems="center">
-              {(fullCourseLoading || !fullCourseData) &&
-              chosenCourse === course.id ? (
-                <Spinner size="sm" />
-              ) : (
-                <AddIcon h={4} w={4} />
-              )}
+              <AddIcon h={4} w={4} />
             </Flex>
             <Flex
               key={course.code}

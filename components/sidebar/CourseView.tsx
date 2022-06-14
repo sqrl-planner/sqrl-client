@@ -39,12 +39,27 @@ import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
 import { FaTrashAlt, FaShareSquare } from "react-icons/fa"
+import { useQuery } from "@apollo/client"
+import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
+import { useRouter } from "next/router"
+import useCourses from "../../src/useCourses"
+import useSections from "../../src/useSections"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const {
-    state: { courses, sidebarCourse: identifier, userMeetings },
+    state: {
+      // courses,
+      sidebarCourse: identifier,
+      // userMeetings
+    },
     dispatch,
   } = useAppContext()
+
+  const router = useRouter()
+  const sections = useSections({ id: (router.query.id as string) || "" })
+  const { courses, userMeetings } = useCourses({
+    sections: { ...sections, [identifier]: [] },
+  })
 
   const course = courses[identifier]
 
@@ -273,7 +288,6 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             }}
             disabled={
               !Object.keys(userMeetings).some((courseCode) => {
-                console.log(courseCode)
                 return courseCode === course.id
               })
             }
@@ -287,7 +301,6 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             gap={2}
             disabled={
               !Object.keys(userMeetings).some((courseCode) => {
-                console.log(courseCode)
                 return courseCode === course.id
               })
             }

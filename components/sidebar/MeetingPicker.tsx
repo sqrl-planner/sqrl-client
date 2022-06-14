@@ -18,11 +18,14 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, { Fragment } from "react"
 import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
 import { Course } from "../../src/Course"
 import MeetingsFabricator from "../../src/MeetingsFabricator"
 import { useAppContext, UserMeeting } from "../../src/SqrlContext"
+import useCourses from "../../src/useCourses"
+import useSections from "../../src/useSections"
 import { breakdownCourseCode } from "../../src/utils/course"
 import {
   Meeting,
@@ -69,9 +72,15 @@ const MeetingPicker = ({
   const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
   const {
-    state: { courses, userMeetings, sidebarCourse: identifier },
+    state: {
+      // courses, userMeetings,
+      sidebarCourse: identifier },
     dispatch,
   } = useAppContext()
+
+  const router = useRouter()
+  const sections = useSections({ id: (router.query.id as string) || "" })
+  const { courses, userMeetings } = useCourses({ sections })
 
   const matchingMethods: typeof course.sections = course.sections.filter(
     (meeting) => meeting.teachingMethod.toUpperCase() === method.toUpperCase()
@@ -98,13 +107,13 @@ const MeetingPicker = ({
             !(userMeetings[identifier] && userMeetings[identifier][method])
           }
           onClick={() => {
-            dispatch({
-              type: "REMOVE_MEETING",
-              payload: {
-                identifier,
-                method,
-              },
-            })
+            // dispatch({
+            //   type: "REMOVE_MEETING",
+            //   payload: {
+            //     identifier,
+            //     method,
+            //   },
+            // })
           }}
         >
           <Icon
@@ -255,9 +264,8 @@ const MeetingPicker = ({
                 alignItems="center"
                 gridTemplateColumns="auto auto 1fr auto"
                 width="100%"
-                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
-                  isSelected ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)` : ""
-                }`}
+                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${isSelected ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)` : ""
+                  }`}
                 margin={0}
                 p={2.5}
                 pl={5}
@@ -271,14 +279,15 @@ const MeetingPicker = ({
                 role="button"
                 onClick={() => {
                   if (!sectionCode) return
-                  dispatch({
-                    type: "SET_MEETING",
-                    payload: {
-                      identifier,
-                      meeting: sectionCode,
-                      method: method,
-                    },
-                  })
+                  // dispatch({
+                  //   type: "SET_MEETING",
+                  //   payload: {
+                  //     identifier,
+                  //     meeting: sectionCode,
+                  //     method: method,
+                  //   },
+                  // })
+
                   dispatch({
                     type: "SET_HOVER_MEETING",
                     payload: {
@@ -312,10 +321,10 @@ const MeetingPicker = ({
                   isSelected
                     ? activePillTextColour
                     : hasConflict
-                    ? conflictPillTextColour
-                    : concerning
-                    ? concerningPillTextColour
-                    : pillTextColour
+                      ? conflictPillTextColour
+                      : concerning
+                        ? concerningPillTextColour
+                        : pillTextColour
                 }
               >
                 <Box mr={3} position="relative" bottom="0.1rem" fontSize="md">
@@ -398,17 +407,14 @@ const MeetingPicker = ({
                                     )} */}
 
                   {section.instructors.join(", ") ||
-                  parseInt(section?.actualWaitlist as string)
-                    ? `Waitlist ${section?.actualWaitlist} student${
-                        parseInt(section?.actualWaitlist as string) === 1
-                          ? ""
-                          : "s"
-                      }`
-                    : `Enrol ${section.actualEnrolment} of ${
-                        section.enrolmentCapacity
-                      }${
-                        concerning && !section.hasWaitlist ? "—No waitlist" : ""
-                      }`}
+                    parseInt(section?.actualWaitlist as string)
+                    ? `Waitlist ${section?.actualWaitlist} student${parseInt(section?.actualWaitlist as string) === 1
+                      ? ""
+                      : "s"
+                    }`
+                    : `Enrol ${section.actualEnrolment} of ${section.enrolmentCapacity
+                    }${concerning && !section.hasWaitlist ? "—No waitlist" : ""
+                    }`}
 
                   {/* <Text as="span" ml={2}>
                                         {meeting.enrolmentIndicator}

@@ -53,13 +53,6 @@ export const Home: NextPage = () => {
   return (
     <ChakraProvider theme={theme}>
       yee
-      {/* <PreferencesProvider> */}
-      {/*   <AppContextProvider> */}
-      {/*     <ApolloProvider client={client}> */}
-      {/*       <Sqrl /> */}
-      {/*     </ApolloProvider> */}
-      {/*   </AppContextProvider> */}
-      {/* </PreferencesProvider> */}
     </ChakraProvider>
   )
 }
