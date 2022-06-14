@@ -12,6 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import { BsFillCalendarFill } from "react-icons/bs"
 import { FaPalette } from "react-icons/fa"
@@ -21,6 +22,8 @@ import styled from "styled-components"
 import MeetingsFabricator from "../../src/MeetingsFabricator"
 import { usePreferences } from "../../src/PreferencesContext"
 import { useAppContext } from "../../src/SqrlContext"
+import useCourses from "../../src/useCourses"
+import useSections from "../../src/useSections"
 import { capitalize } from "../../src/utils/misc"
 import { minuteOffsetToTime } from "../../src/utils/time"
 import { MeetingGroup } from "../timetable/Meeting"
@@ -42,8 +45,15 @@ const PreferencesTimetable = () => {
   } = usePreferences()
 
   const {
-    state: { courses, userMeetings },
+    state: { sidebarCourse },
   } = useAppContext()
+
+  const router = useRouter()
+  const sections = useSections({ id: (router.query.id as string) || "" })
+  const { courses, userMeetings } = useCourses({
+    sections,
+    sidebarCourse,
+  })
 
   const [meetingGroup, setMeetingGroup] = useState<MeetingGroup | null>(null)
   const [times, setTimes] = useState<{ start: number; end: number } | null>(

@@ -15,12 +15,22 @@ import { capitalize } from "../src/utils/misc"
 import { minuteOffsetToIcalArray } from "../src/utils/time"
 import icalFabricator, { dateToIcsString, SqrlIcsEvent } from "../src/utils/ics"
 import { Meeting } from "./timetable/Meeting"
+import { useRouter } from "next/router"
+import useSections from "../src/useSections"
+import useCourses from "../src/useCourses"
 // const ics = require("ics")
 
 const ShareCalendar = () => {
   const {
-    state: { courses, userMeetings },
+    state: { sidebarCourse },
   } = useAppContext()
+
+  const router = useRouter()
+  const sections = useSections({ id: (router.query.id as string) || "" })
+  const { courses, userMeetings } = useCourses({
+    sections,
+    sidebarCourse,
+  })
 
   const downloadRef = useRef<HTMLAnchorElement | null>(null)
 

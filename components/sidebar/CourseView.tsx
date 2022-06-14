@@ -255,10 +255,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     <Button
                       colorScheme="red"
                       onClick={() => {
-                        dispatch({
-                          type: "REMOVE_COURSE",
-                          payload: identifier,
-                        })
+                        // dispatch({
+                        //   type: "REMOVE_COURSE",
+                        //   payload: identifier,
+                        // })
                         // onClose()
                       }}
                       gap={2}
