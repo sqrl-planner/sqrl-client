@@ -58,7 +58,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const router = useRouter()
   const sections = useSections({ id: (router.query.id as string) || "" })
   const { courses, userMeetings } = useCourses({
-    sections: { ...sections, [identifier]: [] },
+    sections,
   })
 
   const course = courses[identifier]
