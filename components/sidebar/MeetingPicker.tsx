@@ -25,6 +25,7 @@ import { Course } from "../../src/Course"
 import MeetingsFabricator from "../../src/MeetingsFabricator"
 import { useAppContext, UserMeeting } from "../../src/SqrlContext"
 import useCourses from "../../src/useCourses"
+import useTimetable from "../../src/useTimetable"
 import useSections from "../../src/useSections"
 import { breakdownCourseCode } from "../../src/utils/course"
 import {
@@ -72,15 +73,15 @@ const MeetingPicker = ({
   const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
   const {
-    state: {
-      // courses, userMeetings,
-      sidebarCourse: identifier },
+    state: { sidebarCourse: identifier },
     dispatch,
   } = useAppContext()
 
   const router = useRouter()
-  const sections = useSections({ id: (router.query.id as string) || "" })
+  const { sections } = useSections({ id: (router.query.id as string) || "" })
   const { courses, userMeetings } = useCourses({ sections })
+
+  useTimetable({ id: (router.query.id as string) || "" })
 
   const matchingMethods: typeof course.sections = course.sections.filter(
     (meeting) => meeting.teachingMethod.toUpperCase() === method.toUpperCase()
@@ -264,8 +265,9 @@ const MeetingPicker = ({
                 alignItems="center"
                 gridTemplateColumns="auto auto 1fr auto"
                 width="100%"
-                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${isSelected ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)` : ""
-                  }`}
+                boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
+                  isSelected ? `, inset 0 0 6px -3px rgba(0,0,0,0.5)` : ""
+                }`}
                 margin={0}
                 p={2.5}
                 pl={5}
@@ -321,10 +323,10 @@ const MeetingPicker = ({
                   isSelected
                     ? activePillTextColour
                     : hasConflict
-                      ? conflictPillTextColour
-                      : concerning
-                        ? concerningPillTextColour
-                        : pillTextColour
+                    ? conflictPillTextColour
+                    : concerning
+                    ? concerningPillTextColour
+                    : pillTextColour
                 }
               >
                 <Box mr={3} position="relative" bottom="0.1rem" fontSize="md">
@@ -407,14 +409,17 @@ const MeetingPicker = ({
                                     )} */}
 
                   {section.instructors.join(", ") ||
-                    parseInt(section?.actualWaitlist as string)
-                    ? `Waitlist ${section?.actualWaitlist} student${parseInt(section?.actualWaitlist as string) === 1
-                      ? ""
-                      : "s"
-                    }`
-                    : `Enrol ${section.actualEnrolment} of ${section.enrolmentCapacity
-                    }${concerning && !section.hasWaitlist ? "—No waitlist" : ""
-                    }`}
+                  parseInt(section?.actualWaitlist as string)
+                    ? `Waitlist ${section?.actualWaitlist} student${
+                        parseInt(section?.actualWaitlist as string) === 1
+                          ? ""
+                          : "s"
+                      }`
+                    : `Enrol ${section.actualEnrolment} of ${
+                        section.enrolmentCapacity
+                      }${
+                        concerning && !section.hasWaitlist ? "—No waitlist" : ""
+                      }`}
 
                   {/* <Text as="span" ml={2}>
                                         {meeting.enrolmentIndicator}

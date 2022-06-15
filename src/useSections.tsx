@@ -11,6 +11,7 @@ const useSections = ({ id }: Props) => {
     useLazyQuery(GET_TIMETABLE_BY_ID)
 
   const [sections, setSections] = useState<{ [key: string]: Array<string> }>({})
+  const [name, setName] = useState<string>("")
 
   useEffect(() => {
     if (!id) return
@@ -27,9 +28,10 @@ const useSections = ({ id }: Props) => {
     if (!id) return
 
     setSections(JSON.parse(data.timetableById.sections))
+    setName(data.timetableById.name)
   }, [data, id])
 
-  return sections
+  return { sections, name }
 }
 
 export default useSections

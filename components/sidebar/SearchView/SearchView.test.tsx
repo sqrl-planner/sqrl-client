@@ -38,6 +38,4 @@ describe("Search view", () => {
 
     expect(getByDisplayValue("qwerty-query")).toBeInTheDocument()
   })
-
 })
-
