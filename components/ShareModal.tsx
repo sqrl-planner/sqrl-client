@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import {
   ModalOverlay,
@@ -16,10 +16,13 @@ import {
   Input,
   FormHelperText,
   Button,
+  useClipboard,
+  useToast,
 } from "@chakra-ui/react"
 
 import { FaShareSquare } from "react-icons/fa"
 import ShareCalendar from "./ShareCalendar"
+import { useRouter } from "next/router"
 
 type props = {
   isOpen: boolean
@@ -27,6 +30,27 @@ type props = {
 }
 
 const ShareModal = ({ isOpen, onClose }: props) => {
+  const router = useRouter()
+
+  const id = router.query.id
+
+
+  const shareUrl = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}/timetable/${id}` : ""
+  const { onCopy, hasCopied } = useClipboard(shareUrl)
+
+  const toast = useToast()
+
+  useEffect(() => {
+    if (!hasCopied) return
+
+    toast({
+      title: "Copied to clipboard",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    })
+  }, [hasCopied])
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
@@ -46,13 +70,15 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                   <Icon as={FaShareSquare} mr={2} /> Share read-only
                 </Text>
                 <Input
-                  value="https://sqrlplanner.com/timetable/507f1f77bcf86cd799439011"
+                  cursor="pointer"
+                  value={shareUrl}
+                  onClick={onCopy}
                   my={1}
                   mt={2}
                   readOnly
                 />
                 <FormHelperText fontWeight={400}>
-                  Anyone who views this timetable can duplicate it.
+                  Click to copy the link. Anyone who views this timetable can duplicate it.
                 </FormHelperText>
               </FormControl>
             </Flex>
