@@ -45,7 +45,6 @@ const Sqrl = () => {
       twentyFour,
       emphasize,
       showSemester,
-      language
     },
   } = usePreferences()
 
@@ -117,12 +116,6 @@ const Sqrl = () => {
       setColorMode("dark")
     }
   }, [setColorMode])
-
-  useEffect(() => {
-    if (router.locale === 'en') {
-      
-    }
-  }, [language])
 
   const { t } = useTranslation("common")
 
