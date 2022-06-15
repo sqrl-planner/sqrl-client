@@ -16,7 +16,7 @@ const PreferencesLanguage = () => {
   
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "language",
-    defaultValue: "en",
+    defaultValue: router.defaultLocale,
     onChange: (language: "en" | "fr" | "zh") => {
         
       if (language === "en") {
