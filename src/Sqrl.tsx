@@ -10,7 +10,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import router from "next/router"
 import React, { Fragment, useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
