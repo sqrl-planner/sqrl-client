@@ -21,7 +21,6 @@ export interface Preferences {
   emphasize: boolean
   showSemester: "first" | "second" | "both"
   currentPrefTab: number
-  language: "en" | "fr" | "zh"
 }
 
 export type Action =
@@ -42,7 +41,6 @@ export type Action =
   | { type: "SET_EMPHASIZE"; payload: boolean }
   | { type: "SET_SHOW_SEMESTER"; payload: "first" | "second" | "both" }
   | { type: "SET_CURRENT_PREF_TAB"; payload: number }
-  | { type: "SET_LANGUAGE"; payload: "en" | "fr" | "zh"}
 
 type Dispatch = (action: Action) => void
 
@@ -129,11 +127,6 @@ const preferencesReducer = (state: Preferences, action: Action) => {
       break
     }
 
-    case "SET_LANGUAGE": {
-      newPreferences = { ...state, language: action.payload }
-      break
-    }
-
     default: {
       // @ts-expect-error
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -169,7 +162,6 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
     emphasize: true,
     showSemester: "both",
     currentPrefTab: 0,
-    language: 'en'
   }
 
   if (lsPreferences) {
