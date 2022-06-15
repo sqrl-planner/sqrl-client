@@ -35,6 +35,18 @@ const PreferencesLanguage = () => {
     <Grid gridTemplateColumns="repeat(3, auto)" {...group} gap={4}>
       {options.map((value) => {
         const radio = getRadioProps({ value, enterKeyHint: "enter" })
+        let lang = ''
+        switch(value) {
+          case 'en':
+            lang = "English"
+            break
+          case 'fr':
+            lang = "Français"
+            break
+          case 'zh':
+            lang = "简体中文"
+            break
+        }
         if (value === router.locale) {
           return (
             <Box
@@ -53,7 +65,7 @@ const PreferencesLanguage = () => {
               px={3}
               py={2}
             >
-              {value}
+              {lang}
             </Box>
           )
         } else {
@@ -61,7 +73,7 @@ const PreferencesLanguage = () => {
             <Link href='/' locale={value}> 
               <button>
                 <RadioTextCard key={ value }>
-                    { t(value) }
+                    { lang }
                 </RadioTextCard>
               </button>
             </Link>
