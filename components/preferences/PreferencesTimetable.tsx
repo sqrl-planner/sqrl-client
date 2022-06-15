@@ -49,7 +49,7 @@ const PreferencesTimetable = () => {
   } = useAppContext()
 
   const router = useRouter()
-  const sections = useSections({ id: (router.query.id as string) || "" })
+  const { sections } = useSections({ id: (router.query.id as string) || "" })
   const { courses, userMeetings } = useCourses({
     sections,
   })

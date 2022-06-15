@@ -97,9 +97,11 @@ const AppContextReducer = (
 
   const timetableState = state[timetableId]
 
-  const { 
-    // courses, userMeetings, 
-    programs, campus } = timetableState
+  const {
+    // courses, userMeetings,
+    programs,
+    campus,
+  } = timetableState
 
   switch (action.type) {
     // case "ADD_COURSE": {
@@ -252,9 +254,7 @@ const AppContextReducer = (
   return fullContext
 }
 
-const AppContextProvider = ({
-  children,
-}: AppContextProviderProps) => {
+const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const router = useRouter()
 
   const timetableId = (router.query.id as string) || "new_timetable"

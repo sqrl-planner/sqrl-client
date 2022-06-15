@@ -18,6 +18,9 @@ import {
   PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
+  Skeleton,
+  SkeletonText,
+  Stack,
   Text,
   ToastId,
   Tooltip,
@@ -44,6 +47,7 @@ import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { useRouter } from "next/router"
 import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
+import { motion } from "framer-motion"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const {
@@ -56,8 +60,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   } = useAppContext()
 
   const router = useRouter()
-  const sections = useSections({ id: (router.query.id as string) || "" })
-  const { courses, userMeetings } = useCourses({
+  const { sections } = useSections({ id: (router.query.id as string) || "" })
+  const { courses, userMeetings, loading } = useCourses({
     sections,
   })
 
@@ -121,7 +125,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     })
   }, [hasCopied])
 
-  if (!course) {
+  if (!identifier) {
     return (
       <Box p={5}>
         <Heading
@@ -136,6 +140,48 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
         </Heading>
         <Text>Pick a course to see information regarding it.</Text>
       </Box>
+    )
+  }
+
+  if (!course) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
+      >
+        <Box p={5}>
+          <Skeleton mb={4} height="40px" />
+          <Skeleton>
+            Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
+            cillum sint consectetur cupidatat.
+          </Skeleton>
+          <Stack mt={4}>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+          <Stack mt={6}>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+          <Stack mt={6}>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+        </Box>
+      </motion.div>
     )
   }
 

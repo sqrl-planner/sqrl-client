@@ -21,7 +21,7 @@ const useCourses = ({ sections }: Props) => {
   const {
     state: { sidebarCourse },
   } = useAppContext()
-  
+
   const [getCoursesById, { loading, error, data }] = useLazyQuery(
     GET_COURSES_BY_ID,
     {
@@ -68,6 +68,7 @@ const useCourses = ({ sections }: Props) => {
 
   return {
     courses,
+    loading,
     userMeetings,
   }
 }

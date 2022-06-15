@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react"
 import { log } from "console"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useMemo, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
@@ -29,6 +30,7 @@ import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
 import { useAppContext, UserMeeting } from "./SqrlContext"
 import useCourses from "./useCourses"
+import useTimetable from "./useTimetable"
 import { getMeetingsFromSections } from "./utils/course"
 import { timeToMinuteOffset } from "./utils/time"
 
@@ -66,9 +68,12 @@ const Sqrl = ({ sections }: Props) => {
   const { courses, userMeetings } = useCourses({ sections })
 
   const [timetableSize, setTimetableSize] = useState(40)
-  const [disclaimed, setDisclaimed] = useState<boolean | null>(null)
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const router = useRouter()
+
+  const { allowedToEdit } = useTimetable({
+    id: (router.query.id as string) || "",
+  })
 
   useEffect(() => {
     setTimetableSize(scale)
@@ -97,19 +102,6 @@ const Sqrl = ({ sections }: Props) => {
     [courses, meetings]
   )
 
-  useEffect(() => {
-    const lsDisclaimed = localStorage.getItem("disclaimed")
-
-    if (lsDisclaimed) {
-      setDisclaimed(JSON.parse(lsDisclaimed) as boolean)
-    }
-  }, [disclaimed, setDisclaimed])
-
-  useEffect(() => {
-    if (disclaimed) onClose()
-    if (!disclaimed) onOpen()
-  }, [disclaimed, onOpen, onClose])
-
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [transitioning, setTransitioning] = useState(false)
 
@@ -126,27 +118,10 @@ const Sqrl = ({ sections }: Props) => {
     }, 0)
   }, [sidebarCourse])
 
-  useEffect(() => {
-    if (localStorage.getItem("disclaimed")) return
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      setColorMode("dark")
-    }
-  }, [setColorMode])
-
   const { t } = useTranslation("common")
 
   return (
     <Fragment>
-      <DisclaimerModal
-        disclosure={{ isOpen, onOpen, onClose }}
-        ModalProps={{
-          isOpen,
-          onClose,
-        }}
-      />
       <Header setSidebarOpen={setSidebarOpen} />
 
       <Container
@@ -177,7 +152,7 @@ const Sqrl = ({ sections }: Props) => {
                   fontWeight="800"
                   position="absolute"
                   top={2}
-                  left={3}
+                  left={2}
                 >
                   {t("first-semester")}
                 </Heading>
@@ -203,7 +178,7 @@ const Sqrl = ({ sections }: Props) => {
                   fontWeight="800"
                   position="absolute"
                   top={2}
-                  left={3}
+                  left={2}
                 >
                   {t("second-semester")}
                 </Heading>
@@ -223,62 +198,66 @@ const Sqrl = ({ sections }: Props) => {
           </Grid>
         </HoverContextProvider>
       </Container>
-      <Flex
-        position="fixed"
-        right="0"
-        top="0"
-        bottom="0"
-        fontSize="1.5rem"
-        height="100%"
-        pointerEvents="none"
-        margin="auto"
-        zIndex="1000"
-        alignItems="center"
-        transform={sidebarOpen ? "translateX(-24rem)" : ""}
-        transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-        onClick={() => {
-          setTransitioning(true)
-          setSidebarOpen((prev) => !prev)
-        }}
-      >
+      {allowedToEdit && (
         <Flex
-          as="button"
-          pointerEvents="all"
-          background={useColorModeValue(
-            "rgba(236, 236, 236, 0.6)",
-            "rgba(0,0,0,0.6)"
-          )}
-          p={2}
-          height="2rem"
-          width="2rem"
-          borderRadius="1000rem"
-          justifyContent="center"
+          position="fixed"
+          right="0"
+          top="0"
+          bottom="0"
+          fontSize="1.5rem"
+          height="100%"
+          pointerEvents="none"
+          margin="auto"
+          zIndex="1000"
           alignItems="center"
-          // opacity={0.7}
-          boxShadow="1px 1px 8px -2px rgba(0, 0, 0, 0.4)"
-          backdropFilter="blur(1px)"
-          _hover={{
-            backdropFilter: "none",
-            // opacity: "0.5",
+          transform={sidebarOpen ? "translateX(-24rem)" : ""}
+          transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+          onClick={() => {
+            setTransitioning(true)
+            setSidebarOpen((prev) => !prev)
           }}
         >
-          <Icon
-            as={GoChevronLeft}
-            transform={sidebarOpen ? "translateX(1px) rotate(180deg)" : ""}
-            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-          />
+          <Flex
+            as="button"
+            pointerEvents="all"
+            background={useColorModeValue(
+              "rgba(236, 236, 236, 0.6)",
+              "rgba(0,0,0,0.6)"
+            )}
+            p={2}
+            height="2rem"
+            width="2rem"
+            borderRadius="1000rem"
+            justifyContent="center"
+            alignItems="center"
+            // opacity={0.7}
+            boxShadow="1px 1px 8px -2px rgba(0, 0, 0, 0.4)"
+            backdropFilter="blur(1px)"
+            _hover={{
+              backdropFilter: "none",
+              // opacity: "0.5",
+            }}
+          >
+            <Icon
+              as={GoChevronLeft}
+              transform={sidebarOpen ? "translateX(1px) rotate(180deg)" : ""}
+              transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+            />
+          </Flex>
         </Flex>
-      </Flex>
-      <Box
-        position="absolute"
-        right="0"
-        width="25rem"
-        top="4.5rem"
-        height="calc(100vh - 4.5rem)"
-        overflowX="hidden"
-      >
-        <Sidebar />
-      </Box>
+      )}
+      {allowedToEdit && (
+        <Box
+          position="absolute"
+          right="0"
+          width="25rem"
+          top="4.5rem"
+          height="calc(100vh - 4.5rem)"
+          overflowX="hidden"
+        >
+          <Sidebar />
+        </Box>
+      )}
     </Fragment>
   )
 }

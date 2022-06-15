@@ -44,8 +44,6 @@ const SearchView = ({
   const [searchOffset, setSearchOffset] = useState<number>(0)
   const [chosenCourse, setChosenCourse] = useState("")
 
-  const { dispatch } = useAppContext()
-
   const [search, { loading, data, error, fetchMore }] =
     useLazyQuery(SEARCH_COURSES)
 
@@ -138,10 +136,7 @@ const SearchView = ({
           </Flex>
         )}
         {!error && !!data && searchQuery && (
-          <VStack
-            alignItems="flex-start"
-            spacing={0}
-          >
+          <VStack alignItems="flex-start" spacing={0}>
             {!!data.searchCourses.length && (
               <SearchResults
                 chosenCourse={chosenCourse}
