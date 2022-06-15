@@ -10,6 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
+import router from "next/router"
 import React, { Fragment, useEffect, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
@@ -44,6 +45,7 @@ const Sqrl = () => {
       twentyFour,
       emphasize,
       showSemester,
+      language
     },
   } = usePreferences()
 
@@ -115,6 +117,12 @@ const Sqrl = () => {
       setColorMode("dark")
     }
   }, [setColorMode])
+
+  useEffect(() => {
+    if (router.locale === 'en') {
+      
+    }
+  }, [language])
 
   const { t } = useTranslation("common")
 

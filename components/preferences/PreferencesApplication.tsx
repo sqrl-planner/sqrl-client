@@ -24,12 +24,14 @@ import {
 import { useTranslation } from "next-i18next"
 import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
 import { BiVideoPlus } from "react-icons/bi"
+import { BsGlobe } from "react-icons/bs"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
 import { usePreferences } from "../../src/PreferencesContext"
 import { useAppContext } from "../../src/SqrlContext"
 import PreferencesSection from "./PreferencesSection"
 import PreferencesToggle from "./PreferencesToggle"
+import PreferencesLanguage from "./_PreferencesLanguage"
 
 const IconWrapper = styled.div`
   padding-right: 0.6em;
@@ -181,6 +183,18 @@ const PreferencesApplication = () => {
         >
           {t("dark-mode")}
         </PreferencesToggle>
+      </PreferencesSection>
+
+      <PreferencesSection>
+        <FormControl>
+          <FormLabel mb={4}>
+            <IconWrapper>
+              <Icon as={BsGlobe} />
+            </IconWrapper>
+            {t("language")}
+          </FormLabel>
+          <PreferencesLanguage />
+        </FormControl>
       </PreferencesSection>
     </Fragment>
   )
