@@ -46,7 +46,7 @@ const useTimetable = ({ id }: Props) => {
 
   const [setTimetableName] = useMutation(SET_TIMETABLE_NAME)
 
-  const updateName = (name) => {
+  const updateName = (name: string) => {
     if (!key) return
 
     setTimetableName({

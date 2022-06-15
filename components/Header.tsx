@@ -32,6 +32,7 @@ import { useTranslation } from "next-i18next"
 import AboutModal from "./AboutModal"
 import { motion } from "framer-motion"
 import { useRouter } from "next/router"
+import Link from "next/link"
 import useTimetable from "../src/useTimetable"
 import { BiDuplicate } from "react-icons/bi"
 import useSections from "../src/useSections"
@@ -153,9 +154,13 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             position="relative"
           >
             {/* Sqrl */}
-            <Box w={20} h={10}>
-              <Image src={SqrlLogo} layout="fill" objectFit="contain" />
-            </Box>
+            <Link href="/">
+              <a>
+                <Box w={20} h={10}>
+                  <Image src={SqrlLogo} layout="fill" objectFit="contain" />
+                </Box>
+              </a>
+            </Link>
           </Heading>
         }
 
@@ -228,7 +233,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             variant="solid"
             colorScheme="blue"
             bg={blue}
-            onClick={() => { }}
+            onClick={() => {}}
             mr={{ base: 2, xl: 6 }}
           >
             <Icon mr={{ md: 2 }} as={BiDuplicate} />
