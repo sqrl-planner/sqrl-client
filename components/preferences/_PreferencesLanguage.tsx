@@ -33,9 +33,7 @@ const PreferencesLanguage = () => {
       } else {
         router.locale = 'zh'
         console.log(router.locale)
-      }
-      
-      dispatch({ type: "SET_LANGUAGE", payload: language })
+      } 
     },
   })    
 
