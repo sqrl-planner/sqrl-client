@@ -23,8 +23,7 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
-import { BiVideoPlus } from "react-icons/bi"
-import { BsGlobe } from "react-icons/bs"
+import { IoLanguage } from "react-icons/io5"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
 import { usePreferences } from "../../src/PreferencesContext"
@@ -189,7 +188,7 @@ const PreferencesApplication = () => {
         <FormControl>
           <FormLabel mb={4}>
             <IconWrapper>
-              <Icon as={BsGlobe} />
+              <Icon as={IoLanguage} />
             </IconWrapper>
             {t("language")}
           </FormLabel>
