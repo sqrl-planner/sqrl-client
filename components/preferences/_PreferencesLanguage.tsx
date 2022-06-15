@@ -11,28 +11,20 @@ import { RiLogoutCircleRFill } from "react-icons/ri"
 const PreferencesLanguage = () => {
   const options = ["en", "fr", "zh"]
 
-  const {
-    state: { language },
-    dispatch,
-  } = usePreferences()
-
   const { t } = useTranslation("preferences")
   const router = useRouter()
   
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "language",
-    defaultValue: language,
+    defaultValue: "en",
     onChange: (language: "en" | "fr" | "zh") => {
         
       if (language === "en") {
         router.locale = 'en'
-        console.log(router.locale)
       } else if (language === "fr") {
         router.locale = 'fr'
-        console.log(router.locale)
       } else {
         router.locale = 'zh'
-        console.log(router.locale)
       } 
     },
   })    
