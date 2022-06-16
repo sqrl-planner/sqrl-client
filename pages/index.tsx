@@ -10,8 +10,6 @@ import { AppContextProvider } from "../src/SqrlContext"
 
 export const theme = extendTheme({
   fonts: {
-    // heading: "museo-sans, sans-serif",
-    // body: "museo-sans, sans-serif",
     body: "Inter, sans-serif",
     heading: "Inter, sans-serif",
     mono: "interstate-mono, monospace",
