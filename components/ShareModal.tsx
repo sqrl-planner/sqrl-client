@@ -34,8 +34,10 @@ const ShareModal = ({ isOpen, onClose }: props) => {
 
   const id = router.query.id
 
-
-  const shareUrl = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}/timetable/${id}` : ""
+  const shareUrl =
+    typeof window !== "undefined"
+      ? `${window.location.protocol}//${window.location.host}/timetable/${id}`
+      : ""
   const { onCopy, hasCopied } = useClipboard(shareUrl)
 
   const toast = useToast()
@@ -71,14 +73,17 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                 </Text>
                 <Input
                   cursor="pointer"
-                  value={shareUrl}
+                  as="button"
                   onClick={onCopy}
                   my={1}
                   mt={2}
                   readOnly
-                />
+                >
+                  {shareUrl}
+                </Input>
                 <FormHelperText fontWeight={400}>
-                  Click to copy the link. Anyone who views this timetable can duplicate it.
+                  Click to copy the link. Anyone who views this timetable can
+                  duplicate it.
                 </FormHelperText>
               </FormControl>
             </Flex>

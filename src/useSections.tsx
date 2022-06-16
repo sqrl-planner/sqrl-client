@@ -3,7 +3,13 @@ import { useRouter } from "next/router"
 import { createContext, useContext, useEffect, useState } from "react"
 import { SET_SECTIONS_TIMETABLE } from "../operations/mutations/setSectionsTimetable"
 import { GET_TIMETABLE_BY_ID } from "../operations/queries/getTimetableById"
+import { useAppContext } from "./SqrlContext"
 import useTimetable from "./useTimetable"
+import {
+  constructSectionsFromMeetings,
+  getMeetingsFromSections,
+  getSectionType,
+} from "./utils/course"
 
 type Props = {
   id?: string
@@ -75,12 +81,26 @@ export const SectionsProvider = ({
     sections: nextSections,
   }: SetTimetableSectionsProps) => {
     if (!id) return
+
+    setSections((prevSections) => {
+      const meetings = getMeetingsFromSections(prevSections[courseId] || [])
+      for (const nextSection of nextSections) {
+        const sectionType = getSectionType(nextSection)
+        meetings[sectionType] = nextSection
+      }
+
+      return {
+        ...prevSections,
+        [courseId]: constructSectionsFromMeetings(meetings),
+      }
+    })
+
     setSectionsTimetable({
       variables: {
         id,
         courseId,
         key,
-        sections: [...(sections[id] ? sections[id] : []), ...nextSections],
+        sections: nextSections,
       },
     })
   }
@@ -94,7 +114,7 @@ export const SectionsProvider = ({
   )
 }
 
-const useSections = ({ id }: Props) => {
+const useSections = () => {
   const context = useContext(SectionsContext)
 
   if (context === undefined) {

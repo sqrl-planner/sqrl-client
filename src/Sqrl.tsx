@@ -11,20 +11,15 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { log } from "console"
 import { useTranslation } from "next-i18next"
 import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useMemo, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
-import DisclaimerModal from "../components/DisclaimerModal"
 import Header from "../components/Header"
 import Sidebar from "../components/sidebar/Sidebar"
 import { Meeting } from "../components/timetable/Meeting"
 import { Timetable } from "../components/timetable/Timetable"
-import { GET_COURSE_BY_ID } from "../operations/queries/getCourseById"
-import { GET_COURSES_BY_ID } from "../operations/queries/getCoursesById"
-import { Course } from "./Course"
 import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
@@ -32,7 +27,6 @@ import { useAppContext, UserMeeting } from "./SqrlContext"
 import useCourses from "./useCourses"
 import useSections from "./useSections"
 import useTimetable from "./useTimetable"
-import { getMeetingsFromSections } from "./utils/course"
 import { timeToMinuteOffset } from "./utils/time"
 
 const Container = styled(chakra.div)`
@@ -44,11 +38,7 @@ const Container = styled(chakra.div)`
   width: 100vw;
 `
 
-type Props = {
-  sections: { [key: string]: Array<string> }
-}
-
-const Sqrl = ({ sections: a }: Props) => {
+const Sqrl = () => {
   const {
     state: {
       scale,
@@ -68,21 +58,11 @@ const Sqrl = ({ sections: a }: Props) => {
 
   const router = useRouter()
 
-  const { sections, setSections } = useSections({
-    id: (router.query.id as string) || "",
-  })
-
-  useEffect(() => {
-    console.log("sqrl usesections section change" + JSON.stringify(sections));
-    
-
-  }, [sections])
-
+  const { sections, setSections } = useSections()
 
   const { courses, userMeetings } = useCourses({ sections })
 
   const [timetableSize, setTimetableSize] = useState(40)
-
 
   const { allowedToEdit } = useTimetable({
     id: router.query.id as string | undefined,
@@ -143,7 +123,6 @@ const Sqrl = ({ sections: a }: Props) => {
   return (
     <Fragment>
       <Header setSidebarOpen={setSidebarOpen} />
-
       <Container
         width={sidebarOpen ? "calc(100vw - 25rem)" : "100vw"}
         minHeight="calc(100vh - 4.5rem)"
@@ -218,63 +197,60 @@ const Sqrl = ({ sections: a }: Props) => {
           </Grid>
         </HoverContextProvider>
       </Container>
-      {allowedToEdit && (
+      (
+      <Flex
+        position="fixed"
+        right="0"
+        top="0"
+        bottom="0"
+        fontSize="1.5rem"
+        height="100%"
+        pointerEvents="none"
+        margin="auto"
+        zIndex="1000"
+        alignItems="center"
+        transform={sidebarOpen ? "translateX(-24rem)" : ""}
+        transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+        onClick={() => {
+          setTransitioning(true)
+          setSidebarOpen((prev) => !prev)
+        }}
+      >
         <Flex
-          position="fixed"
-          right="0"
-          top="0"
-          bottom="0"
-          fontSize="1.5rem"
-          height="100%"
-          pointerEvents="none"
-          margin="auto"
-          zIndex="1000"
+          as="button"
+          pointerEvents="all"
+          background={SidebarTriggerColour}
+          p={2}
+          height="2rem"
+          width="2rem"
+          borderRadius="1000rem"
+          justifyContent="center"
           alignItems="center"
-          transform={sidebarOpen ? "translateX(-24rem)" : ""}
-          transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-          onClick={() => {
-            setTransitioning(true)
-            setSidebarOpen((prev) => !prev)
+          // opacity={0.7}
+          boxShadow="1px 1px 8px -2px rgba(0, 0, 0, 0.4)"
+          backdropFilter="blur(1px)"
+          _hover={{
+            backdropFilter: "none",
+            // opacity: "0.5",
           }}
         >
-          <Flex
-            as="button"
-            pointerEvents="all"
-            background={SidebarTriggerColour}
-            p={2}
-            height="2rem"
-            width="2rem"
-            borderRadius="1000rem"
-            justifyContent="center"
-            alignItems="center"
-            // opacity={0.7}
-            boxShadow="1px 1px 8px -2px rgba(0, 0, 0, 0.4)"
-            backdropFilter="blur(1px)"
-            _hover={{
-              backdropFilter: "none",
-              // opacity: "0.5",
-            }}
-          >
-            <Icon
-              as={GoChevronLeft}
-              transform={sidebarOpen ? "translateX(1px) rotate(180deg)" : ""}
-              transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
-            />
-          </Flex>
+          <Icon
+            as={GoChevronLeft}
+            transform={sidebarOpen ? "translateX(1px) rotate(180deg)" : ""}
+            transition="transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)"
+          />
         </Flex>
-      )}
-      {allowedToEdit && (
-        <Box
-          position="absolute"
-          right="0"
-          width="25rem"
-          top="4.5rem"
-          height="calc(100vh - 4.5rem)"
-          overflowX="hidden"
-        >
-          <Sidebar />
-        </Box>
-      )}
+      </Flex>
+      <Box
+        position="absolute"
+        right="0"
+        width="25rem"
+        top="4.5rem"
+        height="calc(100vh - 4.5rem)"
+        overflowX="hidden"
+      >
+        <Sidebar />
+      </Box>
     </Fragment>
   )
 }

@@ -78,13 +78,8 @@ const MeetingPicker = ({
   } = useAppContext()
 
   const router = useRouter()
-  const { sections, setSections } = useSections({
-    id: (router.query.id as string) || "",
-  })
+  const { sections, setSections } = useSections()
   const { courses, userMeetings } = useCourses({ sections })
-
-  // console.log(sections)
-
 
   useTimetable({ id: (router.query.id as string) || "" })
 
@@ -291,14 +286,6 @@ const MeetingPicker = ({
                     courseId: identifier,
                     sections: [sectionCode],
                   })
-                  // dispatch({
-                  //   type: "SET_MEETING",
-                  //   payload: {
-                  //     identifier,
-                  //     meeting: sectionCode,
-                  //     method: method,
-                  //   },
-                  // })
 
                   dispatch({
                     type: "SET_HOVER_MEETING",
@@ -307,6 +294,14 @@ const MeetingPicker = ({
                       meeting: "",
                     },
                   })
+                  // dispatch({
+                  //   type: "SET_MEETING",
+                  //   payload: {
+                  //     identifier,
+                  //     meeting: sectionCode,
+                  //     method: method,
+                  //   },
+                  // })
                 }}
                 onMouseEnter={() => {
                   if (isSelected || !sectionCode) return

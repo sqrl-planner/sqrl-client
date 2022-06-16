@@ -18,6 +18,7 @@ import {
   EditableInput,
   useEditableControls,
   Box,
+  Badge,
 } from "@chakra-ui/react"
 import {
   CalendarIcon,
@@ -64,7 +65,7 @@ const TimetableName = ({ editable }: TimetableNameProps) => {
     getEditButtonProps,
   } = useEditableControls()
 
-  if (!editable) return <React.Fragment></React.Fragment>
+  if (!editable) return <Badge ml={2}>Read-only</Badge>
 
   return (
     <EditIcon
@@ -93,7 +94,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     id: (router.query.id as string) || "",
   })
 
-  const { name } = useSections({ id: (router.query.id as string) || "" })
+  const { name } = useSections()
 
   const keydownListener = useCallback(
     (e: KeyboardEvent) => {
@@ -131,7 +132,6 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     onClose: onCloseShare,
   } = useDisclosure()
 
-  const { t } = useTranslation("common")
   const blue = useColorModeValue("blue.700", "blue.400")
 
   const [timetableName, setTimetableName] = useState("")
@@ -153,7 +153,6 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             fontSize={{ base: "3xl", md: "4xl" }}
             position="relative"
           >
-            {/* Sqrl */}
             <Link href="/">
               <a>
                 <Box w={20} h={10}>
@@ -164,14 +163,19 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           </Heading>
         }
 
-        {/* <Heading as="h2" ml={4} fontSize={{ base: "xl", md: "2xl" }}> */}
         <Editable
           display="flex"
           alignItems="center"
+          fontWeight={500}
+          opacity={0.8}
+          _hover={{
+            opacity: 1
+          }}
+          transition="all 200ms"
           value={timetableName}
           onChange={(text: string) => setTimetableName(text)}
           onSubmit={(text: string) => updateName(text)}
-          fontSize={{ base: "xl", md: "2xl" }}
+          fontSize={{ base: "lg", md: "xl" }}
           ml={4}
           isDisabled={!allowedToEdit}
         >
