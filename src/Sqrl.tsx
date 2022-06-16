@@ -30,6 +30,7 @@ import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
 import { useAppContext, UserMeeting } from "./SqrlContext"
 import useCourses from "./useCourses"
+import useSections from "./useSections"
 import useTimetable from "./useTimetable"
 import { getMeetingsFromSections } from "./utils/course"
 import { timeToMinuteOffset } from "./utils/time"
@@ -47,7 +48,7 @@ type Props = {
   sections: { [key: string]: Array<string> }
 }
 
-const Sqrl = ({ sections }: Props) => {
+const Sqrl = ({ sections: a }: Props) => {
   const {
     state: {
       scale,
@@ -65,14 +66,26 @@ const Sqrl = ({ sections }: Props) => {
     state: { hoverMeeting, sidebarCourse },
   } = useAppContext()
 
+  const router = useRouter()
+
+  const { sections, setSections } = useSections({
+    id: (router.query.id as string) || "",
+  })
+
+  useEffect(() => {
+    console.log("sqrl usesections section change" + JSON.stringify(sections));
+    
+
+  }, [sections])
+
+
   const { courses, userMeetings } = useCourses({ sections })
 
   const [timetableSize, setTimetableSize] = useState(40)
 
-  const router = useRouter()
 
   const { allowedToEdit } = useTimetable({
-    id: (router.query.id as string) || "",
+    id: router.query.id as string | undefined,
   })
 
   useEffect(() => {
@@ -81,16 +94,16 @@ const Sqrl = ({ sections }: Props) => {
 
   const { colorMode, setColorMode } = useColorMode()
 
-  const meetings = useMemo(() => {
-    const memoizedMeetings = {
+  const [meetings, setMeetings] = useState({})
+
+  useEffect(() => {
+    setMeetings({
       ...userMeetings,
       [hoverMeeting.courseIdentifier]: {
         ...userMeetings[hoverMeeting.courseIdentifier],
         hover: hoverMeeting.meeting,
       },
-    }
-
-    return memoizedMeetings
+    })
   }, [userMeetings, hoverMeeting])
 
   const firstMeetings = useMemo<Array<Meeting>>(
@@ -105,6 +118,10 @@ const Sqrl = ({ sections }: Props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [transitioning, setTransitioning] = useState(false)
 
+  const { t } = useTranslation("common")
+
+  const gridBackground = useColorModeValue("gray.75", "gray.800")
+
   useEffect(() => {
     if (!sidebarCourse) return
     setTransitioning(true)
@@ -118,7 +135,10 @@ const Sqrl = ({ sections }: Props) => {
     }, 0)
   }, [sidebarCourse])
 
-  const { t } = useTranslation("common")
+  const SidebarTriggerColour = useColorModeValue(
+    "rgba(236, 236, 236, 0.6)",
+    "rgba(0,0,0,0.6)"
+  )
 
   return (
     <Fragment>
@@ -135,7 +155,7 @@ const Sqrl = ({ sections }: Props) => {
         <HoverContextProvider>
           <Grid
             gridTemplateColumns="repeat(auto-fit, minmax(450px, 1fr))"
-            background={useColorModeValue("gray.75", "gray.800")}
+            background={gridBackground}
             flex="1"
             zIndex="1"
             boxShadow="0px 0px 9px -5px rgba(0, 0, 0, 0.3)"
@@ -220,10 +240,7 @@ const Sqrl = ({ sections }: Props) => {
           <Flex
             as="button"
             pointerEvents="all"
-            background={useColorModeValue(
-              "rgba(236, 236, 236, 0.6)",
-              "rgba(0,0,0,0.6)"
-            )}
+            background={SidebarTriggerColour}
             p={2}
             height="2rem"
             width="2rem"
