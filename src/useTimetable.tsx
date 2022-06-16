@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { SET_TIMETABLE_NAME } from "../operations/mutations/setTimetableName"
 
 type Props = {
-  id: string
+  id?: string
 }
 
 const useTimetable = ({ id }: Props) => {
@@ -12,6 +12,8 @@ const useTimetable = ({ id }: Props) => {
   const [key, setKey] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!id) return
+
     const prevLsTimetablesJSON = localStorage.getItem("timetables")
     let prevLsTimetables: { [key: string]: { key: string; name: string } } = {}
     if (prevLsTimetablesJSON)
@@ -48,6 +50,7 @@ const useTimetable = ({ id }: Props) => {
 
   const updateName = (name: string) => {
     if (!key) return
+    if (!id) return
 
     setTimetableName({
       variables: { id, key, name },
@@ -65,7 +68,7 @@ const useTimetable = ({ id }: Props) => {
     })
   }
 
-  return { allowedToEdit, updateName }
+  return { allowedToEdit, updateName, key }
 }
 
 export default useTimetable

@@ -29,26 +29,6 @@ export interface TimetableData {
 }
 
 export type Action =
-  // | {
-  //     type: "ADD_COURSE"
-  //     payload: { identifier: string; course: Course }
-  //   }
-  // | { type: "REMOVE_COURSE"; payload: string }
-  // | {
-  //     type: "SET_MEETING"
-  //     payload: {
-  //       identifier: string
-  //       meeting: string
-  //       method: "lecture" | "tutorial" | "practical"
-  //     }
-  //   }
-  // | {
-  //     type: "REMOVE_MEETING"
-  //     payload: {
-  //       identifier: string
-  //       method: "lecture" | "tutorial" | "practical" | "hover"
-  //     }
-  //   }
   | { type: "ADD_PROGRAM"; payload: { code: string; title: string } }
   | { type: "REMOVE_PROGRAM"; payload: string }
   | {
@@ -86,8 +66,6 @@ const AppContextReducer = (
   timetableId: string
 ) => {
   let newContext: TimetableData = {
-    // courses: {},
-    // userMeetings: {},
     programs: [],
     campus: { sg: true, sc: false, ms: false },
     sidebarCourse: "",
@@ -98,86 +76,11 @@ const AppContextReducer = (
   const timetableState = state[timetableId]
 
   const {
-    // courses, userMeetings,
     programs,
     campus,
   } = timetableState
 
   switch (action.type) {
-    // case "ADD_COURSE": {
-    //   newContext = {
-    //     ...timetableState,
-    //     courses: {
-    //       ...courses,
-    //       [action.payload.identifier]: action.payload.course,
-    //     },
-    //   }
-    //   break
-    // }
-
-    // case "REMOVE_COURSE": {
-    //   // Destructure everything, discard the course to remove
-    //   const { [action.payload]: _, ...rest } = courses
-    //   const { [action.payload]: __, ...restOfMeetings } = userMeetings
-    //   newContext = {
-    //     ...timetableState,
-    //     courses: rest,
-    //     userMeetings: {
-    //       ...restOfMeetings,
-    //     },
-    //   }
-    //   break
-    // }
-
-    // case "SET_MEETING": {
-    //   const { identifier, meeting, method } = action.payload
-    //   newContext = {
-    //     ...timetableState,
-    //     userMeetings: {
-    //       ...userMeetings,
-    //       [identifier]: {
-    //         ...userMeetings[identifier],
-    //         [method]: meeting,
-    //       },
-    //     },
-    //   }
-    //   break
-    // }
-
-    // case "REMOVE_MEETING": {
-    //   const { identifier, method } = action.payload
-    //   const { [method]: _, ...rest } = userMeetings[identifier]
-    //   newContext = {
-    //     ...timetableState,
-    //     userMeetings: {
-    //       ...userMeetings,
-    //       [identifier]: {
-    //         ...rest,
-    //       },
-    //     },
-    //   }
-    //   const { [identifier]: courseMeetings, ...restOfCourses } = userMeetings
-
-    //   let allEmpty = true
-
-    //   for (const method of Object.values(newContext.userMeetings[identifier])) {
-    //     if (method !== "") {
-    //       allEmpty = false
-    //       break
-    //     }
-    //   }
-
-    //   if (allEmpty) {
-    //     newContext = {
-    //       ...timetableState,
-    //       userMeetings: {
-    //         ...restOfCourses,
-    //       },
-    //     }
-    //   }
-    //   break
-    // }
-
     case "ADD_PROGRAM": {
       newContext = {
         ...timetableState,
@@ -263,8 +166,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const [appContext, setAppContext] = useState<AppData>({
     [timetableId]: {
-      // courses: {},
-      // userMeetings: {},
       programs: [],
       campus: { sg: true, sc: false, ms: false },
       sidebarCourse: "",
@@ -275,10 +176,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       sidebar: 0,
     },
   })
-
-  // useEffect(() => {
-  //   console.log(appContext)
-  // }, [appContext])
 
   useEffect(() => {
     if (!lsAppContext) return

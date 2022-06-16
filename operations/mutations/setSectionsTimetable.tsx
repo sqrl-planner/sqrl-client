@@ -15,6 +15,7 @@ export const SET_SECTIONS_TIMETABLE = gql`
     ) {
       timetable {
         id
+        sections
       }
     }
   }

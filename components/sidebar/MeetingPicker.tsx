@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import { useRouter } from "next/router"
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
 import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
 import { Course } from "../../src/Course"
 import MeetingsFabricator from "../../src/MeetingsFabricator"
@@ -78,8 +78,13 @@ const MeetingPicker = ({
   } = useAppContext()
 
   const router = useRouter()
-  const { sections } = useSections({ id: (router.query.id as string) || "" })
+  const { sections, setSections } = useSections({
+    id: (router.query.id as string) || "",
+  })
   const { courses, userMeetings } = useCourses({ sections })
+
+  // console.log(sections)
+
 
   useTimetable({ id: (router.query.id as string) || "" })
 
@@ -281,6 +286,11 @@ const MeetingPicker = ({
                 role="button"
                 onClick={() => {
                   if (!sectionCode) return
+
+                  setSections({
+                    courseId: identifier,
+                    sections: [sectionCode],
+                  })
                   // dispatch({
                   //   type: "SET_MEETING",
                   //   payload: {

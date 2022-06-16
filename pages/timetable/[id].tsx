@@ -9,6 +9,7 @@ import client, { apolloClientParams } from "../../src/apollo-client"
 import { PreferencesProvider } from "../../src/PreferencesContext"
 import Sqrl from "../../src/Sqrl"
 import { AppContextProvider } from "../../src/SqrlContext"
+import { SectionsProvider } from "../../src/useSections"
 
 export const theme = extendTheme({
   fonts: {
@@ -57,7 +58,9 @@ export const Home: NextPage = (props: any) => {
       <PreferencesProvider>
         <ApolloProvider client={client}>
           <AppContextProvider>
-            <Sqrl sections={props.sections} />
+            <SectionsProvider>
+              <Sqrl sections={props.sections} />
+            </SectionsProvider>
           </AppContextProvider>
         </ApolloProvider>
       </PreferencesProvider>
