@@ -60,7 +60,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   } = useAppContext()
 
   const router = useRouter()
-  const { sections } = useSections({ id: (router.query.id as string) || "" })
+  const { sections } = useSections()
   const { courses, userMeetings, loading } = useCourses({
     sections,
   })

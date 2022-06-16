@@ -4,22 +4,26 @@ import {
   TabList,
   TabPanel,
   TabPanels,
+  TabProps,
   Tabs,
   useColorModeValue,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { useAppContext } from "../../src/SqrlContext"
+import useTimetable from "../../src/useTimetable"
 import CourseView from "./CourseView"
 import OverviewView from "./OverviewView"
 import SearchView from "./SearchView/SearchView"
 
-const Tab = ({ children }: { children: React.ReactNode }) => (
+const Tab = ({ children, ...props }: { children: React.ReactNode } & TabProps) => (
   <ChakraTab
     _active={{
       boxShadow: "outline",
     }}
     fontWeight="500"
+    {...props}
     _selected={{
       fontWeight: "600",
       color: `${useColorModeValue(
@@ -36,6 +40,12 @@ const Tab = ({ children }: { children: React.ReactNode }) => (
 const Sidebar = () => {
   const boxBackground = useColorModeValue("gray.75", "gray.700")
   const [searchQuery, setSearchQuery] = useState("")
+
+  const router = useRouter()
+
+  const { allowedToEdit } = useTimetable({
+    id: router.query.id as string | undefined,
+  })
 
   const {
     state: { sidebar },
@@ -77,7 +87,7 @@ const Sidebar = () => {
           height="2.8rem"
           boxShadow="0px 4px 6px -5px rgba(0,0,0,0.1)"
         >
-          <Tab>{t("search")}</Tab>
+          <Tab isDisabled={!allowedToEdit}>{t("search")}</Tab>
           <Tab>{t("course")}</Tab>
           <Tab>{t("overview")}</Tab>
         </TabList>

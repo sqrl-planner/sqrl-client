@@ -237,17 +237,18 @@ const Dashboard = () => {
 }
 
 export const Home: NextPage = () => {
-  const { colorMode, setColorMode } = useColorMode()
+  // const { colorMode, toggleColorMode } = useColorMode()
 
-  useEffect(() => {
-    if (localStorage.getItem("disclaimed")) return
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      setColorMode("dark")
-    }
-  }, [setColorMode])
+  // useEffect(() => {
+  //   if (localStorage.getItem("disclaimed")) return
+  //   if (
+  //     window.matchMedia &&
+  //     window.matchMedia("(prefers-color-scheme: dark)").matches
+  //   ) {
+  //     // setColorMode("dark")
+  //     toggleColorMode()
+  //   }
+  // }, [toggleColorMode])
 
   return (
     <ChakraProvider theme={theme}>

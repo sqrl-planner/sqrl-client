@@ -52,14 +52,14 @@ export const theme = extendTheme({
   },
 })
 
-export const Home: NextPage = (props: any) => {
+export const TimetableView: NextPage = (props: any) => {
   return (
     <ChakraProvider theme={theme}>
       <PreferencesProvider>
         <ApolloProvider client={client}>
           <AppContextProvider>
             <SectionsProvider>
-              <Sqrl sections={props.sections} />
+              <Sqrl />
             </SectionsProvider>
           </AppContextProvider>
         </ApolloProvider>
@@ -115,4 +115,4 @@ export async function getServerSideProps({
   }
 }
 
-export default Home
+export default TimetableView

@@ -54,12 +54,10 @@ export const CourseSubheading = ({
 
 const OverviewView = () => {
   const {
-    state: { sidebarCourse },
     dispatch,
   } = useAppContext()
 
-  const router = useRouter()
-  const { sections } = useSections({ id: (router.query.id as string) || "" })
+  const { sections } = useSections()
   const { courses, userMeetings } = useCourses({
     sections,
   })

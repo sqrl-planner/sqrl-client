@@ -40,6 +40,36 @@ export const getMeetingsFromSections = (sections: Array<string>) => {
   }
 }
 
+export const constructSectionsFromMeetings = ({
+  lecture,
+  tutorial,
+  practical,
+}: {
+  lecture?: string
+  tutorial?: string
+  practical?: string
+}) => {
+  return [
+    ...(lecture ? [lecture] : []),
+    ...(tutorial ? [tutorial] : []),
+    ...(practical ? [practical] : []),
+  ]
+}
+
+export const getSectionType = (section: string) => {
+  const normalizedSection = section.toLowerCase()
+  switch (true) {
+    case normalizedSection.includes("lec"):
+      return "lecture"
+    case normalizedSection.includes("tut"):
+      return "tutorial"
+    case normalizedSection.includes("pra"):
+      return "practical"
+    default:
+      throw new Error("Not a recognized section.")
+  }
+}
+
 export const getMeetingTypes = (course: Course) => ({
   lecture: course.sections.some(
     (section) => section.teachingMethod === "LECTURE"

@@ -21,12 +21,7 @@ import useCourses from "../src/useCourses"
 // const ics = require("ics")
 
 const ShareCalendar = () => {
-  const {
-    state: { sidebarCourse },
-  } = useAppContext()
-
-  const router = useRouter()
-  const { sections } = useSections({ id: (router.query.id as string) || "" })
+  const { sections } = useSections()
   const { courses, userMeetings } = useCourses({
     sections,
   })
