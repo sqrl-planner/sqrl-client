@@ -70,7 +70,7 @@ const PreferencesLanguage = () => {
           )
         } else {
           return (
-            <Link href='/' locale={value}> 
+            <Link href='#' locale={value}> 
               <button>
                 <RadioTextCard key={ value }>
                     { lang }
