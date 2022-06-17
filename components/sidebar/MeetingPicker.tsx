@@ -103,34 +103,34 @@ const MeetingPicker = ({
         mb={1}
       >
         <CourseSubheading px={5}>{t(method)}</CourseSubheading>
-        <button
-          disabled={
-            !(userMeetings[identifier] && userMeetings[identifier][method])
-          }
-          onClick={() => {
-            // dispatch({
-            //   type: "REMOVE_MEETING",
-            //   payload: {
-            //     identifier,
-            //     method,
-            //   },
-            // })
-          }}
-        >
-          <Icon
-            as={FaTrashAlt}
-            position="relative"
-            top={1.5}
-            fontSize="sm"
-            pl={0.5}
-            mr={7}
-            opacity={
-              userMeetings[identifier] && userMeetings[identifier][method]
-                ? ""
-                : "0.5"
-            }
-          />
-        </button>
+        {/* <button */}
+        {/*   disabled={ */}
+        {/*     !(userMeetings[identifier] && userMeetings[identifier][method]) */}
+        {/*   } */}
+        {/*   onClick={() => { */}
+        {/*     // dispatch({ */}
+        {/*     //   type: "REMOVE_MEETING", */}
+        {/*     //   payload: { */}
+        {/*     //     identifier, */}
+        {/*     //     method, */}
+        {/*     //   }, */}
+        {/*     // }) */}
+        {/*   }} */}
+        {/* > */}
+        {/*   <Icon */}
+        {/*     as={FaTrashAlt} */}
+        {/*     position="relative" */}
+        {/*     top={1.5} */}
+        {/*     fontSize="sm" */}
+        {/*     pl={0.5} */}
+        {/*     mr={7} */}
+        {/*     opacity={ */}
+        {/*       userMeetings[identifier] && userMeetings[identifier][method] */}
+        {/*         ? "" */}
+        {/*         : "0.5" */}
+        {/*     } */}
+        {/*   /> */}
+        {/* </button> */}
       </Flex>
       <VStack spacing={0}>
         {matchingMethods.map((section) => {

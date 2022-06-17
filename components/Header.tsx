@@ -19,6 +19,7 @@ import {
   useEditableControls,
   Box,
   Badge,
+  useToast,
 } from "@chakra-ui/react"
 import {
   CalendarIcon,
@@ -140,6 +141,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     if (name) setTimetableName(name)
   }, [name])
 
+  const toast = useToast()
+
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
@@ -174,7 +177,17 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           transition="all 200ms"
           value={timetableName}
           onChange={(text: string) => setTimetableName(text)}
-          onSubmit={(text: string) => updateName(text)}
+          onSubmit={(text: string) => {
+            if (text === name) return
+            updateName(text, () => {
+              toast({
+                title: `Updated timetable name to "${text}"`,
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              })
+            })
+          }}
           fontSize={{ base: "lg", md: "xl" }}
           ml={4}
           isDisabled={!allowedToEdit}
@@ -237,7 +250,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             variant="solid"
             colorScheme="blue"
             bg={blue}
-            onClick={() => {}}
+            onClick={() => { }}
             mr={{ base: 2, xl: 6 }}
           >
             <Icon mr={{ md: 2 }} as={BiDuplicate} />

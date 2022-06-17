@@ -1,6 +1,7 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { useRouter } from "next/router"
 import { createContext, useContext, useEffect, useState } from "react"
+import { REMOVE_COURSE_TIMETABLE } from "../operations/mutations/removeCourseTimetable"
 import { SET_SECTIONS_TIMETABLE } from "../operations/mutations/setSectionsTimetable"
 import { GET_TIMETABLE_BY_ID } from "../operations/queries/getTimetableById"
 import { useAppContext } from "./SqrlContext"
@@ -20,11 +21,16 @@ type SetTimetableSectionsProps = {
   sections: Array<string>
 }
 
+type RemoveTimetableCourseProps = {
+  courseId: string
+}
+
 const SectionsContext = createContext<
   | {
       sections: { [key: string]: Array<string> }
       name: string
       setSections: Function
+      removeCourse: Function
     }
   | undefined
 >(undefined)
@@ -68,13 +74,16 @@ export const SectionsProvider = ({
     SET_SECTIONS_TIMETABLE
   )
 
-  useEffect(() => {
-    if (!sectionsData) return
+  const [removeCourse] = useMutation(REMOVE_COURSE_TIMETABLE)
 
-    setSections(
-      JSON.parse(sectionsData.setSectionsTimetable.timetable.sections)
-    )
-  }, [sectionsData])
+  const removeTimetableCourse = ({ courseId }: RemoveTimetableCourseProps) => {
+    removeCourse({
+      variables: { id, courseId, key },
+      onCompleted: (data) => {
+        setSections(JSON.parse(data.removeCourseTimetable.timetable.sections))
+      },
+    })
+  }
 
   const setTimetableSections = ({
     courseId,
@@ -102,12 +111,20 @@ export const SectionsProvider = ({
         key,
         sections: nextSections,
       },
+      onCompleted: (data) => {
+        setSections(JSON.parse(data.setSectionsTimetable.timetable.sections))
+      },
     })
   }
 
   return (
     <SectionsContext.Provider
-      value={{ sections, name, setSections: setTimetableSections }}
+      value={{
+        sections,
+        name,
+        setSections: setTimetableSections,
+        removeCourse: removeTimetableCourse,
+      }}
     >
       {children}
     </SectionsContext.Provider>

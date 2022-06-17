@@ -1,6 +1,6 @@
 // Fetch courses given sections
 
-import { useLazyQuery } from "@apollo/client"
+import { useLazyQuery, useMutation } from "@apollo/client"
 import { memo, useEffect, useState } from "react"
 import { GET_COURSES_BY_ID } from "../operations/queries/getCoursesById"
 import { Course } from "./Course"

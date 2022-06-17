@@ -48,7 +48,7 @@ const useTimetable = ({ id }: Props) => {
 
   const [setTimetableName] = useMutation(SET_TIMETABLE_NAME)
 
-  const updateName = (name: string) => {
+  const updateName = (name: string, cb?: Function) => {
     if (!key) return
     if (!id) return
 
@@ -64,6 +64,8 @@ const useTimetable = ({ id }: Props) => {
         prevLsTimetables[id].name = data.setTimetableName.timetable.name
 
         localStorage.setItem("timetables", JSON.stringify(prevLsTimetables))
+
+        if (cb) cb()
       },
     })
   }
