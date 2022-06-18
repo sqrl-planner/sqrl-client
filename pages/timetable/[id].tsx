@@ -2,6 +2,7 @@ import { ApolloClient, ApolloProvider } from "@apollo/client"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import Head from "next/head"
 import React, { useState } from "react"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
@@ -54,17 +55,22 @@ export const theme = extendTheme({
 
 export const TimetableView: NextPage = (props: any) => {
   return (
-    <ChakraProvider theme={theme}>
-      <PreferencesProvider>
-        <ApolloProvider client={client}>
-          <AppContextProvider>
-            <SectionsProvider>
-              <Sqrl />
-            </SectionsProvider>
-          </AppContextProvider>
-        </ApolloProvider>
-      </PreferencesProvider>
-    </ChakraProvider>
+    <React.Fragment>
+      <Head>
+        <title>Sqrl Planner | {props.name}</title>
+      </Head>
+      <ChakraProvider theme={theme}>
+        <PreferencesProvider>
+          <ApolloProvider client={client}>
+            <AppContextProvider>
+              <SectionsProvider>
+                <Sqrl />
+              </SectionsProvider>
+            </AppContextProvider>
+          </ApolloProvider>
+        </PreferencesProvider>
+      </ChakraProvider>
+    </React.Fragment>
   )
 }
 
@@ -102,6 +108,7 @@ export async function getServerSideProps({
       props: {
         ...translationProps,
         sections: JSON.parse(data.timetableById.sections),
+        name: data.timetableById.name
       },
     }
   } catch (e) {

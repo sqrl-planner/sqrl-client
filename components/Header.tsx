@@ -68,7 +68,7 @@ const TimetableName = ({ editable }: TimetableNameProps) => {
     getEditButtonProps,
   } = useEditableControls()
 
-  if (!editable) return <Badge ml={2}>Read-only</Badge>
+  if (!editable) return <Badge ml={2}>Read only</Badge>
 
   return (
     <EditIcon

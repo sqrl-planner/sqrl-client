@@ -49,6 +49,7 @@ import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
 import { motion } from "framer-motion"
 import { REMOVE_COURSE_TIMETABLE } from "../../operations/mutations/removeCourseTimetable"
+import useTimetable from "../../src/useTimetable"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const {
@@ -65,6 +66,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const { courses, userMeetings, loading } = useCourses({
     sections,
   })
+  const { allowedToEdit } = useTimetable({ id: router.query.id as string })
 
   const course = courses[identifier]
 
@@ -255,8 +257,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                 {(() => {
                   const categories =
                     course.breadthCategories.match(/\d/g)?.sort() || []
-                  return `Breadth${categories?.length > 1 ? "s" : ""
-                    } ${categories?.join(", ")}`
+                  return `Breadth${
+                    categories?.length > 1 ? "s" : ""
+                  } ${categories?.join(", ")}`
                 })()}
               </Text>
             </Tooltip>
@@ -332,6 +335,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
               removePopoverTriggerRef.current.click()
             }}
             disabled={
+              !allowedToEdit ||
               !Object.keys(userMeetings).some((courseCode) => {
                 return courseCode === course.id
               })
