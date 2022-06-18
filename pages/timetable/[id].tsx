@@ -54,10 +54,18 @@ export const theme = extendTheme({
 })
 
 export const TimetableView: NextPage = (props: any) => {
+  const sharePrefix = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}/timetable/` : ""
+
   return (
     <React.Fragment>
       <Head>
         <title>Sqrl Planner | {props.name}</title>
+        <meta
+          property="og:url"
+          content={`${sharePrefix}${props.id}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`Sqrl Planner | ${props.name}`} />
       </Head>
       <ChakraProvider theme={theme}>
         <PreferencesProvider>
@@ -108,7 +116,8 @@ export async function getServerSideProps({
       props: {
         ...translationProps,
         sections: JSON.parse(data.timetableById.sections),
-        name: data.timetableById.name
+        name: data.timetableById.name,
+        id
       },
     }
   } catch (e) {
