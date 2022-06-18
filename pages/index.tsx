@@ -29,7 +29,6 @@ import { CREATE_TIMETABLE } from "../operations/mutations/createTimetable"
 import client from "../src/apollo-client"
 import { PreferencesProvider } from "../src/PreferencesContext"
 import Sqrl from "../src/Sqrl"
-import { AppContextProvider } from "../src/SqrlContext"
 
 export const theme = extendTheme({
   fonts: {
@@ -237,25 +236,10 @@ const Dashboard = () => {
 }
 
 export const Home: NextPage = () => {
-  // const { colorMode, toggleColorMode } = useColorMode()
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("disclaimed")) return
-  //   if (
-  //     window.matchMedia &&
-  //     window.matchMedia("(prefers-color-scheme: dark)").matches
-  //   ) {
-  //     // setColorMode("dark")
-  //     toggleColorMode()
-  //   }
-  // }, [toggleColorMode])
-
   return (
     <ChakraProvider theme={theme}>
       <ApolloProvider client={client}>
-        <AppContextProvider>
-          <Dashboard />
-        </AppContextProvider>
+        <Dashboard />
       </ApolloProvider>
     </ChakraProvider>
   )
