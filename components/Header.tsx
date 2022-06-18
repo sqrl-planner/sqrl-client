@@ -38,6 +38,8 @@ import Link from "next/link"
 import useTimetable from "../src/useTimetable"
 import { BiDuplicate } from "react-icons/bi"
 import useSections from "../src/useSections"
+import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
+import { useMutation } from "@apollo/client"
 
 const HeaderComponent = styled(chakra.header)`
   display: grid;
@@ -143,6 +145,15 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const toast = useToast()
 
+  const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
+  const [loading, setLoading] = useState(false)
+  const sharePrefix =
+    typeof window !== "undefined"
+      ? `${window.location.protocol}//${window.location.host}/timetable/`
+      : ""
+
+  const id = router.query.id
+
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
@@ -172,7 +183,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           fontWeight={500}
           opacity={0.8}
           _hover={{
-            opacity: 1
+            opacity: 1,
           }}
           transition="all 200ms"
           value={timetableName}
@@ -250,8 +261,40 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             variant="solid"
             colorScheme="blue"
             bg={blue}
-            onClick={() => { }}
+            onClick={() => {
+              setLoading(true)
+              duplicateTimetable({
+                variables: {
+                  id,
+                },
+                onCompleted: (data) => {
+                  const {
+                    key,
+                    timetable: { id, name },
+                  } = data.duplicateTimetable
+
+                  const prevLsTimetablesJSON =
+                    localStorage.getItem("timetables")
+                  let timetables = {}
+                  if (prevLsTimetablesJSON)
+                    timetables = JSON.parse(prevLsTimetablesJSON)
+
+                  localStorage.setItem(
+                    "timetables",
+                    JSON.stringify({
+                      ...timetables,
+                      [id]: { key, name },
+                    })
+                  )
+
+                  window.open(`${sharePrefix}${id}`, "_blank")
+
+                  setLoading(false)
+                },
+              })
+            }}
             mr={{ base: 2, xl: 6 }}
+            isLoading={loading}
           >
             <Icon mr={{ md: 2 }} as={BiDuplicate} />
             Duplicate timetable
