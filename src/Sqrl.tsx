@@ -42,13 +42,13 @@ const Sqrl = () => {
   const {
     state: {
       scale,
+      showSemester,
       start,
       end,
       palette,
-      highlightConflicts,
       twentyFour,
       emphasize,
-      showSemester,
+      highlightConflicts,
     },
   } = usePreferences()
 
@@ -98,6 +98,9 @@ const Sqrl = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
 
+  // const sidebarOpen = true
+  // const setSidebarOpen = (any: any) => {}
+
   const { t } = useTranslation("common")
 
   const gridBackground = useColorModeValue("gray.75", "gray.800")
@@ -125,6 +128,8 @@ const Sqrl = () => {
     "rgba(236, 236, 236, 0.6)",
     "rgba(0,0,0,0.6)"
   )
+
+  // return <Fragment>poopenfarten</Fragment>
 
   return (
     <Fragment>
@@ -161,6 +166,7 @@ const Sqrl = () => {
                 >
                   {t("first-semester")}
                 </Heading>
+
                 <Timetable
                   meetings={firstMeetings}
                   scale={timetableSize}
@@ -187,6 +193,7 @@ const Sqrl = () => {
                 >
                   {t("second-semester")}
                 </Heading>
+
                 <Timetable
                   meetings={secondMeetings}
                   scale={timetableSize}

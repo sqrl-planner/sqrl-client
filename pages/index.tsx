@@ -133,6 +133,8 @@ const Dashboard = () => {
     })
   }
 
+  const [pageLoading, setPageLoading] = useState("")
+
   return (
     <Box
       display="flex"
@@ -193,15 +195,19 @@ const Dashboard = () => {
                   <Box
                     shadow="lg"
                     cursor="pointer"
+                    alignItems="center"
                     rounded="xl"
                     background="blue.500"
                     color="white"
                     fontSize="lg"
+                    display="flex"
+                    gap={2}
                     p={6}
                     px={8}
                     fontWeight="medium"
+                    onClick={() => {setPageLoading(id)}}
                   >
-                    {timetable.name}
+                    {timetable.name}{pageLoading === id && <Spinner m={0} /> }
                   </Box>
                 </a>
               </Link>
