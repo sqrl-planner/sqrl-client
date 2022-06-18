@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, {
   Dispatch,
   MutableRefObject,
@@ -27,6 +28,7 @@ import { useDebouncedCallback } from "use-debounce"
 import { GET_COURSE_BY_ID } from "../../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../../operations/queries/searchCourses"
 import { useAppContext } from "../../../src/SqrlContext"
+import useTimetable from "../../../src/useTimetable"
 import SearchResults from "./SearchResults"
 import SearchViewHints from "./SearchViewHints"
 

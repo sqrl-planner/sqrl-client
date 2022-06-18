@@ -95,12 +95,14 @@ const Sqrl = () => {
     [courses, meetings]
   )
 
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
 
   const { t } = useTranslation("common")
 
   const gridBackground = useColorModeValue("gray.75", "gray.800")
+
+  const { dispatch } = useAppContext()
 
   useEffect(() => {
     if (!sidebarCourse) return
@@ -114,6 +116,10 @@ const Sqrl = () => {
       setTransitioning(false)
     }, 0)
   }, [sidebarCourse])
+
+  useEffect(() => {
+    dispatch({ type: "SET_SIDEBAR", payload: allowedToEdit ? 0 : 1 })
+  }, [allowedToEdit])
 
   const SidebarTriggerColour = useColorModeValue(
     "rgba(236, 236, 236, 0.6)",
