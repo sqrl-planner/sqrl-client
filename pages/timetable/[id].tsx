@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloProvider } from "@apollo/client"
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -56,6 +56,9 @@ export const theme = extendTheme({
 export const TimetableView: NextPage = (props: any) => {
   const sharePrefix = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}/timetable/` : ""
 
+  console.log(props);
+  
+
   return (
     <React.Fragment>
       <Head>
@@ -102,6 +105,12 @@ export async function getServerSideProps({
   const serverSideApolloClient = new ApolloClient({
     ssrMode: true,
     ...apolloClientParams,
+    cache: new InMemoryCache(),
+    defaultOptions: {
+      query: {
+        fetchPolicy: "no-cache"
+      }
+    }
   })
 
   try {
@@ -111,6 +120,9 @@ export async function getServerSideProps({
         id,
       },
     })
+
+    console.log(data);
+    
 
     return {
       props: {
