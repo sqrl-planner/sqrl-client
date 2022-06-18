@@ -81,7 +81,9 @@ const MeetingPicker = ({
   const { sections, setSections } = useSections()
   const { courses, userMeetings } = useCourses({ sections })
 
-  useTimetable({ id: (router.query.id as string) || "" })
+  const { allowedToEdit } = useTimetable({
+    id: (router.query.id as string) || "",
+  })
 
   const matchingMethods: typeof course.sections = course.sections.filter(
     (meeting) => meeting.teachingMethod.toUpperCase() === method.toUpperCase()
@@ -263,6 +265,8 @@ const MeetingPicker = ({
                 fontSize="sm"
                 // alignContent="center"
                 alignItems="center"
+                // justifyContent="start"
+                justifyItems="start"
                 gridTemplateColumns="auto auto 1fr auto"
                 width="100%"
                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
@@ -272,15 +276,17 @@ const MeetingPicker = ({
                 p={2.5}
                 pl={5}
                 fontWeight="600"
-                cursor={isSelected ? "default" : "pointer"}
+                cursor={isSelected ? "default" : allowedToEdit ? "pointer" : "not-allowed"}
                 _hover={{
-                  background: isSelected ? "" : hoverBackground,
+                  background: isSelected || !allowedToEdit ? "" : hoverBackground,
                 }}
+                opacity={allowedToEdit || isSelected ? 1 : 0.5}
                 // border={hasConflict ? "1px solid red" : "none"}
                 // transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
                 role="button"
                 onClick={() => {
                   if (!sectionCode) return
+                  if (!allowedToEdit) return
 
                   setSections({
                     courseId: identifier,
@@ -294,14 +300,6 @@ const MeetingPicker = ({
                       meeting: "",
                     },
                   })
-                  // dispatch({
-                  //   type: "SET_MEETING",
-                  //   payload: {
-                  //     identifier,
-                  //     meeting: sectionCode,
-                  //     method: method,
-                  //   },
-                  // })
                 }}
                 onMouseEnter={() => {
                   if (isSelected || !sectionCode) return
