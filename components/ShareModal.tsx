@@ -37,9 +37,15 @@ const ShareModal = ({ isOpen, onClose }: props) => {
 
   const id = router.query.id
 
-  const sharePrefix = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}/timetable/` : ""
+  const [sharePrefix, setSharePrefix] = useState("")
 
-  const shareUrl = typeof window !== "undefined" ? `${sharePrefix}${id}` : ""
+  useEffect(() => {
+    setSharePrefix(
+      `${window.location.protocol}//${window.location.host}/timetable/`
+    )
+  }, [])
+
+  const shareUrl = `${sharePrefix}${id}`
   const { onCopy, hasCopied } = useClipboard(shareUrl)
 
   const toast = useToast()

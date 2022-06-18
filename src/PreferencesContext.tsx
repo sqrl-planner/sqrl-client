@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { createContext } from "react"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
@@ -141,11 +141,11 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 }
 
 const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
-  let lsPreferences: null | string = null
+  const [lsPreferences, setLsPreferences] = useState<string | null>("")
 
-  if (typeof window !== "undefined") {
-    lsPreferences = localStorage.getItem("preferences")
-  }
+  useEffect(() => {
+    setLsPreferences(localStorage.getItem("preferences"))
+  }, [])
 
   let preferences: Preferences = {
     palette: "default",

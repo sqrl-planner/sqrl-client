@@ -147,10 +147,11 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
   const [loading, setLoading] = useState(false)
-  const sharePrefix =
-    typeof window !== "undefined"
-      ? `${window.location.protocol}//${window.location.host}/timetable/`
-      : ""
+  const [sharePrefix, setSharePrefix] = useState("")
+  
+  useEffect(() => {
+    setSharePrefix(`${window.location.protocol}//${window.location.host}/timetable/`)
+  }, [])
 
   const id = router.query.id
 

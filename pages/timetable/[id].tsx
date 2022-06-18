@@ -3,7 +3,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import Head from "next/head"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
 import client, { apolloClientParams } from "../../src/apollo-client"
@@ -54,10 +54,11 @@ export const theme = extendTheme({
 })
 
 export const TimetableView: NextPage = (props: any) => {
-  const sharePrefix = typeof window !== "undefined" ? `${window.location.protocol}//${window.location.host}/timetable/` : ""
-
-  console.log(props);
+  const [sharePrefix, setSharePrefix] = useState("")
   
+  useEffect(() => {
+    setSharePrefix(`${window.location.protocol}//${window.location.host}/timetable/`)
+  }, [])
 
   return (
     <React.Fragment>
