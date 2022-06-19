@@ -42,6 +42,7 @@ import { PreferencesProvider } from "../src/PreferencesContext"
 import Sqrl from "../src/Sqrl"
 import Image from "next/image"
 import SqrlLogo from "../public/sqrl-logo.png"
+import Head from "next/head"
 
 export const theme = extendTheme({
   fonts: {
@@ -169,16 +170,19 @@ const Dashboard = () => {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>Sqrl Planner</title>
+      </Head>
       <Box
         display="flex"
         w="100%"
         h="100%"
         minH="100vh"
-        backgroundColor="#EBEBE4"
+        backgroundColor={useColorModeValue("#EBEBE4", "#14141B")}
         position="relative"
       >
         <Container
-          maxW={{base: "6xl", "2xl": "8xl"}}
+          maxW={{ base: "6xl", "2xl": "8xl" }}
           pt={8}
           display="flex"
           flexDirection="column"
@@ -198,7 +202,7 @@ const Dashboard = () => {
               <Select
                 shadow="sm"
                 fontWeight={500}
-                bg="white"
+                bg={useColorModeValue("white", "gray.700")}
                 value={sortBy}
                 disabled
                 onChange={(e) =>
@@ -214,7 +218,7 @@ const Dashboard = () => {
               <InputGroup>
                 <Input
                   width="xs"
-                  bg="white"
+                  bg={useColorModeValue("white", "gray.700")}
                   shadow="sm"
                   placeholder={"Search"}
                   value={searchQuery}
@@ -244,7 +248,7 @@ const Dashboard = () => {
             alignItems="start"
             // justifyContent="start"
             // justifyItems="start"
-            columns={{base: 2, md: 3}}
+            columns={{ base: 2, md: 3 }}
             spacing={6}
             rounded="lg"
             pb={48}
@@ -252,9 +256,11 @@ const Dashboard = () => {
             {Object.entries(timetablesToDisplay).map(([id, timetable]) => {
               return (
                 <Link key={id} href={`/timetable/${id}`}>
-                  <a onClick={(e) => {
-                    if(pageLoading) e.preventDefault()
-                  }}>
+                  <a
+                    onClick={(e) => {
+                      if (pageLoading) e.preventDefault()
+                    }}
+                  >
                     <Box
                       shadow="lg"
                       alignItems="center"
@@ -335,7 +341,7 @@ const Dashboard = () => {
           right={0}
           margin="auto"
           width="34rem"
-          background="white"
+          background={useColorModeValue("white", "black")}
           p={4}
           shadow="2xl"
           rounded="full"
