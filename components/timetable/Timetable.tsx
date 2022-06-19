@@ -71,6 +71,7 @@ type Props = {
    * The days of the week to include on the timetable.
    */
   days?: Day[]
+  abstract?: boolean
 }
 
 export const Timetable = ({
@@ -85,6 +86,7 @@ export const Timetable = ({
   dark = false,
   emphasizeOnHover = true,
   days = WEEK_DAYS,
+  abstract = false,
 }: Props) => {
   const {
     state: { hoverCourseKey },
@@ -122,7 +124,7 @@ export const Timetable = ({
     const timeLabel = minuteOffsetToTime(currentTime, twentyFour)
     const cells = [
       <StyledTimeLabelTd key={currentTime} className="time">
-        {timeLabel}
+        {!abstract && timeLabel}
       </StyledTimeLabelTd>,
     ]
 
@@ -211,13 +213,16 @@ export const Timetable = ({
                       : "",
                   cursor: meeting.identifier === sidebarCourse ? "default" : "",
                   opacity: shouldDim ? "0.3" : "",
+                  borderRadius: abstract ? "0.8rem" : "",
                 }}
               >
-                <MeetingComponent
-                  darkText={!dark}
-                  meeting={meeting}
-                  twentyFour={twentyFour}
-                />
+                {!abstract && (
+                  <MeetingComponent
+                    darkText={!dark}
+                    meeting={meeting}
+                    twentyFour={twentyFour}
+                  />
+                )}
               </MeetingTime>
             </MeetingTimeCell>
           )
@@ -274,7 +279,7 @@ export const Timetable = ({
                   }% + 0.1rem)`,
                   backgroundColor:
                     highlightConflicts &&
-                    // meeting.identifier !== sidebarCourse &&
+                    meeting.identifier !== sidebarCourse &&
                     (!(hoverCourseKey === meeting.courseKey) ||
                       !emphasizeOnHover) &&
                     !(
@@ -297,6 +302,7 @@ export const Timetable = ({
                       : "",
                   cursor: meeting.identifier === sidebarCourse ? "default" : "",
                   opacity: shouldDim ? "0.3" : "",
+                  borderRadius: abstract ? "0.8rem" : "",
                 }}
                 courseKey={meeting.courseKey}
                 palette={palette}
@@ -323,21 +329,33 @@ export const Timetable = ({
                   })
                 }}
               >
-                <MeetingComponent
-                  darkText={
-                    !(dark || highlightConflicts) ||
-                    (emphasizeOnHover &&
-                      hoverCourseKey === meeting.courseKey &&
-                      !dark) ||
-                    (meeting.identifier === hoverMeeting.courseIdentifier &&
-                      hoverMeeting.meeting.substring(0, 3) ===
-                        meeting.category.substring(0, 3).toUpperCase() &&
-                      !dark)
-                    //  || meeting.identifier === sidebarCourse
-                  }
-                  meeting={meeting}
-                  twentyFour={twentyFour}
-                />
+                {!abstract && (
+                  <MeetingComponent
+                    style={{
+                      color: !dark
+                        ? hoverCourseKey === meeting.courseKey &&
+                          emphasizeOnHover
+                          ? "black"
+                          : meeting.identifier === sidebarCourse
+                          ? "black"
+                          : "white"
+                        : "white",
+                    }}
+                    darkText={
+                      !(dark || highlightConflicts) ||
+                      (emphasizeOnHover &&
+                        hoverCourseKey === meeting.courseKey &&
+                        !dark) ||
+                      (meeting.identifier === hoverMeeting.courseIdentifier &&
+                        hoverMeeting.meeting.substring(0, 3) ===
+                          meeting.category.substring(0, 3).toUpperCase() &&
+                        !dark)
+                      //  || meeting.identifier === sidebarCourse
+                    }
+                    meeting={meeting}
+                    twentyFour={twentyFour}
+                  />
+                )}
               </MeetingTime>
             )
           })
@@ -376,12 +394,16 @@ export const Timetable = ({
       <StyledTimetable>
         <StyledThead dark={dark}>
           <StyledHead>
-            <StyledTh dark={dark}></StyledTh>
-            {days.map((day, index) => (
-              <StyledTh key={index} dark={dark}>
-                {t(day.toString().substr(0, 3).toLowerCase())}
-              </StyledTh>
-            ))}
+            {!abstract && (
+              <React.Fragment>
+                <StyledTh dark={dark}></StyledTh>
+                {days.map((day, index) => (
+                  <StyledTh key={index} dark={dark}>
+                    {t(day.toString().substr(0, 3).toLowerCase())}
+                  </StyledTh>
+                ))}
+              </React.Fragment>
+            )}
           </StyledHead>
         </StyledThead>
         <StyledTbody>{tableRows}</StyledTbody>
