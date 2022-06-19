@@ -135,6 +135,17 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     onClose: onCloseShare,
   } = useDisclosure()
 
+  useEffect(() => {
+    if (!router.query.settings) return
+
+    const { settings, ...routerQuery } = router.query
+
+    onOpenSettings()
+    router.replace({
+      query: {...routerQuery}
+    })
+  }, [onOpenSettings, router])
+
   const blue = useColorModeValue("blue.700", "blue.400")
 
   const [timetableName, setTimetableName] = useState("")

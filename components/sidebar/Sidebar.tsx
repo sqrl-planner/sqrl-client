@@ -59,8 +59,8 @@ const Sidebar = () => {
     dispatch,
   } = useAppContext()
 
-  const { sections, removeCourse } = useSections()
-  const { courses, userMeetings, loading } = useCourses({
+  const { sections } = useSections()
+  const { courses, userMeetings } = useCourses({
     sections,
   })
 
@@ -157,7 +157,6 @@ const Sidebar = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      {/* {sidebar === "course" ? <CourseView /> : "nut"} */}
     </Box>
   )
 }

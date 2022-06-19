@@ -92,7 +92,7 @@ export const Timetable = ({
   } = useHoverContext()
 
   const {
-    state: { sidebarCourse, hoverMeeting },
+    state: { sidebarCourse, hoverMeeting, sidebar },
     dispatch: dispatchAppContext,
   } = useAppContext()
 
@@ -182,6 +182,13 @@ export const Timetable = ({
                 onMouseEnter={() => setHoverCourseKey(meeting.courseKey)}
                 onMouseLeave={() => setHoverCourseKey(null)}
                 onClick={() => {
+                  if (meeting.identifier === sidebarCourse && sidebar === 1) {
+                    return dispatchAppContext({
+                      type: "SET_SIDEBAR_COURSE",
+                      payload: "",
+                    })
+                  }
+
                   dispatchAppContext({
                     type: "SET_SIDEBAR_COURSE",
                     payload: meeting.identifier,
@@ -299,6 +306,13 @@ export const Timetable = ({
                 }
                 conflict={highlightConflicts}
                 onClick={() => {
+                  if (meeting.identifier === sidebarCourse && sidebar === 1) {
+                    return dispatchAppContext({
+                      type: "SET_SIDEBAR_COURSE",
+                      payload: "",
+                    })
+                  }
+
                   dispatchAppContext({
                     type: "SET_SIDEBAR_COURSE",
                     payload: meeting.identifier,

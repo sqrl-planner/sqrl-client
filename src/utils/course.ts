@@ -1,6 +1,6 @@
 import { MeetingCategoryType } from "../../components/timetable/Meeting"
 import { Course } from "../Course"
-import { TimetableData, UserMeeting } from "../SqrlContext"
+import { UserMeeting } from "../SqrlContext"
 
 export const breakdownCourseCode = (title: string) => {
   const firstDigitContent = title.match(/\d{3,}/g)

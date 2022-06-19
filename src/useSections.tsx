@@ -4,17 +4,12 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { REMOVE_COURSE_TIMETABLE } from "../operations/mutations/removeCourseTimetable"
 import { SET_SECTIONS_TIMETABLE } from "../operations/mutations/setSectionsTimetable"
 import { GET_TIMETABLE_BY_ID } from "../operations/queries/getTimetableById"
-import { useAppContext } from "./SqrlContext"
 import useTimetable from "./useTimetable"
 import {
   constructSectionsFromMeetings,
   getMeetingsFromSections,
   getSectionType,
 } from "./utils/course"
-
-type Props = {
-  id?: string
-}
 
 type SetTimetableSectionsProps = {
   courseId: string
@@ -46,14 +41,16 @@ export const SectionsProvider = ({
 
   const id = (router.query.id as string) || ""
 
-  const [getTimetableById, { data, loading }] =
-    useLazyQuery(GET_TIMETABLE_BY_ID)
+  const [getTimetableById, { data }] =
+    useLazyQuery(GET_TIMETABLE_BY_ID, {
+    fetchPolicy: "no-cache"
+  })
 
   const [sections, setSections] =
     useState<{ [key: string]: Array<string> }>(initialSections)
   const [name, setName] = useState<string>("")
 
-  const { allowedToEdit, key } = useTimetable({ id })
+  const { key } = useTimetable({ id })
 
   useEffect(() => {
     if (!id) return
@@ -73,7 +70,7 @@ export const SectionsProvider = ({
     setName(data.timetableById.name)
   }, [data, id])
 
-  const [setSectionsTimetable, { data: sectionsData }] = useMutation(
+  const [setSectionsTimetable] = useMutation(
     SET_SECTIONS_TIMETABLE
   )
 

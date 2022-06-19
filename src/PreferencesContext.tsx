@@ -24,6 +24,7 @@ export interface Preferences {
 }
 
 export type Action =
+  | { type: "SET_ALL"; payload: Preferences }
   | {
       type: "SET_PALETTE"
       payload: "default" | "accessible" | "monochrome" | "rainbow"
@@ -57,6 +58,11 @@ type PreferencesProviderProps = { children: React.ReactNode }
 const preferencesReducer = (state: Preferences, action: Action) => {
   let newPreferences: Preferences
   switch (action.type) {
+    case "SET_ALL": {
+      newPreferences = action.payload
+      break
+    }
+
     case "SET_PALETTE": {
       newPreferences = { ...state, palette: action.payload }
       break
@@ -141,13 +147,7 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 }
 
 const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
-  const [lsPreferences, setLsPreferences] = useState<string | null>("")
-
-  useEffect(() => {
-    setLsPreferences(localStorage.getItem("preferences"))
-  }, [])
-
-  let preferences: Preferences = {
+  const preferences: Preferences  = {
     palette: "default",
     scale: 40,
     showTimeInMeeting: false,
@@ -164,18 +164,27 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
     currentPrefTab: 0,
   }
 
-  if (lsPreferences) {
-    const parsed = JSON.parse(lsPreferences) as Preferences
-
-    preferences = {
-      ...preferences,
-      ...parsed,
-      start: parseInt(parsed.start as any),
-      end: parseInt(parsed.end as any),
-    }
-  }
-
   const [state, dispatch] = React.useReducer(preferencesReducer, preferences)
+
+  useEffect(() => {
+    const lsPreferences = localStorage.getItem("preferences")
+    const parsed = lsPreferences
+      ? (JSON.parse(lsPreferences) as Preferences)
+      : undefined
+
+    if (parsed) {
+      dispatch({
+        type: "SET_ALL", 
+        payload: {
+        ...preferences,
+        ...parsed,
+        start: parseInt(parsed.start as any),
+        end: parseInt(parsed.end as any),
+        }
+      })
+    }
+  }, [])
+
 
   // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
 

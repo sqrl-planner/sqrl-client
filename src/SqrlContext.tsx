@@ -1,9 +1,5 @@
-import { useQuery } from "@apollo/client"
 import { useRouter } from "next/router"
 import React, { createContext, useEffect, useState } from "react"
-import { GET_TIMETABLE_BY_ID } from "../operations/queries/getTimetableById"
-import { Course } from "./Course"
-import { usePreferences } from "./PreferencesContext"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
@@ -29,6 +25,7 @@ export interface TimetableData {
 }
 
 export type Action =
+  | { type: "SET_ALL"; payload: AppData }
   | { type: "ADD_PROGRAM"; payload: { code: string; title: string } }
   | { type: "REMOVE_PROGRAM"; payload: string }
   | {
@@ -78,6 +75,10 @@ const AppContextReducer = (
   const { programs, campus } = timetableState
 
   switch (action.type) {
+    case "SET_ALL": {
+      break
+    }
+
     case "ADD_PROGRAM": {
       newContext = {
         ...timetableState,
@@ -145,7 +146,7 @@ const AppContextReducer = (
     }
   }
 
-  const fullContext = { [timetableId]: newContext }
+  const fullContext = action.type === "SET_ALL" ? action.payload : { [timetableId]: newContext }
 
   if (typeof window !== "undefined") {
     localStorage.setItem("appContext", JSON.stringify(fullContext))
@@ -159,9 +160,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const timetableId = (router && (router.query.id as string)) || "new_timetable"
 
-  const [lsAppContext, setLsAppContext] = useState<string | null>()
-
-  const [appContext, setAppContext] = useState<AppData>({
+  const appContext = {
     [timetableId]: {
       programs: [],
       campus: { sg: true, sc: false, ms: false },
@@ -172,21 +171,30 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       },
       sidebar: 0,
     },
-  })
-
-  useEffect(() => {
-    if (!lsAppContext) return
-
-    setAppContext({
-      ...(JSON.parse(lsAppContext) as AppData),
-    } as AppData)
-  }, [lsAppContext])
+  }
 
   const [state, dispatch] = React.useReducer(
     (state: AppData, action: Action) =>
       AppContextReducer(state, action, timetableId),
     appContext
   )
+
+  useEffect(() => {
+    const lsAppContext = localStorage.getItem("appContext")
+    const parsed = lsAppContext
+      ? (JSON.parse(lsAppContext) as AppData)
+      : undefined
+
+    if (parsed) {
+      dispatch({
+        type: "SET_ALL", 
+        payload: {
+        ...appContext,
+        ...parsed,
+        }
+      })
+    }
+  }, [])
 
   const value = { state: state[timetableId], dispatch }
 

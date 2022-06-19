@@ -69,10 +69,10 @@ const PreferencesLanguage = () => {
           )
         } else {
           return (
-            <Link href="#" locale={value}>
-              <button>
+            <Link href={`${router.query.id}/?settings=true`} locale={value}>
+              <a>
                 <RadioTextCard key={value}>{lang}</RadioTextCard>
-              </button>
+              </a>
             </Link>
           )
         }
