@@ -122,7 +122,7 @@ const Sqrl = () => {
 
   useEffect(() => {
     dispatch({ type: "SET_SIDEBAR", payload: allowedToEdit ? 0 : 1 })
-  }, [allowedToEdit])
+  }, [allowedToEdit, dispatch])
 
   const SidebarTriggerColour = useColorModeValue(
     "rgba(236, 236, 236, 0.6)",

@@ -19,7 +19,7 @@ const SearchViewHints = ({ setSearchQuery, debouncedZero }: Props) => {
   const { t } = useTranslation(["common", "sidebar"])
 
   return (
-    <FormHelperText
+                    <FormHelperText
       mt={3}
       display="flex"
       alignItems="center"

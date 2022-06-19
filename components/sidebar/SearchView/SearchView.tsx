@@ -101,12 +101,12 @@ const SearchView = ({
               e.target.select()
             }}
           />
-          <InputLeftElement children={<SearchIcon />} />
-          <InputRightElement
-            children={
-              searchQuery && <CloseButton onClick={() => setSearchQuery("")} />
-            }
-          />
+          <InputLeftElement>
+            <SearchIcon />
+          </InputLeftElement>
+          <InputRightElement>
+            {searchQuery && <CloseButton onClick={() => setSearchQuery("")} />}
+          </InputRightElement>
         </InputGroup>
         <SearchViewHints
           setSearchQuery={setSearchQuery}
