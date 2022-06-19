@@ -1,4 +1,5 @@
 import { ApolloProvider, useLazyQuery, useMutation } from "@apollo/client"
+import { useDebouncedCallback } from "use-debounce"
 import { PlusSquareIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
@@ -27,7 +28,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import Link from "next/link"
@@ -43,6 +44,7 @@ import Sqrl from "../src/Sqrl"
 import Image from "next/image"
 import SqrlLogo from "../public/sqrl-logo.png"
 import Head from "next/head"
+import Fuse from "fuse.js"
 
 export const theme = extendTheme({
   fonts: {
@@ -102,6 +104,20 @@ const Dashboard = () => {
     [id: string]: { key: string; name: string }
   }>({})
 
+  const [fuse, setFuse] = useState<Fuse<any>>()
+
+  useEffect(() => {
+    setFuse(
+      new Fuse(Object.entries(timetables), {
+        keys: [
+          {
+            name: "1.name",
+          },
+        ],
+      })
+    )
+  }, [timetables])
+
   const [disclaimed, setDisclaimed] = useState<boolean>(true)
   useEffect(() => {
     const lsDisclaimed = localStorage.getItem("disclaimed")
@@ -133,15 +149,24 @@ const Dashboard = () => {
     )
   }, [])
 
-  useEffect(() => {
+  const debounced = useDebouncedCallback((query) => {
+    if (!query) return
     const normalizedSearchQuery = searchQuery.trim().toLowerCase()
     setTimetablesToDisplay(
-      Object.fromEntries(
-        Object.entries(timetables).filter(([key, timetable]) =>
-          timetable.name.includes(normalizedSearchQuery)
-        )
-      )
+      fuse
+        ? Object.fromEntries(
+            fuse
+              ? fuse.search(normalizedSearchQuery).map((entry) => entry.item)
+              : []
+          )
+        : {}
     )
+  }, 200)
+
+  useEffect(() => {
+    if (searchQuery === "") return setTimetablesToDisplay(timetables)
+
+    debounced(searchQuery)
   }, [timetables, setTimetablesToDisplay, searchQuery])
 
   const createNewTimetable = () => {
@@ -183,19 +208,19 @@ const Dashboard = () => {
       >
         <Container
           maxW={{ base: "6xl", "2xl": "8xl" }}
-          pt={8}
+          pt="8rem"
           display="flex"
           flexDirection="column"
           gap={6}
         >
-          <Flex gap={4} alignItems="center">
-            <Box w={14} h={14} position="relative">
-              <Image src={SqrlLogo} layout="fill" objectFit="contain" />
-            </Box>
-            <Heading as="h1" fontSize="4xl" fontWeight={600}>
-              Sqrl
-            </Heading>
-          </Flex>
+          {/* <Flex gap={4} alignItems="center"> */}
+          {/*   <Box as={motion.div} key="sqrl-logo" layoutId="sqrl-logo" w={14} h={14} position="relative"> */}
+          {/*     <Image src={SqrlLogo} layout="fill" objectFit="contain" /> */}
+          {/*   </Box> */}
+          {/*   <Heading as="h1" fontSize="4xl" fontWeight={600}> */}
+          {/*     Sqrl */}
+          {/*   </Heading> */}
+          {/* </Flex> */}
 
           <Flex justifyContent="space-between">
             <Flex>
@@ -203,8 +228,8 @@ const Dashboard = () => {
                 shadow="sm"
                 fontWeight={500}
                 bg={useColorModeValue("white", "gray.700")}
-                value={sortBy}
-                disabled
+                value={searchQuery === "" ? sortBy : "relevance"}
+                disabled={searchQuery !== ""}
                 onChange={(e) =>
                   setSortBy(e.target.value as "custom" | "edit" | "create")
                 }
@@ -212,6 +237,9 @@ const Dashboard = () => {
                 {/* <option value="custom">Custom</option> */}
                 {/* <option value="edit">Last edited</option> */}
                 <option value="create">Creation date</option>
+                <option disabled value="relevance">
+                  Relevance
+                </option>
               </Select>
             </Flex>
             <Flex>
@@ -253,76 +281,82 @@ const Dashboard = () => {
             rounded="lg"
             pb={48}
           >
-            {Object.entries(timetablesToDisplay).map(([id, timetable]) => {
-              return (
-                <Link key={id} href={`/timetable/${id}`}>
-                  <a
-                    onClick={(e) => {
-                      if (pageLoading) e.preventDefault()
-                    }}
-                  >
-                    <Box
-                      shadow="lg"
-                      alignItems="center"
-                      rounded="xl"
-                      background="blue.700"
-                      color="white"
-                      fontSize="lg"
-                      display="flex"
-                      gap={2}
-                      p={6}
-                      px={8}
-                      minH="2xs"
-                      fontWeight="medium"
-                      position="relative"
-                      opacity={!!pageLoading ? "0.5" : "1"}
-                      cursor={!!pageLoading ? "not-allowed" : "pointer"}
-                      onClick={() => {
-                        if (pageLoading) return
-                        setPageLoading(id)
+            <AnimatePresence>
+              {Object.entries(timetablesToDisplay).map(([id, timetable], i) => {
+                return (
+                  <Link key={id} href={`/timetable/${id}`}>
+                    <motion.a
+                      key={id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.05 * i }}
+                      onClick={(e) => {
+                        if (pageLoading) e.preventDefault()
                       }}
                     >
-                      <Flex
-                        pr={8}
-                        lineHeight="1.2em"
-                        fontSize="3xl"
+                      <Box
+                        shadow="lg"
                         alignItems="center"
+                        rounded="xl"
+                        background="blue.700"
+                        color="white"
+                        fontSize="lg"
+                        display="flex"
                         gap={2}
-                        position="absolute"
-                        bottom={6}
-                        fontWeight={600}
+                        p={6}
+                        px={8}
+                        minH="2xs"
+                        fontWeight="medium"
+                        position="relative"
+                        opacity={!!pageLoading ? "0.5" : "1"}
+                        cursor={!!pageLoading ? "not-allowed" : "pointer"}
+                        onClick={() => {
+                          if (pageLoading) return
+                          setPageLoading(id)
+                        }}
                       >
-                        {timetable.name}
-                        {pageLoading === id && <Spinner m={0} />}
-                      </Flex>
-                    </Box>
-                  </a>
-                </Link>
-              )
-            })}
-            <Button
-              border="4px dashed"
-              rounded="xl"
-              color="blue.700"
-              borderColor="blue.500"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              padding={12}
-              disabled={newLoading}
-              onClick={createNewTimetable}
-              minH="2xs"
-            >
-              <Box
+                        <Flex
+                          pr={8}
+                          lineHeight="1.2em"
+                          fontSize="3xl"
+                          alignItems="center"
+                          gap={2}
+                          position="absolute"
+                          bottom={6}
+                          fontWeight={600}
+                        >
+                          {timetable.name}
+                          {pageLoading === id && <Spinner m={0} />}
+                        </Flex>
+                      </Box>
+                    </motion.a>
+                  </Link>
+                )
+              })}
+              <Button
+                border="4px dashed"
+                rounded="xl"
+                color="blue.700"
+                borderColor="blue.500"
                 display="flex"
-                flexDirection="column"
-                position="relative"
-                bottom="1"
+                justifyContent="center"
+                alignItems="center"
+                padding={12}
+                disabled={newLoading}
+                onClick={createNewTimetable}
+                minH="2xs"
               >
-                <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
-                <Box>Create a new timetable</Box>
-              </Box>
-            </Button>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  position="relative"
+                  bottom="1"
+                >
+                  <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
+                  <Box>Create a new timetable</Box>
+                </Box>
+              </Button>
+            </AnimatePresence>
           </SimpleGrid>
         </Container>
         <Box
