@@ -14,11 +14,20 @@ import "../styles/globals.css"
 import SqrlLogo from "../public/sqrl-logo.png"
 import { useRouter } from "next/router"
 
+const headingVariants = {
+  root: {
+    scale: 1,
+  },
+  timetable: {
+    scale: 0.8,
+  },
+}
+
 function Application({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <Box
         key="sqrl-logo-container"
         as={motion.div}
@@ -29,12 +38,14 @@ function Application({ Component, pageProps }: AppProps) {
         position="absolute"
         zIndex={20}
         h={48}
-        w={800}
+        w={10}
+        display="flex"
         left={router.pathname === "/" ? 80 : 20}
-        top={router.pathname === "/" ? 48 : 4}
+        top={router.pathname === "/" ? 48 : 8}
       >
-        <Link href="/">
+        <Link href="/" passHref>
           <chakra.a
+            w="auto"
             display="flex"
             cursor="pointer"
             alignItems="center"
@@ -52,27 +63,27 @@ function Application({ Component, pageProps }: AppProps) {
             </Box>
             <Heading
               as={motion.h1}
-              sx={{ transition: "transform 0.2s ease-in-out" }}
+              variants={headingVariants}
+              animate={router.pathname === "/" ? "root" : "timetable"}
+              transformOrigin="center left"
               fontSize="2.4rem"
-              transform={`scale(${
-                router.pathname === "/" ? 1 : 0.8
-              }) translateX(${router.pathname === "/" ? "0" : "-0.6rem"})`}
               fontWeight={600}
             >
-              Sqrl{" "}
-              {router.pathname === "/" ? (
-                <motion.span
+              Sqrl&nbsp;
+              <AnimatePresence exitBeforeEnter>
+                {router.pathname === "/" && <motion.span
                   key="planner-append"
+                  // layout="position"
                   layoutId="planner-append"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  // variants={headingVariants}
+                  // animate={router.pathname === "/" ? "root" : "timetable"}
+                  initial={{opacity: 0}}
+                  animate={{opacity: 1 }}
+                  exit={{opacity: 0}}
                 >
                   Planner
-                </motion.span>
-              ) : (
-                ""
-              )}
+                </motion.span>}
+              </AnimatePresence>
             </Heading>
           </chakra.a>
         </Link>

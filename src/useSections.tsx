@@ -41,9 +41,8 @@ export const SectionsProvider = ({
 
   const id = (router.query.id as string) || ""
 
-  const [getTimetableById, { data }] =
-    useLazyQuery(GET_TIMETABLE_BY_ID, {
-    fetchPolicy: "no-cache"
+  const [getTimetableById, { data }] = useLazyQuery(GET_TIMETABLE_BY_ID, {
+    fetchPolicy: "no-cache",
   })
 
   const [sections, setSections] =
@@ -70,9 +69,7 @@ export const SectionsProvider = ({
     setName(data.timetableById.name)
   }, [data, id])
 
-  const [setSectionsTimetable] = useMutation(
-    SET_SECTIONS_TIMETABLE
-  )
+  const [setSectionsTimetable] = useMutation(SET_SECTIONS_TIMETABLE)
 
   const [removeCourse] = useMutation(REMOVE_COURSE_TIMETABLE)
 

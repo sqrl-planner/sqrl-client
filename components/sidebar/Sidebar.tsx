@@ -89,7 +89,7 @@ const Sidebar = () => {
         onChange={(index) => {
           dispatch({ type: "SET_SIDEBAR", payload: index })
 
-          if(index === 1) return
+          if (index === 1) return
 
           const course = courses[sidebarCourse]
 

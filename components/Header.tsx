@@ -142,7 +142,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
     onOpenSettings()
     router.replace({
-      query: {...routerQuery}
+      query: { ...routerQuery },
     })
   }, [onOpenSettings, router])
 
