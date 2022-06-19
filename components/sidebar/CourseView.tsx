@@ -31,6 +31,7 @@ import React, {
   Fragment,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react"
@@ -88,35 +89,22 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
 
   const toast = useToast()
 
-  useLayoutEffect(() => {
-    return () => {
-      if (!userMeetings[identifier]) return
-
-      const missing = meetingsMissing(course, userMeetings, identifier)
-
-      if (missing.length == 0) return
-
-      if (toast.isActive("warn-missing-section")) return
-
-      toast({
-        id: "warn-missing-section",
-        title: "Some courses are missing a section.",
-        description: "Check Overview to see missing meetings.",
-        status: "warning",
-        variant: "solid",
-        isClosable: true,
-        duration: null,
-        onCloseComplete: () => dispatch({ type: "SET_SIDEBAR", payload: 2 }),
-      })
-    }
-  }, [])
-
   const removePopoverTriggerRef = useRef<HTMLButtonElement>(null)
   const { t } = useTranslation("common")
 
   const shareUrl = `https://app.sqrlplanner.com/course/<:id>/share?sections=<:id1>,<:id2>`
 
   const { onCopy, hasCopied } = useClipboard(shareUrl)
+
+  useEffect(() => {
+    if (!course || !userMeetings || !identifier || !userMeetings[identifier]) return
+
+    const missing = meetingsMissing(course, userMeetings, identifier)
+
+    if (missing.length !== 0) return
+
+    toast.close("warn-missing-section")
+  }, [course, userMeetings, identifier])
 
   useEffect(() => {
     if (!hasCopied) return
