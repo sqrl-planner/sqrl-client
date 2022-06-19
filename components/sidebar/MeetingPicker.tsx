@@ -276,9 +276,16 @@ const MeetingPicker = ({
                 p={2.5}
                 pl={5}
                 fontWeight="600"
-                cursor={isSelected ? "default" : allowedToEdit ? "pointer" : "not-allowed"}
+                cursor={
+                  isSelected
+                    ? "default"
+                    : allowedToEdit
+                    ? "pointer"
+                    : "not-allowed"
+                }
                 _hover={{
-                  background: isSelected || !allowedToEdit ? "" : hoverBackground,
+                  background:
+                    isSelected || !allowedToEdit ? "" : hoverBackground,
                 }}
                 opacity={allowedToEdit || isSelected ? 1 : 0.5}
                 // border={hasConflict ? "1px solid red" : "none"}

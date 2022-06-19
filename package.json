@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --coverage"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "prepare": "husky install",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@apollo/client": "^3.6.6",
@@ -51,6 +54,7 @@
     "dayjs": "^1.10.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jest-fetch-mock": "^3.0.3",

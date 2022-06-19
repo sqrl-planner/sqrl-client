@@ -12,6 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useMemo, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
@@ -35,7 +36,6 @@ const Container = styled(chakra.div)`
   top: 4.5rem;
 
   display: flex;
-  width: 100vw;
 `
 
 const Sqrl = () => {

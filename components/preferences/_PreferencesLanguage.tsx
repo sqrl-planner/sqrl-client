@@ -4,7 +4,7 @@ import React from "react"
 import { usePreferences } from "../../src/PreferencesContext"
 import { capitalize } from "../../src/utils/misc"
 import RadioTextCard from "./RadioTextCard"
-import { Router, useRouter } from 'next/router'
+import { Router, useRouter } from "next/router"
 import Link from "next/link"
 import { RiLogoutCircleRFill } from "react-icons/ri"
 
@@ -13,21 +13,20 @@ const PreferencesLanguage = () => {
 
   const { t } = useTranslation("preferences")
   const router = useRouter()
-  
+
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "language",
     defaultValue: router.defaultLocale,
     onChange: (language: "en" | "fr" | "zh") => {
-        
       if (language === "en") {
-        router.locale = 'en'
+        router.locale = "en"
       } else if (language === "fr") {
-        router.locale = 'fr'
+        router.locale = "fr"
       } else {
-        router.locale = 'zh'
-      } 
+        router.locale = "zh"
+      }
     },
-  })    
+  })
 
   const group = getRootProps()
 
@@ -35,15 +34,15 @@ const PreferencesLanguage = () => {
     <Grid gridTemplateColumns="repeat(3, auto)" {...group} gap={4}>
       {options.map((value) => {
         const radio = getRadioProps({ value, enterKeyHint: "enter" })
-        let lang = ''
-        switch(value) {
-          case 'en':
+        let lang = ""
+        switch (value) {
+          case "en":
             lang = "English"
             break
-          case 'fr':
+          case "fr":
             lang = "Français"
             break
-          case 'zh':
+          case "zh":
             lang = "简体中文"
             break
         }
@@ -70,11 +69,9 @@ const PreferencesLanguage = () => {
           )
         } else {
           return (
-            <Link href='#' locale={value}> 
+            <Link href="#" locale={value}>
               <button>
-                <RadioTextCard key={ value }>
-                    { lang }
-                </RadioTextCard>
+                <RadioTextCard key={value}>{lang}</RadioTextCard>
               </button>
             </Link>
           )

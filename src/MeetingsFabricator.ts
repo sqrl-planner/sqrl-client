@@ -72,7 +72,7 @@ const MeetingsFabricator = (
       }
 
       for (const meetingName of Object.values(userMeeting)) {
-        if(!meetingName) continue
+        if (!meetingName) continue
         const meeting = course.sections.filter(
           (section: any) => section.code === meetingName
         )[0]

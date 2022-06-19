@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "ES2017.Object"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "ES2017.Object"],
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
@@ -28,7 +23,5 @@
     "jest.setup.js",
     "__tests__/timetable.test.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

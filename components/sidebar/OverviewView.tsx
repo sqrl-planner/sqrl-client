@@ -53,9 +53,7 @@ export const CourseSubheading = ({
 )
 
 const OverviewView = () => {
-  const {
-    dispatch,
-  } = useAppContext()
+  const { dispatch } = useAppContext()
 
   const { sections } = useSections()
   const { courses, userMeetings } = useCourses({

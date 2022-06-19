@@ -148,9 +148,11 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
   const [loading, setLoading] = useState(false)
   const [sharePrefix, setSharePrefix] = useState("")
-  
+
   useEffect(() => {
-    setSharePrefix(`${window.location.protocol}//${window.location.host}/timetable/`)
+    setSharePrefix(
+      `${window.location.protocol}//${window.location.host}/timetable/`
+    )
   }, [])
 
   const id = router.query.id
@@ -263,6 +265,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             colorScheme="blue"
             bg={blue}
             onClick={() => {
+              const newTimetable = window.open("", "_blank")
+
               setLoading(true)
               duplicateTimetable({
                 variables: {
@@ -288,7 +292,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
                     })
                   )
 
-                  window.open(`${sharePrefix}${id}`, "_blank")
+                  if (newTimetable)
+                    newTimetable.location.href = `${sharePrefix}${id}`
 
                   setLoading(false)
                 },

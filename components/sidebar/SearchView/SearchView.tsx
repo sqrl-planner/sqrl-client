@@ -1,4 +1,5 @@
 import { useLazyQuery } from "@apollo/client"
+import { CheckIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
@@ -13,6 +14,10 @@ import {
   useColorModeValue,
   VStack,
   useDisclosure,
+  InputRightElement,
+  InputGroup,
+  CloseButton,
+  InputLeftElement,
 } from "@chakra-ui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useTranslation } from "next-i18next"
@@ -80,21 +85,29 @@ const SearchView = ({
   return (
     <Box width="100%" height="100%">
       <FormControl p={5} py={7} pb={4}>
-        <Input
-          boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
-          placeholder={t("search-anything")}
-          ref={searchRef}
-          value={searchQuery}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchQuery(e.target.value)
-          }}
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
-            e.target.select()
-          }}
-        />
+        <InputGroup>
+          <Input
+            boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
+            placeholder={t("search-anything")}
+            ref={searchRef}
+            value={searchQuery}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchQuery(e.target.value)
+            }}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+              e.target.select()
+            }}
+          />
+          <InputLeftElement children={<SearchIcon />} />
+          <InputRightElement
+            children={
+              searchQuery && <CloseButton onClick={() => setSearchQuery("")} />
+            }
+          />
+        </InputGroup>
         <SearchViewHints
           setSearchQuery={setSearchQuery}
           debouncedZero={debouncedZero}

@@ -1,5 +1,5 @@
 /** https://github.com/bmvantunes/youtube-react-testing-video9-nextjs-router/blob/main/src/test-utils/createMockRouter.ts */
-import { NextRouter } from "next/router";
+import { NextRouter } from "next/router"
 
 export function createRouterMock(router: Partial<NextRouter>): NextRouter {
   return {
@@ -26,5 +26,5 @@ export function createRouterMock(router: Partial<NextRouter>): NextRouter {
     domainLocales: [],
     isPreview: false,
     ...router,
-  };
+  }
 }

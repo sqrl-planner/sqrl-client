@@ -1,4 +1,4 @@
-import { Icon, CalendarIcon } from "@chakra-ui/icons"
+import { Icon, CalendarIcon, DownloadIcon } from "@chakra-ui/icons"
 import {
   Flex,
   Button,
@@ -107,6 +107,7 @@ const ShareCalendar = () => {
           <Icon as={CalendarIcon} mr={2} /> Export as iCalendar
         </Text>
         <Button colorScheme="blue" bg="blue.700" onClick={shareCalendar}>
+          <DownloadIcon mr={2} />
           Download .ics file
         </Button>
         <a ref={downloadRef} style={{ display: "none" }}></a>

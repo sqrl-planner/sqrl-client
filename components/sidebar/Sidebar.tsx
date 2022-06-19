@@ -17,7 +17,10 @@ import CourseView from "./CourseView"
 import OverviewView from "./OverviewView"
 import SearchView from "./SearchView/SearchView"
 
-const Tab = ({ children, ...props }: { children: React.ReactNode } & TabProps) => (
+const Tab = ({
+  children,
+  ...props
+}: { children: React.ReactNode } & TabProps) => (
   <ChakraTab
     _active={{
       boxShadow: "outline",

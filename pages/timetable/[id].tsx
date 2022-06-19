@@ -55,19 +55,18 @@ export const theme = extendTheme({
 
 export const TimetableView: NextPage = (props: any) => {
   const [sharePrefix, setSharePrefix] = useState("")
-  
+
   useEffect(() => {
-    setSharePrefix(`${window.location.protocol}//${window.location.host}/timetable/`)
+    setSharePrefix(
+      `${window.location.protocol}//${window.location.host}/timetable/`
+    )
   }, [])
 
   return (
     <React.Fragment>
       <Head>
         <title>Sqrl Planner | {props.name}</title>
-        <meta
-          property="og:url"
-          content={`${sharePrefix}${props.id}`}
-        />
+        <meta property="og:url" content={`${sharePrefix}${props.id}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`Sqrl Planner | ${props.name}`} />
       </Head>
@@ -75,7 +74,7 @@ export const TimetableView: NextPage = (props: any) => {
         <PreferencesProvider>
           <ApolloProvider client={client}>
             <AppContextProvider>
-              <SectionsProvider>
+              <SectionsProvider initialSections={props.sections}>
                 <Sqrl />
               </SectionsProvider>
             </AppContextProvider>
@@ -109,9 +108,9 @@ export async function getServerSideProps({
     cache: new InMemoryCache(),
     defaultOptions: {
       query: {
-        fetchPolicy: "no-cache"
-      }
-    }
+        fetchPolicy: "no-cache",
+      },
+    },
   })
 
   try {
@@ -122,15 +121,12 @@ export async function getServerSideProps({
       },
     })
 
-    console.log(data);
-    
-
     return {
       props: {
         ...translationProps,
         sections: JSON.parse(data.timetableById.sections),
         name: data.timetableById.name,
-        id
+        id,
       },
     }
   } catch (e) {

@@ -169,19 +169,49 @@ const PreferencesMeeting = () => {
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
             >
-              <SliderMark value={20} mt="4" ml="-2.5" fontSize="sm" fontWeight={500}>
+              <SliderMark
+                value={20}
+                mt="4"
+                ml="-2.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
                 Small
               </SliderMark>
-              <SliderMark value={40} mt="4" ml="-24.5" fontSize="sm" fontWeight={500}>
+              <SliderMark
+                value={40}
+                mt="4"
+                ml="-24.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
                 Normal
               </SliderMark>
-              <SliderMark value={60} mt="4" ml="-2.5" fontSize="sm" fontWeight={500}>
+              <SliderMark
+                value={60}
+                mt="4"
+                ml="-2.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
                 Big
               </SliderMark>
-              <SliderMark value={80} mt="4" ml="-2.5" fontSize="sm" fontWeight={500}>
+              <SliderMark
+                value={80}
+                mt="4"
+                ml="-2.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
                 Tall
               </SliderMark>
-              <SliderMark value={100} mt="4" ml="-36.5" fontSize="sm" fontWeight={500}>
+              <SliderMark
+                value={100}
+                mt="4"
+                ml="-36.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
                 Cosmic
               </SliderMark>
               <SliderTrack>

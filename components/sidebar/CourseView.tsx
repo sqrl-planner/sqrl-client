@@ -50,6 +50,7 @@ import useSections from "../../src/useSections"
 import { motion } from "framer-motion"
 import { REMOVE_COURSE_TIMETABLE } from "../../operations/mutations/removeCourseTimetable"
 import useTimetable from "../../src/useTimetable"
+import { SearchIcon } from "@chakra-ui/icons"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const {
@@ -139,9 +140,23 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          No course selected.
+          No course selected
         </Heading>
-        <Text>Pick a course to see information regarding it.</Text>
+        <Text fontWeight={500} opacity={0.7} mt={2}>
+          Pick a course to see it here.
+        </Text>
+        {allowedToEdit && (
+          <Button
+            onClick={() => {
+              dispatch({ type: "SET_SIDEBAR", payload: 0 })
+            }}
+            colorScheme="blue"
+            bg="blue.700"
+            mt={2}
+          >
+            <SearchIcon mr={2} /> Search for courses
+          </Button>
+        )}
       </Box>
     )
   }

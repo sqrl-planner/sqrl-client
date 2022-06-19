@@ -8,4 +8,3 @@ export const GET_TIMETABLE_BY_ID = gql`
     }
   }
 `
-

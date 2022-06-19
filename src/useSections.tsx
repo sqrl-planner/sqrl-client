@@ -37,8 +37,10 @@ const SectionsContext = createContext<
 
 export const SectionsProvider = ({
   children,
+  initialSections = {},
 }: {
   children: React.ReactNode
+  initialSections?: { [key: string]: Array<string> }
 }) => {
   const router = useRouter()
 
@@ -47,7 +49,8 @@ export const SectionsProvider = ({
   const [getTimetableById, { data, loading }] =
     useLazyQuery(GET_TIMETABLE_BY_ID)
 
-  const [sections, setSections] = useState<{ [key: string]: Array<string> }>({})
+  const [sections, setSections] =
+    useState<{ [key: string]: Array<string> }>(initialSections)
   const [name, setName] = useState<string>("")
 
   const { allowedToEdit, key } = useTimetable({ id })

@@ -205,9 +205,12 @@ const Dashboard = () => {
                     p={6}
                     px={8}
                     fontWeight="medium"
-                    onClick={() => {setPageLoading(id)}}
+                    onClick={() => {
+                      setPageLoading(id)
+                    }}
                   >
-                    {timetable.name}{pageLoading === id && <Spinner m={0} /> }
+                    {timetable.name}
+                    {pageLoading === id && <Spinner m={0} />}
                   </Box>
                 </a>
               </Link>

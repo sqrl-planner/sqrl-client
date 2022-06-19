@@ -75,10 +75,7 @@ const AppContextReducer = (
 
   const timetableState = state[timetableId]
 
-  const {
-    programs,
-    campus,
-  } = timetableState
+  const { programs, campus } = timetableState
 
   switch (action.type) {
     case "ADD_PROGRAM": {
@@ -160,7 +157,7 @@ const AppContextReducer = (
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const router = useRouter()
 
-  const timetableId = (router && router.query.id as string) || "new_timetable"
+  const timetableId = (router && (router.query.id as string)) || "new_timetable"
 
   const [lsAppContext, setLsAppContext] = useState<string | null>()
 

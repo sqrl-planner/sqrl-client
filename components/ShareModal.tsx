@@ -26,6 +26,7 @@ import { useRouter } from "next/router"
 import { BiDuplicate } from "react-icons/bi"
 import { useMutation } from "@apollo/client"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
+import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
 
 type props = {
   isOpen: boolean
@@ -72,7 +73,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
         <ModalHeader fontSize="2xl">Share timetable</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <VStack width="100%" fontWeight={500} spacing={6}>
+          <VStack width="100%" fontWeight={500} spacing={8}>
             <Flex
               width="100%"
               alignItems="center"
@@ -83,19 +84,26 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                 <Text as="span" display="flex" alignItems="center">
                   <Icon as={FaShareSquare} mr={2} /> Share read-only
                 </Text>
-                <Input
-                  cursor="pointer"
-                  as="button"
-                  onClick={onCopy}
-                  my={1}
-                  mt={2}
-                  readOnly
+                <Flex
+                  my={2}
+                  alignItems="center"
+                  gap={4}
+                  justifyContent="space-between"
                 >
-                  {shareUrl}
-                </Input>
+                  <Input
+                    whiteSpace="nowrap"
+                    textOverflow="ellipsis"
+                    overflow="hidden"
+                    value={shareUrl}
+                    flex="1"
+                    onFocus={(e) => e.target.select()}
+                  ></Input>
+                  <Button onClick={onCopy} colorScheme="blue" bg="blue.700">
+                    <CopyIcon mr={2} /> Copy link
+                  </Button>
+                </Flex>
                 <FormHelperText fontWeight={400}>
-                  Click to copy the link. Anyone who views this timetable can
-                  duplicate it.
+                  Anyone who views this timetable can duplicate it.
                 </FormHelperText>
               </FormControl>
             </Flex>
@@ -113,6 +121,8 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                   colorScheme="blue"
                   bg="blue.700"
                   onClick={() => {
+                    const newTimetable = window.open("", "_blank")
+
                     setLoading(true)
                     duplicateTimetable({
                       variables: {
@@ -138,7 +148,8 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                           })
                         )
 
-                        window.open(`${sharePrefix}${id}`, "_blank")
+                        if (newTimetable)
+                          newTimetable.location.href = `${sharePrefix}${id}`
 
                         setLoading(false)
                       },
@@ -146,6 +157,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                   }}
                   isLoading={loading}
                 >
+                  <ExternalLinkIcon mr={2} />
                   Create a copy
                 </Button>
               </Flex>
