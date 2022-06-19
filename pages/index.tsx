@@ -1,16 +1,27 @@
 import { ApolloProvider, useLazyQuery, useMutation } from "@apollo/client"
-import { PlusSquareIcon } from "@chakra-ui/icons"
+import { PlusSquareIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
   chakra,
   ChakraProvider,
+  CloseButton,
   Container,
   extendTheme,
   Flex,
   Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Select,
   SimpleGrid,
   Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   useColorMode,
   useColorModeValue,
   useDisclosure,
@@ -29,6 +40,8 @@ import { CREATE_TIMETABLE } from "../operations/mutations/createTimetable"
 import client from "../src/apollo-client"
 import { PreferencesProvider } from "../src/PreferencesContext"
 import Sqrl from "../src/Sqrl"
+import Image from "next/image"
+import SqrlLogo from "../public/sqrl-logo.png"
 
 export const theme = extendTheme({
   fonts: {
@@ -46,6 +59,7 @@ export const theme = extendTheme({
       650: "#424b5c",
     },
     blue: {
+      50: "#cffafe",
       100: "#cffafe",
       200: "#a5f3fc",
       300: "#67e8f9",
@@ -83,6 +97,10 @@ const Dashboard = () => {
     [id: string]: { key: string; name: string }
   }>({})
 
+  const [timetablesToDisplay, setTimetablesToDisplay] = useState<{
+    [id: string]: { key: string; name: string }
+  }>({})
+
   const [disclaimed, setDisclaimed] = useState<boolean>(true)
   useEffect(() => {
     const lsDisclaimed = localStorage.getItem("disclaimed")
@@ -94,6 +112,9 @@ const Dashboard = () => {
   }, [disclaimed, setDisclaimed])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const [sortBy, setSortBy] = useState<"custom" | "edit" | "create">("custom")
+  const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
     if (disclaimed) onClose()
@@ -110,6 +131,17 @@ const Dashboard = () => {
       prevLsTimetables as { [id: string]: { key: string; name: string } }
     )
   }, [])
+
+  useEffect(() => {
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase()
+    setTimetablesToDisplay(
+      Object.fromEntries(
+        Object.entries(timetables).filter(([key, timetable]) =>
+          timetable.name.includes(normalizedSearchQuery)
+        )
+      )
+    )
+  }, [timetables, setTimetablesToDisplay, searchQuery])
 
   const createNewTimetable = () => {
     setNewLoading(true)
@@ -136,111 +168,189 @@ const Dashboard = () => {
   const [pageLoading, setPageLoading] = useState("")
 
   return (
-    <Box
-      display="flex"
-      w="100%"
-      h="100%"
-      minH="100vh"
-      background={useColorModeValue("gray.75", "gray.800")}
-      justifyContent="center"
-      alignItems="start"
-      gap={2}
-      pt={20}
-    >
-      <DisclaimerModal
-        disclosure={{ isOpen, onOpen, onClose }}
-        ModalProps={{
-          isOpen,
-          onClose,
-        }}
-      />
-      <Container
+    <React.Fragment>
+      <Box
         display="flex"
-        flexDirection="column"
-        maxW="sm"
-        gap={4}
-        rounded="2xl"
-        shadow="2xl"
-        m={0}
-        p={8}
+        w="100%"
+        h="100%"
+        minH="100vh"
+        backgroundColor="#EBEBE4"
+        position="relative"
       >
-        <Heading>Sqrl</Heading>
-        <Button w="full" variant="solid" colorScheme="blue">
-          My timetables
-        </Button>
-        <Button w="full" variant="outline">
-          Shared with me
-        </Button>
-        <Button mt={10} w="full" variant="outline">
-          Settings
-        </Button>
-      </Container>
-      <Container maxW="5xl" m={0}>
-        <Heading mb={4} ml={8} size="2xl">
-          My timetables
-        </Heading>
-        <SimpleGrid
-          alignItems="start"
-          // justifyContent="start"
-          // justifyItems="start"
-          columns={2}
-          spacing={8}
-          rounded="lg"
-          p={8}
+        <Container
+          maxW={{base: "6xl", "2xl": "8xl"}}
+          pt={8}
+          display="flex"
+          flexDirection="column"
+          gap={6}
         >
-          {Object.entries(timetables).map(([id, timetable]) => {
-            return (
-              <Link key={id} href={`/timetable/${id}`}>
-                <a>
-                  <Box
-                    shadow="lg"
-                    cursor="pointer"
-                    alignItems="center"
-                    rounded="xl"
-                    background="blue.500"
-                    color="white"
-                    fontSize="lg"
-                    display="flex"
-                    gap={2}
-                    p={6}
-                    px={8}
-                    fontWeight="medium"
-                    onClick={() => {
-                      setPageLoading(id)
-                    }}
-                  >
-                    {timetable.name}
-                    {pageLoading === id && <Spinner m={0} />}
-                  </Box>
-                </a>
-              </Link>
-            )
-          })}
-          <Button
-            border="4px dashed"
-            rounded="xl"
-            color="blue.700"
-            borderColor="blue.500"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            padding={12}
-            disabled={newLoading}
-            onClick={createNewTimetable}
-          >
-            <Box
-              display="flex"
-              flexDirection="column"
-              position="relative"
-              bottom="1"
-            >
-              <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
-              <Box>Create a new timetable</Box>
+          <Flex gap={4} alignItems="center">
+            <Box w={14} h={14} position="relative">
+              <Image src={SqrlLogo} layout="fill" objectFit="contain" />
             </Box>
-          </Button>
-        </SimpleGrid>
-      </Container>
-    </Box>
+            <Heading as="h1" fontSize="4xl" fontWeight={600}>
+              Sqrl
+            </Heading>
+          </Flex>
+
+          <Flex justifyContent="space-between">
+            <Flex>
+              <Select
+                shadow="sm"
+                fontWeight={500}
+                bg="white"
+                value={sortBy}
+                disabled
+                onChange={(e) =>
+                  setSortBy(e.target.value as "custom" | "edit" | "create")
+                }
+              >
+                {/* <option value="custom">Custom</option> */}
+                {/* <option value="edit">Last edited</option> */}
+                <option value="create">Creation date</option>
+              </Select>
+            </Flex>
+            <Flex>
+              <InputGroup>
+                <Input
+                  width="xs"
+                  bg="white"
+                  shadow="sm"
+                  placeholder={"Search"}
+                  value={searchQuery}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setSearchQuery(e.target.value)
+                  }}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                    e.target.select()
+                  }}
+                />
+                <InputLeftElement>
+                  <SearchIcon />
+                </InputLeftElement>
+                <InputRightElement>
+                  {searchQuery && (
+                    <CloseButton onClick={() => setSearchQuery("")} />
+                  )}
+                </InputRightElement>
+              </InputGroup>
+            </Flex>
+          </Flex>
+
+          <SimpleGrid
+            alignItems="start"
+            // justifyContent="start"
+            // justifyItems="start"
+            columns={{base: 2, md: 3}}
+            spacing={6}
+            rounded="lg"
+            pb={48}
+          >
+            {Object.entries(timetablesToDisplay).map(([id, timetable]) => {
+              return (
+                <Link key={id} href={`/timetable/${id}`}>
+                  <a onClick={(e) => {
+                    if(pageLoading) e.preventDefault()
+                  }}>
+                    <Box
+                      shadow="lg"
+                      alignItems="center"
+                      rounded="xl"
+                      background="blue.700"
+                      color="white"
+                      fontSize="lg"
+                      display="flex"
+                      gap={2}
+                      p={6}
+                      px={8}
+                      minH="2xs"
+                      fontWeight="medium"
+                      position="relative"
+                      opacity={!!pageLoading ? "0.5" : "1"}
+                      cursor={!!pageLoading ? "not-allowed" : "pointer"}
+                      onClick={() => {
+                        if (pageLoading) return
+                        setPageLoading(id)
+                      }}
+                    >
+                      <Flex
+                        pr={8}
+                        lineHeight="1.2em"
+                        fontSize="3xl"
+                        alignItems="center"
+                        gap={2}
+                        position="absolute"
+                        bottom={6}
+                        fontWeight={600}
+                      >
+                        {timetable.name}
+                        {pageLoading === id && <Spinner m={0} />}
+                      </Flex>
+                    </Box>
+                  </a>
+                </Link>
+              )
+            })}
+            <Button
+              border="4px dashed"
+              rounded="xl"
+              color="blue.700"
+              borderColor="blue.500"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              padding={12}
+              disabled={newLoading}
+              onClick={createNewTimetable}
+              minH="2xs"
+            >
+              <Box
+                display="flex"
+                flexDirection="column"
+                position="relative"
+                bottom="1"
+              >
+                <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
+                <Box>Create a new timetable</Box>
+              </Box>
+            </Button>
+          </SimpleGrid>
+        </Container>
+        <Box
+          as={motion.div}
+          initial={{
+            opacity: 0,
+            y: 50,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          position="fixed"
+          bottom={20}
+          left={0}
+          right={0}
+          margin="auto"
+          width="34rem"
+          background="white"
+          p={4}
+          shadow="2xl"
+          rounded="full"
+        >
+          <Tabs variant="soft-rounded" align="center">
+            <TabList>
+              <Tab>My timetables</Tab>
+              <Tab isDisabled>Shared with me</Tab>
+              <Tab isDisabled>Templates</Tab>
+              <Tab isDisabled>Settings</Tab>
+            </TabList>
+          </Tabs>
+        </Box>
+      </Box>
+    </React.Fragment>
   )
 }
 
