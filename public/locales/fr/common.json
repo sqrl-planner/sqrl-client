@@ -1,14 +1,13 @@
 {
-	"mon": "lun",
-	"tue": "mar",
-	"wed": "mer",
-	"thu": "jeu",
-	"fri": "ven",
-	"lec": "CRS",
-	"tut": "TUT",
-	"pra": "PRA",
-	"first-semester": "1re",
-	"second-semester": "2d",
-	"search-anything": "Chercher n'importe quoi"
-
+  "mon": "lun",
+  "tue": "mar",
+  "wed": "mer",
+  "thu": "jeu",
+  "fri": "ven",
+  "lec": "CRS",
+  "tut": "TUT",
+  "pra": "PRA",
+  "first-semester": "1re",
+  "second-semester": "2d",
+  "search-anything": "Chercher n'importe quoi"
 }

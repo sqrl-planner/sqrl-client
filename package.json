@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --coverage"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "prepare": "husky install",
+    "format": "prettier --write .",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@apollo/client": "^3.6.6",
@@ -15,6 +19,8 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@next/bundle-analyzer": "^12.1.6",
+    "apollo3-cache-persist": "^0.14.0",
     "color": "^4.0.1",
     "cross-fetch": "^3.1.5",
     "framer-motion": "^6.3.11",
@@ -49,9 +55,11 @@
     "dayjs": "^1.10.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jest-fetch-mock": "^3.0.3",
+    "lint-staged": "^13.0.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "postcss": "^8.4.5",
@@ -59,5 +67,11 @@
     "tailwindcss": "^3.0.15",
     "ts-jest": "^28.0.2",
     "typescript": "4.3.5"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,json}": [
+      "eslint . --fix",
+      "prettier --write ."
+    ]
   }
 }

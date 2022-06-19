@@ -18,11 +18,15 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import React, { Fragment } from "react"
+import { useRouter } from "next/router"
+import React, { Fragment, useEffect } from "react"
 import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
 import { Course } from "../../src/Course"
 import MeetingsFabricator from "../../src/MeetingsFabricator"
 import { useAppContext, UserMeeting } from "../../src/SqrlContext"
+import useCourses from "../../src/useCourses"
+import useTimetable from "../../src/useTimetable"
+import useSections from "../../src/useSections"
 import { breakdownCourseCode } from "../../src/utils/course"
 import {
   Meeting,
@@ -69,9 +73,17 @@ const MeetingPicker = ({
   const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
   const {
-    state: { courses, userMeetings, sidebarCourse: identifier },
+    state: { sidebarCourse: identifier },
     dispatch,
   } = useAppContext()
+
+  const router = useRouter()
+  const { sections, setSections } = useSections()
+  const { courses, userMeetings } = useCourses({ sections })
+
+  const { allowedToEdit } = useTimetable({
+    id: (router.query.id as string) || "",
+  })
 
   const matchingMethods: typeof course.sections = course.sections.filter(
     (meeting) => meeting.teachingMethod.toUpperCase() === method.toUpperCase()
@@ -93,34 +105,34 @@ const MeetingPicker = ({
         mb={1}
       >
         <CourseSubheading px={5}>{t(method)}</CourseSubheading>
-        <button
-          disabled={
-            !(userMeetings[identifier] && userMeetings[identifier][method])
-          }
-          onClick={() => {
-            dispatch({
-              type: "REMOVE_MEETING",
-              payload: {
-                identifier,
-                method,
-              },
-            })
-          }}
-        >
-          <Icon
-            as={FaTrashAlt}
-            position="relative"
-            top={1.5}
-            fontSize="sm"
-            pl={0.5}
-            mr={7}
-            opacity={
-              userMeetings[identifier] && userMeetings[identifier][method]
-                ? ""
-                : "0.5"
-            }
-          />
-        </button>
+        {/* <button */}
+        {/*   disabled={ */}
+        {/*     !(userMeetings[identifier] && userMeetings[identifier][method]) */}
+        {/*   } */}
+        {/*   onClick={() => { */}
+        {/*     // dispatch({ */}
+        {/*     //   type: "REMOVE_MEETING", */}
+        {/*     //   payload: { */}
+        {/*     //     identifier, */}
+        {/*     //     method, */}
+        {/*     //   }, */}
+        {/*     // }) */}
+        {/*   }} */}
+        {/* > */}
+        {/*   <Icon */}
+        {/*     as={FaTrashAlt} */}
+        {/*     position="relative" */}
+        {/*     top={1.5} */}
+        {/*     fontSize="sm" */}
+        {/*     pl={0.5} */}
+        {/*     mr={7} */}
+        {/*     opacity={ */}
+        {/*       userMeetings[identifier] && userMeetings[identifier][method] */}
+        {/*         ? "" */}
+        {/*         : "0.5" */}
+        {/*     } */}
+        {/*   /> */}
+        {/* </button> */}
       </Flex>
       <VStack spacing={0}>
         {matchingMethods.map((section) => {
@@ -253,6 +265,8 @@ const MeetingPicker = ({
                 fontSize="sm"
                 // alignContent="center"
                 alignItems="center"
+                // justifyContent="start"
+                justifyItems="start"
                 gridTemplateColumns="auto auto 1fr auto"
                 width="100%"
                 boxShadow={`inset 0 2px 3px -3px ${boxShadowColour} ${
@@ -262,23 +276,30 @@ const MeetingPicker = ({
                 p={2.5}
                 pl={5}
                 fontWeight="600"
-                cursor={isSelected ? "default" : "pointer"}
+                cursor={
+                  isSelected
+                    ? "default"
+                    : allowedToEdit
+                    ? "pointer"
+                    : "not-allowed"
+                }
                 _hover={{
-                  background: isSelected ? "" : hoverBackground,
+                  background:
+                    isSelected || !allowedToEdit ? "" : hoverBackground,
                 }}
+                opacity={allowedToEdit || isSelected ? 1 : 0.5}
                 // border={hasConflict ? "1px solid red" : "none"}
                 // transition="background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1)"
                 role="button"
                 onClick={() => {
                   if (!sectionCode) return
-                  dispatch({
-                    type: "SET_MEETING",
-                    payload: {
-                      identifier,
-                      meeting: sectionCode,
-                      method: method,
-                    },
+                  if (!allowedToEdit) return
+
+                  setSections({
+                    courseId: identifier,
+                    sections: [sectionCode],
                   })
+
                   dispatch({
                     type: "SET_HOVER_MEETING",
                     payload: {

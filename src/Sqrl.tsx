@@ -1,3 +1,4 @@
+import { useLazyQuery, useQuery } from "@apollo/client"
 import {
   Box,
   chakra,
@@ -8,12 +9,14 @@ import {
   useColorMode,
   useColorModeValue,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import React, { Fragment, useEffect, useState } from "react"
+import Head from "next/head"
+import { useRouter } from "next/router"
+import React, { Fragment, useEffect, useMemo, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
 import styled from "styled-components"
-import DisclaimerModal from "../components/DisclaimerModal"
 import Header from "../components/Header"
 import Sidebar from "../components/sidebar/Sidebar"
 import { Meeting } from "../components/timetable/Meeting"
@@ -21,7 +24,10 @@ import { Timetable } from "../components/timetable/Timetable"
 import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
-import { useAppContext } from "./SqrlContext"
+import { useAppContext, UserMeeting } from "./SqrlContext"
+import useCourses from "./useCourses"
+import useSections from "./useSections"
+import useTimetable from "./useTimetable"
 import { timeToMinuteOffset } from "./utils/time"
 
 const Container = styled(chakra.div)`
@@ -30,33 +36,37 @@ const Container = styled(chakra.div)`
   top: 4.5rem;
 
   display: flex;
-  width: 100vw;
 `
 
 const Sqrl = () => {
   const {
     state: {
       scale,
+      showSemester,
       start,
       end,
       palette,
-      highlightConflicts,
       twentyFour,
       emphasize,
-      showSemester,
+      highlightConflicts,
     },
   } = usePreferences()
 
   const {
-    state: { courses, userMeetings, sidebarCourse, hoverMeeting },
+    state: { hoverMeeting, sidebarCourse },
   } = useAppContext()
 
-  const [timetableSize, setTimetableSize] = useState(40)
-  const [firstMeetings, setFirstMeetings] = useState<Array<Meeting>>([])
-  const [secondMeetings, setSecondMeetings] = useState<Array<Meeting>>([])
-  const [disclaimed, setDisclaimed] = useState<boolean | null>(null)
+  const router = useRouter()
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { sections, setSections } = useSections()
+
+  const { courses, userMeetings } = useCourses({ sections })
+
+  const [timetableSize, setTimetableSize] = useState(40)
+
+  const { allowedToEdit } = useTimetable({
+    id: router.query.id as string | undefined,
+  })
 
   useEffect(() => {
     setTimetableSize(scale)
@@ -64,34 +74,38 @@ const Sqrl = () => {
 
   const { colorMode, setColorMode } = useColorMode()
 
+  const [meetings, setMeetings] = useState({})
+
   useEffect(() => {
-    const meetings = {
+    setMeetings({
       ...userMeetings,
       [hoverMeeting.courseIdentifier]: {
         ...userMeetings[hoverMeeting.courseIdentifier],
         hover: hoverMeeting.meeting,
       },
-    }
+    })
+  }, [userMeetings, hoverMeeting])
 
-    setFirstMeetings(MeetingsFabricator(courses, meetings, "FIRST_SEMESTER"))
-    setSecondMeetings(MeetingsFabricator(courses, meetings, "SECOND_SEMESTER"))
-  }, [setFirstMeetings, setSecondMeetings, courses, userMeetings, hoverMeeting])
+  const firstMeetings = useMemo<Array<Meeting>>(
+    () => MeetingsFabricator(courses, meetings, "FIRST_SEMESTER"),
+    [courses, meetings]
+  )
+  const secondMeetings = useMemo<Array<Meeting>>(
+    () => MeetingsFabricator(courses, meetings, "SECOND_SEMESTER"),
+    [courses, meetings]
+  )
 
-  useEffect(() => {
-    const lsDisclaimed = localStorage.getItem("disclaimed")
-
-    if (lsDisclaimed) {
-      setDisclaimed(JSON.parse(lsDisclaimed) as boolean)
-    }
-  }, [disclaimed, setDisclaimed])
-
-  useEffect(() => {
-    if (!disclaimed) onOpen()
-    if (disclaimed) onClose()
-  }, [disclaimed, onOpen, onClose])
-
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
+
+  // const sidebarOpen = true
+  // const setSidebarOpen = (any: any) => {}
+
+  const { t } = useTranslation("common")
+
+  const gridBackground = useColorModeValue("gray.75", "gray.800")
+
+  const { dispatch } = useAppContext()
 
   useEffect(() => {
     if (!sidebarCourse) return
@@ -107,28 +121,19 @@ const Sqrl = () => {
   }, [sidebarCourse])
 
   useEffect(() => {
-    if (localStorage.getItem("disclaimed")) return
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      setColorMode("dark")
-    }
-  }, [setColorMode])
+    dispatch({ type: "SET_SIDEBAR", payload: allowedToEdit ? 0 : 1 })
+  }, [allowedToEdit, dispatch])
 
-  const { t } = useTranslation("common")
+  const SidebarTriggerColour = useColorModeValue(
+    "rgba(236, 236, 236, 0.6)",
+    "rgba(0,0,0,0.6)"
+  )
+
+  // return <Fragment>poopenfarten</Fragment>
 
   return (
     <Fragment>
-      <DisclaimerModal
-        disclosure={{ isOpen, onOpen, onClose }}
-        ModalProps={{
-          isOpen,
-          onClose,
-        }}
-      />
       <Header setSidebarOpen={setSidebarOpen} />
-
       <Container
         width={sidebarOpen ? "calc(100vw - 25rem)" : "100vw"}
         minHeight="calc(100vh - 4.5rem)"
@@ -140,7 +145,7 @@ const Sqrl = () => {
         <HoverContextProvider>
           <Grid
             gridTemplateColumns="repeat(auto-fit, minmax(450px, 1fr))"
-            background={useColorModeValue("gray.75", "gray.800")}
+            background={gridBackground}
             flex="1"
             zIndex="1"
             boxShadow="0px 0px 9px -5px rgba(0, 0, 0, 0.3)"
@@ -157,10 +162,11 @@ const Sqrl = () => {
                   fontWeight="800"
                   position="absolute"
                   top={2}
-                  left={3}
+                  left={2}
                 >
                   {t("first-semester")}
                 </Heading>
+
                 <Timetable
                   meetings={firstMeetings}
                   scale={timetableSize}
@@ -183,10 +189,11 @@ const Sqrl = () => {
                   fontWeight="800"
                   position="absolute"
                   top={2}
-                  left={3}
+                  left={2}
                 >
                   {t("second-semester")}
                 </Heading>
+
                 <Timetable
                   meetings={secondMeetings}
                   scale={timetableSize}
@@ -203,6 +210,7 @@ const Sqrl = () => {
           </Grid>
         </HoverContextProvider>
       </Container>
+      (
       <Flex
         position="fixed"
         right="0"
@@ -224,10 +232,7 @@ const Sqrl = () => {
         <Flex
           as="button"
           pointerEvents="all"
-          background={useColorModeValue(
-            "rgba(236, 236, 236, 0.6)",
-            "rgba(0,0,0,0.6)"
-          )}
+          background={SidebarTriggerColour}
           p={2}
           height="2rem"
           width="2rem"

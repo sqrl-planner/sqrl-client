@@ -1,13 +1,13 @@
 import { Meeting } from "../../components/timetable/Meeting"
 
 export interface SqrlIcsEvent {
-    summary: string
-    firstStart: Date
-    firstEnd: Date
-    rruleBeforeDate: string
-    rruleUntil: string
-    tzid: string
-    meeting: Meeting
+  summary: string
+  firstStart: Date
+  firstEnd: Date
+  rruleBeforeDate: string
+  rruleUntil: string
+  tzid: string
+  meeting: Meeting
 }
 
 const HEADER = `BEGIN:VCALENDAR
@@ -16,39 +16,37 @@ CALSCALE:GREGORIAN
 PRODID:eamonma/ics`
 
 const generateUid = async (meeting: Meeting) => {
-    return Array.from(
-        new Uint8Array(
-            await crypto.subtle.digest(
-                "SHA-256",
-                new TextEncoder().encode(
-                    `${meeting.getUniqueKey()}-${meeting.day}`
-                )
-            )
-        )
+  return Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(`${meeting.getUniqueKey()}-${meeting.day}`)
+      )
     )
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("")
+  )
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")
 }
 
 const ISOStringToDateString = (ISOString: string): string => {
-    return ISOString.replace(/[^a-zA-Z0-9 ]/g, "").substring(
-        0,
-        ISOString.length - 9
-    )
+  return ISOString.replace(/[^a-zA-Z0-9 ]/g, "").substring(
+    0,
+    ISOString.length - 9
+  )
 }
 
 export const dateToIcsString = (date: Date): string =>
-    ISOStringToDateString(date.toISOString())
+  ISOStringToDateString(date.toISOString())
 
 const icalFabricator = (events: Array<SqrlIcsEvent>): string => {
-    let ics = ""
+  let ics = ""
 
-    ics += HEADER
+  ics += HEADER
 
-    const currentTimeStamp = dateToIcsString(new Date())
+  const currentTimeStamp = dateToIcsString(new Date())
 
-    for (const event of events) {
-        ics += `
+  for (const event of events) {
+    ics += `
 BEGIN:VEVENT
 UID:${generateUid(event.meeting)}
 SUMMARY:${event.summary}
@@ -57,12 +55,12 @@ DTSTART;TZID=${event.tzid}:${dateToIcsString(event.firstStart)}
 DTEND;TZID=${event.tzid}:${dateToIcsString(event.firstEnd)}
 RRULE:${event.rruleBeforeDate}UNTIL=${event.rruleUntil}
 END:VEVENT`
-    }
+  }
 
-    ics += `
+  ics += `
 END:VCALENDAR`
 
-    return ics
+  return ics
 }
 
 export default icalFabricator

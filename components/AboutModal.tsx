@@ -143,7 +143,13 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   Contributors
                 </Heading>
 
-                <Flex gap={4} flexWrap="wrap" justifyContent="stretch">
+                <Grid
+                  templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr 1fr" }}
+                  width="100%"
+                  gap={4}
+                  flexWrap="wrap"
+                  justifyContent="stretch"
+                >
                   {contributors?.sqrlClient &&
                     contributors?.sqrlClient.map((contributor) => (
                       <Contributor
@@ -151,7 +157,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                         key={contributor.id}
                       />
                     ))}
-                </Flex>
+                </Grid>
               </Flex>
 
               <Divider />
@@ -189,7 +195,13 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   Contributors
                 </Heading>
 
-                <Flex gap={4} flexWrap="wrap" justifyContent="stretch">
+                <Grid
+                  templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr 1fr" }}
+                  width="100%"
+                  gap={4}
+                  flexWrap="wrap"
+                  justifyContent="stretch"
+                >
                   {contributors?.sqrlServer &&
                     contributors?.sqrlServer.map((contributor) => (
                       <Contributor
@@ -197,7 +209,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                         key={contributor.id}
                       />
                     ))}
-                </Flex>
+                </Grid>
               </Flex>
 
               <Divider />
@@ -232,7 +244,13 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   Contributors
                 </Heading>
 
-                <Flex gap={4} flexWrap="wrap" justifyContent="stretch">
+                <Grid
+                  templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr 1fr" }}
+                  width="100%"
+                  gap={4}
+                  flexWrap="wrap"
+                  justifyContent="stretch"
+                >
                   {contributors?.gator &&
                     contributors?.gator.map((contributor) => (
                       <Contributor
@@ -240,7 +258,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                         key={contributor.id}
                       />
                     ))}
-                </Flex>
+                </Grid>
               </Flex>
             </Flex>
           </Flex>

@@ -14,10 +14,13 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useState } from "react"
 import CountUp from "react-countup"
 import { Course } from "../../src/Course"
 import { useAppContext } from "../../src/SqrlContext"
+import useCourses from "../../src/useCourses"
+import useSections from "../../src/useSections"
 import {
   breakdownCourseCode,
   breakdownCourseIdentifier,
@@ -50,10 +53,12 @@ export const CourseSubheading = ({
 )
 
 const OverviewView = () => {
-  const {
-    state: { courses, userMeetings },
-    dispatch,
-  } = useAppContext()
+  const { dispatch } = useAppContext()
+
+  const { sections } = useSections()
+  const { courses, userMeetings } = useCourses({
+    sections,
+  })
 
   const [coursesToShow, setCoursesToShow] = useState<{
     first: Array<string>
@@ -301,14 +306,22 @@ const OverviewView = () => {
                             fontFamily="interstate-mono, monospace"
                           >
                             {Object.keys(userMeetings[identifier]).map(
-                              (method: any) => (
-                                <Tag key={method} ml={2}>
-                                  {userMeetings[identifier][
+                              (method: string) => {
+                                if (
+                                  !userMeetings[identifier][
                                     method as MeetingCategoryType
-                                  ]?.replace("-", " ")}
-                                  {/* {userMeetings[identifier][method]} */}
-                                </Tag>
-                              )
+                                  ]
+                                )
+                                  return
+                                return (
+                                  <Tag key={method} ml={2}>
+                                    {userMeetings[identifier][
+                                      method as MeetingCategoryType
+                                    ]?.replace("-", " ")}
+                                    {/* {userMeetings[identifier][method]} */}
+                                  </Tag>
+                                )
+                              }
                             )}
                             {!!missing.length && <WarningTwoIcon ml={2} />}
                           </Flex>

@@ -18,6 +18,9 @@ import {
   PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
+  Skeleton,
+  SkeletonText,
+  Stack,
   Text,
   ToastId,
   Tooltip,
@@ -28,6 +31,7 @@ import React, {
   Fragment,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react"
@@ -39,12 +43,32 @@ import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
 import { FaTrashAlt, FaShareSquare } from "react-icons/fa"
+import { useMutation, useQuery } from "@apollo/client"
+import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
+import { useRouter } from "next/router"
+import useCourses from "../../src/useCourses"
+import useSections from "../../src/useSections"
+import { motion } from "framer-motion"
+import { REMOVE_COURSE_TIMETABLE } from "../../operations/mutations/removeCourseTimetable"
+import useTimetable from "../../src/useTimetable"
+import { SearchIcon } from "@chakra-ui/icons"
 
 const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const {
-    state: { courses, sidebarCourse: identifier, userMeetings },
+    state: {
+      // courses,
+      sidebarCourse: identifier,
+      // userMeetings
+    },
     dispatch,
   } = useAppContext()
+
+  const router = useRouter()
+  const { sections, removeCourse } = useSections()
+  const { courses, userMeetings, loading } = useCourses({
+    sections,
+  })
+  const { allowedToEdit } = useTimetable({ id: router.query.id as string })
 
   const course = courses[identifier]
 
@@ -65,35 +89,22 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
 
   const toast = useToast()
 
-  useLayoutEffect(() => {
-    return () => {
-      if (!userMeetings[identifier]) return
-
-      const missing = meetingsMissing(course, userMeetings, identifier)
-
-      if (missing.length == 0) return
-
-      if (toast.isActive("warn-missing-section")) return
-
-      toast({
-        id: "warn-missing-section",
-        title: "Some courses are missing a section.",
-        description: "Check Overview to see missing meetings.",
-        status: "warning",
-        variant: "solid",
-        isClosable: true,
-        duration: null,
-        onCloseComplete: () => dispatch({ type: "SET_SIDEBAR", payload: 2 }),
-      })
-    }
-  }, [])
-
   const removePopoverTriggerRef = useRef<HTMLButtonElement>(null)
   const { t } = useTranslation("common")
 
   const shareUrl = `https://app.sqrlplanner.com/course/<:id>/share?sections=<:id1>,<:id2>`
 
   const { onCopy, hasCopied } = useClipboard(shareUrl)
+
+  useEffect(() => {
+    if (!course || !userMeetings || !identifier || !userMeetings[identifier]) return
+
+    const missing = meetingsMissing(course, userMeetings, identifier)
+
+    if (missing.length !== 0) return
+
+    toast.close("warn-missing-section")
+  }, [course, userMeetings, identifier])
 
   useEffect(() => {
     if (!hasCopied) return
@@ -106,7 +117,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     })
   }, [hasCopied])
 
-  if (!course) {
+  if (!identifier) {
     return (
       <Box p={5}>
         <Heading
@@ -117,10 +128,66 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          No course selected.
+          No course selected
         </Heading>
-        <Text>Pick a course to see information regarding it.</Text>
+        <Text fontWeight={500} opacity={0.7} mt={2}>
+          Pick a course to see it here.
+        </Text>
+        {allowedToEdit && (
+          <Button
+            onClick={() => {
+              dispatch({ type: "SET_SIDEBAR", payload: 0 })
+            }}
+            colorScheme="blue"
+            bg="blue.700"
+            mt={2}
+          >
+            <SearchIcon mr={2} /> Search for courses
+          </Button>
+        )}
       </Box>
+    )
+  }
+
+  if (!course) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
+      >
+        <Box p={5}>
+          <Skeleton mb={4} height="40px" />
+          <Skeleton>
+            Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
+            cillum sint consectetur cupidatat.
+          </Skeleton>
+          <Stack mt={4}>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+          <Stack mt={6}>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+          <Stack mt={6}>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </Stack>
+        </Box>
+      </motion.div>
     )
   }
 
@@ -178,9 +245,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             <Tooltip label={course.breadthCategories}>
               <Text
                 fontSize="0.5em"
-                backgroundColor="blue.100"
-                color="blue.800"
+                backgroundColor="blue.700"
+                color="white"
                 // colorScheme="blue"
+                fontWeight="600"
                 shadow="sm"
                 p={1}
                 px={3}
@@ -240,11 +308,9 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
                     <Button
                       colorScheme="red"
                       onClick={() => {
-                        dispatch({
-                          type: "REMOVE_COURSE",
-                          payload: identifier,
-                        })
-                        // onClose()
+                        removeCourse({ courseId: identifier })
+                        dispatch({ type: "SET_SIDEBAR", payload: 0 })
+                        onClose()
                       }}
                       gap={2}
                     >
@@ -272,8 +338,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
               removePopoverTriggerRef.current.click()
             }}
             disabled={
+              !allowedToEdit ||
               !Object.keys(userMeetings).some((courseCode) => {
-                console.log(courseCode)
                 return courseCode === course.id
               })
             }
@@ -286,8 +352,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             alignItems="center"
             gap={2}
             disabled={
+              true ||
               !Object.keys(userMeetings).some((courseCode) => {
-                console.log(courseCode)
                 return courseCode === course.id
               })
             }

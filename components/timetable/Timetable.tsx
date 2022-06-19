@@ -25,7 +25,7 @@ import {
   StyledTr,
 } from "./StyledTimetable"
 
-type TimetableProps = {
+type Props = {
   /**
    * The meetings to display on the timetable.
    */
@@ -85,14 +85,14 @@ export const Timetable = ({
   dark = false,
   emphasizeOnHover = true,
   days = WEEK_DAYS,
-}: TimetableProps) => {
+}: Props) => {
   const {
     state: { hoverCourseKey },
     dispatch,
   } = useHoverContext()
 
   const {
-    state: { sidebarCourse, hoverMeeting },
+    state: { sidebarCourse, hoverMeeting, sidebar },
     dispatch: dispatchAppContext,
   } = useAppContext()
 
@@ -182,6 +182,13 @@ export const Timetable = ({
                 onMouseEnter={() => setHoverCourseKey(meeting.courseKey)}
                 onMouseLeave={() => setHoverCourseKey(null)}
                 onClick={() => {
+                  if (meeting.identifier === sidebarCourse && sidebar === 1) {
+                    return dispatchAppContext({
+                      type: "SET_SIDEBAR_COURSE",
+                      payload: "",
+                    })
+                  }
+
                   dispatchAppContext({
                     type: "SET_SIDEBAR_COURSE",
                     payload: meeting.identifier,
@@ -299,6 +306,13 @@ export const Timetable = ({
                 }
                 conflict={highlightConflicts}
                 onClick={() => {
+                  if (meeting.identifier === sidebarCourse && sidebar === 1) {
+                    return dispatchAppContext({
+                      type: "SET_SIDEBAR_COURSE",
+                      payload: "",
+                    })
+                  }
+
                   dispatchAppContext({
                     type: "SET_SIDEBAR_COURSE",
                     payload: meeting.identifier,

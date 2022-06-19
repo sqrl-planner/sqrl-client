@@ -1,7 +1,20 @@
 import { WarningTwoIcon } from "@chakra-ui/icons"
-import { FormControl, FormLabel, Icon, Select } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Icon,
+  Select,
+  Slider,
+  SliderFilledTrack,
+  SliderMark,
+  SliderThumb,
+  SliderTrack,
+  Tooltip,
+} from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import React, { Fragment, useEffect } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { BiArrowFromRight } from "react-icons/bi"
 import { FaClock, FaGlassMartiniAlt, FaTruckMoving } from "react-icons/fa"
 import { GiResize } from "react-icons/gi"
@@ -37,6 +50,16 @@ const PreferencesMeeting = () => {
   }, [dispatch])
 
   const { t } = useTranslation("preferences")
+
+  const [sliderValue, setSliderValue] = useState(scale)
+  const [showTooltip, setShowTooltip] = useState(false)
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_SCALE",
+      payload: sliderValue,
+    })
+  }, [sliderValue])
 
   return (
     <Fragment>
@@ -115,22 +138,97 @@ const PreferencesMeeting = () => {
             </IconWrapper>
             {t("scale")}
           </FormLabel>
-          <Select
-            id="scale"
-            value={scale}
-            onChange={(e: React.ChangeEvent<any>) => {
-              const payload = parseInt(e.target.value)
+          {/* <Select */}
+          {/*   id="scale" */}
+          {/*   value={scale} */}
+          {/*   onChange={(e: React.ChangeEvent<any>) => { */}
+          {/*     const payload = parseInt(e.target.value) */}
 
-              dispatch({
-                type: "SET_SCALE",
-                payload,
-              })
-            }}
-          >
-            <option value="20"> {t("compact")}</option>
-            <option value="40"> {t("normal")}</option>
-            <option value="100"> {t("tall")}</option>
-          </Select>
+          {/*     dispatch({ */}
+          {/*       type: "SET_SCALE", */}
+          {/*       payload, */}
+          {/*     }) */}
+          {/*   }} */}
+          {/* > */}
+          {/*   <option value="20"> {t("compact")}</option> */}
+          {/*   <option value="40"> {t("normal")}</option> */}
+          {/*   <option value="80"> {t("tall")}</option> */}
+          {/* </Select> */}
+          <Box px={4}>
+            <Slider
+              id="slider"
+              // defaultValue={5}
+              value={sliderValue}
+              min={20}
+              max={100}
+              step={20}
+              my={4}
+              mb={8}
+              colorScheme="blue"
+              onChange={(v) => setSliderValue(v)}
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              <SliderMark
+                value={20}
+                mt="4"
+                ml="-2.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
+                Small
+              </SliderMark>
+              <SliderMark
+                value={40}
+                mt="4"
+                ml="-24.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
+                Normal
+              </SliderMark>
+              <SliderMark
+                value={60}
+                mt="4"
+                ml="-2.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
+                Big
+              </SliderMark>
+              <SliderMark
+                value={80}
+                mt="4"
+                ml="-2.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
+                Tall
+              </SliderMark>
+              <SliderMark
+                value={100}
+                mt="4"
+                ml="-36.5"
+                fontSize="sm"
+                fontWeight={500}
+              >
+                Cosmic
+              </SliderMark>
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <Tooltip
+                hasArrow
+                bg="blue.700"
+                color="white"
+                placement="top"
+                isOpen={showTooltip}
+                label={`${(sliderValue - 20) * 1.25}`}
+              >
+                <SliderThumb />
+              </Tooltip>
+            </Slider>
+          </Box>
         </FormControl>
       </PreferencesSection>
     </Fragment>

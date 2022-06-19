@@ -1,4 +1,5 @@
 import { useLazyQuery } from "@apollo/client"
+import { CheckIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
@@ -13,9 +14,14 @@ import {
   useColorModeValue,
   VStack,
   useDisclosure,
+  InputRightElement,
+  InputGroup,
+  CloseButton,
+  InputLeftElement,
 } from "@chakra-ui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 import React, {
   Dispatch,
   MutableRefObject,
@@ -27,6 +33,7 @@ import { useDebouncedCallback } from "use-debounce"
 import { GET_COURSE_BY_ID } from "../../../operations/queries/getCourseById"
 import { SEARCH_COURSES } from "../../../operations/queries/searchCourses"
 import { useAppContext } from "../../../src/SqrlContext"
+import useTimetable from "../../../src/useTimetable"
 import SearchResults from "./SearchResults"
 import SearchViewHints from "./SearchViewHints"
 
@@ -43,8 +50,6 @@ const SearchView = ({
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const [searchOffset, setSearchOffset] = useState<number>(0)
   const [chosenCourse, setChosenCourse] = useState("")
-
-  const { dispatch } = useAppContext()
 
   const [search, { loading, data, error, fetchMore }] =
     useLazyQuery(SEARCH_COURSES)
@@ -75,54 +80,34 @@ const SearchView = ({
     debounced(searchQuery)
   }, [searchQuery])
 
-  const [
-    getFullCourse,
-    {
-      loading: fullCourseLoading,
-      data: fullCourseData,
-      error: fullCourseError,
-    },
-  ] = useLazyQuery(GET_COURSE_BY_ID, {
-    onCompleted: (data) => {
-      const { courseById: course } = data
-      dispatch({
-        type: "ADD_COURSE",
-        payload: {
-          identifier: course.id,
-          course: course,
-        },
-      })
-      dispatch({
-        type: "SET_SIDEBAR",
-        payload: 1,
-      })
-      dispatch({
-        type: "SET_SIDEBAR_COURSE",
-        payload: course.id,
-      })
-    },
-  })
-
   const { t } = useTranslation(["common", "sidebar"])
 
   return (
     <Box width="100%" height="100%">
       <FormControl p={5} py={7} pb={4}>
-        <Input
-          boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
-          placeholder={t("search-anything")}
-          ref={searchRef}
-          value={searchQuery}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchQuery(e.target.value)
-          }}
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
-            e.target.select()
-          }}
-        />
+        <InputGroup>
+          <Input
+            boxShadow="1px 1px 8px -4px rgba(0, 0, 0, 0.4)"
+            placeholder={t("search-anything")}
+            ref={searchRef}
+            value={searchQuery}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchQuery(e.target.value)
+            }}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+              e.target.select()
+            }}
+          />
+          <InputLeftElement>
+            <SearchIcon />
+          </InputLeftElement>
+          <InputRightElement>
+            {searchQuery && <CloseButton onClick={() => setSearchQuery("")} />}
+          </InputRightElement>
+        </InputGroup>
         <SearchViewHints
           setSearchQuery={setSearchQuery}
           debouncedZero={debouncedZero}
@@ -166,18 +151,11 @@ const SearchView = ({
           </Flex>
         )}
         {!error && !!data && searchQuery && (
-          <VStack
-            alignItems="flex-start"
-            spacing={0}
-            opacity={fullCourseLoading ? 0.6 : 1}
-          >
+          <VStack alignItems="flex-start" spacing={0}>
             {!!data.searchCourses.length && (
               <SearchResults
                 chosenCourse={chosenCourse}
-                fullCourseData={fullCourseData}
-                getFullCourse={getFullCourse}
                 setChosenCourse={setChosenCourse}
-                fullCourseLoading={fullCourseLoading}
                 courses={data.searchCourses}
               />
             )}
