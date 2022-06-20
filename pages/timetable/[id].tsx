@@ -3,6 +3,7 @@ import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import Head from "next/head"
 import React, { useEffect, useState } from "react"
+import Layout from "../../components/Layout"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { apolloClientParams } from "../../src/apollo-client"
 import { PreferencesProvider } from "../../src/PreferencesContext"
@@ -30,7 +31,7 @@ export const TimetableView: NextPage = (props: any) => {
       <PreferencesProvider>
         <AppContextProvider>
           <SectionsProvider initialSections={props.sections}>
-            <Sqrl />
+            <Layout><Sqrl /></Layout>
           </SectionsProvider>
         </AppContextProvider>
       </PreferencesProvider>
