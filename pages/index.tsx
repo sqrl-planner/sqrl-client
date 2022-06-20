@@ -198,6 +198,13 @@ const Dashboard = () => {
       <Head>
         <title>Sqrl Planner</title>
       </Head>
+      <DisclaimerModal
+        disclosure={{ isOpen, onOpen, onClose }}
+        ModalProps={{
+          isOpen,
+          onClose,
+        }}
+      />
       <Box
         display="flex"
         w="100%"
