@@ -8,7 +8,6 @@ import {
   FormHelperText,
   FormLabel,
   Icon,
-  Input,
   ListItem,
   Popover,
   PopoverArrow,
@@ -22,7 +21,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
+import React, { Fragment, useEffect, useRef } from "react"
 import { IoLanguage } from "react-icons/io5"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"
@@ -86,7 +85,7 @@ const PreferencesApplication = () => {
                             })
                         }}
                     /> */}
-          Programs and focuses is not yet implemented.
+          {t("program-focuses-description-1")}
           <UnorderedList my={4} fontWeight="500">
             {programs.map((program) => (
               <ListItem mb={2} key={program.code}>
@@ -115,7 +114,7 @@ const PreferencesApplication = () => {
                         >
                           <PopoverArrow />
                           <PopoverCloseButton />
-                          <PopoverHeader>Are you sure?</PopoverHeader>
+                          <PopoverHeader>{t("confirmation")}</PopoverHeader>
                           <PopoverFooter
                             display="flex"
                             justifyContent="flex-end"
@@ -151,6 +150,7 @@ const PreferencesApplication = () => {
             ))}
           </UnorderedList>
           <FormHelperText>
+            {/* TODO: plural for this */}
             Your program{programs.length > 1 && "s"} of study{" "}
             {programs.length > 1 ? "are" : "is"} used to prioritize search and
             recommend relevant courses.
@@ -165,7 +165,7 @@ const PreferencesApplication = () => {
             </IconWrapper>
             {t("campus")}
           </FormLabel>
-          Campus selection is not yet implemented.
+          {t("campus-description")}
           {/* {JSON.stringify(campus, null, 2)} <br />
                     TODO: Add campus selection */}
         </FormControl>

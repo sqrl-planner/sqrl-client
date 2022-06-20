@@ -6,7 +6,6 @@ import {
   useColorModeValue,
   Box,
   VStack,
-  Spinner,
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import React, { SetStateAction } from "react"

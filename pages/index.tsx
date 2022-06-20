@@ -1,16 +1,14 @@
-import { ApolloProvider, useLazyQuery, useMutation } from "@apollo/client"
+import { ApolloProvider, useMutation } from "@apollo/client"
 import { useDebouncedCallback } from "use-debounce"
-import { PlusSquareIcon, SearchIcon } from "@chakra-ui/icons"
+import { SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
-  chakra,
   ChakraProvider,
   CloseButton,
   Container,
   extendTheme,
   Flex,
-  Heading,
   Input,
   InputGroup,
   InputLeftElement,
@@ -20,10 +18,7 @@ import {
   Spinner,
   Tab,
   TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
-  useColorMode,
   useColorModeValue,
   useDisclosure,
   useToast,
@@ -34,17 +29,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import { BiPlus } from "react-icons/bi"
-import { BsPlusCircleFill } from "react-icons/bs"
 import DisclaimerModal from "../components/DisclaimerModal"
 import { CREATE_TIMETABLE } from "../operations/mutations/createTimetable"
 import client from "../src/apollo-client"
-import { PreferencesProvider } from "../src/PreferencesContext"
-import Sqrl from "../src/Sqrl"
-import Image from "next/image"
-import SqrlLogo from "../public/sqrl-logo.png"
 import Head from "next/head"
 import Fuse from "fuse.js"
+import { useTranslation } from "next-i18next"
 
 export const theme = extendTheme({
   fonts: {
@@ -192,12 +182,21 @@ const Dashboard = () => {
   }
 
   const [pageLoading, setPageLoading] = useState("")
+  
+  const { t } = useTranslation("index")
 
   return (
     <React.Fragment>
       <Head>
         <title>Sqrl Planner</title>
       </Head>
+      <DisclaimerModal
+        disclosure={{ isOpen, onOpen, onClose }}
+        ModalProps={{
+          isOpen,
+          onClose,
+        }}
+      />
       <Box
         display="flex"
         w="100%"
@@ -236,8 +235,13 @@ const Dashboard = () => {
               >
                 {/* <option value="custom">Custom</option> */}
                 {/* <option value="edit">Last edited</option> */}
-                <option value="create">Creation date</option>
-                <option disabled value="relevance">
+                <option value="create">{t("by-creation-date")}</option>
+                <option
+                  style={{
+                    display: "none",
+                  }}
+                  value="relevance"
+                >
                   Relevance
                 </option>
               </Select>
@@ -248,7 +252,7 @@ const Dashboard = () => {
                   width="xs"
                   bg={useColorModeValue("white", "gray.700")}
                   shadow="sm"
-                  placeholder={"Search"}
+                  placeholder={t("search")}
                   value={searchQuery}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setSearchQuery(e.target.value)
@@ -353,7 +357,7 @@ const Dashboard = () => {
                   bottom="1"
                 >
                   <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
-                  <Box>Create a new timetable</Box>
+                  <Box>{t("create-timetable")}</Box>
                 </Box>
               </Button>
             </AnimatePresence>
@@ -382,10 +386,10 @@ const Dashboard = () => {
         >
           <Tabs variant="soft-rounded" align="center">
             <TabList>
-              <Tab>My timetables</Tab>
-              <Tab isDisabled>Shared with me</Tab>
-              <Tab isDisabled>Templates</Tab>
-              <Tab isDisabled>Settings</Tab>
+              <Tab>{t("my-timetables")}</Tab>
+              <Tab isDisabled>{t("shared-with")}</Tab>
+              <Tab isDisabled>{t("templates")}</Tab>
+              <Tab isDisabled>{t("settings")}</Tab>
             </TabList>
           </Tabs>
         </Box>
@@ -410,6 +414,8 @@ export async function getStaticProps({ locale }: { locale: string }) {
         "common",
         "sidebar",
         "preferences",
+        "modal",
+        "index",
       ])),
     },
   }

@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  CloseButton,
   Flex,
   Heading,
   Icon,
@@ -19,10 +18,8 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Skeleton,
-  SkeletonText,
   Stack,
   Text,
-  ToastId,
   Tooltip,
   useClipboard,
   useToast,
@@ -30,8 +27,6 @@ import {
 import React, {
   Fragment,
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react"
@@ -43,13 +38,10 @@ import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
 import { FaTrashAlt, FaShareSquare } from "react-icons/fa"
-import { useMutation, useQuery } from "@apollo/client"
-import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { useRouter } from "next/router"
 import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
 import { motion } from "framer-motion"
-import { REMOVE_COURSE_TIMETABLE } from "../../operations/mutations/removeCourseTimetable"
 import useTimetable from "../../src/useTimetable"
 import { SearchIcon } from "@chakra-ui/icons"
 
@@ -129,10 +121,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          No course selected
+          {t("sidebar:no-course-selected")}
         </Heading>
         <Text fontWeight={500} opacity={0.7} mt={2}>
-          Pick a course to see it here.
+          {t("sidebar:pick-course-description")}
         </Text>
         {allowedToEdit && (
           <Button
@@ -143,7 +135,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             bg="blue.700"
             mt={2}
           >
-            <SearchIcon mr={2} /> Search for courses
+            <SearchIcon mr={2} /> {t("sidebar:search-for-courses")}
           </Button>
         )}
       </Box>

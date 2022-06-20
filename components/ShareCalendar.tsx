@@ -7,17 +7,15 @@ import {
   FormControl,
 } from "@chakra-ui/react"
 import React, { useRef } from "react"
-import { useAppContext } from "../src/SqrlContext"
 // import ics from "ics"
 // import ical, { ICalCalendar, ICalCategory } from "ical-generator"
 import MeetingsFabricator from "../src/MeetingsFabricator"
-import { capitalize } from "../src/utils/misc"
 import { minuteOffsetToIcalArray } from "../src/utils/time"
 import icalFabricator, { dateToIcsString, SqrlIcsEvent } from "../src/utils/ics"
 import { Meeting } from "./timetable/Meeting"
-import { useRouter } from "next/router"
 import useSections from "../src/useSections"
 import useCourses from "../src/useCourses"
+import { useTranslation } from "next-i18next"
 // const ics = require("ics")
 
 const ShareCalendar = () => {
@@ -100,20 +98,22 @@ const ShareCalendar = () => {
     downloadRef.current.click()
   }
 
+  const { t } = useTranslation("modal")
+
   return (
     <FormControl>
       <Flex width="100%" alignItems="center" justifyContent="space-between">
         <Text as="span" display="flex" alignItems="center">
-          <Icon as={CalendarIcon} mr={2} /> Export as iCalendar
+          <Icon as={CalendarIcon} mr={2} /> {t("export-ical")}
         </Text>
         <Button colorScheme="blue" bg="blue.700" onClick={shareCalendar}>
           <DownloadIcon mr={2} />
-          Download .ics file
+          {t("download-ical")}
         </Button>
         <a ref={downloadRef} style={{ display: "none" }}></a>
       </Flex>
       <FormHelperText fontWeight={400}>
-        Holidays, semester start and end dates may be inaccurate.
+        {t("export-ical-description")}
       </FormHelperText>
     </FormControl>
   )

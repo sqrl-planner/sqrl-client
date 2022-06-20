@@ -1,6 +1,5 @@
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import {
-  Button,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -8,7 +7,6 @@ import {
   Icon,
   Select,
   ToastId,
-  Tooltip,
   useToast,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
@@ -238,6 +236,7 @@ const PreferencesTimetable = () => {
           iconProps={{
             as: MdHighlight,
           }}
+          // TODO: translation for this
           helperText={`Draw a box around a course's meetings on ${
             window.matchMedia("(hover: none)").matches ? "tap" : "hover"
           }.`}

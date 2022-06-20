@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useEffect } from "react"
 
 // https://kentcdodds.com/blog/how-to-use-react-context-effectively
 

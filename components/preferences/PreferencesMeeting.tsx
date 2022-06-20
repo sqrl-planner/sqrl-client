@@ -1,11 +1,9 @@
 import { WarningTwoIcon } from "@chakra-ui/icons"
 import {
   Box,
-  Button,
   FormControl,
   FormLabel,
   Icon,
-  Select,
   Slider,
   SliderFilledTrack,
   SliderMark,
@@ -80,7 +78,7 @@ const PreferencesMeeting = () => {
             as: BiArrowFromRight,
             transform: "rotate(180deg) scale(1.2)",
           }}
-          helperText="Show course credit designator (Y1, H1, H5, etc.)."
+          helperText={t("course-suffix-description")}
         >
           {t("course-suffix")}
         </PreferencesToggle>
@@ -90,7 +88,7 @@ const PreferencesMeeting = () => {
           iconProps={{
             as: FaTruckMoving,
           }}
-          helperText="Show medium of delivery (SY, AS, IP, etc.)."
+          helperText={t("deliver-method-suffix")}
         >
           {t("delivery-method")}
         </PreferencesToggle>
@@ -101,7 +99,7 @@ const PreferencesMeeting = () => {
           iconProps={{
             as: FaGlassMartiniAlt,
           }}
-          helperText="Show meeting category (LEC, TUT, PRA)."
+          helperText={t("meeting-category-description")}
         >
           {t("meeting-category")}
         </PreferencesToggle>
@@ -112,7 +110,7 @@ const PreferencesMeeting = () => {
           iconProps={{
             as: ImSection,
           }}
-          helperText="Show meeting section (e.g. 0101)."
+          helperText={t("meeting-section-description")}
         >
           {t("meeting-section")}
         </PreferencesToggle>
@@ -176,7 +174,7 @@ const PreferencesMeeting = () => {
                 fontSize="sm"
                 fontWeight={500}
               >
-                Small
+                {t("small")}
               </SliderMark>
               <SliderMark
                 value={40}
@@ -185,7 +183,7 @@ const PreferencesMeeting = () => {
                 fontSize="sm"
                 fontWeight={500}
               >
-                Normal
+                {t("normal")}
               </SliderMark>
               <SliderMark
                 value={60}
@@ -194,7 +192,7 @@ const PreferencesMeeting = () => {
                 fontSize="sm"
                 fontWeight={500}
               >
-                Big
+                {t("big")}
               </SliderMark>
               <SliderMark
                 value={80}
@@ -203,7 +201,7 @@ const PreferencesMeeting = () => {
                 fontSize="sm"
                 fontWeight={500}
               >
-                Tall
+                {t("tall")}
               </SliderMark>
               <SliderMark
                 value={100}
@@ -212,7 +210,7 @@ const PreferencesMeeting = () => {
                 fontSize="sm"
                 fontWeight={500}
               >
-                Cosmic
+                {t("cosmic  ")}
               </SliderMark>
               <SliderTrack>
                 <SliderFilledTrack />

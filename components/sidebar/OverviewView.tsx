@@ -14,10 +14,8 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useState } from "react"
 import CountUp from "react-countup"
-import { Course } from "../../src/Course"
 import { useAppContext } from "../../src/SqrlContext"
 import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
@@ -25,7 +23,6 @@ import {
   breakdownCourseCode,
   breakdownCourseIdentifier,
   courseIsForCredit,
-  getMeetingTypes,
   meetingsMissing,
 } from "../../src/utils/course"
 import { MeetingCategoryType } from "../timetable/Meeting"
@@ -138,7 +135,7 @@ const OverviewView = () => {
                       duration={0.5}
                       end={Math.round((total / 5) * 100)}
                     />
-                    {/* {Math.round((total / 5) * 100)} */}% of standard load.
+                    {/* {Math.round((total / 5) * 100)} */}% {t("of-load")}.
                   </StatHelpText>
                 </Fragment>
               )
@@ -158,7 +155,7 @@ const OverviewView = () => {
                     {/* {courses} */}
                     <CountUp duration={0.5} end={courses} />
                   </StatNumber>
-                  <StatHelpText>in this year.</StatHelpText>
+                  <StatHelpText>{t("in-year")}</StatHelpText>
                 </Fragment>
               )
             })()}

@@ -2,13 +2,10 @@ import PreferencesDrawer from "./preferences/PreferencesDrawer"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import ShareModal from "./ShareModal"
 import styled from "styled-components"
-import Image from "next/image"
-import SqrlLogo from "../public/sqrl-logo.png"
 import {
   Button,
   chakra,
   Flex,
-  Heading,
   Input,
   useColorModeValue,
   useDisclosure,
@@ -17,12 +14,10 @@ import {
   EditablePreview,
   EditableInput,
   useEditableControls,
-  Box,
   Badge,
   useToast,
 } from "@chakra-ui/react"
 import {
-  CalendarIcon,
   EditIcon,
   Icon,
   InfoIcon,
@@ -30,16 +25,14 @@ import {
 } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
-import { useTranslation } from "next-i18next"
 import AboutModal from "./AboutModal"
-import { motion } from "framer-motion"
 import { useRouter } from "next/router"
-import Link from "next/link"
 import useTimetable from "../src/useTimetable"
 import { BiDuplicate } from "react-icons/bi"
 import useSections from "../src/useSections"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { useMutation } from "@apollo/client"
+import { useTranslation } from "next-i18next"
 
 const HeaderComponent = styled(chakra.header)`
   display: grid;
@@ -168,6 +161,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const id = router.query.id
 
+  const { t } = useTranslation("common")
+
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
@@ -245,11 +240,11 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             dispatch({ type: "SET_SIDEBAR", payload: 0 })
           }}
         >
-          {/* `${t("search-anything")} */}
-          Search{" "}
+          {t("search") + t("for-anything") + " "}
+          {/* Search{" "}
           <chakra.span display={{ base: "none", lg: "inline" }}>
             for anything
-          </chakra.span>{" "}
+          </chakra.span>{" "} */}
           {`(${osModifier}K)`}
         </Input>
       )}
@@ -266,7 +261,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           >
             <Icon mr={{ md: 2 }} as={FaShareSquare} />
             <chakra.span display={{ base: "none", md: "inline" }}>
-              Share
+              {t("share")}
             </chakra.span>
           </Button>
         ) : (
@@ -314,7 +309,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             isLoading={loading}
           >
             <Icon mr={{ md: 2 }} as={BiDuplicate} />
-            Duplicate timetable
+            {t("duplicate-timetable")}
           </Button>
         )}
         <ButtonGroup
@@ -327,13 +322,13 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           <Button onClick={onOpenAbout}>
             <Icon mr={{ xl: 2 }} as={InfoIcon} />
             <chakra.span display={{ base: "none", xl: "inline" }}>
-              About
+              {t("about")}
             </chakra.span>
           </Button>
           <Button onClick={onOpenSettings}>
             <Icon mr={{ xl: 2 }} as={SettingsIcon} />
             <chakra.span display={{ base: "none", xl: "inline" }}>
-              Preferences
+              {t("preferences")}
             </chakra.span>
           </Button>
         </ButtonGroup>

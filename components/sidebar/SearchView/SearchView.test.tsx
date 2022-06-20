@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { render } from "@testing-library/react"
 import SearchView from "./SearchView"
 import { HoverContextProvider } from "../../../src/HoverContext"
 import { AppContextProvider } from "../../../src/SqrlContext"

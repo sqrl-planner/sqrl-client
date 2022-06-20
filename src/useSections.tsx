@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
+import { useLazyQuery, useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
 import { createContext, useContext, useEffect, useState } from "react"
 import { REMOVE_COURSE_TIMETABLE } from "../operations/mutations/removeCourseTimetable"
@@ -45,8 +45,9 @@ export const SectionsProvider = ({
     fetchPolicy: "no-cache",
   })
 
-  const [sections, setSections] =
-    useState<{ [key: string]: Array<string> }>(initialSections)
+  const [sections, setSections] = useState<{ [key: string]: Array<string> }>(
+    initialSections
+  )
   const [name, setName] = useState<string>("")
 
   const { key } = useTimetable({ id })

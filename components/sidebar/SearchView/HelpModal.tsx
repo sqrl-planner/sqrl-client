@@ -41,27 +41,28 @@ const HelpModal = ({ isOpen, onClose }: props) => {
               <FormControl as="span">
                 <Text as="span" display="flex" alignItems="center">
                   Use the search function to search for anything in a course,
-                  including the course code, substrings of the course code, course
-                  title, or even the description.
+                  including the course code, substrings of the course code,
+                  course title, or even the description.
                 </Text>
                 <FormHelperText fontWeight={400}>
                   For example:
                   <UnorderedList>
                     <ListItem>
-                      If you know the specific code for a first year
-                      political science course you need to take, you can search
-                      for {'"pol101"'}.
+                      If you know the specific code for a first year political
+                      science course you need to take, you can search for{" "}
+                      {'"pol101"'}.
                     </ListItem>
                     <ListItem>
-                      If you want to take a course in pseudoscience,
-                      you can search for {'"eco"'}.
+                      If you want to take a course in pseudoscience, you can
+                      search for {'"eco"'}.
                     </ListItem>
                     <ListItem>
-                      If you want to take a course about global
-                      affairs, you can search for {'"human rights"'}.
+                      If you want to take a course about global affairs, you can
+                      search for {'"human rights"'}.
                     </ListItem>
                     <ListItem>
-                      If you want to take the easiest course at UofT, you can search for {'"mat337"'}
+                      If you want to take the easiest course at UofT, you can
+                      search for {'"mat337"'}
                     </ListItem>
                   </UnorderedList>
                 </FormHelperText>

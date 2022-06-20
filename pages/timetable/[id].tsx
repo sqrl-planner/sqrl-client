@@ -5,7 +5,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import Head from "next/head"
 import React, { useEffect, useState } from "react"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
-import { SEARCH_COURSES } from "../../operations/queries/searchCourses"
 import client, { apolloClientParams } from "../../src/apollo-client"
 import { PreferencesProvider } from "../../src/PreferencesContext"
 import Sqrl from "../../src/Sqrl"
@@ -97,6 +96,8 @@ export async function getServerSideProps({
       "common",
       "sidebar",
       "preferences",
+      "modal",
+      "index",
     ])),
   }
 
