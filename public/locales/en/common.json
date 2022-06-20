@@ -9,5 +9,11 @@
   "pra": "PRA",
   "first-semester": "1st",
   "second-semester": "2nd",
-  "search-anything": "Search for anything"
+  "search-anything": "Search for anything",
+  "search": "Search",
+  "for-anything": " for anything",
+  "duplicate-table": "Duplicate timetable",
+  "share": "Share",
+  "about": "About",
+  "preferences": "Preferences"
 }

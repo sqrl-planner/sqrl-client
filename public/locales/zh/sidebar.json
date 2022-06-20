@@ -2,7 +2,7 @@
   "search": "搜索",
   "course": "课程",
   "overview": "概述",
-  "search-hint": "尝试搜索",
+  "search-hint": "搜一搜",
   "search-hint-or": "或",
   "lecture": "课程",
   "tutorial": "教程",
@@ -10,7 +10,16 @@
   "description": "课程信息",
   "prerequisites": "须知",
   "credit": "学分",
-  "first": "第一学期",
-  "second": "第二学期",
-  "year": "全年"
+  "first": "上学期",
+  "second": "下学期",
+  "year": "全年",
+  "help": "Help",
+  "remove": "Remove",
+  "missing-a": "Missing a",
+  "section": "Section",
+  "no-course-selected": "No course selected",
+  "search-for-courses": "Search for courses",
+  "pick-course-description": "Pick a course to see it here.",
+  "of-load": "of standard load",
+  "in-year": "in this year."
 }

@@ -236,6 +236,7 @@ const PreferencesTimetable = () => {
           iconProps={{
             as: MdHighlight,
           }}
+          // TODO: translation for this
           helperText={`Draw a box around a course's meetings on ${
             window.matchMedia("(hover: none)").matches ? "tap" : "hover"
           }.`}
