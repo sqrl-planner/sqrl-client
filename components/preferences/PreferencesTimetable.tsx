@@ -1,7 +1,6 @@
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import {
   FormControl,
-  FormHelperText,
   FormLabel,
   Grid,
   Icon,
@@ -22,7 +21,6 @@ import { usePreferences } from "../../src/PreferencesContext"
 import { useAppContext } from "../../src/SqrlContext"
 import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
-import { capitalize } from "../../src/utils/misc"
 import { minuteOffsetToTime } from "../../src/utils/time"
 import { MeetingGroup } from "../timetable/Meeting"
 import PreferencesSection from "./PreferencesSection"
@@ -95,7 +93,6 @@ const PreferencesTimetable = () => {
     toastRef.current = toast({
       id: "warn-hidden",
       title: "Some meetings may be unintentionally hidden.",
-      // description: "Run Autoclamp to fit timetable to meetings.",
       description: "Adjust your times to fit your meetings.",
       status: "warning",
       variant: "subtle",
@@ -117,13 +114,14 @@ const PreferencesTimetable = () => {
             {t("show-semester")}
           </FormLabel>
           <PreferencesShowSections />
-          {showSemester !== "both" && (
-            <FormHelperText mt={4}>
-              Showing only the {showSemester} semester limits search to{" "}
-              {showSemester} ({capitalize(showSemester)[0]}) semester courses
-              and full section (Y) courses.
-            </FormHelperText>
-          )}
+          {/* TODO: Implement filtering in backend */}
+          {/* {showSemester !== "both" && ( */}
+          {/*   <FormHelperText mt={4}> */}
+          {/*     Showing only the {showSemester} semester limits search to{" "} */}
+          {/*     {showSemester} ({capitalize(showSemester)[0]}) semester courses */}
+          {/*     and full section (Y) courses. */}
+          {/*   </FormHelperText> */}
+          {/* )} */}
         </FormControl>
       </PreferencesSection>
 

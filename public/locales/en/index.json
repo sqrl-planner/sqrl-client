@@ -5,6 +5,8 @@
     "shared-with": "Shared with me",
     "templates": "Templates",
     "settings": "Settings",
+    "dark-mode": "Dark mode",
+    "light-mode": "Light mode",
     "search": "Search"
 
 }

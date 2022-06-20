@@ -7,6 +7,7 @@ import {
   CloseButton,
   Container,
   Flex,
+  Icon,
   Input,
   InputGroup,
   InputLeftElement,
@@ -17,6 +18,8 @@ import {
   Tab,
   TabList,
   Tabs,
+  Tooltip,
+  useColorMode,
   useColorModeValue,
   useDisclosure,
   useToast,
@@ -32,6 +35,9 @@ import { CREATE_TIMETABLE } from "../operations/mutations/createTimetable"
 import Head from "next/head"
 import Fuse from "fuse.js"
 import { useTranslation } from "next-i18next"
+import AboutModal from "../components/AboutModal"
+import Layout from "../components/Layout"
+import { FaMoon, FaSun } from "react-icons/fa"
 
 const Dashboard = () => {
   const router = useRouter()
@@ -149,10 +155,21 @@ const Dashboard = () => {
     return () => clearTimeout(t)
   }, [pageLoading, newLoading])
 
+  const [tabIndex, setTabIndex] = useState(0)
+
+  const {
+    isOpen: isAboutOpen,
+    onOpen: onOpenAbout,
+    onClose: onCloseAbout,
+  } = useDisclosure()
+
+  const { colorMode, toggleColorMode } = useColorMode()
+
   const { t } = useTranslation("index")
 
   return (
     <React.Fragment>
+      <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <Head>
         <title>Sqrl Planner</title>
       </Head>
@@ -197,6 +214,7 @@ const Dashboard = () => {
                   style={{
                     display: "none",
                   }}
+                  disabled
                   value="relevance"
                 >
                   Relevance
@@ -316,7 +334,11 @@ const Dashboard = () => {
                   bottom="1"
                 >
                   <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
-                  <Box>{longLoadTime && newLoading ? "Working..." : t("create-timetable")}</Box>
+                  <Box>
+                    {longLoadTime && newLoading
+                      ? "Working..."
+                      : t("create-timetable")}
+                  </Box>
                 </Box>
               </Button>
             </AnimatePresence>
@@ -337,18 +359,62 @@ const Dashboard = () => {
           left={0}
           right={0}
           margin="auto"
-          width="34rem"
+          width="35rem"
           background={useColorModeValue("white", "black")}
           p={4}
           shadow="2xl"
           rounded="full"
         >
-          <Tabs variant="soft-rounded" align="center">
+          <Tabs
+            variant="solid-rounded"
+            align="center"
+            index={tabIndex}
+            onChange={(index) => {
+              if (index === 2 || index === 3) return
+              setTabIndex(index)
+            }}
+          >
             <TabList>
               <Tab>{t("my-timetables")}</Tab>
-              <Tab isDisabled>{t("shared-with")}</Tab>
-              <Tab isDisabled>{t("templates")}</Tab>
-              <Tab isDisabled>{t("settings")}</Tab>
+              <Tooltip label="Coming soon" shouldWrapChildren>
+                <Tab isDisabled>{t("shared-with")}</Tab>
+              </Tooltip>
+              <Tab onClick={onOpenAbout}>{t("common:about")}</Tab>
+              <Tab onClick={toggleColorMode}>
+                <AnimatePresence exitBeforeEnter>
+                  {colorMode === "light" ? (
+                    <React.Fragment>
+                      <motion.div
+                        key="moon-icon"
+                        initial={{
+                          opacity: 0,
+                          y: -15,
+                          rotate: -45,
+                        }}
+                        animate={{ opacity: 1, y: 0, rotate: 0 }}
+                      >
+                        <Icon as={FaMoon} mr={2} />
+                      </motion.div>{" "}
+                      {t("dark-mode")}
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <motion.div
+                        key="sun-icon"
+                        initial={{
+                          opacity: 0,
+                          y: -15,
+                          rotate: -45,
+                        }}
+                        animate={{ opacity: 1, y: 0, rotate: 0 }}
+                      >
+                        <Icon as={FaSun} mr={2} />
+                      </motion.div>{" "}
+                      {t("light-mode")}
+                    </React.Fragment>
+                  )}
+                </AnimatePresence>
+              </Tab>
             </TabList>
           </Tabs>
         </Box>
@@ -358,7 +424,11 @@ const Dashboard = () => {
 }
 
 export const Home: NextPage = () => {
-  return <Dashboard />
+  return (
+    <Layout>
+      <Dashboard />
+    </Layout>
+  )
 }
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
