@@ -97,6 +97,7 @@ export async function getServerSideProps({
       "sidebar",
       "preferences",
       "modal",
+      "index",
     ])),
   }
 

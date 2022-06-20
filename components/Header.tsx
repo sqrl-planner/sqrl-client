@@ -32,6 +32,7 @@ import { BiDuplicate } from "react-icons/bi"
 import useSections from "../src/useSections"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { useMutation } from "@apollo/client"
+import { useTranslation } from "next-i18next"
 
 const HeaderComponent = styled(chakra.header)`
   display: grid;
