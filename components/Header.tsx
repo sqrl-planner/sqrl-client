@@ -17,12 +17,7 @@ import {
   Badge,
   useToast,
 } from "@chakra-ui/react"
-import {
-  EditIcon,
-  Icon,
-  InfoIcon,
-  SettingsIcon,
-} from "@chakra-ui/icons"
+import { EditIcon, Icon, InfoIcon, SettingsIcon } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
 import AboutModal from "./AboutModal"
@@ -35,8 +30,10 @@ import { useMutation } from "@apollo/client"
 import { useTranslation } from "next-i18next"
 
 const HeaderComponent = styled(chakra.header)`
-  display: grid;
-  grid-template-columns: 1fr auto auto;
+  /* display: grid; */
+  /* grid-template-columns: auto auto; */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100vw;
@@ -167,27 +164,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
-      <Flex alignItems="center" pl="10rem">
-        {/* { */}
-        {/*   <Heading */}
-        {/*     m={4} */}
-        {/*     ml={6} */}
-        {/*     as="h1" */}
-        {/*     fontSize={{ base: "3xl", md: "4xl" }} */}
-        {/*     position="relative" */}
-        {/*   > */}
-        {/*     <Link href="/"> */}
-        {/*       <a> */}
-        {/*         <Box as={motion.div} layoutId="sqrl-logo" position="relative" key="sqrl-logo" w={20} h={10}> */}
-        {/*           <Image src={SqrlLogo} layout="fill" objectFit="contain" /> */}
-        {/*         </Box> */}
-        {/*       </a> */}
-        {/*     </Link> */}
-        {/*   </Heading> */}
-        {/* } */}
-
+      <Flex flex="1" alignItems="center" pl="11rem">
         <Editable
-          display="flex"
           alignItems="center"
           fontWeight={500}
           opacity={0.8}
@@ -196,9 +174,16 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           }}
           transition="all 200ms"
           value={timetableName}
-          onChange={(text: string) => setTimetableName(text)}
+          submitOnBlur={false}
+          onChange={(text: string) =>
+            setTimetableName((prevName: string) => {
+              if (text.length > 40) return prevName
+              return text
+            })
+          }
           onSubmit={(text: string) => {
             if (text === name) return
+
             updateName(text, () => {
               toast({
                 title: `Updated timetable name to "${text}"`,
@@ -211,45 +196,64 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           fontSize={{ base: "lg", md: "xl" }}
           ml={4}
           isDisabled={!allowedToEdit}
+          display={{ base: "none", md: "flex" }}
         >
-          <EditablePreview />
-          <EditableInput />
+          <EditablePreview
+            w="auto"
+            maxW="30vw"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          />
+          <EditableInput
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          />
           <TimetableName editable={allowedToEdit} />
         </Editable>
         {/* </Heading> */}
       </Flex>
 
-      {allowedToEdit && (
-        <Input
-          as="button"
-          boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
-          ref={buttonRef}
-          position="absolute"
-          width={{ base: "30%", lg: "40%" }}
-          maxWidth="400px"
-          fontWeight={500}
-          opacity={0.8}
-          top="0"
-          right={{ base: 20, lg: "0" }}
-          bottom="0"
-          left="0"
-          margin="auto"
-          onClick={(e: React.MouseEvent<HTMLInputElement>) => {
-            e.preventDefault()
-            setSidebarOpen(true)
-            dispatch({ type: "SET_SIDEBAR", payload: 0 })
-          }}
-        >
-          {t("search") + t("for-anything") + " "}
-          {/* Search{" "}
+      <Flex
+        alignItems="center"
+        justifyContent={{ base: "flex-start", md: "end" }}
+      >
+        {allowedToEdit && (
+          <Input
+            as="button"
+            boxShadow="1px 1px 8px -5px rgba(0, 0, 0, 0.4)"
+            ref={buttonRef}
+            // position="absolute"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+            width={{ base: "30%", lg: "40%" }}
+            // maxWidth="400px"
+            fontWeight={500}
+            opacity={0.8}
+            mr={{ base: 4, lg: 6 }}
+            px={{ base: 4, lg: 6 }}
+            // top="0"
+            // right={{ base: 20, lg: "0" }}
+            // bottom="0"
+            // left="0"
+            // margin="auto"
+            onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+              e.preventDefault()
+              setSidebarOpen(true)
+              dispatch({ type: "SET_SIDEBAR", payload: 0 })
+            }}
+          >
+            {t("search") + t("for-anything") + " "}
+            {/* Search{" "}
           <chakra.span display={{ base: "none", lg: "inline" }}>
             for anything
           </chakra.span>{" "} */}
-          {`(${osModifier}K)`}
-        </Input>
-      )}
+            {`(${osModifier}K)`}
+          </Input>
+        )}
 
-      <Flex alignItems="center">
         {allowedToEdit ? (
           <Button
             shadow="sm"

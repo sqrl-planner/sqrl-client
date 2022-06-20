@@ -1,13 +1,11 @@
-import { ApolloProvider, useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import { useDebouncedCallback } from "use-debounce"
 import { SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
-  ChakraProvider,
   CloseButton,
   Container,
-  extendTheme,
   Flex,
   Input,
   InputGroup,
@@ -31,52 +29,9 @@ import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import DisclaimerModal from "../components/DisclaimerModal"
 import { CREATE_TIMETABLE } from "../operations/mutations/createTimetable"
-import client from "../src/apollo-client"
 import Head from "next/head"
 import Fuse from "fuse.js"
 import { useTranslation } from "next-i18next"
-
-export const theme = extendTheme({
-  fonts: {
-    body: "Inter, sans-serif",
-    heading: "Inter, sans-serif",
-    mono: "interstate-mono, monospace",
-  },
-  colors: {
-    pinkish: {
-      50: "#ffc7c7",
-    },
-    gray: {
-      75: "#fafafa",
-      50: "#F7FAFC",
-      650: "#424b5c",
-    },
-    blue: {
-      50: "#cffafe",
-      100: "#cffafe",
-      200: "#a5f3fc",
-      300: "#67e8f9",
-      400: "#22d3ee",
-      500: "#06b6d4",
-      600: "#0891b2",
-      // 700: '#0e7490',
-      700: "rgb(59, 144, 173)",
-      800: "#155e75",
-      900: "#164e63",
-    },
-  },
-  colorSchemes: {
-    pinkish: "#ffc7c7",
-  },
-  components: {
-    FormLabel: {
-      baseStyle: {
-        display: "flex",
-        alignItems: "center",
-      },
-    },
-  },
-})
 
 const Dashboard = () => {
   const router = useRouter()
@@ -182,7 +137,18 @@ const Dashboard = () => {
   }
 
   const [pageLoading, setPageLoading] = useState("")
-  
+  const [longLoadTime, setLongLoadTime] = useState(false)
+
+  useEffect(() => {
+    if (!pageLoading && !newLoading) return
+
+    const t = setTimeout(() => {
+      setLongLoadTime(true)
+    }, 1100)
+
+    return () => clearTimeout(t)
+  }, [pageLoading, newLoading])
+
   const { t } = useTranslation("index")
 
   return (
@@ -212,15 +178,6 @@ const Dashboard = () => {
           flexDirection="column"
           gap={6}
         >
-          {/* <Flex gap={4} alignItems="center"> */}
-          {/*   <Box as={motion.div} key="sqrl-logo" layoutId="sqrl-logo" w={14} h={14} position="relative"> */}
-          {/*     <Image src={SqrlLogo} layout="fill" objectFit="contain" /> */}
-          {/*   </Box> */}
-          {/*   <Heading as="h1" fontSize="4xl" fontWeight={600}> */}
-          {/*     Sqrl */}
-          {/*   </Heading> */}
-          {/* </Flex> */}
-
           <Flex justifyContent="space-between">
             <Flex>
               <Select
@@ -329,7 +286,9 @@ const Dashboard = () => {
                           bottom={6}
                           fontWeight={600}
                         >
-                          {timetable.name}
+                          {pageLoading === id && longLoadTime
+                            ? "Working..."
+                            : timetable.name}
                           {pageLoading === id && <Spinner m={0} />}
                         </Flex>
                       </Box>
@@ -357,7 +316,7 @@ const Dashboard = () => {
                   bottom="1"
                 >
                   <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
-                  <Box>{t("create-timetable")}</Box>
+                  <Box>{longLoadTime && newLoading ? "Working..." : t("create-timetable")}</Box>
                 </Box>
               </Button>
             </AnimatePresence>
@@ -399,13 +358,7 @@ const Dashboard = () => {
 }
 
 export const Home: NextPage = () => {
-  return (
-    <ChakraProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <Dashboard />
-      </ApolloProvider>
-    </ChakraProvider>
-  )
+  return <Dashboard />
 }
 export async function getStaticProps({ locale }: { locale: string }) {
   return {

@@ -61,8 +61,8 @@ const HelpModal = ({ isOpen, onClose }: props) => {
                       search for {'"human rights"'}.
                     </ListItem>
                     <ListItem>
-                      If you want to take the easiest course at UofT, you can
-                      search for {'"mat337"'}
+                      If you want to take the easiest course at U of T, you can
+                      search for {'"mat337"'}.
                     </ListItem>
                   </UnorderedList>
                 </FormHelperText>
