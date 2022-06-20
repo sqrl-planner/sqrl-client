@@ -13,5 +13,14 @@
   "credit_plural": "Unités",
   "first": "Première",
   "second": "Second",
-  "year": "Année"
+  "year": "Année",
+  "help": "Help",
+  "remove": "Remove",
+  "missing-a": "Missing a",
+  "section": "Section",
+  "no-course-selected": "No course selected",
+  "search-for-courses": "Search for courses",
+  "pick-course-description": "Pick a course to see it here.",
+  "of-load": "of standard load",
+  "in-year": "in this year."
 }

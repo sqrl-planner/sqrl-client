@@ -1,5 +1,4 @@
 import { Box, Grid, useRadioGroup } from "@chakra-ui/react"
-import { useTranslation } from "next-i18next"
 import React from "react"
 import RadioTextCard from "./RadioTextCard"
 import { useRouter } from "next/router"
@@ -8,7 +7,6 @@ import Link from "next/link"
 const PreferencesLanguage = () => {
   const options = ["en", "fr", "zh"]
 
-  const { t } = useTranslation("preferences")
   const router = useRouter()
 
   const { getRootProps, getRadioProps } = useRadioGroup({

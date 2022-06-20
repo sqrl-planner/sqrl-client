@@ -13,6 +13,7 @@ import {
   Text,
   UseDisclosureProps,
 } from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 import React, { Fragment, useState } from "react"
 
 const DisclaimerModal = (props: {
@@ -26,6 +27,8 @@ const DisclaimerModal = (props: {
 
   const { onClose } = props.disclosure
 
+  const { t } = useTranslation("modal")
+
   return (
     <Fragment>
       <Modal
@@ -36,7 +39,7 @@ const DisclaimerModal = (props: {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Disclaimers</ModalHeader>
+          <ModalHeader>{t("disclaimers")}</ModalHeader>
           <ModalBody pb={4}>
             <Checkbox
               isChecked={allChecked}
@@ -50,7 +53,7 @@ const DisclaimerModal = (props: {
               }
               pb={2}
             >
-              I understand that...
+              {t("acknowledgement")}
             </Checkbox>
             <Stack pl={6} mt={1} spacing={1}>
               <Checkbox
@@ -64,11 +67,8 @@ const DisclaimerModal = (props: {
                 }
                 pb={4}
               >
-                The information on ACORN<sup>1</sup>, the Faculty of Arts &
-                Science timetable<sup>2</sup>, and the Faculty of Arts & Science
-                calendar
-                <sup>3</sup> take precedence over any information presented
-                here.
+                {t("checklist-one-acorn")} <sup>1</sup>, {t("checklist-one-timetable")}<sup>2</sup>, {t("checklist-one-calendar")}
+                <sup>3</sup> {t("checklist-one-rest")}
               </Checkbox>
               <Checkbox
                 isChecked={checkedItems[1]}
@@ -81,8 +81,7 @@ const DisclaimerModal = (props: {
                 }
                 pb={4}
               >
-                Sqrl is not affiliated with the University in any official
-                capacity.
+                {t("checklist-two")}
               </Checkbox>
               <Checkbox
                 isChecked={checkedItems[2]}
@@ -95,7 +94,7 @@ const DisclaimerModal = (props: {
                 }
                 pb={4}
               >
-                Sqrl cannot enrol in courses for you.
+                {t("checklist-three")}
               </Checkbox>
             </Stack>
             <Text mt={4}>
@@ -116,7 +115,7 @@ const DisclaimerModal = (props: {
                 isExternal
                 mr={4}
               >
-                Timetable <ExternalLinkIcon mx="2px" />
+                {t("timetable")} <ExternalLinkIcon mx="2px" />
               </Link>
               {/* </Text>
                         <Text> */}
@@ -126,7 +125,7 @@ const DisclaimerModal = (props: {
                 isExternal
                 mr={4}
               >
-                Calendar <ExternalLinkIcon mx="2px" />
+                {t("calendar")} <ExternalLinkIcon mx="2px" />
               </Link>
             </Text>
           </ModalBody>

@@ -45,8 +45,9 @@ export const SectionsProvider = ({
     fetchPolicy: "no-cache",
   })
 
-  const [sections, setSections] =
-    useState<{ [key: string]: Array<string> }>(initialSections)
+  const [sections, setSections] = useState<{ [key: string]: Array<string> }>(
+    initialSections
+  )
   const [name, setName] = useState<string>("")
 
   const { key } = useTimetable({ id })

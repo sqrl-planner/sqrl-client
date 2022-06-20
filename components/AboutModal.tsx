@@ -22,6 +22,7 @@ import {
 
 import { FaGithub } from "react-icons/fa"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
+import { useTranslation } from "next-i18next"
 // import Image from "next/image"
 
 type props = {
@@ -91,17 +92,18 @@ const AboutModal = ({ isOpen, onClose }: props) => {
     })()
   }, [])
 
+  const { t } = useTranslation("modal")
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader fontSize="2xl">About Sqrl</ModalHeader>
+        <ModalHeader fontSize="2xl">{t("about-sqrl")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          Sqrl is a modern timetable planner for the University of Toronto.
+          {t("about-body")}
           <Flex flexDir="column" mt={8} gap={2}>
             <Heading as="h3" size="md" fontWeight={500}>
-              Repositories
+              {t("repositories")}
             </Heading>
             <Flex flexDir="column" alignItems="start" gap={4} fontWeight="500">
               <Flex flexDir="column" alignItems="start">
@@ -120,10 +122,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                 >
                   <Icon as={FaGithub} /> sqrl-client <ExternalLinkIcon />
                 </Link>
-                <Box opacity={0.8}>
-                  The frontend React/Next.js client that consumes sqrl-server,
-                  with TypeScript and Chakra UI.
-                </Box>
+                <Box opacity={0.8}>{t("sqrl-client-description")}</Box>
 
                 <Heading
                   mb={2}
@@ -133,7 +132,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   as="h4"
                   size="base"
                 >
-                  Contributors
+                  {t("contributors")}
                 </Heading>
 
                 <Grid
@@ -172,10 +171,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   <Icon as={FaGithub} /> sqrl-server <ExternalLinkIcon />
                 </Link>
 
-                <Box opacity={0.8}>
-                  A GraphQL API and gateway that persists timetables and proxies
-                  course information from gator.
-                </Box>
+                <Box opacity={0.8}>{t("sqrl-server-description")}</Box>
 
                 <Heading
                   mb={2}
@@ -185,7 +181,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   as="h4"
                   size="base"
                 >
-                  Contributors
+                  {t("contributors")}
                 </Heading>
 
                 <Grid
@@ -223,9 +219,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                 >
                   <Icon as={FaGithub} /> gator <ExternalLinkIcon />
                 </Link>
-                <Box opacity={0.8}>
-                  A central dataset aggregator and content manager.
-                </Box>
+                <Box opacity={0.8}>{t("gator-description")}</Box>
                 <Heading
                   mb={2}
                   mt={4}
@@ -234,7 +228,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   as="h4"
                   size="base"
                 >
-                  Contributors
+                  {t("contributors")}
                 </Heading>
 
                 <Grid
@@ -256,7 +250,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
             </Flex>
           </Flex>
           {/* <Flex flexDir="column" mt={4}> */}
-          {/*   <Heading as="h3" size="md">Contributors</Heading> */}
+          {/*   <Heading as="h3" size="md">{t("contributors"})</Heading> */}
           {/*   <Flex gap={4}> */}
           {/*     <div>Eamon Ma</div> */}
           {/*     <div>Shon Verch</div> */}
