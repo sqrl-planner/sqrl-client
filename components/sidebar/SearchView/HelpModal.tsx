@@ -50,18 +50,18 @@ const HelpModal = ({ isOpen, onClose }: props) => {
                     <ListItem>
                       If you know the specific code for a first year
                       political science course you need to take, you can search
-                      for {'"POL101"'}.
+                      for {'"pol101"'}.
                     </ListItem>
                     <ListItem>
                       If you want to take a course in pseudoscience,
-                      you can search for {'"ECO"'}.
+                      you can search for {'"eco"'}.
                     </ListItem>
                     <ListItem>
                       If you want to take a course about global
                       affairs, you can search for {'"human rights"'}.
                     </ListItem>
                     <ListItem>
-                      If you want to take the easiest course at UofT, you can search for {'"MAT337"'}
+                      If you want to take the easiest course at UofT, you can search for {'"mat337"'}
                     </ListItem>
                   </UnorderedList>
                 </FormHelperText>
