@@ -3,21 +3,15 @@ import React, { useEffect, useState } from "react"
 import {
   ModalOverlay,
   Modal,
-  Text,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  VStack,
   Image,
-  FormControl,
   Flex,
   Icon,
-  Input,
-  FormHelperText,
   Button,
-  HStack,
   Heading,
   Box,
   Link,
@@ -26,8 +20,7 @@ import {
   Divider,
 } from "@chakra-ui/react"
 
-import { FaShareSquare, FaGithub } from "react-icons/fa"
-import ShareCalendar from "./ShareCalendar"
+import { FaGithub } from "react-icons/fa"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
 // import Image from "next/image"
 

@@ -7,15 +7,12 @@ import {
   FormControl,
 } from "@chakra-ui/react"
 import React, { useRef } from "react"
-import { useAppContext } from "../src/SqrlContext"
 // import ics from "ics"
 // import ical, { ICalCalendar, ICalCategory } from "ical-generator"
 import MeetingsFabricator from "../src/MeetingsFabricator"
-import { capitalize } from "../src/utils/misc"
 import { minuteOffsetToIcalArray } from "../src/utils/time"
 import icalFabricator, { dateToIcsString, SqrlIcsEvent } from "../src/utils/ics"
 import { Meeting } from "./timetable/Meeting"
-import { useRouter } from "next/router"
 import useSections from "../src/useSections"
 import useCourses from "../src/useCourses"
 // const ics = require("ics")

@@ -14,10 +14,8 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useState } from "react"
 import CountUp from "react-countup"
-import { Course } from "../../src/Course"
 import { useAppContext } from "../../src/SqrlContext"
 import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
@@ -25,7 +23,6 @@ import {
   breakdownCourseCode,
   breakdownCourseIdentifier,
   courseIsForCredit,
-  getMeetingTypes,
   meetingsMissing,
 } from "../../src/utils/course"
 import { MeetingCategoryType } from "../timetable/Meeting"

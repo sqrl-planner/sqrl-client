@@ -2,7 +2,6 @@ import { Grid, useRadioGroup } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import React from "react"
 import { usePreferences } from "../../src/PreferencesContext"
-import { capitalize } from "../../src/utils/misc"
 import RadioTextCard from "./RadioTextCard"
 
 const PreferencesShowSections = () => {

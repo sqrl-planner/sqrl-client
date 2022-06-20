@@ -1,4 +1,3 @@
-import { useLazyQuery, useQuery } from "@apollo/client"
 import {
   Box,
   chakra,
@@ -8,11 +7,8 @@ import {
   Icon,
   useColorMode,
   useColorModeValue,
-  useDisclosure,
-  useToast,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import Head from "next/head"
 import { useRouter } from "next/router"
 import React, { Fragment, useEffect, useMemo, useState } from "react"
 import { GoChevronLeft } from "react-icons/go"
@@ -24,7 +20,7 @@ import { Timetable } from "../components/timetable/Timetable"
 import { HoverContextProvider } from "./HoverContext"
 import MeetingsFabricator from "./MeetingsFabricator"
 import { usePreferences } from "./PreferencesContext"
-import { useAppContext, UserMeeting } from "./SqrlContext"
+import { useAppContext } from "./SqrlContext"
 import useCourses from "./useCourses"
 import useSections from "./useSections"
 import useTimetable from "./useTimetable"

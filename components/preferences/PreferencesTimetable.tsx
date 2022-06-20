@@ -1,6 +1,5 @@
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import {
-  Button,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -8,7 +7,6 @@ import {
   Icon,
   Select,
   ToastId,
-  Tooltip,
   useToast,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"

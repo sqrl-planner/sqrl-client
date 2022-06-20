@@ -8,7 +8,6 @@ import {
   FormHelperText,
   FormLabel,
   Icon,
-  Input,
   ListItem,
   Popover,
   PopoverArrow,
@@ -22,7 +21,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
-import React, { Fragment, MouseEvent, useEffect, useRef } from "react"
+import React, { Fragment, useEffect, useRef } from "react"
 import { IoLanguage } from "react-icons/io5"
 import { FaSchool, FaSun, FaTemperatureHigh } from "react-icons/fa"
 import styled from "styled-components"

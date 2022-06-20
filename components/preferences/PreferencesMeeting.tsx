@@ -1,11 +1,9 @@
 import { WarningTwoIcon } from "@chakra-ui/icons"
 import {
   Box,
-  Button,
   FormControl,
   FormLabel,
   Icon,
-  Select,
   Slider,
   SliderFilledTrack,
   SliderMark,

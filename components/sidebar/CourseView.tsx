@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  CloseButton,
   Flex,
   Heading,
   Icon,
@@ -19,10 +18,8 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Skeleton,
-  SkeletonText,
   Stack,
   Text,
-  ToastId,
   Tooltip,
   useClipboard,
   useToast,
@@ -30,8 +27,6 @@ import {
 import React, {
   Fragment,
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react"
@@ -43,13 +38,10 @@ import MeetingPicker from "./MeetingPicker"
 import { CourseSubheading } from "./OverviewView"
 import { useTranslation } from "next-i18next"
 import { FaTrashAlt, FaShareSquare } from "react-icons/fa"
-import { useMutation, useQuery } from "@apollo/client"
-import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { useRouter } from "next/router"
 import useCourses from "../../src/useCourses"
 import useSections from "../../src/useSections"
 import { motion } from "framer-motion"
-import { REMOVE_COURSE_TIMETABLE } from "../../operations/mutations/removeCourseTimetable"
 import useTimetable from "../../src/useTimetable"
 import { SearchIcon } from "@chakra-ui/icons"
 

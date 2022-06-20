@@ -2,13 +2,10 @@ import PreferencesDrawer from "./preferences/PreferencesDrawer"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import ShareModal from "./ShareModal"
 import styled from "styled-components"
-import Image from "next/image"
-import SqrlLogo from "../public/sqrl-logo.png"
 import {
   Button,
   chakra,
   Flex,
-  Heading,
   Input,
   useColorModeValue,
   useDisclosure,
@@ -17,12 +14,10 @@ import {
   EditablePreview,
   EditableInput,
   useEditableControls,
-  Box,
   Badge,
   useToast,
 } from "@chakra-ui/react"
 import {
-  CalendarIcon,
   EditIcon,
   Icon,
   InfoIcon,
@@ -30,11 +25,8 @@ import {
 } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
-import { useTranslation } from "next-i18next"
 import AboutModal from "./AboutModal"
-import { motion } from "framer-motion"
 import { useRouter } from "next/router"
-import Link from "next/link"
 import useTimetable from "../src/useTimetable"
 import { BiDuplicate } from "react-icons/bi"
 import useSections from "../src/useSections"

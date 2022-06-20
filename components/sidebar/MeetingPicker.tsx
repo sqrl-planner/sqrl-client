@@ -11,7 +11,6 @@ import {
   chakra,
   Flex,
   Grid,
-  Icon,
   Text,
   Tooltip,
   useColorModeValue,
@@ -19,8 +18,8 @@ import {
 } from "@chakra-ui/react"
 import { useTranslation } from "next-i18next"
 import { useRouter } from "next/router"
-import React, { Fragment, useEffect } from "react"
-import { FaInternetExplorer, FaTrashAlt } from "react-icons/fa"
+import React, { Fragment } from "react"
+import { FaInternetExplorer } from "react-icons/fa"
 import { Course } from "../../src/Course"
 import MeetingsFabricator from "../../src/MeetingsFabricator"
 import { useAppContext, UserMeeting } from "../../src/SqrlContext"

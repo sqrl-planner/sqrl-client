@@ -1,10 +1,8 @@
-import { Box, chakra, Flex, Heading } from "@chakra-ui/react"
+import { Box, chakra, Heading } from "@chakra-ui/react"
 import Link from "next/link"
 import Image from "next/image"
 import {
   AnimatePresence,
-  domAnimation,
-  LazyMotion,
   motion,
 } from "framer-motion"
 import { appWithTranslation } from "next-i18next"
@@ -13,7 +11,6 @@ import React from "react"
 import "../styles/globals.css"
 import SqrlLogo from "../public/sqrl-logo.png"
 import { useRouter } from "next/router"
-import Script from "next/script"
 
 const headingVariants = {
   root: {
@@ -29,10 +26,6 @@ function Application({ Component, pageProps }: AppProps) {
 
   return (
     <React.Fragment>
-      <Script>
-        {`window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
-        heap.load("${process.env.NEXT_PUBLIC_HEAP_ID}");`}
-      </Script>
       <AnimatePresence exitBeforeEnter>
         <Box
           key="sqrl-logo-container"

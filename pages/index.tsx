@@ -1,16 +1,14 @@
-import { ApolloProvider, useLazyQuery, useMutation } from "@apollo/client"
+import { ApolloProvider, useMutation } from "@apollo/client"
 import { useDebouncedCallback } from "use-debounce"
-import { PlusSquareIcon, SearchIcon } from "@chakra-ui/icons"
+import { SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
-  chakra,
   ChakraProvider,
   CloseButton,
   Container,
   extendTheme,
   Flex,
-  Heading,
   Input,
   InputGroup,
   InputLeftElement,
@@ -20,10 +18,7 @@ import {
   Spinner,
   Tab,
   TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
-  useColorMode,
   useColorModeValue,
   useDisclosure,
   useToast,
@@ -34,15 +29,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import { BiPlus } from "react-icons/bi"
-import { BsPlusCircleFill } from "react-icons/bs"
 import DisclaimerModal from "../components/DisclaimerModal"
 import { CREATE_TIMETABLE } from "../operations/mutations/createTimetable"
 import client from "../src/apollo-client"
-import { PreferencesProvider } from "../src/PreferencesContext"
-import Sqrl from "../src/Sqrl"
-import Image from "next/image"
-import SqrlLogo from "../public/sqrl-logo.png"
 import Head from "next/head"
 import Fuse from "fuse.js"
 
@@ -244,7 +233,12 @@ const Dashboard = () => {
                 {/* <option value="custom">Custom</option> */}
                 {/* <option value="edit">Last edited</option> */}
                 <option value="create">Creation date</option>
-                <option disabled value="relevance">
+                <option
+                  style={{
+                    display: "none",
+                  }}
+                  value="relevance"
+                >
                   Relevance
                 </option>
               </Select>
