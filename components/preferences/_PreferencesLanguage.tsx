@@ -1,5 +1,4 @@
 import { Box, Grid, useRadioGroup } from "@chakra-ui/react"
-import { useTranslation } from "next-i18next"
 import React from "react"
 import RadioTextCard from "./RadioTextCard"
 import { useRouter } from "next/router"
