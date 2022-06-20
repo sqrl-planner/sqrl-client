@@ -135,7 +135,7 @@ const OverviewView = () => {
                       duration={0.5}
                       end={Math.round((total / 5) * 100)}
                     />
-                    {/* {Math.round((total / 5) * 100)} */}% of standard load.
+                    {/* {Math.round((total / 5) * 100)} */}% {t("of-load")}.
                   </StatHelpText>
                 </Fragment>
               )
@@ -155,7 +155,7 @@ const OverviewView = () => {
                     {/* {courses} */}
                     <CountUp duration={0.5} end={courses} />
                   </StatNumber>
-                  <StatHelpText>in this year.</StatHelpText>
+                  <StatHelpText>{t("in-year")}</StatHelpText>
                 </Fragment>
               )
             })()}

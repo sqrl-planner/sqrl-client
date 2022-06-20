@@ -27,6 +27,7 @@ import { BiDuplicate } from "react-icons/bi"
 import { useMutation } from "@apollo/client"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
+import { useTranslation } from "next-i18next"
 
 type props = {
   isOpen: boolean
@@ -66,6 +67,8 @@ const ShareModal = ({ isOpen, onClose }: props) => {
 
   const [loading, setLoading] = useState(false)
 
+  const { t } = useTranslation("modal")
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
@@ -82,7 +85,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
             >
               <FormControl as="span">
                 <Text as="span" display="flex" alignItems="center">
-                  <Icon as={FaShareSquare} mr={2} /> Share read-only
+                  <Icon as={FaShareSquare} mr={2} /> {t("share-read-only")}
                 </Text>
                 <Flex
                   my={2}
@@ -99,11 +102,11 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                     onFocus={(e) => e.target.select()}
                   ></Input>
                   <Button onClick={onCopy} colorScheme="blue" bg="blue.700">
-                    <CopyIcon mr={2} /> Copy link
+                    <CopyIcon mr={2} /> {t("copy-link")}
                   </Button>
                 </Flex>
                 <FormHelperText fontWeight={400}>
-                  Anyone who views this timetable can duplicate it.
+                  {t("share-read-only-description")}
                 </FormHelperText>
               </FormControl>
             </Flex>
@@ -115,7 +118,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                 justifyContent="space-between"
               >
                 <Text as="span" display="flex" alignItems="center">
-                  <Icon as={BiDuplicate} mr={2} /> Duplicate timetable
+                  <Icon as={BiDuplicate} mr={2} /> {t("duplicate-table")}
                 </Text>
                 <Button
                   colorScheme="blue"
@@ -158,19 +161,18 @@ const ShareModal = ({ isOpen, onClose }: props) => {
                   isLoading={loading}
                 >
                   <ExternalLinkIcon mr={2} />
-                  Create a copy
+                  {t("create-copy")}
                 </Button>
               </Flex>
               <FormHelperText fontWeight={400}>
-                Create an identical copy of this timetable at this point in
-                time.
+                {t("create-copy-description")}
               </FormHelperText>
             </FormControl>
           </VStack>
         </ModalBody>
 
         <ModalFooter>
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

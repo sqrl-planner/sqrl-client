@@ -160,6 +160,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const id = router.query.id
 
+  const { t } = useTranslation("common")
+
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
@@ -237,11 +239,11 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             dispatch({ type: "SET_SIDEBAR", payload: 0 })
           }}
         >
-          {/* `${t("search-anything")} */}
-          Search{" "}
+          {t("search") + t("for-anything") + " "}
+          {/* Search{" "}
           <chakra.span display={{ base: "none", lg: "inline" }}>
             for anything
-          </chakra.span>{" "}
+          </chakra.span>{" "} */}
           {`(${osModifier}K)`}
         </Input>
       )}
@@ -258,7 +260,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           >
             <Icon mr={{ md: 2 }} as={FaShareSquare} />
             <chakra.span display={{ base: "none", md: "inline" }}>
-              Share
+              {t("share")}
             </chakra.span>
           </Button>
         ) : (
@@ -306,7 +308,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             isLoading={loading}
           >
             <Icon mr={{ md: 2 }} as={BiDuplicate} />
-            Duplicate timetable
+            {t("duplicate-timetable")}
           </Button>
         )}
         <ButtonGroup
@@ -319,13 +321,13 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
           <Button onClick={onOpenAbout}>
             <Icon mr={{ xl: 2 }} as={InfoIcon} />
             <chakra.span display={{ base: "none", xl: "inline" }}>
-              About
+              {t("about")}
             </chakra.span>
           </Button>
           <Button onClick={onOpenSettings}>
             <Icon mr={{ xl: 2 }} as={SettingsIcon} />
             <chakra.span display={{ base: "none", xl: "inline" }}>
-              Preferences
+              {t("preferences")}
             </chakra.span>
           </Button>
         </ButtonGroup>

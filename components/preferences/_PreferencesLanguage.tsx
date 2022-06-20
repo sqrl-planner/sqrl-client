@@ -8,7 +8,6 @@ import Link from "next/link"
 const PreferencesLanguage = () => {
   const options = ["en", "fr", "zh"]
 
-  const { t } = useTranslation("preferences")
   const router = useRouter()
 
   const { getRootProps, getRadioProps } = useRadioGroup({

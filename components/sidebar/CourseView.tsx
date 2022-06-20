@@ -121,10 +121,10 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          No course selected
+          {t("sidebar:no-course-selected")}
         </Heading>
         <Text fontWeight={500} opacity={0.7} mt={2}>
-          Pick a course to see it here.
+          {t("sidebar:pick-course-description")}
         </Text>
         {allowedToEdit && (
           <Button
@@ -135,7 +135,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             bg="blue.700"
             mt={2}
           >
-            <SearchIcon mr={2} /> Search for courses
+            <SearchIcon mr={2} /> {t("sidebar:search-for-courses")}
           </Button>
         )}
       </Box>

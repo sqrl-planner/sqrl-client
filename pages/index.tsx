@@ -411,6 +411,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
         "common",
         "sidebar",
         "preferences",
+        "modal",
       ])),
     },
   }

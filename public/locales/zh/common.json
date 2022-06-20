@@ -7,7 +7,10 @@
   "lec": "课程",
   "tut": "教程",
   "pra": "实践",
-  "first-semester": "一学期",
-  "second-semester": "二学期",
-  "search-anything": "搜索"
+  "first-semester": "上学期",
+  "second-semester": "下学期",
+  "search-anything": "搜索",
+  "search": "Search",
+  "for-anything": " for anything",
+  "duplicate-table": "Duplicate timetable"
 }
