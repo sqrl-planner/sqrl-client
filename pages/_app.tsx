@@ -13,6 +13,7 @@ import React from "react"
 import "../styles/globals.css"
 import SqrlLogo from "../public/sqrl-logo.png"
 import { useRouter } from "next/router"
+import Script from "next/script"
 
 const headingVariants = {
   root: {
@@ -28,6 +29,10 @@ function Application({ Component, pageProps }: AppProps) {
 
   return (
     <AnimatePresence exitBeforeEnter>
+      <Script>
+        {`window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
+        heap.load("${process.env.NEXT_PUBLIC_HEAP_ID}");`}
+      </Script>
       <Box
         key="sqrl-logo-container"
         as={motion.div}
@@ -71,18 +76,20 @@ function Application({ Component, pageProps }: AppProps) {
             >
               Sqrl&nbsp;
               <AnimatePresence exitBeforeEnter>
-                {router.pathname === "/" && <motion.span
-                  key="planner-append"
-                  // layout="position"
-                  layoutId="planner-append"
-                  // variants={headingVariants}
-                  // animate={router.pathname === "/" ? "root" : "timetable"}
-                  initial={{opacity: 0}}
-                  animate={{opacity: 1 }}
-                  exit={{opacity: 0}}
-                >
-                  Planner
-                </motion.span>}
+                {router.pathname === "/" && (
+                  <motion.span
+                    key="planner-append"
+                    // layout="position"
+                    layoutId="planner-append"
+                    // variants={headingVariants}
+                    // animate={router.pathname === "/" ? "root" : "timetable"}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    Planner
+                  </motion.span>
+                )}
               </AnimatePresence>
             </Heading>
           </chakra.a>
