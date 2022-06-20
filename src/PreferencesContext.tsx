@@ -147,7 +147,7 @@ const preferencesReducer = (state: Preferences, action: Action) => {
 }
 
 const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
-  const preferences: Preferences  = {
+  const preferences: Preferences = {
     palette: "default",
     scale: 40,
     showTimeInMeeting: false,
@@ -174,17 +174,16 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
 
     if (parsed) {
       dispatch({
-        type: "SET_ALL", 
+        type: "SET_ALL",
         payload: {
-        ...preferences,
-        ...parsed,
-        start: parseInt(parsed.start as any),
-        end: parseInt(parsed.end as any),
-        }
+          ...preferences,
+          ...parsed,
+          start: parseInt(parsed.start as any),
+          end: parseInt(parsed.end as any),
+        },
       })
     }
   }, [])
-
 
   // NOTE: you *might* need to memoize this value; learn more in http://kcd.im/optimize-context
 

@@ -142,7 +142,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
     onOpenSettings()
     router.replace({
-      query: {...routerQuery}
+      query: { ...routerQuery },
     })
   }, [onOpenSettings, router])
 
@@ -172,24 +172,24 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
-      <Flex alignItems="center">
-        {
-          <Heading
-            m={4}
-            ml={6}
-            as="h1"
-            fontSize={{ base: "3xl", md: "4xl" }}
-            position="relative"
-          >
-            <Link href="/">
-              <a>
-                <Box w={20} h={10}>
-                  <Image src={SqrlLogo} layout="fill" objectFit="contain" />
-                </Box>
-              </a>
-            </Link>
-          </Heading>
-        }
+      <Flex alignItems="center" pl="10rem">
+        {/* { */}
+        {/*   <Heading */}
+        {/*     m={4} */}
+        {/*     ml={6} */}
+        {/*     as="h1" */}
+        {/*     fontSize={{ base: "3xl", md: "4xl" }} */}
+        {/*     position="relative" */}
+        {/*   > */}
+        {/*     <Link href="/"> */}
+        {/*       <a> */}
+        {/*         <Box as={motion.div} layoutId="sqrl-logo" position="relative" key="sqrl-logo" w={20} h={10}> */}
+        {/*           <Image src={SqrlLogo} layout="fill" objectFit="contain" /> */}
+        {/*         </Box> */}
+        {/*       </a> */}
+        {/*     </Link> */}
+        {/*   </Heading> */}
+        {/* } */}
 
         <Editable
           display="flex"
