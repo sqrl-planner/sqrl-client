@@ -97,7 +97,8 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
   const { onCopy, hasCopied } = useClipboard(shareUrl)
 
   useEffect(() => {
-    if (!course || !userMeetings || !identifier || !userMeetings[identifier]) return
+    if (!course || !userMeetings || !identifier || !userMeetings[identifier])
+      return
 
     const missing = meetingsMissing(course, userMeetings, identifier)
 

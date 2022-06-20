@@ -1,6 +1,6 @@
 import { Flex, Tooltip } from "@chakra-ui/react"
 import React from "react"
-import styled from "styled-components"
+import styled, { CSSProperties } from "styled-components"
 import { usePreferences } from "../../src/PreferencesContext"
 import { capitalize } from "../../src/utils/misc"
 import { minuteOffsetToTime } from "../../src/utils/time"
@@ -12,6 +12,7 @@ interface MeetingProps {
   meeting: Meeting
   darkText?: boolean
   twentyFour: boolean
+  style?: CSSProperties
 }
 
 const deliveryAbbreviations: {
@@ -68,7 +69,7 @@ const MeetingInformation = styled.div<{ darkText: boolean }>`
   color: ${({ darkText }) => {
     return darkText ? `#111` : `#eee`
   }};
-  transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  /* transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); */
   display: flex;
   flex-direction: column;
   align-content: flex-start;
@@ -85,7 +86,7 @@ const MeetingTimes = styled.div`
   font-size: 0.9em;
   line-height: 1em;
   opacity: 0.8;
-  transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  /* transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); */
 `
 
 const MeetingDelivery = styled.div``
@@ -111,6 +112,7 @@ const MeetingComponent = ({
   meeting,
   darkText = true,
   twentyFour,
+  style,
 }: MeetingProps) => {
   const {
     state: {
@@ -132,7 +134,7 @@ const MeetingComponent = ({
   const { t } = useTranslation("common")
 
   return (
-    <MeetingInformation darkText={darkText}>
+    <MeetingInformation style={style} darkText={darkText}>
       <MeetingTitle>
         {department + "\u200b"}
         <div>{numeral + "\u200b"}</div>

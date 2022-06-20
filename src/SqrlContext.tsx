@@ -146,7 +146,8 @@ const AppContextReducer = (
     }
   }
 
-  const fullContext = action.type === "SET_ALL" ? action.payload : { [timetableId]: newContext }
+  const fullContext =
+    action.type === "SET_ALL" ? action.payload : { [timetableId]: newContext }
 
   if (typeof window !== "undefined") {
     localStorage.setItem("appContext", JSON.stringify(fullContext))
@@ -187,11 +188,11 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     if (parsed) {
       dispatch({
-        type: "SET_ALL", 
+        type: "SET_ALL",
         payload: {
-        ...appContext,
-        ...parsed,
-        }
+          ...appContext,
+          ...parsed,
+        },
       })
     }
   }, [])

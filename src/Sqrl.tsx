@@ -38,7 +38,11 @@ const Container = styled(chakra.div)`
   display: flex;
 `
 
-const Sqrl = () => {
+type Props = {
+  abstract?: boolean
+}
+
+const Sqrl = ({ abstract = false }: Props) => {
   const {
     state: {
       scale,
@@ -164,7 +168,7 @@ const Sqrl = () => {
                   top={2}
                   left={2}
                 >
-                  {t("first-semester")}
+                  {!abstract && t("first-semester")}
                 </Heading>
 
                 <Timetable
@@ -177,6 +181,7 @@ const Sqrl = () => {
                   twentyFour={twentyFour}
                   dark={colorMode === "dark"}
                   emphasizeOnHover={emphasize}
+                  abstract={abstract}
                 />
               </Flex>
             )}
@@ -191,7 +196,7 @@ const Sqrl = () => {
                   top={2}
                   left={2}
                 >
-                  {t("second-semester")}
+                  {!abstract && t("second-semester")}
                 </Heading>
 
                 <Timetable
@@ -204,6 +209,7 @@ const Sqrl = () => {
                   twentyFour={twentyFour}
                   dark={colorMode === "dark"}
                   emphasizeOnHover={emphasize}
+                  abstract={abstract}
                 />
               </Flex>
             )}
