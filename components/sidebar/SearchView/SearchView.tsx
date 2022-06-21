@@ -43,6 +43,7 @@ const SearchView = ({
 }) => {
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const [searchOffset, setSearchOffset] = useState<number>(0)
+  const [searchLimit, setSearchLimit] = useState<number>(7)
   const [chosenCourse, setChosenCourse] = useState("")
 
   const [search, { loading, data, error, fetchMore }] =
@@ -50,12 +51,12 @@ const SearchView = ({
 
   const debounced = useDebouncedCallback((query) => {
     if (!query) return
-    search({ variables: { query, offset: searchOffset } })
+    search({ variables: { query, offset: searchOffset, limit: searchLimit } })
   }, 300)
 
   const debouncedZero = useDebouncedCallback((query) => {
     if (!query) return
-    search({ variables: { query, offset: searchOffset } })
+    search({ variables: { query, offset: searchOffset, limit: searchLimit } })
   }, 0)
 
   useEffect(() => {
@@ -71,8 +72,21 @@ const SearchView = ({
   }, [])
 
   useEffect(() => {
+    setSearchOffset(0)
     debounced(searchQuery)
   }, [searchQuery])
+
+  useEffect(() => {
+    if (searchOffset === 0) return
+
+    search({
+      variables: {
+        query: searchQuery,
+        offset: searchOffset,
+        limit: searchLimit,
+      },
+    })
+  }, [searchQuery, searchLimit, searchOffset])
 
   const { t } = useTranslation(["common", "sidebar"])
 
@@ -166,13 +180,11 @@ const SearchView = ({
                 {'".'}
               </Flex>
             )}
-            {data.searchCourses.length > 6 ? (
-              <MotionButton
-                alignSelf="center"
+            <Flex pt={4} px={6} w="full" justifyContent="space-between">
+              {searchOffset > 0 && <MotionButton
                 p={2}
-                mt={4}
                 variant="link"
-                key="button"
+                key="previous"
                 variants={{
                   hidden: {
                     opacity: 0,
@@ -184,26 +196,65 @@ const SearchView = ({
                 initial="hidden"
                 animate="visible"
                 isLoading={loading}
+                onClick={() => {
+                  setSearchOffset((prev) => {
+                    const newSearchOffset = prev - searchLimit
+                    if (newSearchOffset === 0) {
+                      debouncedZero(searchQuery)
+                    }
+                    return newSearchOffset
+                  })
+                }}
               >
-                More results...
-              </MotionButton>
-            ) : (
-              <Tooltip label="No more results.">
-                <Divider
-                  style={{
-                    marginTop: `calc(var(--chakra-space-4) * -1)`,
-                  }}
-                  _after={{
-                    content: `""`,
-                    height: 8,
-                    width: "100%",
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                  }}
-                />
-              </Tooltip>
-            )}
+                &lt;- Previous
+              </MotionButton>}
+              {data.searchCourses.length > 6 ? (
+                <React.Fragment>
+                  <MotionButton
+                    p={2}
+                    ml="auto"
+                    variant="link"
+                    key="next"
+                    variants={{
+                      hidden: {
+                        opacity: 0,
+                      },
+                      visible: {
+                        opacity: 1,
+                      },
+                    }}
+                    initial="hidden"
+                    animate="visible"
+                    isLoading={loading}
+                    onClick={() => {
+                      setSearchOffset((prev) => prev + searchLimit)
+                    }}
+                  >
+                    Next -&gt;
+                  </MotionButton>
+                </React.Fragment>
+              ) : (
+                <Tooltip label="No more results.">
+                  <Divider
+                    position="absolute"
+                      w="full"
+                      left={0}
+                      right={0}
+                    style={{
+                      marginTop: `calc(var(--chakra-space-4) * -1)`,
+                    }}
+                    _after={{
+                      content: `""`,
+                      height: 8,
+                      width: "100%",
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
+                </Tooltip>
+              )}
+            </Flex>
           </VStack>
         )}
       </AnimatePresence>

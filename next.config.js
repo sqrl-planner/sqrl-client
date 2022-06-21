@@ -14,4 +14,16 @@ module.exports = withBundleAnalyzer({
   compiler: {
     styledComponents: true,
   },
+  webpack: (config) => {
+    return {
+      ...config,
+      "resolve": {
+        ...config.resolve,
+        "fallback": {
+          ...config.resolve.fallback,
+          "fs": false
+        }
+      }
+    }
+  }
 })
