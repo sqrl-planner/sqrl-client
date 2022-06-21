@@ -88,7 +88,7 @@ const PreferencesMeeting = () => {
           iconProps={{
             as: FaTruckMoving,
           }}
-          helperText={t("deliver-method-suffix")}
+          helperText={t("delivery-method-suffix")}
         >
           {t("delivery-method")}
         </PreferencesToggle>

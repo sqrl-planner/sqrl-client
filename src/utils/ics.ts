@@ -38,7 +38,7 @@ const ISOStringToDateString = (ISOString: string): string => {
 export const dateToIcsString = (date: Date): string =>
   ISOStringToDateString(date.toISOString())
 
-const icalFabricator = (events: Array<SqrlIcsEvent>): string => {
+const icalFabricator = async (events: Array<SqrlIcsEvent>): Promise<string> => {
   let ics = ""
 
   ics += HEADER
@@ -48,7 +48,7 @@ const icalFabricator = (events: Array<SqrlIcsEvent>): string => {
   for (const event of events) {
     ics += `
 BEGIN:VEVENT
-UID:${generateUid(event.meeting)}
+UID:${await generateUid(event.meeting)}
 SUMMARY:${event.summary}
 DTSTAMP:${currentTimeStamp}Z
 DTSTART;TZID=${event.tzid}:${dateToIcsString(event.firstStart)}
