@@ -1,13 +1,11 @@
 import {
   AddIcon,
   CheckIcon,
-  QuestionIcon,
   WarningIcon,
   WarningTwoIcon,
 } from "@chakra-ui/icons"
 import {
   Box,
-  Button,
   chakra,
   Flex,
   Grid,
@@ -469,14 +467,14 @@ const MeetingPicker = ({
                     ""
                   )}
 
-                  <Button
-                    variant="link"
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.stopPropagation()
-                    }}
-                  >
-                    <QuestionIcon fontSize="lg" />
-                  </Button>
+                  {/* <Button */}
+                  {/*   variant="link" */}
+                  {/*   onClick={(e: React.MouseEvent<HTMLButtonElement>) => { */}
+                  {/*     e.stopPropagation() */}
+                  {/*   }} */}
+                  {/* > */}
+                  {/*   <QuestionIcon fontSize="lg" /> */}
+                  {/* </Button> */}
                 </Flex>
               </Grid>
             </ConditionalWrapper>
