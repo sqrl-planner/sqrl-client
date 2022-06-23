@@ -313,7 +313,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
             isLoading={loading}
           >
             <Icon mr={{ md: 2 }} as={BiDuplicate} />
-            {t("duplicate-timetable")}
+            {t("duplicate-table")}
           </Button>
         )}
         <ButtonGroup
