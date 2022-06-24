@@ -108,6 +108,12 @@ function Application({ Component, pageProps }: AppProps) {
     }
   }, [size, toast])
 
+  useEffect(() => {
+    if (toast.isActive("warn-not-allowed")) {
+      toast.close("warn-not-allowed")
+    }
+  })
+
   return (
     <React.Fragment>
       <Script id="heap">
