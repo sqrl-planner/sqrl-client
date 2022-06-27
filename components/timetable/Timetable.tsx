@@ -330,27 +330,21 @@ export const Timetable = ({
                 }}
               >
                 {!abstract && (
+                  // Situations where we should show dark text:
+                  // - Light mode conflict:
+                  //   - !highlightConflicts
+                  //   - meeting.identifier === sidebarCourse
+                  //   - emphasizeOnHover AND
+                  //     - hoverCourseKey === meeting.courseKey
+                  // - Dark mode conflict: NEVER
+
                   <MeetingComponent
-                    style={{
-                      color: !dark
-                        ? hoverCourseKey === meeting.courseKey &&
-                          emphasizeOnHover
-                          ? "black"
-                          : meeting.identifier === sidebarCourse
-                          ? "black"
-                          : "white"
-                        : "white",
-                    }}
                     darkText={
-                      !(dark || highlightConflicts) ||
-                      (emphasizeOnHover &&
-                        hoverCourseKey === meeting.courseKey &&
-                        !dark) ||
-                      (meeting.identifier === hoverMeeting.courseIdentifier &&
-                        hoverMeeting.meeting.substring(0, 3) ===
-                          meeting.category.substring(0, 3).toUpperCase() &&
-                        !dark)
-                      //  || meeting.identifier === sidebarCourse
+                      !dark &&
+                      (!highlightConflicts ||
+                        meeting.identifier === sidebarCourse ||
+                        (emphasizeOnHover &&
+                          hoverCourseKey === meeting.courseKey))
                     }
                     meeting={meeting}
                     twentyFour={twentyFour}

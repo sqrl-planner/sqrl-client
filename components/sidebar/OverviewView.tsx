@@ -195,6 +195,7 @@ const OverviewView = () => {
 
                 {coursesToShow[term].map((identifier: string) => {
                   const course = courses[identifier]
+                  if(!course) return
                   const { department, numeral, suffix } = breakdownCourseCode(
                     course.code
                   )

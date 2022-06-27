@@ -71,13 +71,13 @@ export const getSectionType = (section: string) => {
 }
 
 export const getMeetingTypes = (course: Course) => ({
-  lecture: course.sections.some(
+  lecture: course?.sections.some(
     (section) => section.teachingMethod === "LECTURE"
   ),
-  tutorial: course.sections.some(
+  tutorial: course?.sections.some(
     (section) => section.teachingMethod === "TUTORIAL"
   ),
-  practical: course.sections.some(
+  practical: course?.sections.some(
     (section) => section.teachingMethod === "PRACTICAL"
   ),
 })
@@ -105,6 +105,6 @@ export const meetingsMissing = (
 }
 
 export const courseIsForCredit = (course: Course) => {
-  if (course.description.includes("does not carry credit weight")) return false
+  if (course?.description.includes("does not carry credit weight")) return false
   return true
 }
