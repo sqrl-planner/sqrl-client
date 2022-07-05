@@ -56,7 +56,7 @@ const Contributor = ({
         src={contributor.avatar_url}
       />
       {contributor.login}
-      <ExternalLinkIcon mx={1} />
+      {/* <ExternalLinkIcon mx={1} /> */}
     </Link>
   )
 }
@@ -64,30 +64,82 @@ const Contributor = ({
 const AboutModal = ({ isOpen, onClose }: props) => {
   const [contributors, setContributors] = useState<{
     gator: Array<any>
-    sqrlClient: Array<any>
-    sqrlServer: Array<any>
+    client: Array<any>
+    server: Array<any>
   }>({
     gator: [],
-    sqrlClient: [],
-    sqrlServer: [],
+    client: [],
+    server: [],
+  })
+
+  const [lastUpdated, setLastUpdated] = useState<{
+    gator: Date
+    server: Date
+    client: Date
+  }>({
+    gator: new Date(),
+    client: new Date(),
+    server: new Date()
+  })
+
+  const [latestVersion, setLatestVersion] = useState<{
+    gator: string
+    server: string
+    client: string
+  }>({
+    gator: "",
+    client: "",
+    server: "",
   })
 
   useEffect(() => {
     ;(async () => {
-      const client = (await (
-        await fetch("/api/github?repositoryName=sqrl-client")
+      const clientContributors = (await (
+        await fetch("/api/github/contributors?repositoryName=sqrl-client")
       ).json()) as unknown as Array<any>
-      const server = (await (
-        await fetch("/api/github?repositoryName=sqrl-server")
+      const serverContributors = (await (
+        await fetch("/api/github/contributors?repositoryName=sqrl-server")
       ).json()) as unknown as Array<any>
-      const gator = (await (
-        await fetch("/api/github?repositoryName=gator")
+      const gatorContributors = (await (
+        await fetch("/api/github/contributors?repositoryName=gator")
       ).json()) as unknown as Array<any>
 
+      const clientLastUpdated = await ((await fetch(
+        "/api/github/lastUpdated?repositoryName=sqrl-client"
+      ))).json() as string
+      const serverLastUpdated = await (await fetch((
+        "/api/github/lastUpdated?repositoryName=sqrl-server"
+      ))).json() as string
+      const gatorLastUpdated = await (await fetch((
+        "/api/github/lastUpdated?repositoryName=gator"
+      ))).json() as string
+
+      const clientLatestVersion = await (await fetch((
+        "/api/github/latestVersion?repositoryName=sqrl-client"
+      ))).text() as string
+      const serverLatestVersion = await (await fetch((
+        "/api/github/latestVersion?repositoryName=sqrl-server"
+      ))).text() as string
+      const gatorLatestVersion = await (await fetch((
+        "/api/github/latestVersion?repositoryName=gator"
+      ))).text() as string
+
       setContributors({
-        gator,
-        sqrlServer: server,
-        sqrlClient: client,
+        gator: gatorContributors,
+        server: serverContributors,
+        client: clientContributors,
+      })
+
+      setLastUpdated({
+        gator: new Date(gatorLastUpdated),
+        server: new Date(serverLastUpdated),
+        client: new Date(clientLastUpdated),
+      })
+
+      setLatestVersion({
+        gator: JSON.parse(gatorLatestVersion),
+        server: JSON.parse(serverLatestVersion),
+        client: JSON.parse(clientLatestVersion),
       })
     })()
   }, [])
@@ -120,8 +172,9 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   bg={useColorModeValue("blue.50", "blue.800")}
                   href="https://github.com/sqrl-planner/sqrl-client"
                 >
-                  <Icon as={FaGithub} /> sqrl-client <ExternalLinkIcon />
+                  <Icon as={FaGithub} /> sqrl-client: {latestVersion.client} <ExternalLinkIcon />
                 </Link>
+                <Box opacity={0.6} fontSize="sm" mb={2}>{t("last-updated")} {lastUpdated.client.toLocaleDateString()}.</Box>
                 <Box opacity={0.8}>{t("sqrl-client-description")}</Box>
 
                 <Heading
@@ -142,8 +195,8 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   flexWrap="wrap"
                   justifyContent="stretch"
                 >
-                  {contributors?.sqrlClient &&
-                    contributors?.sqrlClient.map((contributor) => (
+                  {contributors?.client &&
+                    contributors?.client.map((contributor) => (
                       <Contributor
                         contributor={contributor}
                         key={contributor.id}
@@ -168,9 +221,10 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   bg={useColorModeValue("blue.50", "blue.800")}
                   href="https://github.com/sqrl-planner/sqrl-server"
                 >
-                  <Icon as={FaGithub} /> sqrl-server <ExternalLinkIcon />
+                  <Icon as={FaGithub} /> sqrl-server: {latestVersion.server} <ExternalLinkIcon />
                 </Link>
 
+                <Box opacity={0.6} fontSize="sm" mb={2}>{t("last-updated")} {lastUpdated.server.toLocaleDateString()}.</Box>
                 <Box opacity={0.8}>{t("sqrl-server-description")}</Box>
 
                 <Heading
@@ -191,8 +245,8 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   flexWrap="wrap"
                   justifyContent="stretch"
                 >
-                  {contributors?.sqrlServer &&
-                    contributors?.sqrlServer.map((contributor) => (
+                  {contributors?.server &&
+                    contributors?.server.map((contributor) => (
                       <Contributor
                         contributor={contributor}
                         key={contributor.id}
@@ -203,7 +257,7 @@ const AboutModal = ({ isOpen, onClose }: props) => {
 
               <Divider />
 
-              <Flex flexDir="column" alignItems="start">
+              <Flex flexDir="column" alignItems="start" width="100%">
                 <Link
                   color={useColorModeValue("blue.800", "blue.300")}
                   isExternal
@@ -217,8 +271,9 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                   bg={useColorModeValue("blue.50", "blue.800")}
                   href="https://github.com/sqrl-planner/gator"
                 >
-                  <Icon as={FaGithub} /> gator <ExternalLinkIcon />
+                  <Icon as={FaGithub} /> gator: {latestVersion.gator} <ExternalLinkIcon />
                 </Link>
+                <Box opacity={0.6} fontSize="sm" mb={2}>{t("last-updated")} {lastUpdated.gator.toLocaleDateString()}.</Box>
                 <Box opacity={0.8}>{t("gator-description")}</Box>
                 <Heading
                   mb={2}
@@ -240,10 +295,10 @@ const AboutModal = ({ isOpen, onClose }: props) => {
                 >
                   {contributors?.gator &&
                     contributors?.gator.map((contributor) => (
-                      <Contributor
-                        contributor={contributor}
-                        key={contributor.id}
-                      />
+                        <Contributor
+                          contributor={contributor}
+                          key={contributor.id}
+                          />
                     ))}
                 </Grid>
               </Flex>

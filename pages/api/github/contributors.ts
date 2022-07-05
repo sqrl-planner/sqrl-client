@@ -10,7 +10,7 @@ export default async function handler(
   if (!repositoryName) repositoryName = "sqrl-client"
 
   const result = await fetch(
-    `https://api.github.com/repos/sqrl-planner/fart/${repositoryName}/contributors`,
+    `https://api.github.com/repos/sqrl-planner/${repositoryName}/contributors`,
     {
       method: "get",
       headers: new Headers({
@@ -18,7 +18,7 @@ export default async function handler(
       }),
     }
   )
-  // const result = 
+
   if(result.ok) return res.status(200).json(await result.json())
 
   return res.status(500)
