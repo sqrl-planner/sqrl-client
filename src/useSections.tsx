@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { REMOVE_COURSE_TIMETABLE } from "../operations/mutations/removeCourseTimetable"
 import { SET_SECTIONS_TIMETABLE } from "../operations/mutations/setSectionsTimetable"
 import { GET_TIMETABLE_BY_ID } from "../operations/queries/getTimetableById"
+import { SET_TIMETABLE_NAME } from "../operations/mutations/setTimetableName"
+
 import useTimetable from "./useTimetable"
 import {
   constructSectionsFromMeetings,
@@ -24,6 +26,7 @@ const SectionsContext = createContext<
   | {
       sections: { [key: string]: Array<string> }
       name: string
+      updateName: Function
       setSections: Function
       removeCourse: Function
     }
@@ -71,7 +74,7 @@ export const SectionsProvider = ({
   }, [data, id])
 
   const [setSectionsTimetable] = useMutation(SET_SECTIONS_TIMETABLE)
-
+  const [setTimetableName] = useMutation(SET_TIMETABLE_NAME)
   const [removeCourse] = useMutation(REMOVE_COURSE_TIMETABLE)
 
   const removeTimetableCourse = ({ courseId }: RemoveTimetableCourseProps) => {
@@ -115,11 +118,38 @@ export const SectionsProvider = ({
     })
   }
 
+  const updateName = (name: string, cb?: Function) => {
+    if (!key) return
+    if (!id) return
+
+    // Set the name in the client (contexts)
+    setName(name)
+
+    // Set the new name in LS (persistence)
+    setTimetableName({
+      variables: { id, key, name },
+      onCompleted: (data) => {
+        const prevLsTimetablesJSON = localStorage.getItem("timetables")
+        let prevLsTimetables: { [key: string]: { key: string; name: string } } =
+          {}
+        if (prevLsTimetablesJSON)
+          prevLsTimetables = JSON.parse(prevLsTimetablesJSON)
+
+        prevLsTimetables[id].name = data.setTimetableName.timetable.name
+
+        localStorage.setItem("timetables", JSON.stringify(prevLsTimetables))
+
+        if (cb) cb()
+      },
+    })
+  }
+
   return (
     <SectionsContext.Provider
       value={{
         sections,
         name,
+        updateName,
         setSections: setTimetableSections,
         removeCourse: removeTimetableCourse,
       }}
