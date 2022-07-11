@@ -1,8 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import Head from "next/head"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Layout from "../../components/Layout"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { apolloClientParams } from "../../src/apollo-client"
@@ -12,26 +11,14 @@ import { AppContextProvider } from "../../src/SqrlContext"
 import { SectionsProvider } from "../../src/useSections"
 
 export const TimetableView: NextPage = (props: any) => {
-  const [sharePrefix, setSharePrefix] = useState("")
-
-  useEffect(() => {
-    setSharePrefix(
-      `${window.location.protocol}//${window.location.host}/timetable/`
-    )
-  }, [])
-
   return (
     <React.Fragment>
-      <Head>
-        <title>Sqrl Planner | {props.name}</title>
-        <meta property="og:url" content={`${sharePrefix}${props.id}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`Sqrl Planner | ${props.name}`} />
-      </Head>
       <PreferencesProvider>
         <AppContextProvider>
           <SectionsProvider initialSections={props.sections}>
-            <Layout><Sqrl /></Layout>
+            <Layout>
+              <Sqrl />
+            </Layout>
           </SectionsProvider>
         </AppContextProvider>
       </PreferencesProvider>

@@ -17,6 +17,7 @@ import {
   Badge,
   useToast,
 } from "@chakra-ui/react"
+import Head from "next/head"
 import { EditIcon, Icon, InfoIcon, SettingsIcon } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
@@ -83,11 +84,11 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const router = useRouter()
 
-  const { allowedToEdit, updateName } = useTimetable({
+  const { allowedToEdit } = useTimetable({
     id: (router.query.id as string) || "",
   })
 
-  const { name } = useSections()
+  const { name, updateName } = useSections()
 
   const keydownListener = useCallback(
     (e: KeyboardEvent) => {
@@ -162,6 +163,12 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
+      <Head>
+        <title>Sqrl Planner | {name}</title>
+        <meta property="og:url" content={`${sharePrefix}${id}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`Sqrl Planner | ${name}`} />
+      </Head>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
       <Flex flex="1" alignItems="center" pl="11rem">

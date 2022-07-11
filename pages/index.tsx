@@ -38,6 +38,31 @@ import { useTranslation } from "next-i18next"
 import AboutModal from "../components/AboutModal"
 import Layout from "../components/Layout"
 import { FaMoon, FaSun } from "react-icons/fa"
+import { IconType } from "react-icons"
+import { theme } from "./_app"
+
+/**
+ * Darkens a color by a percentage
+ * @param hexColor A hex color with a hashtag, like #ABCDEF
+ * @param percentage A positive real number
+ *    Values from 0-1 make the color darker
+ *    A value of 1 keeps the color the same
+ *    Values greater than 1 make the color brighter, up to FFFFFF
+ */
+function changeColor(hexColor: string, percentage: number): string {
+  const changeChannel = (twoDigitHex: string): string => {
+    const base10Number = Math.floor(parseInt(twoDigitHex, 16) * percentage)
+    const constrained = Math.min(Math.max(0, base10Number), 255) // Put in [0, 255] range
+    const stringRep = constrained.toString(16)
+    return stringRep.length === 1 ? "0" + stringRep : stringRep
+  }
+
+  const red = changeChannel(hexColor.slice(1, 3))
+  const green = changeChannel(hexColor.slice(3, 5))
+  const blue = changeChannel(hexColor.slice(5, 7))
+
+  return "#" + red + green + blue
+}
 
 const Dashboard = () => {
   const router = useRouter()
@@ -167,6 +192,29 @@ const Dashboard = () => {
 
   const { t } = useTranslation("index")
 
+  // Differences in the UI between light and dark mode
+  // Mostly for icons/hover
+  interface ModeConfig {
+    tLabel: string
+    icon: IconType
+    iconId: string
+    hoverFactor: number
+  }
+  const modeConfig: ModeConfig = {
+    light: {
+      tLabel: "light-mode",
+      icon: FaSun,
+      iconId: "sun-icon",
+      hoverFactor: 0.9,
+    },
+    dark: {
+      tLabel: "dark-mode",
+      icon: FaMoon,
+      iconId: "moon-icon",
+      hoverFactor: 1.1,
+    },
+  }[colorMode]
+
   return (
     <React.Fragment>
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
@@ -286,9 +334,16 @@ const Dashboard = () => {
                         px={8}
                         minH="2xs"
                         fontWeight="medium"
+                        transition="background 75ms linear"
                         position="relative"
                         opacity={!!pageLoading ? "0.5" : "1"}
                         cursor={!!pageLoading ? "not-allowed" : "pointer"}
+                        _hover={{
+                          background: changeColor(
+                            theme.colors.blue[600],
+                            modeConfig.hoverFactor
+                          ), // blue[700] doesn't work here
+                        }}
                         onClick={() => {
                           if (pageLoading) return
                           setPageLoading(id)
@@ -382,37 +437,20 @@ const Dashboard = () => {
               <Tab onClick={onOpenAbout}>{t("common:about")}</Tab>
               <Tab onClick={toggleColorMode}>
                 <AnimatePresence exitBeforeEnter>
-                  {colorMode === "light" ? (
-                    <React.Fragment>
-                      <motion.div
-                        key="moon-icon"
-                        initial={{
-                          opacity: 0,
-                          y: -15,
-                          rotate: -45,
-                        }}
-                        animate={{ opacity: 1, y: 0, rotate: 0 }}
-                      >
-                        <Icon as={FaMoon} mr={2} />
-                      </motion.div>{" "}
-                      {t("dark-mode")}
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment>
-                      <motion.div
-                        key="sun-icon"
-                        initial={{
-                          opacity: 0,
-                          y: -15,
-                          rotate: -45,
-                        }}
-                        animate={{ opacity: 1, y: 0, rotate: 0 }}
-                      >
-                        <Icon as={FaSun} mr={2} />
-                      </motion.div>{" "}
-                      {t("light-mode")}
-                    </React.Fragment>
-                  )}
+                  <React.Fragment>
+                    <motion.div
+                      key={modeConfig.iconId}
+                      initial={{
+                        opacity: 0,
+                        y: -15,
+                        rotate: -45,
+                      }}
+                      animate={{ opacity: 1, y: 0, rotate: 0 }}
+                    >
+                      <Icon as={modeConfig.icon} mr={2} />
+                    </motion.div>{" "}
+                    {t(modeConfig.tLabel)}
+                  </React.Fragment>
                 </AnimatePresence>
               </Tab>
             </TabList>

@@ -1,7 +1,5 @@
-import { useMutation } from "@apollo/client"
 import { useToast } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { SET_TIMETABLE_NAME } from "../operations/mutations/setTimetableName"
 
 type Props = {
   id?: string
@@ -46,31 +44,7 @@ const useTimetable = ({ id }: Props) => {
     }
   }, [allowedToEdit])
 
-  const [setTimetableName] = useMutation(SET_TIMETABLE_NAME)
-
-  const updateName = (name: string, cb?: Function) => {
-    if (!key) return
-    if (!id) return
-
-    setTimetableName({
-      variables: { id, key, name },
-      onCompleted: (data) => {
-        const prevLsTimetablesJSON = localStorage.getItem("timetables")
-        let prevLsTimetables: { [key: string]: { key: string; name: string } } =
-          {}
-        if (prevLsTimetablesJSON)
-          prevLsTimetables = JSON.parse(prevLsTimetablesJSON)
-
-        prevLsTimetables[id].name = data.setTimetableName.timetable.name
-
-        localStorage.setItem("timetables", JSON.stringify(prevLsTimetables))
-
-        if (cb) cb()
-      },
-    })
-  }
-
-  return { allowedToEdit, updateName, key }
+  return { allowedToEdit, key }
 }
 
 export default useTimetable
