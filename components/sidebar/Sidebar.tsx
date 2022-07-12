@@ -47,6 +47,7 @@ const Tab = ({
 const Sidebar = () => {
   const boxBackground = useColorModeValue("gray.75", "gray.700")
   const [searchQuery, setSearchQuery] = useState("")
+  const [searchOffset, setSearchOffset] = useState<number>(0)
 
   const router = useRouter()
 
@@ -147,6 +148,8 @@ const Sidebar = () => {
             <SearchView
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
+              searchOffset={searchOffset}
+              setSearchOffset={setSearchOffset}
             />
           </TabPanel>
           <TabPanel p={0}>
