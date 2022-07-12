@@ -78,7 +78,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
   const [osModifier, setOsModifier] = useState("")
 
   useEffect(() => {
-    if (navigator.userAgent.indexOf("Mac OS X") !== -1) return setOsModifier("⌘")
+    if (navigator.userAgent.indexOf("Mac OS X") !== -1)
+      return setOsModifier("⌘")
     setOsModifier("Ctrl + ")
   }, [])
 

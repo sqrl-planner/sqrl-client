@@ -1,9 +1,4 @@
-import {
-  Box,
-  chakra,
-  Heading,
-  useColorModeValue,
-} from "@chakra-ui/react"
+import { Box, chakra, Heading, useColorModeValue } from "@chakra-ui/react"
 import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
 import React from "react"

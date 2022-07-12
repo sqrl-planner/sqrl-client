@@ -17,13 +17,13 @@ module.exports = withBundleAnalyzer({
   webpack: (config) => {
     return {
       ...config,
-      "resolve": {
+      resolve: {
         ...config.resolve,
-        "fallback": {
+        fallback: {
           ...config.resolve.fallback,
-          "fs": false
-        }
-      }
+          fs: false,
+        },
+      },
     }
-  }
+  },
 })

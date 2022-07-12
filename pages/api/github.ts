@@ -18,8 +18,8 @@ export default async function handler(
       }),
     }
   )
-  // const result = 
-  if(result.ok) return res.status(200).json(await result.json())
+  // const result =
+  if (result.ok) return res.status(200).json(await result.json())
 
   return res.status(500)
 }

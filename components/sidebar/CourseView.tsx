@@ -24,12 +24,7 @@ import {
   useClipboard,
   useToast,
 } from "@chakra-ui/react"
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"

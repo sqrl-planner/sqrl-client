@@ -67,7 +67,9 @@ const DisclaimerModal = (props: {
                 }
                 pb={4}
               >
-                {t("checklist-one-acorn")} <sup>1</sup>, {t("checklist-one-timetable")}<sup>2</sup>, {t("checklist-one-calendar")}
+                {t("checklist-one-acorn")} <sup>1</sup>,{" "}
+                {t("checklist-one-timetable")}
+                <sup>2</sup>, {t("checklist-one-calendar")}
                 <sup>3</sup> {t("checklist-one-rest")}
               </Checkbox>
               <Checkbox
