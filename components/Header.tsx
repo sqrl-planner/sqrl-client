@@ -78,8 +78,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
   const [osModifier, setOsModifier] = useState("")
 
   useEffect(() => {
-    if (navigator.userAgent.indexOf("Mac OS X") !== -1) setOsModifier("⌘")
-    if (navigator.userAgent.indexOf("Windows") !== -1) setOsModifier("Ctrl + ")
+    if (navigator.userAgent.indexOf("Mac OS X") !== -1) return setOsModifier("⌘")
+    setOsModifier("Ctrl + ")
   }, [])
 
   const router = useRouter()
