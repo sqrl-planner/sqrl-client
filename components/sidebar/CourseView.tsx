@@ -100,10 +100,10 @@ const CourseView = ({
         },
       })
 
-      if (result.error) {
-        // I don't know how to show errors in sqrl :/ so return for now
-        return
-      } else if (result.data.courseById) {
+      // I don't know how to show errors in sqrl :/ so return for now
+      if (result.error) return
+
+      if (result.data.courseById) {
         // courseById is null when there is course with matching id
         setSiblingCourseId(result.data.courseById.id)
       }

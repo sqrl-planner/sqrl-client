@@ -34,7 +34,7 @@ import SearchViewHints from "./SearchViewHints"
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
 
-interface SearchViewProps {
+type Props = {
   searchQuery: string
   setSearchQuery: Dispatch<React.SetStateAction<string>>
   searchOffset: number
@@ -50,7 +50,7 @@ const SearchView = ({
   setSearchOffset,
   chosenCourse,
   setChosenCourse,
-}: SearchViewProps) => {
+}: Props) => {
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const [searchLimit, setSearchLimit] = useState<number>(7)
 
