@@ -39,7 +39,7 @@ const useCourses = ({ sections }: Props) => {
         ids: coursesToGet,
       },
     })
-  }, [sections, sidebarCourse])
+  }, [getCoursesById, sections, sidebarCourse])
 
   useEffect(() => {
     if (!data || !data.coursesById) return

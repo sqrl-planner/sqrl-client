@@ -34,20 +34,25 @@ import SearchViewHints from "./SearchViewHints"
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
 
+interface SearchViewProps {
+  searchQuery: string
+  setSearchQuery: Dispatch<React.SetStateAction<string>>
+  searchOffset: number
+  setSearchOffset: Dispatch<React.SetStateAction<number>>
+  chosenCourse: string
+  setChosenCourse: Dispatch<React.SetStateAction<string>>
+}
+
 const SearchView = ({
   searchQuery,
   setSearchQuery,
   searchOffset,
   setSearchOffset,
-}: {
-  searchQuery: string
-  setSearchQuery: Dispatch<React.SetStateAction<string>>
-  searchOffset: number
-  setSearchOffset: Dispatch<React.SetStateAction<number>>
-}) => {
+  chosenCourse,
+  setChosenCourse,
+}: SearchViewProps) => {
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const [searchLimit, setSearchLimit] = useState<number>(7)
-  const [chosenCourse, setChosenCourse] = useState("")
 
   const [search, { loading, data, error, fetchMore }] =
     useLazyQuery(SEARCH_COURSES)
@@ -69,8 +74,15 @@ const SearchView = ({
   })
 
   useEffect(() => {
+    if (!searchQuery) return
+
+    debouncedZero(searchQuery)
+  }, [])
+
+  useEffect(() => {
+    setSearchOffset(0)
     debounced(searchQuery)
-  }, [debounced, searchQuery])
+  }, [debounced, setSearchOffset, searchQuery])
 
   useEffect(() => {
     if (searchOffset === 0) return
