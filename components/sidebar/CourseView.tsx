@@ -100,9 +100,6 @@ const CourseView = ({
         },
       })
 
-      console.log(result)
-      console.log(course)
-
       if (result.error) {
         // I don't know how to show errors in sqrl :/ so return for now
         return
