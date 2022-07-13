@@ -37,12 +37,15 @@ const MotionButton = motion<ButtonProps>(Button)
 const SearchView = ({
   searchQuery,
   setSearchQuery,
+  searchOffset,
+  setSearchOffset,
 }: {
   searchQuery: string
   setSearchQuery: Dispatch<React.SetStateAction<string>>
+  searchOffset: number
+  setSearchOffset: Dispatch<React.SetStateAction<number>>
 }) => {
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
-  const [searchOffset, setSearchOffset] = useState<number>(0)
   const [searchLimit, setSearchLimit] = useState<number>(7)
   const [chosenCourse, setChosenCourse] = useState("")
 
@@ -66,15 +69,8 @@ const SearchView = ({
   })
 
   useEffect(() => {
-    if (!searchQuery) return
-
-    debouncedZero(searchQuery)
-  }, [])
-
-  useEffect(() => {
-    setSearchOffset(0)
     debounced(searchQuery)
-  }, [searchQuery])
+  }, [debounced, searchQuery])
 
   useEffect(() => {
     if (searchOffset === 0) return
@@ -86,7 +82,7 @@ const SearchView = ({
         limit: searchLimit,
       },
     })
-  }, [searchQuery, searchLimit, searchOffset])
+  }, [search, searchQuery, searchLimit, searchOffset])
 
   const { t } = useTranslation(["common", "sidebar"])
 
@@ -181,33 +177,35 @@ const SearchView = ({
               </Flex>
             )}
             <Flex pt={4} px={6} w="full" justifyContent="space-between">
-              {searchOffset > 0 && <MotionButton
-                p={2}
-                variant="link"
-                key="previous"
-                variants={{
-                  hidden: {
-                    opacity: 0,
-                  },
-                  visible: {
-                    opacity: 1,
-                  },
-                }}
-                initial="hidden"
-                animate="visible"
-                isLoading={loading}
-                onClick={() => {
-                  setSearchOffset((prev) => {
-                    const newSearchOffset = prev - searchLimit
-                    if (newSearchOffset === 0) {
-                      debouncedZero(searchQuery)
-                    }
-                    return newSearchOffset
-                  })
-                }}
-              >
-                &lt;- Previous
-              </MotionButton>}
+              {searchOffset > 0 && (
+                <MotionButton
+                  p={2}
+                  variant="link"
+                  key="previous"
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                    },
+                    visible: {
+                      opacity: 1,
+                    },
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  isLoading={loading}
+                  onClick={() => {
+                    setSearchOffset((prev) => {
+                      const newSearchOffset = prev - searchLimit
+                      if (newSearchOffset === 0) {
+                        debouncedZero(searchQuery)
+                      }
+                      return newSearchOffset
+                    })
+                  }}
+                >
+                  &lt;- Previous
+                </MotionButton>
+              )}
               {data.searchCourses.length > 6 ? (
                 <React.Fragment>
                   <MotionButton
@@ -237,9 +235,9 @@ const SearchView = ({
                 <Tooltip label="No more results.">
                   <Divider
                     position="absolute"
-                      w="full"
-                      left={0}
-                      right={0}
+                    w="full"
+                    left={0}
+                    right={0}
                     style={{
                       marginTop: `calc(var(--chakra-space-4) * -1)`,
                     }}
