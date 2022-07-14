@@ -210,7 +210,7 @@ const PreferencesMeeting = () => {
                 fontSize="sm"
                 fontWeight={500}
               >
-                {t("cosmic  ")}
+                {t("cosmic")}
               </SliderMark>
               <SliderTrack>
                 <SliderFilledTrack />
