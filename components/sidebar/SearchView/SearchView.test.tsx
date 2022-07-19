@@ -17,8 +17,6 @@ describe("Search view", () => {
                 setSearchQuery={() => {}}
                 searchOffset={0}
                 setSearchOffset={() => {}}
-                chosenCourse=""
-                setChosenCourse={() => {}}
               />
             </MockedProvider>
           </PreferencesProvider>
@@ -38,8 +36,6 @@ describe("Search view", () => {
                 setSearchQuery={() => {}}
                 searchOffset={0}
                 setSearchOffset={() => {}}
-                chosenCourse=""
-                setChosenCourse={() => {}}
               />
             </MockedProvider>
           </PreferencesProvider>

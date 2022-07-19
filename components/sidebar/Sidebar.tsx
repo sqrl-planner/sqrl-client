@@ -48,7 +48,6 @@ const Sidebar = () => {
   const boxBackground = useColorModeValue("gray.75", "gray.700")
   const [searchQuery, setSearchQuery] = useState("")
   const [searchOffset, setSearchOffset] = useState<number>(0)
-  const [chosenCourse, setChosenCourse] = useState("")
 
   const router = useRouter()
 
@@ -151,15 +150,10 @@ const Sidebar = () => {
               setSearchQuery={setSearchQuery}
               searchOffset={searchOffset}
               setSearchOffset={setSearchOffset}
-              chosenCourse={chosenCourse}
-              setChosenCourse={setChosenCourse}
             />
           </TabPanel>
           <TabPanel p={0}>
-            <CourseView
-              setSearchQuery={setSearchQuery}
-              setChosenCourse={setChosenCourse}
-            />
+            <CourseView setSearchQuery={setSearchQuery} />
           </TabPanel>
           <TabPanel p={0}>
             <OverviewView />

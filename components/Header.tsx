@@ -17,7 +17,6 @@ import {
   Badge,
   useToast,
 } from "@chakra-ui/react"
-import Head from "next/head"
 import { EditIcon, Icon, InfoIcon, SettingsIcon } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
@@ -29,6 +28,8 @@ import useSections from "../src/useSections"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { useMutation } from "@apollo/client"
 import { useTranslation } from "next-i18next"
+import TitleMeta from "./TitleMeta"
+import useSharePrefix from "../src/useSharePrefix"
 
 const HeaderComponent = styled(chakra.header)`
   /* display: grid; */
@@ -78,7 +79,8 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
   const [osModifier, setOsModifier] = useState("")
 
   useEffect(() => {
-    if (navigator.userAgent.indexOf("Mac OS X") !== -1) return setOsModifier("⌘")
+    if (navigator.userAgent.indexOf("Mac OS X") !== -1)
+      return setOsModifier("⌘")
     setOsModifier("Ctrl + ")
   }, [])
 
@@ -149,13 +151,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
   const [loading, setLoading] = useState(false)
-  const [sharePrefix, setSharePrefix] = useState("")
-
-  useEffect(() => {
-    setSharePrefix(
-      `${window.location.protocol}//${window.location.host}/timetable/`
-    )
-  }, [])
+  const [sharePrefix] = useSharePrefix()
 
   const id = router.query.id
 
@@ -163,12 +159,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
-      <Head>
-        <title>Sqrl Planner | {name}</title>
-        <meta property="og:url" content={`${sharePrefix}${id}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`Sqrl Planner | ${name}`} />
-      </Head>
+      <TitleMeta name={name} sharePrefix={sharePrefix} id={id} />
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
       <Flex flex="1" alignItems="center" pl="11rem">

@@ -39,8 +39,6 @@ type Props = {
   setSearchQuery: Dispatch<React.SetStateAction<string>>
   searchOffset: number
   setSearchOffset: Dispatch<React.SetStateAction<number>>
-  chosenCourse: string
-  setChosenCourse: Dispatch<React.SetStateAction<string>>
 }
 
 const SearchView = ({
@@ -48,8 +46,6 @@ const SearchView = ({
   setSearchQuery,
   searchOffset,
   setSearchOffset,
-  chosenCourse,
-  setChosenCourse,
 }: Props) => {
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const [searchLimit, setSearchLimit] = useState<number>(7)
@@ -169,11 +165,7 @@ const SearchView = ({
         {!error && !!data && searchQuery && (
           <VStack alignItems="flex-start" spacing={0}>
             {!!data.searchCourses.length && (
-              <SearchResults
-                chosenCourse={chosenCourse}
-                setChosenCourse={setChosenCourse}
-                courses={data.searchCourses}
-              />
+              <SearchResults courses={data.searchCourses} />
             )}
             {!loading && data.searchCourses.length === 0 && (
               <Flex

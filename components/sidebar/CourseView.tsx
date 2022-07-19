@@ -47,13 +47,11 @@ import {
 import { useLazyQuery } from "@apollo/client"
 import { CHECK_COURSE_EXISTS } from "../../operations/queries/checkCourseExists"
 
-const CourseView = ({
-  setSearchQuery,
-  setChosenCourse,
-}: {
+type Props = {
   setSearchQuery: Dispatch<React.SetStateAction<string>>
-  setChosenCourse: Dispatch<React.SetStateAction<string>>
-}) => {
+}
+
+const CourseView = ({ setSearchQuery }: Props) => {
   const {
     state: {
       // courses,
@@ -81,11 +79,6 @@ const CourseView = ({
     // Cannot put async callback to useEffect, so wrap
     // Check for the sibling course if it exists, and if it does,
     // add the ID of that course to the state. If not, it's null
-
-    // Set it to null initially, so that if a sibling course from another course existed,
-    // say CSC108F and CSC108S, and then the user clicks on CSC304F which has no S sibling,
-    // the sibling does not erroneously display CSC108S
-    setSiblingCourseId(null)
 
     // Run the query
     ;(async () => {
@@ -371,7 +364,6 @@ const CourseView = ({
                 alignItems="center"
                 gap={2}
                 onClick={() => {
-                  setChosenCourse(siblingCourseId)
                   dispatch({
                     type: "SET_SIDEBAR",
                     payload: 1,
