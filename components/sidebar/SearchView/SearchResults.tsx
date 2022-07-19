@@ -8,21 +8,18 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import React, { SetStateAction } from "react"
-import { Dispatch } from "react"
+import React from "react"
 import { Course } from "../../../src/Course"
 import { useAppContext } from "../../../src/SqrlContext"
 import { breakdownCourseCode } from "../../../src/utils/course"
 
 type Props = {
   courses: Array<Course>
-  setChosenCourse: Dispatch<SetStateAction<string>>
-  chosenCourse: string
 }
 
 const MotionFlex = motion<FlexProps>(Flex)
 
-const SearchResults = ({ courses, setChosenCourse, chosenCourse }: Props) => {
+const SearchResults = ({ courses }: Props) => {
   const { dispatch } = useAppContext()
   const hoverBackground = useColorModeValue("gray.100", "gray.600")
 
@@ -65,7 +62,6 @@ const SearchResults = ({ courses, setChosenCourse, chosenCourse }: Props) => {
             }}
             tabIndex={0}
             onClick={() => {
-              setChosenCourse(course.id)
               dispatch({
                 type: "SET_SIDEBAR",
                 payload: 1,

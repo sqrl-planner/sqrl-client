@@ -28,6 +28,7 @@ import { useMutation } from "@apollo/client"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
 import { useTranslation } from "next-i18next"
+import useSharePrefix from "../src/useSharePrefix"
 
 type props = {
   isOpen: boolean
@@ -39,14 +40,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
 
   const id = router.query.id
 
-  const [sharePrefix, setSharePrefix] = useState("")
-
-  useEffect(() => {
-    setSharePrefix(
-      `${window.location.protocol}//${window.location.host}/timetable/`
-    )
-  }, [])
-
+  const [sharePrefix] = useSharePrefix()
   const shareUrl = `${sharePrefix}${id}`
   const { onCopy, hasCopied } = useClipboard(shareUrl)
 
@@ -61,7 +55,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
       duration: 9000,
       isClosable: true,
     })
-  }, [hasCopied])
+  }, [toast, hasCopied])
 
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
 
