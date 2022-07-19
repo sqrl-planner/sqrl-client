@@ -92,6 +92,17 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const { name, updateName } = useSections()
 
+  // Handles overriding the server-side title. When wget or discord embed searches for the title,
+  // it will find the one in [id].tsx, and never gives the client a chance to load. When the client loads
+  // in a browser, this <TitleMeta> overrides that one, making it react to name changes appropriately.
+  const [showReactiveTitle, setShowReactiveTitle] = useState<boolean>(false)
+
+  // The first time updateName is called, override the server-shown
+  // title with the client-side context-driven one.
+  useEffect(() => {
+    setShowReactiveTitle(true)
+  }, [setShowReactiveTitle])
+
   const keydownListener = useCallback(
     (e: KeyboardEvent) => {
       if (!allowedToEdit) return
@@ -159,7 +170,9 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
-      <TitleMeta name={name} sharePrefix={sharePrefix} id={id} />
+      {showReactiveTitle && (
+        <TitleMeta name={name} sharePrefix={sharePrefix} id={id} />
+      )}
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
       <Flex flex="1" alignItems="center" pl="11rem">
