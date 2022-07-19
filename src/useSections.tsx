@@ -22,16 +22,17 @@ type RemoveTimetableCourseProps = {
   courseId: string
 }
 
-const SectionsContext = createContext<
-  | {
-      sections: { [key: string]: Array<string> }
-      name: string
-      updateName: Function
-      setSections: Function
-      removeCourse: Function
-    }
-  | undefined
->(undefined)
+type SectionsContextContent = {
+  sections: { [key: string]: Array<string> }
+  name: string
+  updateName: Function
+  setSections: Function
+  removeCourse: Function
+}
+
+const SectionsContext = createContext<SectionsContextContent | undefined>(
+  undefined
+)
 
 export const SectionsProvider = ({
   children,

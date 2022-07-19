@@ -34,20 +34,21 @@ import SearchViewHints from "./SearchViewHints"
 const MotionFlex = motion<FlexProps>(Flex)
 const MotionButton = motion<ButtonProps>(Button)
 
+type Props = {
+  searchQuery: string
+  setSearchQuery: Dispatch<React.SetStateAction<string>>
+  searchOffset: number
+  setSearchOffset: Dispatch<React.SetStateAction<number>>
+}
+
 const SearchView = ({
   searchQuery,
   setSearchQuery,
   searchOffset,
   setSearchOffset,
-}: {
-  searchQuery: string
-  setSearchQuery: Dispatch<React.SetStateAction<string>>
-  searchOffset: number
-  setSearchOffset: Dispatch<React.SetStateAction<number>>
-}) => {
+}: Props) => {
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const [searchLimit, setSearchLimit] = useState<number>(7)
-  const [chosenCourse, setChosenCourse] = useState("")
 
   const [search, { loading, data, error, fetchMore }] =
     useLazyQuery(SEARCH_COURSES)
@@ -69,8 +70,15 @@ const SearchView = ({
   })
 
   useEffect(() => {
+    if (!searchQuery) return
+
+    debouncedZero(searchQuery)
+  }, [])
+
+  useEffect(() => {
+    setSearchOffset(0)
     debounced(searchQuery)
-  }, [debounced, searchQuery])
+  }, [debounced, setSearchOffset, searchQuery])
 
   useEffect(() => {
     if (searchOffset === 0) return
@@ -157,11 +165,7 @@ const SearchView = ({
         {!error && !!data && searchQuery && (
           <VStack alignItems="flex-start" spacing={0}>
             {!!data.searchCourses.length && (
-              <SearchResults
-                chosenCourse={chosenCourse}
-                setChosenCourse={setChosenCourse}
-                courses={data.searchCourses}
-              />
+              <SearchResults courses={data.searchCourses} />
             )}
             {!loading && data.searchCourses.length === 0 && (
               <Flex

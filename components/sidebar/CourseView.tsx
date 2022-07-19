@@ -23,13 +23,9 @@ import {
   Tooltip,
   useClipboard,
   useToast,
+  VStack,
 } from "@chakra-ui/react"
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import React, { Dispatch, Fragment, useEffect, useRef, useState } from "react"
 import reactStringReplace from "react-string-replace"
 import { useAppContext } from "../../src/SqrlContext"
 import { MeetingCategoryType } from "../timetable/Meeting"
@@ -44,8 +40,18 @@ import useSections from "../../src/useSections"
 import { motion } from "framer-motion"
 import useTimetable from "../../src/useTimetable"
 import { SearchIcon } from "@chakra-ui/icons"
+import {
+  getCourseLetterFromTerm,
+  computeSiblingCourseId,
+} from "../../src/utils/course"
+import { useLazyQuery } from "@apollo/client"
+import { CHECK_COURSE_EXISTS } from "../../operations/queries/checkCourseExists"
 
-const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
+type Props = {
+  setSearchQuery: Dispatch<React.SetStateAction<string>>
+}
+
+const CourseView = ({ setSearchQuery }: Props) => {
   const {
     state: {
       // courses,
@@ -61,8 +67,41 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     sections,
   })
   const { allowedToEdit } = useTimetable({ id: router.query.id as string })
+  const [siblingCourseId, setSiblingCourseId] = useState<string | null>(null)
 
   const course = courses[identifier]
+
+  const [checkCourseExists] = useLazyQuery(CHECK_COURSE_EXISTS, {
+    errorPolicy: "all",
+  })
+
+  useEffect(() => {
+    // Cannot put async callback to useEffect, so wrap
+    // Check for the sibling course if it exists, and if it does,
+    // add the ID of that course to the state. If not, it's null
+
+    // Run the query
+    ;(async () => {
+      if (!course) return
+
+      const siblingCourseId = computeSiblingCourseId(course)
+      if (siblingCourseId === null) return
+
+      const result = await checkCourseExists({
+        variables: {
+          id: siblingCourseId,
+        },
+      })
+
+      // I don't know how to show errors in sqrl :/ so return for now
+      if (result.error) return
+
+      if (result.data.courseById) {
+        // courseById is null when there is course with matching id
+        setSiblingCourseId(result.data.courseById.id)
+      }
+    })()
+  }, [course, checkCourseExists])
 
   // TODO: meetings out of the timetable's display bounds are hidden without warning. Warn them.
 
@@ -97,7 +136,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
     if (missing.length !== 0) return
 
     toast.close("warn-missing-section")
-  }, [course, userMeetings, identifier])
+  }, [toast, course, userMeetings, identifier])
 
   useEffect(() => {
     if (!hasCopied) return
@@ -108,7 +147,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
       duration: 9000,
       isClosable: true,
     })
-  }, [hasCopied])
+  }, [toast, hasCopied])
 
   if (!identifier) {
     return (
@@ -225,11 +264,7 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             {suffix}
           </Text>
           <Text as="span" fontSize="0.8em" ml={2}>
-            {(() => {
-              if (course.term === "FIRST_SEMESTER") return "F"
-              if (course.term === "SECOND_SEMESTER") return "S"
-              return "Y"
-            })()}
+            {getCourseLetterFromTerm(course)}
           </Text>
         </Box>
         <Box>
@@ -316,46 +351,76 @@ const CourseView = ({ setSearchQuery }: { setSearchQuery: Function }) => {
             </Fragment>
           )}
         </Popover>
-        <ButtonGroup
-          isAttached
-          display="flex"
-          width="100%"
-          variant="outline"
-          colorScheme="gray"
-        >
-          <Button
-            alignItems="center"
-            gap={2}
-            onClick={() => {
-              if (!removePopoverTriggerRef.current) return
-              removePopoverTriggerRef.current.click()
-            }}
-            disabled={
-              !allowedToEdit ||
-              !Object.keys(userMeetings).some((courseCode) => {
-                return courseCode === course.id
-              })
-            }
+        <VStack>
+          {siblingCourseId && (
+            <ButtonGroup
+              isAttached
+              display="flex"
+              width="100%"
+              variant="outline"
+              colorScheme="gray"
+            >
+              <Button
+                alignItems="center"
+                gap={2}
+                onClick={() => {
+                  dispatch({
+                    type: "SET_SIDEBAR",
+                    payload: 1,
+                  })
+                  dispatch({
+                    type: "SET_SIDEBAR_COURSE",
+                    payload: siblingCourseId,
+                  })
+                }}
+              >
+                {course.term === "FIRST_SEMESTER"
+                  ? t("sidebar:see-in-second-semester")
+                  : t("sidebar:see-in-first-semester")}
+              </Button>
+            </ButtonGroup>
+          )}
+          <ButtonGroup
+            isAttached
+            display="flex"
+            width="100%"
+            variant="outline"
+            colorScheme="gray"
           >
-            <Icon as={FaTrashAlt} />
-            {t("sidebar:remove")}
-          </Button>
+            <Button
+              alignItems="center"
+              gap={2}
+              onClick={() => {
+                if (!removePopoverTriggerRef.current) return
+                removePopoverTriggerRef.current.click()
+              }}
+              disabled={
+                !allowedToEdit ||
+                !Object.keys(userMeetings).some((courseCode) => {
+                  return courseCode === course.id
+                })
+              }
+            >
+              <Icon as={FaTrashAlt} />
+              {t("sidebar:remove")}
+            </Button>
 
-          <Button
-            alignItems="center"
-            gap={2}
-            disabled={
-              true ||
-              !Object.keys(userMeetings).some((courseCode) => {
-                return courseCode === course.id
-              })
-            }
-            onClick={onCopy}
-          >
-            <Icon as={FaShareSquare} />
-            Share with selections
-          </Button>
-        </ButtonGroup>
+            <Button
+              alignItems="center"
+              gap={2}
+              disabled={
+                true ||
+                !Object.keys(userMeetings).some((courseCode) => {
+                  return courseCode === course.id
+                })
+              }
+              onClick={onCopy}
+            >
+              <Icon as={FaShareSquare} />
+              Share with selections
+            </Button>
+          </ButtonGroup>
+        </VStack>
       </Flex>
       {Object.values(MeetingCategoryType).map((method) => (
         <MeetingPicker
