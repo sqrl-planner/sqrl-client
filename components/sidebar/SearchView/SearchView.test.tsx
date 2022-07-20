@@ -12,7 +12,12 @@ describe("Search view", () => {
         <HoverContextProvider>
           <PreferencesProvider>
             <MockedProvider>
-              <SearchView searchQuery="" setSearchQuery={() => {}} />
+              <SearchView
+                searchQuery=""
+                setSearchQuery={() => {}}
+                searchOffset={0}
+                setSearchOffset={() => {}}
+              />
             </MockedProvider>
           </PreferencesProvider>
         </HoverContextProvider>
@@ -29,6 +34,8 @@ describe("Search view", () => {
               <SearchView
                 searchQuery="qwerty-query"
                 setSearchQuery={() => {}}
+                searchOffset={0}
+                setSearchOffset={() => {}}
               />
             </MockedProvider>
           </PreferencesProvider>

@@ -2,6 +2,28 @@ import { MeetingCategoryType } from "../../components/timetable/Meeting"
 import { Course } from "../Course"
 import { UserMeeting } from "../SqrlContext"
 
+export const getCourseLetterFromTerm = (course: Course): "F" | "S" | "Y" => {
+  switch (course.term) {
+    case "FIRST_SEMESTER":
+      return "F"
+    case "SECOND_SEMESTER":
+      return "S"
+    default:
+      return "Y"
+  }
+}
+
+export const computeSiblingCourseId = (course: Course): string | null => {
+  // This is SUPER fragile. If the ID of the courses changes at all, like for supporting UTM, this will break!
+  const { department, numeral, suffix, term, terminal } =
+    breakdownCourseIdentifier(course.id)
+  if (term === "Y") return null
+
+  const siblingTerm = term === "S" ? "F" : "S"
+  const siblingCourseId = `${department}${numeral}${suffix}-${siblingTerm}-${terminal}`
+  return siblingCourseId
+}
+
 export const breakdownCourseCode = (title: string) => {
   const firstDigitContent = title.match(/\d{3,}/g)
   let firstDigit = 0

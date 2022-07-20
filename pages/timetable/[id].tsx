@@ -3,16 +3,21 @@ import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
 import Layout from "../../components/Layout"
+import TitleMeta from "../../components/TitleMeta"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
 import { apolloClientParams } from "../../src/apollo-client"
 import { PreferencesProvider } from "../../src/PreferencesContext"
 import Sqrl from "../../src/Sqrl"
 import { AppContextProvider } from "../../src/SqrlContext"
 import { SectionsProvider } from "../../src/useSections"
+import useSharePrefix from "../../src/useSharePrefix"
 
 export const TimetableView: NextPage = (props: any) => {
+  const [sharePrefix] = useSharePrefix()
+
   return (
     <React.Fragment>
+      <TitleMeta name={props.name} id={props.id} sharePrefix={sharePrefix} />
       <PreferencesProvider>
         <AppContextProvider>
           <SectionsProvider initialSections={props.sections}>

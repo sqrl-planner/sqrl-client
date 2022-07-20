@@ -111,8 +111,8 @@ export interface Course {
   prerequisites: string
   recommendedPreparation: string
   sections: Array<Section>
-  term: string
-  sessionCode: string
+  term: string // Why is this not a FIRST_SEMESTER, SECOND_SEMESTER, YEAR enum?
+  sessionCode: string // Why is this not a LEC, PRA, TUT enum?
   title: string
   webTimetableInstructions: string | null
 }

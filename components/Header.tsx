@@ -17,7 +17,6 @@ import {
   Badge,
   useToast,
 } from "@chakra-ui/react"
-import Head from "next/head"
 import { EditIcon, Icon, InfoIcon, SettingsIcon } from "@chakra-ui/icons"
 import { FaShareSquare } from "react-icons/fa"
 import { useAppContext } from "../src/SqrlContext"
@@ -29,6 +28,8 @@ import useSections from "../src/useSections"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { useMutation } from "@apollo/client"
 import { useTranslation } from "next-i18next"
+import TitleMeta from "./TitleMeta"
+import useSharePrefix from "../src/useSharePrefix"
 
 const HeaderComponent = styled(chakra.header)`
   /* display: grid; */
@@ -91,6 +92,17 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const { name, updateName } = useSections()
 
+  // Handles overriding the server-side title. When wget or discord embed searches for the title,
+  // it will find the one in [id].tsx, and never gives the client a chance to load. When the client loads
+  // in a browser, this <TitleMeta> overrides that one, making it react to name changes appropriately.
+  const [showReactiveTitle, setShowReactiveTitle] = useState<boolean>(false)
+
+  // The first time updateName is called, override the server-shown
+  // title with the client-side context-driven one.
+  useEffect(() => {
+    setShowReactiveTitle(true)
+  }, [setShowReactiveTitle])
+
   const keydownListener = useCallback(
     (e: KeyboardEvent) => {
       if (!allowedToEdit) return
@@ -150,13 +162,7 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
   const [loading, setLoading] = useState(false)
-  const [sharePrefix, setSharePrefix] = useState("")
-
-  useEffect(() => {
-    setSharePrefix(
-      `${window.location.protocol}//${window.location.host}/timetable/`
-    )
-  }, [])
+  const [sharePrefix] = useSharePrefix()
 
   const id = router.query.id
 
@@ -164,12 +170,9 @@ const Header = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
 
   return (
     <HeaderComponent bg={useColorModeValue("gray.75", "gray.700")}>
-      <Head>
-        <title>Sqrl Planner | {name}</title>
-        <meta property="og:url" content={`${sharePrefix}${id}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`Sqrl Planner | ${name}`} />
-      </Head>
+      {showReactiveTitle && (
+        <TitleMeta name={name} sharePrefix={sharePrefix} id={id} />
+      )}
       <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
       <ShareModal isOpen={isShareOpen} onClose={onCloseShare} />
       <Flex flex="1" alignItems="center" pl="11rem">
