@@ -1,8 +1,4 @@
-import {
-  ChakraProvider,
-  extendTheme,
-  useToast,
-} from "@chakra-ui/react"
+import { ChakraProvider, extendTheme, useToast } from "@chakra-ui/react"
 import { appWithTranslation } from "next-i18next"
 import type { AppProps } from "next/app"
 import React, { useEffect, useState } from "react"
@@ -53,7 +49,7 @@ export const theme = extendTheme({
       },
     },
   },
-  initialColorMode: "light"
+  initialColorMode: "light",
 })
 
 function useWindowSize() {
