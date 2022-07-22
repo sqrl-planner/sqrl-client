@@ -23,12 +23,11 @@ export default async function handler(
 
   try {
     resultingName = (await result.json())[0].name
-  } catch(e) {
+  } catch (e) {
     resultingName = "Not yet stable"
   }
 
-  if(result.ok) return res.status(200).json(resultingName)
+  if (result.ok) return res.status(200).json(resultingName)
 
-  return res.status(500)
+  return res.status(500).end()
 }
-

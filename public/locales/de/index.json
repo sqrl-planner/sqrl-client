@@ -1,12 +1,11 @@
 {
-    "by-creation-date": "Erstellungsdatum",
-    "create-timetable": "Erstelle einen neuen Stundenplan",
-    "my-timetables": "Meine Stundenpläne",
-    "shared-with": "Mit mir geteilt",
-    "templates": "Vorlagen",
-    "settings": "Einstellungen",
-    "dark-mode": "Dunkelmodus",
-    "light-mode": "Hellenmodus",
-    "search": "Suchen"
-
+  "by-creation-date": "Erstellungsdatum",
+  "create-timetable": "Erstelle einen neuen Stundenplan",
+  "my-timetables": "Meine Stundenpläne",
+  "shared-with": "Mit mir geteilt",
+  "templates": "Vorlagen",
+  "settings": "Einstellungen",
+  "dark-mode": "Dunkelmodus",
+  "light-mode": "Hellenmodus",
+  "search": "Suchen"
 }
