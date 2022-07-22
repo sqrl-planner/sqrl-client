@@ -21,5 +21,5 @@ export default async function handler(
 
   if (result.ok) return res.status(200).json((await result.json()).pushed_at)
 
-  return res.status(500)
+  return res.status(500).end()
 }

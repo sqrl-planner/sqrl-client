@@ -29,5 +29,5 @@ export default async function handler(
 
   if (result.ok) return res.status(200).json(resultingName)
 
-  return res.status(500)
+  return res.status(500).end()
 }
