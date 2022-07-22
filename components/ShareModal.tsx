@@ -25,7 +25,7 @@ import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
 import { useTranslation } from "next-i18next"
 import ShareLink from "./ShareLink"
-import getSharePrefix from "../src/utils/getSharePrefix"
+import useSharePrefix from "../src/useSharePrefix"
 
 type Props = {
   isOpen: boolean
@@ -37,7 +37,7 @@ const ShareModal = ({ isOpen, onClose }: Props) => {
 
   const id = router.query.id
 
-  const sharePrefix = getSharePrefix()
+  const [sharePrefix] = useSharePrefix()
 
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
 

@@ -18,7 +18,7 @@ import { useTranslation } from "next-i18next"
 import { useEffect, useState } from "react"
 import useSWR from "swr"
 import fetcher from "../src/utils/fetcher"
-import getSharePrefix from "../src/utils/getSharePrefix"
+import useSharePrefix from "../src/useSharePrefix"
 
 const useShortLink = (url: string) => {
   const { data, error } = useSWR(`/api/shorten?url=${url}`, fetcher)
@@ -35,7 +35,7 @@ const ShareLink = () => {
 
   const id = router.query.id
 
-  const sharePrefix = getSharePrefix()
+  const [sharePrefix] = useSharePrefix()
   const fullUrl = `${sharePrefix}${id}`
 
   const [urlToShare, setUrlToShare] = useState(fullUrl)
