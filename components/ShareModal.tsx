@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import {
   ModalOverlay,
@@ -13,49 +13,31 @@ import {
   FormControl,
   Flex,
   Icon,
-  Input,
   FormHelperText,
   Button,
-  useClipboard,
-  useToast,
 } from "@chakra-ui/react"
 
-import { FaShareSquare } from "react-icons/fa"
 import ShareCalendar from "./ShareCalendar"
 import { useRouter } from "next/router"
 import { BiDuplicate } from "react-icons/bi"
 import { useMutation } from "@apollo/client"
 import { DUPLICATE_TIMETABLE } from "../operations/mutations/duplicateTimetable"
-import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
+import { ExternalLinkIcon } from "@chakra-ui/icons"
 import { useTranslation } from "next-i18next"
-import useSharePrefix from "../src/useSharePrefix"
+import ShareLink from "./ShareLink"
+import getSharePrefix from "../src/utils/getSharePrefix"
 
-type props = {
+type Props = {
   isOpen: boolean
   onClose: () => any
 }
 
-const ShareModal = ({ isOpen, onClose }: props) => {
+const ShareModal = ({ isOpen, onClose }: Props) => {
   const router = useRouter()
 
   const id = router.query.id
 
-  const [sharePrefix] = useSharePrefix()
-  const shareUrl = `${sharePrefix}${id}`
-  const { onCopy, hasCopied } = useClipboard(shareUrl)
-
-  const toast = useToast()
-
-  useEffect(() => {
-    if (!hasCopied) return
-
-    toast({
-      title: "Copied to clipboard",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    })
-  }, [toast, hasCopied])
+  const sharePrefix = getSharePrefix()
 
   const [duplicateTimetable] = useMutation(DUPLICATE_TIMETABLE)
 
@@ -71,39 +53,7 @@ const ShareModal = ({ isOpen, onClose }: props) => {
         <ModalCloseButton />
         <ModalBody>
           <VStack width="100%" fontWeight={500} spacing={8}>
-            <Flex
-              width="100%"
-              alignItems="center"
-              justifyContent="space-between"
-              // mb={6}
-            >
-              <FormControl as="span">
-                <Text as="span" display="flex" alignItems="center">
-                  <Icon as={FaShareSquare} mr={2} /> {t("share-read-only")}
-                </Text>
-                <Flex
-                  my={2}
-                  alignItems="center"
-                  gap={4}
-                  justifyContent="space-between"
-                >
-                  <Input
-                    whiteSpace="nowrap"
-                    textOverflow="ellipsis"
-                    overflow="hidden"
-                    value={shareUrl}
-                    flex="1"
-                    onFocus={(e) => e.target.select()}
-                  ></Input>
-                  <Button onClick={onCopy} colorScheme="blue" bg="blue.700">
-                    <CopyIcon mr={2} /> {t("copy-link")}
-                  </Button>
-                </Flex>
-                <FormHelperText fontWeight={400}>
-                  {t("share-read-only-description")}
-                </FormHelperText>
-              </FormControl>
-            </Flex>
+            <ShareLink />
             <ShareCalendar />
             <FormControl>
               <Flex
