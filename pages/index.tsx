@@ -3,7 +3,6 @@ import { useDebouncedCallback } from "use-debounce"
 import { SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
-  Button,
   CloseButton,
   Container,
   Flex,
@@ -18,6 +17,8 @@ import {
   Tab,
   TabList,
   Tabs,
+  Tag,
+  TagLabel,
   Tooltip,
   useColorMode,
   useColorModeValue,
@@ -40,6 +41,7 @@ import Layout from "../components/Layout"
 import { FaMoon, FaSun } from "react-icons/fa"
 import { IconType } from "react-icons"
 import { theme } from "./_app"
+import TimetableCreationButton from "../components/TimetableCreationButton"
 
 /**
  * Darkens a color by a percentage
@@ -350,6 +352,27 @@ const Dashboard = () => {
                         }}
                       >
                         <Flex
+                          lineHeight="1.2em"
+                          fontSize="3xl"
+                          alignItems="center"
+                          gap={2}
+                          position="absolute"
+                          top={4}
+                          right={4}
+                          fontWeight={600}
+                        >
+                          <Tag
+                            size="md"
+                            key="md"
+                            borderRadius="full"
+                            variant="subtle"
+                            colorScheme="gray"
+                          >
+                            <TagLabel>2022 {t("fall")}–2023 {t("winter")}</TagLabel>
+                          </Tag>
+                        </Flex>
+
+                        <Flex
                           pr={8}
                           lineHeight="1.2em"
                           fontSize="3xl"
@@ -369,8 +392,8 @@ const Dashboard = () => {
                   </Link>
                 )
               })}
-              <Button
-                border="4px dashed"
+              {/* <Button
+                border="2px dashed"
                 rounded="xl"
                 color="blue.700"
                 borderColor="blue.500"
@@ -388,73 +411,82 @@ const Dashboard = () => {
                   position="relative"
                   bottom="1"
                 >
-                  <Box fontSize="4xl">{newLoading ? <Spinner /> : "+"}</Box>
+                  <Box fontSize="7xl">{newLoading ? <Spinner /> : "+"}</Box>
                   <Box>
                     {longLoadTime && newLoading
                       ? "Working..."
                       : t("create-timetable")}
                   </Box>
                 </Box>
-              </Button>
+              </Button> */}
+
+              <TimetableCreationButton newLoading={newLoading} setNewLoading={setNewLoading} timetables={timetables} />
             </AnimatePresence>
           </SimpleGrid>
         </Container>
         <Box
-          as={motion.div}
-          initial={{
-            opacity: 0,
-            y: 50,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
+          width="full"
           position="fixed"
+          display="flex"
+          justifyContent="center"
           bottom={20}
-          left={0}
-          right={0}
-          margin="auto"
-          width="35rem"
-          background={useColorModeValue("white", "black")}
-          p={4}
-          shadow="2xl"
-          rounded="full"
         >
-          <Tabs
-            variant="solid-rounded"
-            align="center"
-            index={tabIndex}
-            onChange={(index) => {
-              if (index === 2 || index === 3) return
-              setTabIndex(index)
+          <Box
+            as={motion.div}
+            initial={{
+              opacity: 0,
+              y: 50,
             }}
+            animate={{
+              opacity: 0.8,
+              y: 0,
+            }}
+            whileHover={{
+              opacity: 1,
+              transition: { duration: 0.2 },
+            }}
+            background={useColorModeValue("white", "black")}
+            p={2}
+            shadow="xl"
+            rounded="full"
           >
-            <TabList>
-              <Tab>{t("my-timetables")}</Tab>
-              <Tooltip label="Coming soon" shouldWrapChildren>
-                <Tab isDisabled>{t("shared-with")}</Tab>
-              </Tooltip>
-              <Tab onClick={onOpenAbout}>{t("common:about")}</Tab>
-              <Tab onClick={toggleColorMode}>
-                <AnimatePresence exitBeforeEnter>
-                  <React.Fragment>
-                    <motion.div
-                      key={modeConfig.iconId}
-                      initial={{
-                        opacity: 0,
-                        y: -15,
-                        rotate: -45,
-                      }}
-                      animate={{ opacity: 1, y: 0, rotate: 0 }}
-                    >
-                      <Icon as={modeConfig.icon} mr={2} />
-                    </motion.div>{" "}
-                    {t(modeConfig.tLabel)}
-                  </React.Fragment>
-                </AnimatePresence>
-              </Tab>
-            </TabList>
-          </Tabs>
+            <Tabs
+              variant="solid-rounded"
+              colorScheme="gray"
+              align="center"
+              index={tabIndex}
+              onChange={(index) => {
+                if (index === 2 || index === 3) return
+                setTabIndex(index)
+              }}
+            >
+              <TabList>
+                <Tab>{t("my-timetables")}</Tab>
+                <Tooltip label="Coming soon" shouldWrapChildren>
+                  <Tab isDisabled>{t("shared-with")}</Tab>
+                </Tooltip>
+                <Tab onClick={onOpenAbout}>{t("common:about")}</Tab>
+                <Tab onClick={toggleColorMode}>
+                  <AnimatePresence exitBeforeEnter>
+                    <React.Fragment>
+                      <motion.div
+                        key={modeConfig.iconId}
+                        initial={{
+                          opacity: 0,
+                          y: -15,
+                          rotate: -45,
+                        }}
+                        animate={{ opacity: 1, y: 0, rotate: 0 }}
+                      >
+                        <Icon as={modeConfig.icon} mr={2} />
+                      </motion.div>{" "}
+                      {t(modeConfig.tLabel)}
+                    </React.Fragment>
+                  </AnimatePresence>
+                </Tab>
+              </TabList>
+            </Tabs>
+          </Box>
         </Box>
       </Box>
     </React.Fragment>
