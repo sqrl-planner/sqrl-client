@@ -46,7 +46,7 @@ const ShareLink = () => {
   const { data: shortLink, isLoading, isError } = useShortLink(fullUrl)
 
   useEffect(() => {
-    if(shortLink?.shortUrl) setUrlToShare(shortLink.shortUrl)
+    if (shortLink?.shortUrl) setUrlToShare(shortLink.shortUrl)
   }, [shortLink])
 
   const { onCopy, hasCopied } = useClipboard(urlToShare)
