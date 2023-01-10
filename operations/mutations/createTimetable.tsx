@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client"
 
 export const CREATE_TIMETABLE = gql`
-  mutation($name: String) {
+  mutation ($name: String) {
     createTimetable(name: $name) {
       timetable {
         id

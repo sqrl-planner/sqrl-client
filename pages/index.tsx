@@ -147,28 +147,6 @@ const Dashboard = () => {
     debounced(searchQuery)
   }, [timetables, setTimetablesToDisplay, searchQuery])
 
-  const createNewTimetable = () => {
-    setNewLoading(true)
-
-    createTimetable({
-      onCompleted: (data) => {
-        const {
-          key,
-          timetable: { id, name },
-        } = data.createTimetable
-        localStorage.setItem(
-          "timetables",
-          JSON.stringify({
-            ...timetables,
-            [id]: { key, name },
-          })
-        )
-
-        router.push(`/timetable/${id}`)
-      },
-    })
-  }
-
   const [pageLoading, setPageLoading] = useState("")
   const [longLoadTime, setLongLoadTime] = useState(false)
 
@@ -196,7 +174,7 @@ const Dashboard = () => {
 
   // Differences in the UI between light and dark mode
   // Mostly for icons/hover
-  interface ModeConfig {
+  type ModeConfig = {
     tLabel: string
     icon: IconType
     iconId: string
@@ -368,7 +346,9 @@ const Dashboard = () => {
                             variant="subtle"
                             colorScheme="gray"
                           >
-                            <TagLabel>2022 {t("fall")}–2023 {t("winter")}</TagLabel>
+                            <TagLabel>
+                              2022 {t("fall")}–2023 {t("winter")}
+                            </TagLabel>
                           </Tag>
                         </Flex>
 
@@ -392,35 +372,8 @@ const Dashboard = () => {
                   </Link>
                 )
               })}
-              {/* <Button
-                border="2px dashed"
-                rounded="xl"
-                color="blue.700"
-                borderColor="blue.500"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                padding={12}
-                disabled={newLoading}
-                onClick={createNewTimetable}
-                minH="2xs"
-              >
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  position="relative"
-                  bottom="1"
-                >
-                  <Box fontSize="7xl">{newLoading ? <Spinner /> : "+"}</Box>
-                  <Box>
-                    {longLoadTime && newLoading
-                      ? "Working..."
-                      : t("create-timetable")}
-                  </Box>
-                </Box>
-              </Button> */}
 
-              <TimetableCreationButton newLoading={newLoading} setNewLoading={setNewLoading} timetables={timetables} />
+              <TimetableCreationButton timetables={timetables} />
             </AnimatePresence>
           </SimpleGrid>
         </Container>

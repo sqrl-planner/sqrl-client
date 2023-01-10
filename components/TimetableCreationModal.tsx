@@ -89,11 +89,7 @@ const TimetableCreationModal = ({ isOpen, onClose, timetables }: Props) => {
                   <Text as="span" display="flex" alignItems="center">
                     {t("select-term")}
                   </Text>
-                  <Select
-                    shadow="sm"
-                    fontWeight={500}
-                    width="auto"
-                  >
+                  <Select shadow="sm" fontWeight={500} width="auto">
                     <option value="create">
                       2022 {t("fall")}–2023 {t("winter")}
                     </option>
