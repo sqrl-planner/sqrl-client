@@ -1,11 +1,17 @@
 {
   "by-creation-date": "Creation date",
-  "create-timetable": "Create a new timetable",
+  "create-timetable": "Create timetable",
   "my-timetables": "My timetables",
   "shared-with": "Shared with me",
   "templates": "Templates",
   "settings": "Settings",
   "dark-mode": "Dark mode",
   "light-mode": "Light mode",
-  "search": "Search"
+  "search": "Search",
+  "fall": "Fall",
+  "winter": "Winter",
+  "soon-support-summer-2023": "Sqrl will soon support creating timetables for the summer of 2023.",
+  "select-term": "Select term",
+  "name": "Name timetable",
+  "auto-generated-name": "Leave the name blank to have it auto-generated"
 }

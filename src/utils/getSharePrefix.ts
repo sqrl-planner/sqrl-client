@@ -1,1 +1,2 @@
-export default () => `${window.location.protocol}//${window.location.host}/timetable/`
+export default () =>
+  `${window.location.protocol}//${window.location.host}/timetable/`
