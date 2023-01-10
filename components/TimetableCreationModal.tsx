@@ -93,13 +93,6 @@ const TimetableCreationModal = ({ isOpen, onClose, timetables }: Props) => {
                     shadow="sm"
                     fontWeight={500}
                     width="auto"
-                    //   bg={useColorModeValue("white", "gray.700")}
-                    //   value={searchQuery === "" ? sortBy : "relevance"}
-                    //   disabled={searchQuery !== ""}
-                    //   onChange={(e) =>
-                    // setSortBy(e.target.value as "custom" | "edit" | "create")
-                    // false
-                    //   }
                   >
                     <option value="create">
                       2022 {t("fall")}–2023 {t("winter")}
