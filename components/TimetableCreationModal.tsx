@@ -127,7 +127,7 @@ const TimetableCreationModal = ({ isOpen, onClose, timetables }: Props) => {
             <Button mr={3} variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button isLoading={newLoading} colorScheme="blue" bg="blue.700">
+            <Button type="submit" isLoading={newLoading} colorScheme="blue" bg="blue.700">
               Create timetable
             </Button>
           </ModalFooter>
