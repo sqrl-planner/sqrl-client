@@ -1,33 +1,16 @@
 import { useMutation } from "@apollo/client"
 import { useDebouncedCallback } from "use-debounce"
-import { SearchIcon } from "@chakra-ui/icons"
 import {
   Box,
-  Button,
-  CloseButton,
   Container,
-  Flex,
-  Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Select,
-  SimpleGrid,
-  Spinner,
-  Tab,
-  TabList,
-  Tabs,
-  Tooltip,
+  Text,
   useColorMode,
   useColorModeValue,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { AnimatePresence, motion } from "framer-motion"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import DisclaimerModal from "../components/DisclaimerModal"
@@ -39,7 +22,6 @@ import AboutModal from "../components/AboutModal"
 import Layout from "../components/Layout"
 import { FaMoon, FaSun } from "react-icons/fa"
 import { IconType } from "react-icons"
-import { theme } from "./_app"
 
 /**
  * Darkens a color by a percentage
@@ -243,7 +225,8 @@ const Dashboard = () => {
           flexDirection="column"
           gap={6}
         >
-          <Flex justifyContent="space-between">
+            <Text fontSize="2xl" fontWeight="medium">Sqrl Planner is down for maintenance.</Text>
+          {/* <Flex justifyContent="space-between">
             <Flex>
               <Select
                 shadow="sm"
@@ -255,8 +238,6 @@ const Dashboard = () => {
                   setSortBy(e.target.value as "custom" | "edit" | "create")
                 }
               >
-                {/* <option value="custom">Custom</option> */}
-                {/* <option value="edit">Last edited</option> */}
                 <option value="create">{t("by-creation-date")}</option>
                 <option
                   style={{
@@ -397,9 +378,9 @@ const Dashboard = () => {
                 </Box>
               </Button>
             </AnimatePresence>
-          </SimpleGrid>
+          </SimpleGrid> */}
         </Container>
-        <Box
+        {/* <Box
           as={motion.div}
           initial={{
             opacity: 0,
@@ -455,7 +436,7 @@ const Dashboard = () => {
               </Tab>
             </TabList>
           </Tabs>
-        </Box>
+        </Box> */}
       </Box>
     </React.Fragment>
   )
