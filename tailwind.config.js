@@ -17,6 +17,10 @@ module.exports = {
       boxShadow: {
         slider: "0 0 0 5px rgba(0, 0, 0, 0.3)",
       },
+      colors: {
+        "link-blue": "#0461B7",
+        "link-dark-blue": "#02427D",
+      },
       keyframes: {
         // Dropdown menu
         "scale-in": {
@@ -138,5 +142,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-radix")(), require("tailwind-scrollbar")],
+  plugins: [
+    require("tailwindcss-radix")(),
+    require("tailwind-scrollbar"),
+    require("@rvxlab/tailwind-plugin-ios-full-height"),
+  ],
 }

@@ -1,29 +1,54 @@
+import clsx from "clsx"
 import { useTranslation } from "next-i18next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import React from "react"
+import React, { ComponentProps, ComponentPropsWithoutRef } from "react"
+import { Rule } from "../common"
+import { RemoveScroll } from "react-remove-scroll"
+import {
+  ArchiveIcon,
+  CalendarIcon,
+  GearIcon,
+  HomeIcon,
+  MaskOnIcon,
+  PersonIcon,
+  Share1Icon,
+  Share2Icon,
+} from "@radix-ui/react-icons"
+import { motion } from "framer-motion"
 
-const SidebarRule = () => {
-  return <hr className="border-t-[#80808080] border-t-[0.8px]" />
-}
+const ReffedLink = React.forwardRef<
+  typeof Link,
+  ComponentPropsWithoutRef<typeof Link>
+>((props: ComponentProps<typeof Link>, ref: React.Ref<any>) => (
+  <Link ref={ref} {...props} />
+))
+
+const MotionLink = motion(ReffedLink)
 
 const SidebarLink = ({
   href,
   children,
+  ...rest
 }: {
   href: string
   children: React.ReactNode
-}) => {
+} & ComponentProps<typeof Link>) => {
   const pathname = usePathname()
 
-  let className = "text-black text-opacity-60 "
-  if (pathname === href) {
-    className = `font-semibold text-black text-opacity-100`
-  }
-
   return (
-    <Link href={href} className={className}>
+    <Link
+      href={href}
+      className={clsx(
+        "py-1 inline-block hover:opacity-80 transition",
+        "flex items-center gap-3",
+        {
+          "opacity-60": pathname !== href,
+        }
+      )}
+      {...rest}
+    >
       {children}
     </Link>
   )
@@ -33,37 +58,75 @@ const Sidebar = () => {
   const { t } = useTranslation("dashboard")
 
   return (
-    <nav className="font-medium text-xl flex flex-col gap-4 w-72 h-full p-4">
-      <ul className="flex flex-col gap-3 mt-4">
+    <motion.nav
+      className={clsx(
+        "font-medium text-xl flex flex-col gap-4 lg:w-72 lg:fixed h-full p-4",
+        "group",
+        RemoveScroll.classNames.fullWidth
+      )}
+    >
+      <ul className="flex flex-col mt-4">
         <li>
-          <SidebarLink href="#">✨ {t("for-you")} ✨</SidebarLink>
+          <SidebarLink href="/">
+            <HomeIcon className="w-4 h-4" />
+            {t("for-you")}
+          </SidebarLink>
         </li>
         <li>
-          <SidebarLink href="#">{t("courses")}</SidebarLink>
+          <SidebarLink href="/courses">
+            <ArchiveIcon className="w-4 h-4" />
+            {t("courses")}
+          </SidebarLink>
         </li>
       </ul>
-      <SidebarRule />
-      <ul className="flex flex-col gap-3">
+      <Rule />
+      <ul className="flex flex-col">
         <li>
-          <SidebarLink href="/timetables">{t("timetables")}</SidebarLink>
+          <SidebarLink href="/timetables">
+            <CalendarIcon className="w-4 h-4" />
+            {t("timetables")}
+          </SidebarLink>
         </li>
         <li>
-          <SidebarLink href="/shared">{t("shared-with-me")}</SidebarLink>
+          <SidebarLink href="/shared">
+            <Share1Icon className="w-4 h-4" />
+            {t("shared-with-me")}
+          </SidebarLink>
         </li>
         <li>
-          <SidebarLink href="/settings">{t("settings")}</SidebarLink>
+          <SidebarLink href="/settings">
+            <GearIcon className="w-4 h-4" />
+            {t("settings")}
+          </SidebarLink>
         </li>
       </ul>
-      <SidebarRule />
-      <div className="flex flex-col gap-1 text-xs font-semibold">
+      <Rule />
+      <ul>
+        <li>
+          <SidebarLink href="/profile">
+            <PersonIcon className="w-4 h-4" />
+            {t("profile")}
+          </SidebarLink>
+        </li>
+      </ul>
+      <Rule />
+      <div className="flex flex-col items-start text-xs font-semibold">
         <SidebarLink href="/about">{t("about")}</SidebarLink>
         <SidebarLink href="/privacy">{t("privacy-policy")}</SidebarLink>
         <SidebarLink href="/terms">{t("terms-of-use")}</SidebarLink>
-        <SidebarLink href="https://github.com/sqrl-planner">GitHub</SidebarLink>
+        <SidebarLink
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/sqrl-planner"
+        >
+          GitHub
+        </SidebarLink>
         <SidebarLink href="/feedback">{t("feedback")}</SidebarLink>
-        <div className="mt-2 opacity-60">&copy; 2023 Sqrl Planner. All rights reserved.</div>
+        <div className="mt-2 opacity-60">
+          &copy; 2023 Sqrl Planner. All rights reserved.
+        </div>
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 

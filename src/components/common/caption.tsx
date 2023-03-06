@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react"
 
 type Props = {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
-const Caption = ({children}: Props) => {
+const Caption = ({ children }: Props) => {
   return (
-    <div className="uppercase text-xs tracking-wide font-semibold opacity-70">{children}</div>
+    <div className="uppercase text-xs tracking-wide font-semibold opacity-70">
+      {children}
+    </div>
   )
 }
 

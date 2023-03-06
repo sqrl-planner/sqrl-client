@@ -1,13 +1,13 @@
-import { DashboardLayout } from "@/components/dashboard"
+import { ContentLayout, DashboardLayout } from "@/components/dashboard"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
 
 const About = () => {
   return (
     <DashboardLayout>
-      <div className="p-8">
+      <ContentLayout>
         <h1 className="text-7xl font-serif">About</h1>
-      </div>
+      </ContentLayout>
     </DashboardLayout>
   )
 }

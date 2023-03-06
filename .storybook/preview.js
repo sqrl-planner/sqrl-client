@@ -29,18 +29,17 @@ const withI18next = (Story) => {
 
 export const decorators = [withI18next]
 
-
 export const globalTypes = {
   locale: {
-    name: 'Locale',
-    description: 'Internationalization locale',
+    name: "Locale",
+    description: "Internationalization locale",
     toolbar: {
-      icon: 'globe',
+      icon: "globe",
       items: [
-        { value: 'en', title: 'English' },
+        { value: "en", title: "English" },
         // { value: 'de', title: 'Deutsch' },
       ],
       showName: true,
     },
   },
- };
+}

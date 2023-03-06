@@ -49,10 +49,9 @@ module.exports = {
       net: false,
       module: false,
       crypto: false,
-      path: require.resolve('path-browserify'),
+      path: require.resolve("path-browserify"),
     }
 
     return config
   },
 }
-

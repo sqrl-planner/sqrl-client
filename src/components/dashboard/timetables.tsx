@@ -1,24 +1,36 @@
 import React from "react"
 import TimetableCard from "./timetableCard"
-import * as ScrollArea from "@radix-ui/react-scroll-area"
+import { useTranslation } from "next-i18next"
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
+import clsx from "clsx"
 
 const Timetables = () => {
+  const { t } = useTranslation("timetables")
+
   return (
-    <div className="p-8 gap-6 flex flex-col h-full max-h-[calc(100vh-3.5rem)] overflow-auto  scrollbar scrollbar-thumb-gray-300 scrollbar-track-[#ffffff00]">
+    <>
       <h1 className="text-7xl font-serif">Timetables</h1>
 
       <div className="flex justify-between items-center text-xl font-medium">
-        <div>Sort by</div>
-        <input type="text" placeholder="Search" className="border border-gray-300 rounded-md p-2 px-3"
-         />
+        <div>{t("sort-by")}</div>
+        <span className="relative">
+          <MagnifyingGlassIcon
+            className={clsx("absolute", "left-2 inset-y-0 m-auto", "h-6 w-6")}
+          />
+          <input
+            type="text"
+            placeholder="Search"
+            className="shadow rounded-md p-2 px-3 pt-[0.6rem] pl-12 text-lg leading-snug"
+          />
+        </span>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid w-full pb-8 sm:grid-cols-2 gap-4">
         {[...new Array(30)].map((_, i) => (
           <TimetableCard key={i} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 
