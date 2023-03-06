@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 import { appWithTranslation } from "next-i18next"
 import type { AppProps } from "next/app"
 import Head from "next/head"
+import { Analytics } from "@vercel/analytics/react"
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -42,6 +43,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <Component {...pageProps} />
+      <Analytics />
     </>
   )
 }
