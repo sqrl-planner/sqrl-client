@@ -1,15 +1,17 @@
 import React from "react"
-import TimetableCard from "./timetableCard"
-import { useTranslation } from "next-i18next"
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import clsx from "clsx"
+import { useTranslation } from "next-i18next"
+
+import TimetableCard from "./timetableCard"
+import Title from "./title"
 
 const Timetables = () => {
   const { t } = useTranslation("timetables")
 
   return (
     <>
-      <h1 className="text-7xl font-serif">Timetables</h1>
+      <Title>Timetables</Title>
 
       <div className="flex justify-between items-center text-xl font-medium">
         <div>{t("sort-by")}</div>

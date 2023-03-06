@@ -1,10 +1,4 @@
-import clsx from "clsx"
-import { useTranslation } from "next-i18next"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-
 import React, { ComponentProps } from "react"
-import { Rule } from "../common"
 import { RemoveScroll } from "react-remove-scroll"
 import {
   ArchiveIcon,
@@ -14,7 +8,13 @@ import {
   PersonIcon,
   Share1Icon,
 } from "@radix-ui/react-icons"
+import clsx from "clsx"
 import { motion } from "framer-motion"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useTranslation } from "next-i18next"
+
+import { Rule } from "../common"
 
 const SidebarLink = ({
   href,
@@ -49,9 +49,10 @@ const Sidebar = () => {
   return (
     <motion.nav
       className={clsx(
-        "font-medium text-xl flex flex-col gap-4 lg:w-72 lg:fixed h-full p-4",
-        "group",
-        RemoveScroll.classNames.fullWidth
+        "lg:fixed z-0",
+        "lg:w-72 lg:inset-auto",
+        // "top-0 right-0",
+        "font-medium text-xl flex flex-col gap-4 h-full p-4"
       )}
     >
       <ul className="flex flex-col mt-4">

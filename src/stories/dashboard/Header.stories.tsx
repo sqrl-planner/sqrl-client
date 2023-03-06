@@ -1,5 +1,5 @@
 import React, { ComponentProps } from "react"
-import { ComponentStory, ComponentMeta } from "@storybook/react"
+import { ComponentMeta, ComponentStory } from "@storybook/react"
 
 import { Header } from "../../components/dashboard"
 

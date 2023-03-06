@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import Header from "./header"
-import Sidebar from "./sidebar"
-
 import { ErrorBoundary } from "react-error-boundary"
 import * as ScrollArea from "@radix-ui/react-scroll-area"
 import clsx from "clsx"
+
+import Header from "./header"
+import Sidebar from "./sidebar"
 
 function ErrorFallback({
   error,
@@ -39,9 +39,8 @@ const Layout = ({ children }: Props) => {
   const content = (
     <div className={"w-full min-h-screen flex justify-center bg-[#EBEBE4]"}>
       <Header />
-      <div className="flex pt-16 w-full max-w-7xl lg:flex-row flex-col relative">
+      <div className="flex pt-14 w-full max-w-7xl lg:flex-row flex-col relative">
         <Sidebar />
-
         {children}
       </div>
     </div>

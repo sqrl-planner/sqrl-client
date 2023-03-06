@@ -1,5 +1,5 @@
 import React from "react"
-import { ComponentStory, ComponentMeta } from "@storybook/react"
+import { ComponentMeta, ComponentStory } from "@storybook/react"
 
 import { DashboardLayout } from "../../components/dashboard"
 
@@ -20,5 +20,4 @@ const Template: ComponentStory<typeof DashboardLayout> = (args) => (
 
 export const Primary = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-}
+Primary.args = {}

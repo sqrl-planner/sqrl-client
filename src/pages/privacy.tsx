@@ -1,9 +1,10 @@
-import { Anchor, Caption, Rule } from "@/components/common"
-import { ContentLayout, DashboardLayout } from "@/components/dashboard"
+import React from "react"
+import Head from "next/head"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import Head from "next/head"
-import React from "react"
+
+import { Anchor, Caption, Rule } from "@/components/common"
+import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
 
 const InShort = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -34,9 +35,7 @@ const Privacy = () => {
       </Head>
       <DashboardLayout>
         <ContentLayout>
-          <h1 className="text-7xl font-serif">
-            {t("dashboard:privacy-policy")}
-          </h1>
+          <Title>{t("dashboard:privacy-policy")}</Title>
           <Caption>Last updated 2023-03-05</Caption>
           <div className="text-xl flex flex-col gap-4 font-medium opacity-70">
             <div>

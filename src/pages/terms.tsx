@@ -1,7 +1,8 @@
-import { ContentLayout, DashboardLayout } from "@/components/dashboard"
+import React from "react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import React from "react"
+
+import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
 
 const About = () => {
   const { t } = useTranslation("fyp")
@@ -9,7 +10,7 @@ const About = () => {
   return (
     <DashboardLayout>
       <ContentLayout>
-        <h1 className="text-7xl font-serif">{t("for-you")}</h1>
+        <Title>{t("dashboard:terms-of-use")}</Title>
       </ContentLayout>
     </DashboardLayout>
   )

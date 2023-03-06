@@ -1,12 +1,16 @@
-import { ContentLayout, DashboardLayout } from "@/components/dashboard"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+
+import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
 
 const About = () => {
+  const { t } = useTranslation("settings")
+
   return (
     <DashboardLayout>
       <ContentLayout>
-        <h1 className="text-7xl font-serif">Settings</h1>
+        <Title>{t("dashboard:settings")}</Title>
       </ContentLayout>
     </DashboardLayout>
   )

@@ -1,19 +1,18 @@
 import React, { ComponentProps } from "react"
-import { Caption } from "../common"
+import * as AspectRatio from "@radix-ui/react-aspect-ratio"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import {
-  HamburgerMenuIcon,
-  TrashIcon,
   ExternalLinkIcon,
+  HamburgerMenuIcon,
   Pencil1Icon,
   Share2Icon,
+  TrashIcon,
 } from "@radix-ui/react-icons"
-
-import * as AspectRatio from "@radix-ui/react-aspect-ratio"
-
-import Link from "next/link"
 import clsx from "clsx"
+import Link from "next/link"
 import { useTranslation } from "next-i18next"
+
+import { Caption } from "../common"
 
 const DropdownItem = ({
   children,

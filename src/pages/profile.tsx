@@ -5,12 +5,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
 
 const About = () => {
-  const { t } = useTranslation("fyp")
+  const { t } = useTranslation("profile")
 
   return (
     <DashboardLayout>
       <ContentLayout>
-        <Title>{t("dashboard:feedback")}</Title>
+        <Title>{t("dashboard:profile")}</Title>
       </ContentLayout>
     </DashboardLayout>
   )
@@ -24,7 +24,7 @@ export const getStaticProps = async ({ locale }: { locale: string }) => {
       ...(await serverSideTranslations(locale, [
         "common",
         "dashboard",
-        "feedback",
+        "profile",
       ])),
       // Will be passed to the page component as props
     },

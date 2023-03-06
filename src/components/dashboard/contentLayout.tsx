@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion"
-import { usePathname } from "next/navigation"
 import React from "react"
 import { ErrorBoundary } from "react-error-boundary"
+import { AnimatePresence, motion } from "framer-motion"
+import { usePathname } from "next/navigation"
 
 function ErrorFallback({
   error,
@@ -24,7 +24,7 @@ const variants = {
     opacity: 1,
     transition: {
       duration: 0.2,
-      // delay: 0.5,
+      ease: [0.43, 0.13, 0.23, 0.96],
     },
   },
   out: {
@@ -42,8 +42,6 @@ type Props = {
 const ContentLayout = ({ children }: Props) => {
   const pathname = usePathname()
 
-  console.log(pathname)
-
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <AnimatePresence mode="wait">
@@ -53,15 +51,7 @@ const ContentLayout = ({ children }: Props) => {
           animate="in"
           initial="out"
           exit="out"
-          // initial={{ opacity: 0 }}
-          // animate={{ opacity: 1 }}
-          // exit={{ opacity: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 260,
-            damping: 20,
-          }}
-          className="w-full p-4 pb-10 lg:ml-72 gap-6 flex flex-col h-full"
+          className="w-full p-4 pt-8 pb-10 lg:ml-72 gap-6 flex flex-col h-full"
         >
           {children}
         </motion.main>
