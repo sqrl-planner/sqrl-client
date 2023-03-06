@@ -21,23 +21,4 @@ const Template: ComponentStory<typeof DashboardLayout> = (args) => (
 export const Primary = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  primary: true,
-  label: "Layout",
-}
-
-export const Secondary = Template.bind({})
-Secondary.args = {
-  label: "Layout",
-}
-
-export const Large = Template.bind({})
-Large.args = {
-  size: "large",
-  label: "Layout",
-}
-
-export const Small = Template.bind({})
-Small.args = {
-  size: "small",
-  label: "Layout",
 }

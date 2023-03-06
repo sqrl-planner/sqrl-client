@@ -14,7 +14,7 @@ export default {
 } as ComponentMeta<typeof TimetableCard>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof TimetableCard> = (args) => (
+const Template: ComponentStory<typeof TimetableCard> = (args: any) => (
   <TimetableCard {...args} />
 )
 
