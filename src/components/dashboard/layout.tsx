@@ -5,7 +5,6 @@ import Sidebar from "./sidebar"
 import { ErrorBoundary } from "react-error-boundary"
 import * as ScrollArea from "@radix-ui/react-scroll-area"
 import clsx from "clsx"
-import { AnimatePresence } from "framer-motion"
 
 function ErrorFallback({
   error,
@@ -43,7 +42,7 @@ const Layout = ({ children }: Props) => {
       <div className="flex pt-16 w-full max-w-7xl lg:flex-row flex-col relative">
         <Sidebar />
 
-          {children}
+        {children}
       </div>
     </div>
   )

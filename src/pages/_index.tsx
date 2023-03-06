@@ -2,7 +2,6 @@ import Head from "next/head"
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
-import { DashboardLayout } from "@/components/dashboard"
 
 export default function Home() {
   const { t } = useTranslation("common")
@@ -15,9 +14,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        Home
-      </main>
+      <main>Home</main>
     </>
   )
 }

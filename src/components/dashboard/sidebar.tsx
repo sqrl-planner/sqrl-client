@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import React, { ComponentProps, ComponentPropsWithoutRef } from "react"
+import React, { ComponentProps } from "react"
 import { Rule } from "../common"
 import { RemoveScroll } from "react-remove-scroll"
 import {
@@ -11,21 +11,10 @@ import {
   CalendarIcon,
   GearIcon,
   HomeIcon,
-  MaskOnIcon,
   PersonIcon,
   Share1Icon,
-  Share2Icon,
 } from "@radix-ui/react-icons"
 import { motion } from "framer-motion"
-
-const ReffedLink = React.forwardRef<
-  typeof Link,
-  ComponentPropsWithoutRef<typeof Link>
->((props: ComponentProps<typeof Link>, ref: React.Ref<any>) => (
-  <Link ref={ref} {...props} />
-))
-
-const MotionLink = motion(ReffedLink)
 
 const SidebarLink = ({
   href,

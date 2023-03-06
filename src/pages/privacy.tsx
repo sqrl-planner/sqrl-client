@@ -275,7 +275,7 @@ const Privacy = () => {
               Facebook or Twitter), we receive personal information about you
               such as your name, email address, and gender. Any personal
               information that we collect from your social media account depends
-              on your social media account's privacy settings.
+              on your social media account&apos;s privacy settings.
             </div>
 
             <Heading>2. HOW DO WE PROCESS YOUR INFORMATION?</Heading>
@@ -618,11 +618,8 @@ const Privacy = () => {
               express and/or implied consent depending on the applicable law,
               you have the right to withdraw your consent at any time. You can
               withdraw your consent at any time by contacting us by using the
-              contact details provided in the section "
-              <Anchor href="#contact">
-                HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
-              </Anchor>
-              " below.
+              contact details provided in the section &quot;HOW CAN YOU CONTACT
+              US ABOUT THIS NOTICE?&quot; below.
             </div>
             <div>
               However, please note that this will not affect the lawfulness of
@@ -638,15 +635,12 @@ const Privacy = () => {
               You can unsubscribe from our marketing and promotional
               communications at any time by clicking on the unsubscribe link in
               the emails that we send, or by contacting us using the details
-              provided in the section "
-              <Anchor href="#contact">
-                HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
-              </Anchor>
-              " below. You will then be removed from the marketing lists.
-              However, we may still communicate with you &mdash; for example, to
-              send you service-related messages that are necessary for the
-              administration and use of your account, to respond to service
-              requests, or for other non-marketing purposes.
+              provided in the section &quot;HOW CAN YOU CONTACT US ABOUT THIS
+              NOTICE?&quot; below. You will then be removed from the marketing
+              lists. However, we may still communicate with you &mdash; for
+              example, to send you service-related messages that are necessary
+              for the administration and use of your account, to respond to
+              service requests, or for other non-marketing purposes.
             </div>
             <div>
               <strong>Account Information</strong>
@@ -691,16 +685,16 @@ const Privacy = () => {
 
             <div>
               Most web browsers and some mobile operating systems and mobile
-              applications include a Do-Not-Track ("DNT") feature or setting you
-              can activate to signal your privacy preference not to have data
-              about your online browsing activities monitored and collected. At
-              this stage no uniform technology standard for recognizing and
-              implementing DNT signals has been finalized. As such, we do not
-              currently respond to DNT browser signals or any other mechanism
-              that automatically communicates your choice not to be tracked
-              online. If a standard for online tracking is adopted that we must
-              follow in the future, we will inform you about that practice in a
-              revised version of this privacy notice.
+              applications include a Do-Not-Track (&quot;DNT&quot;) feature or
+              setting you can activate to signal your privacy preference not to
+              have data about your online browsing activities monitored and
+              collected. At this stage no uniform technology standard for
+              recognizing and implementing DNT signals has been finalized. As
+              such, we do not currently respond to DNT browser signals or any
+              other mechanism that automatically communicates your choice not to
+              be tracked online. If a standard for online tracking is adopted
+              that we must follow in the future, we will inform you about that
+              practice in a revised version of this privacy notice.
             </div>
 
             <Heading>12. DO WE MAKE UPDATES TO THIS NOTICE?</Heading>
@@ -712,13 +706,13 @@ const Privacy = () => {
             </InShort>
             <div>
               We may update this privacy notice from time to time. The updated
-              version will be indicated by an updated "Revised" date and the
-              updated version will be effective as soon as it is accessible. If
-              we make material changes to this privacy notice, we may notify you
-              either by prominently posting a notice of such changes or by
-              directly sending you a notification. We encourage you to review
-              this privacy notice frequently to be informed of how we are
-              protecting your information.
+              version will be indicated by an updated &quot;Revised&quot; date
+              and the updated version will be effective as soon as it is
+              accessible. If we make material changes to this privacy notice, we
+              may notify you either by prominently posting a notice of such
+              changes or by directly sending you a notification. We encourage
+              you to review this privacy notice frequently to be informed of how
+              we are protecting your information.
             </div>
 
             <Heading>13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</Heading>
