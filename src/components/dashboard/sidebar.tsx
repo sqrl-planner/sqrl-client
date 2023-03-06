@@ -1,5 +1,4 @@
 import React, { ComponentProps } from "react"
-import { RemoveScroll } from "react-remove-scroll"
 import {
   ArchiveIcon,
   CalendarIcon,
