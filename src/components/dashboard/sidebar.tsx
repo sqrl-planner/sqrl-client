@@ -8,7 +8,6 @@ import {
   PersonIcon,
   Share1Icon,
 } from "@radix-ui/react-icons"
-
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -18,8 +17,8 @@ import * as Select from "@radix-ui/react-select"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { usePathname } from "next/navigation"
+import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Rule } from "../common"
@@ -50,6 +49,8 @@ const LanguageSelectorContent = forwardRef<
     {children}
   </button>
 ))
+
+LanguageSelectorContent.displayName = "LanguageSelectorContent"
 
 const SidebarLink = ({
   href,
@@ -146,7 +147,11 @@ const Sidebar = () => {
       </ul>
       <Rule />
 
-      <Select.Root defaultValue={i18n.language} value={i18n.language} onValueChange={onChangeLanguage}>
+      <Select.Root
+        defaultValue={i18n.language}
+        value={i18n.language}
+        onValueChange={onChangeLanguage}
+      >
         <Select.Trigger asChild>
           {/* <Button> */}
           <LanguageSelectorContent>

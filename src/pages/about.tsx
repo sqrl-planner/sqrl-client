@@ -1,10 +1,7 @@
 import React from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import {
-  pageLayout,
-  Title,
-} from "@/components/dashboard"
+import { pageLayout, Title } from "@/components/dashboard"
 
 import { NextPageWithLayout } from "./_app"
 

@@ -2,7 +2,6 @@ import { ReactElement, ReactNode } from "react"
 import { Analytics } from "@vercel/analytics/react"
 import { NextPage } from "next"
 import type { AppProps } from "next/app"
-import Head from "next/head"
 import { appWithTranslation } from "next-i18next"
 
 import "@/styles/globals.css"

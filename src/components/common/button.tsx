@@ -1,5 +1,5 @@
-import clsx from "clsx"
 import React, { ComponentProps } from "react"
+import clsx from "clsx"
 
 const Button = ({ className, ...rest }: ComponentProps<"button">) => {
   return (

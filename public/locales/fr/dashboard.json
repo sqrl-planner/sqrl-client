@@ -1,14 +1,13 @@
 {
-    "shared-with-me": "Partagé avec moi",
-    "timetables": "Horaires",
-    "settings": "Paramètres",
-    "courses": "Cours",
-    "for-you": "Pour toi",
-    "about": "À propos",
-    "privacy-policy": "Politique de confidentialité",
-    "terms-of-use": "Conditions d'utilisation",
-    "feedback": "Retour d'information",
-    "profile": "Profil",
-    "all-rights-reserved": "Tous droits réservés."
-  }
-  
+  "shared-with-me": "Partagé avec moi",
+  "timetables": "Horaires",
+  "settings": "Paramètres",
+  "courses": "Cours",
+  "for-you": "Pour toi",
+  "about": "À propos",
+  "privacy-policy": "Politique de confidentialité",
+  "terms-of-use": "Conditions d'utilisation",
+  "feedback": "Retour d'information",
+  "profile": "Profil",
+  "all-rights-reserved": "Tous droits réservés."
+}
