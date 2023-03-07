@@ -3,12 +3,13 @@ import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import {
-  ContentLayout,
-  DashboardLayout,
+  pageLayout,
   Timetables,
 } from "@/components/dashboard"
 
-export default function Home() {
+import { NextPageWithLayout } from "./_app"
+
+const TimetablesPage: NextPageWithLayout = () => {
   const { t } = useTranslation("timetables")
 
   return (
@@ -16,14 +17,14 @@ export default function Home() {
       <Head>
         <title>{t("dashboard:timetables")}</title>
       </Head>
-      <DashboardLayout>
-        <ContentLayout>
-          <Timetables />
-        </ContentLayout>
-      </DashboardLayout>
+      <Timetables />
     </>
   )
 }
+
+TimetablesPage.getLayout = pageLayout
+
+export default TimetablesPage
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {

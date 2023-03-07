@@ -2,21 +2,22 @@ import React from "react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
+import {
+  pageLayout,
+  Title,
+} from "@/components/dashboard"
 
-const About = () => {
+import { NextPageWithLayout } from "./_app"
+
+const ForYou: NextPageWithLayout = () => {
   const { t } = useTranslation("fyp")
 
-  return (
-    <DashboardLayout>
-      <ContentLayout>
-        <Title>{t("dashboard:for-you")}</Title>
-      </ContentLayout>
-    </DashboardLayout>
-  )
+  return <Title>{t("dashboard:for-you")}</Title>
 }
 
-export default About
+ForYou.getLayout = pageLayout
+
+export default ForYou
 
 export const getStaticProps = async ({ locale }: { locale: string }) => {
   return {

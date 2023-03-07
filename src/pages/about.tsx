@@ -1,17 +1,18 @@
 import React from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
+import {
+  pageLayout,
+  Title,
+} from "@/components/dashboard"
 
-const About = () => {
-  return (
-    <DashboardLayout>
-      <ContentLayout>
-        <Title>About</Title>
-      </ContentLayout>
-    </DashboardLayout>
-  )
+import { NextPageWithLayout } from "./_app"
+
+const About: NextPageWithLayout = () => {
+  return <Title>About</Title>
 }
+
+About.getLayout = pageLayout
 
 export default About
 

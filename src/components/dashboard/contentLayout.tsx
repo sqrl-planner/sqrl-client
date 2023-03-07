@@ -1,5 +1,6 @@
 import React from "react"
 import { ErrorBoundary } from "react-error-boundary"
+import clsx from "clsx"
 import { AnimatePresence, motion } from "framer-motion"
 import { usePathname } from "next/navigation"
 
@@ -23,14 +24,14 @@ const variants = {
   in: {
     opacity: 1,
     transition: {
-      duration: 0.2,
+      duration: 0.12,
       ease: [0.43, 0.13, 0.23, 0.96],
     },
   },
   out: {
     opacity: 0,
     transition: {
-      duration: 0.2,
+      duration: 0.04,
     },
   },
 }
@@ -44,14 +45,17 @@ const ContentLayout = ({ children }: Props) => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.main
           key={pathname}
           variants={variants}
           animate="in"
           initial="out"
           exit="out"
-          className="w-full p-4 pt-8 pb-10 lg:ml-72 gap-6 flex flex-col h-full"
+          className={clsx(
+            "lg:pl-2 lg:ml-72 lg:mr-4",
+            "w-full p-4 pt-8 pb-10 gap-6 flex flex-col h-full"
+          )}
         >
           {children}
         </motion.main>

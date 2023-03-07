@@ -6,6 +6,7 @@ import {
   HamburgerMenuIcon,
   Pencil1Icon,
   Share2Icon,
+  StarIcon,
   TrashIcon,
 } from "@radix-ui/react-icons"
 import clsx from "clsx"
@@ -25,11 +26,11 @@ const DropdownItem = ({
   return (
     <DropdownMenu.Item
       className={clsx(
-        "flex cursor-default select-none items-center rounded-md px-2 py-1.5 ",
+        "flex cursor-default select-none items-center px-4 py-2 ",
         "text-gray-800 focus:bg-gray-100",
         "focus:outline focus:outline-2",
         "hover:outline-none",
-        "text-sm",
+        "text-base",
         className
       )}
       onClick={(e) => {
@@ -80,7 +81,7 @@ const TimetableCard = () => {
                 sideOffset={5}
                 className={clsx(
                   "radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down",
-                  "w-48 rounded-lg px-1.5 py-1 shadow-xl md:w-56",
+                  "w-48 rounded-lg px-0 py-1 shadow-xl md:w-56",
                   "font-medium",
                   "bg-white"
                 )}
@@ -100,7 +101,14 @@ const TimetableCard = () => {
                   {t("open-in-new-tab")}
                 </DropdownItem>
 
-                <DropdownMenu.Separator className="my-2 h-px bg-gray-200" />
+                <DropdownMenu.Separator className="py-[0.4px] my-1.5 h-[0px] bg-gray-200" />
+
+                <DropdownItem>
+                  <StarIcon className="mr-2" />
+                  {t("mark-as-main")}
+                </DropdownItem>
+
+                <DropdownMenu.Separator className="py-[0.4px] my-1.5 h-[0px] bg-gray-200" />
 
                 <DropdownItem className="!text-red-600">
                   <TrashIcon className="mr-2" />

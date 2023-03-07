@@ -2,19 +2,20 @@ import React from "react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import { ContentLayout, DashboardLayout, Title } from "@/components/dashboard"
+import {
+  pageLayout,
+  Title,
+} from "@/components/dashboard"
 
-const Courses = () => {
+import { NextPageWithLayout } from "./_app"
+
+const Courses: NextPageWithLayout = () => {
   const { t } = useTranslation("courses")
 
-  return (
-    <DashboardLayout>
-      <ContentLayout>
-        <Title>{t("dashboard:courses")}</Title>
-      </ContentLayout>
-    </DashboardLayout>
-  )
+  return <Title>{t("dashboard:courses")}</Title>
 }
+
+Courses.getLayout = pageLayout
 
 export default Courses
 

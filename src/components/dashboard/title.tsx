@@ -7,7 +7,13 @@ type Props = {
 
 const Title = ({ children }: Props) => {
   return (
-    <h1 className={clsx("text-5xl font-serif", "lg:text-6xl", "xl:text-7xl")}>
+    <h1
+      className={clsx(
+        "text-5xl font-serif font-light",
+        "lg:text-6xl",
+        "xl:text-7xl"
+      )}
+    >
       {children}
     </h1>
   )
