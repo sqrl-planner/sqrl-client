@@ -1,10 +1,10 @@
 import React from "react"
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import { pageLayout, Title } from "@/components/dashboard"
 
 import { NextPageWithLayout } from "./_app"
-import { useTranslation } from "next-i18next"
 
 const About: NextPageWithLayout = () => {
   const { t } = useTranslation("about")

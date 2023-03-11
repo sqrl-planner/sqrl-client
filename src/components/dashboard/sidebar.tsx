@@ -189,7 +189,7 @@ const Sidebar = () => {
                     "flex cursor-default select-none items-center px-4 pl-8 py-2 ",
                     "text-gray-800 focus:bg-gray-100",
                     "focus:outline focus:outline-2",
-                    "hover:outline-none",
+                    "hover:outline-none"
                     // "text-base"
                   )}
                 >

@@ -128,7 +128,8 @@ input {
     @apply font-zh-sans;
   } */
 
-  .font-sans:lang("zh"):not(.eng-font), .font-sans:lang("eo"):not(.eng-font) {
+  .font-sans:lang("zh"):not(.eng-font),
+  .font-sans:lang("eo"):not(.eng-font) {
     @apply font-system;
   }
 
