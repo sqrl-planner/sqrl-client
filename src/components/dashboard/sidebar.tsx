@@ -172,6 +172,8 @@ const Sidebar = () => {
               {[
                 ["English", "en"],
                 ["Français", "fr"],
+                ["Esperanto", "eo"],
+                ["Pirate", "pirate"],
                 ["简体中文", "zh"],
               ].map((f, i) => (
                 <Select.Item
@@ -188,12 +190,12 @@ const Sidebar = () => {
                     "text-gray-800 focus:bg-gray-100",
                     "focus:outline focus:outline-2",
                     "hover:outline-none",
-                    "text-base"
+                    // "text-base"
                   )}
                 >
                   <Select.ItemText>{f[0]}</Select.ItemText>
                   <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                    <CheckIcon />
+                    <CheckIcon className=" w-4 h-4" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}

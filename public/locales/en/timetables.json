@@ -1,8 +1,8 @@
 {
-  "sort-by": "Sort by",
-  "delete": "Delete",
-  "open-in-new-tab": "Open in new tab",
-  "share": "Share",
   "rename": "Rename",
-  "mark-as-main": "Mark as main"
+  "share": "Share",
+  "open-in-new-tab": "Open in new tab",
+  "mark-as-main": "Mark as main",
+  "delete": "Delete",
+  "sort-by": "Sort by"
 }

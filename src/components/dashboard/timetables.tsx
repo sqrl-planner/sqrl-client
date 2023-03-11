@@ -11,7 +11,7 @@ const Timetables = () => {
 
   return (
     <>
-      <Title>Timetables</Title>
+      <Title>{t("dashboard:timetables")}</Title>
 
       <div className="flex justify-between items-center text-xl font-medium">
         <div>{t("sort-by")}</div>

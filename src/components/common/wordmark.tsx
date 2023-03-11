@@ -2,7 +2,7 @@ import React from "react"
 
 const Wordmark = () => {
   return (
-    <div className="font-serif text-xl flex gap-1">
+    <div className="font-serif eng-font text-xl flex gap-1">
       <div className="w-10">
         <svg className="w-full h-full" viewBox="0 0 800 600">
           <path

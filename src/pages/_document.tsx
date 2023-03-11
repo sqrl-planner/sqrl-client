@@ -1,8 +1,11 @@
-import { Head, Html, Main, NextScript } from "next/document"
+import clsx from "clsx"
+import { DocumentProps, Head, Html, Main, NextScript } from "next/document"
+import { useRouter } from "next/router"
+import Script from "next/script"
 
-export default function Document() {
+export default function Document({ locale }: DocumentProps) {
   return (
-    <Html lang="en">
+    <Html className="font-sans">
       <Head>
         <link rel="stylesheet" href="https://use.typekit.net/kir8wnz.css" />
         <link
