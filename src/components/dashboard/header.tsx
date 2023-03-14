@@ -27,10 +27,9 @@ const variants: Variants = {
 
 const BigSlash = () => {
   return (
-    <motion.div
-      layout
-      className="opacity-50 mx-3 rotate-[30deg] w-[1px] h-6 bg-gray-800"
-    ></motion.div>
+    <motion.div layout>
+      <div className="opacity-50 mx-3 rotate-[30deg] w-[1px] h-6 bg-gray-800"></div>
+    </motion.div>
   )
 }
 
