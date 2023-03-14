@@ -3,9 +3,10 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import clsx from "clsx"
 import { useTranslation } from "next-i18next"
 
-import TimetableCard from "./timetableCard"
-import Title from "../common/title"
 import { Select } from "../common"
+import Title from "../common/title"
+
+import TimetableCard from "./timetableCard"
 
 const Timetables = () => {
   const { t } = useTranslation("timetables")

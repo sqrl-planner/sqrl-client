@@ -1,12 +1,11 @@
-import React, { forwardRef } from "react"
+import React from "react"
 import clsx from "clsx"
-import Link from "next/link"
-
-import Wordmark from "../common/wordmark"
-import { Logo, Select } from "../common"
 import { AnimatePresence, motion, Variants } from "framer-motion"
+import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useTranslation } from "next-i18next"
+
+import { Logo } from "../common"
 
 const variants: Variants = {
   in: {

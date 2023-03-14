@@ -1,3 +1,8 @@
+import React, {
+  ComponentProps,
+  forwardRef,
+  ForwardRefRenderFunction,
+} from "react"
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -5,11 +10,6 @@ import {
 } from "@radix-ui/react-icons"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import clsx from "clsx"
-import React, {
-  ComponentProps,
-  forwardRef,
-  ForwardRefRenderFunction,
-} from "react"
 
 type Props = {
   options: [string, string][]
@@ -32,7 +32,7 @@ const _SelectTrigger: ForwardRefRenderFunction<HTMLButtonElement> = (
       "focus:outline-none focus-visible:ring ",
       // Register all radix states
       "focus:outline-none",
-    //   "hover:opacity-80 opacity-60",
+      //   "hover:opacity-80 opacity-60",
       "group"
     )}
   >

@@ -1,9 +1,4 @@
-import React, {
-  ComponentProps,
-  forwardRef,
-  ForwardRefRenderFunction,
-  Ref,
-} from "react"
+import React, { ComponentProps, forwardRef, Ref } from "react"
 import {
   ArchiveIcon,
   CalendarIcon,
@@ -13,11 +8,6 @@ import {
   HomeIcon,
   PersonIcon,
   Share1Icon,
-} from "@radix-ui/react-icons"
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
 } from "@radix-ui/react-icons"
 // import * as Select from "@radix-ui/react-select"
 import clsx from "clsx"
@@ -29,12 +19,7 @@ import { useTranslation } from "next-i18next"
 
 import { Rule, Select } from "@/components/common"
 
-import * as SelectPrimitive from "@radix-ui/react-select"
-
-const LanguageSelectorContent = forwardRef<
-HTMLButtonElement,
-Omit<React.ComponentProps<"button">, "className"> & {}
->((
+const _LanguageSelectorContent = (
   { children, ...props }: ComponentProps<"button">,
   ref: Ref<HTMLButtonElement>
 ) => {
@@ -57,7 +42,12 @@ Omit<React.ComponentProps<"button">, "className"> & {}
       {children}
     </button>
   )
-})
+}
+
+const LanguageSelectorContent = forwardRef<
+  HTMLButtonElement,
+  Omit<React.ComponentProps<"button">, "className"> & {}
+>(_LanguageSelectorContent)
 
 const SidebarLink = ({
   href,
