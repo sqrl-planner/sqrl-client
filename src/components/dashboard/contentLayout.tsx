@@ -2,7 +2,8 @@ import React from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import clsx from "clsx"
 import { AnimatePresence, motion } from "framer-motion"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useTranslation } from "next-i18next"
 
 function ErrorFallback({
   error,
@@ -24,14 +25,14 @@ const variants = {
   in: {
     opacity: 1,
     transition: {
-      duration: 0.12,
+      duration: 0.2,
       ease: [0.43, 0.13, 0.23, 0.96],
     },
   },
   out: {
     opacity: 0,
     transition: {
-      duration: 0.04,
+      duration: 0.00,
     },
   },
 }
@@ -42,6 +43,7 @@ type Props = {
 
 const ContentLayout = ({ children }: Props) => {
   const pathname = usePathname()
+  const {i18n} = useTranslation()
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>

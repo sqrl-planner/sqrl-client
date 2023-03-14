@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import { pageLayout, Title } from "@/components/dashboard"
 
-import { NextPageWithLayout } from "./_app"
+import { NextPageWithLayout } from "@/pages/_app"
 
 const Courses: NextPageWithLayout = () => {
   const { t } = useTranslation("courses")

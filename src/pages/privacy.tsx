@@ -32,11 +32,7 @@ const Privacy: NextPageWithLayout = () => {
 
   return (
     <>
-      <Head>
-        <title>{t("dashboard:privacy-policy")}</title>
-      </Head>
-
-      <Title>{t("dashboard:privacy-policy")}</Title>
+      <Title>{t("dashboard:privacy")}</Title>
       <Caption>Last updated 2023-03-05</Caption>
       <div className="text-xl flex flex-col gap-4 font-medium opacity-70 font-sans eng-font">
         <div>

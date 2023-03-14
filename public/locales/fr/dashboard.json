@@ -2,12 +2,12 @@
   "for-you": "Pour toi",
   "courses": "Cours",
   "timetables": "Horaires",
-  "shared-with-me": "Partagé avec moi",
+  "shared": "Partagé avec moi",
   "settings": "Paramètres",
   "profile": "Profil",
   "about": "À propos",
-  "privacy-policy": "Politique de confidentialité",
-  "terms-of-use": "Conditions d'utilisation",
+  "privacy": "Politique de confidentialité",
+  "terms": "Conditions d'utilisation",
   "feedback": "Retour d'information",
   "all-rights-reserved": "Tous droits réservés."
 }

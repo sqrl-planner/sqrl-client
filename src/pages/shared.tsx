@@ -9,7 +9,7 @@ import { NextPageWithLayout } from "./_app"
 const Shared: NextPageWithLayout = () => {
   const { t } = useTranslation("fyp")
 
-  return <Title>{t("dashboard:shared-with-me")}</Title>
+  return <Title>{t("dashboard:shared")}</Title>
 }
 
 Shared.getLayout = pageLayout

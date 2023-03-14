@@ -9,7 +9,7 @@ import { NextPageWithLayout } from "./_app"
 const Terms: NextPageWithLayout = () => {
   const { t } = useTranslation("fyp")
 
-  return <Title>{t("dashboard:terms-of-use")}</Title>
+  return <Title>{t("dashboard:terms")}</Title>
 }
 
 Terms.getLayout = pageLayout

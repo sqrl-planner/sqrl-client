@@ -7,13 +7,8 @@ import { pageLayout, Timetables } from "@/components/dashboard"
 import { NextPageWithLayout } from "./_app"
 
 const TimetablesPage: NextPageWithLayout = () => {
-  const { t } = useTranslation("timetables")
-
   return (
     <>
-      <Head>
-        <title>{t("dashboard:timetables")}</title>
-      </Head>
       <Timetables />
     </>
   )

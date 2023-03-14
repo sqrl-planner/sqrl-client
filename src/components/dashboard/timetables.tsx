@@ -4,7 +4,8 @@ import clsx from "clsx"
 import { useTranslation } from "next-i18next"
 
 import TimetableCard from "./timetableCard"
-import Title from "./title"
+import Title from "../common/title"
+import { Select } from "../common"
 
 const Timetables = () => {
   const { t } = useTranslation("timetables")
@@ -14,7 +15,19 @@ const Timetables = () => {
       <Title>{t("dashboard:timetables")}</Title>
 
       <div className="flex justify-between items-center text-xl font-medium">
-        <div>{t("sort-by")}</div>
+        <div className="flex items-center">
+          {t("sort-by")}
+          <div className="ml-2 text-black text-opacity-70">
+            <Select
+              options={[
+                ["name", t("name")],
+                ["date", t("date")],
+              ]}
+              value="name"
+              onChange={() => {}}
+            />
+          </div>
+        </div>
         <span className="relative">
           <MagnifyingGlassIcon
             className={clsx("absolute", "left-2 inset-y-0 m-auto", "h-6 w-6")}
@@ -22,7 +35,7 @@ const Timetables = () => {
           <input
             type="text"
             placeholder="Search"
-            className="shadow rounded-md p-2 px-3 pt-[0.6rem] pl-12 text-lg leading-snug"
+            className="shadow rounded-lg p-2 px-3 pt-[0.6rem] pl-12 text-base leading-snug"
           />
         </span>
       </div>
