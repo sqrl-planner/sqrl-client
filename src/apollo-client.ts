@@ -20,4 +20,17 @@ export const apolloClientParams = {
 // https://dev.to/tmaximini/accessing-authorization-headers-in-apollo-graphql-client-3b50
 const client = new ApolloClient(apolloClientParams)
 
+const serverClient = new ApolloClient({
+  ssrMode: true,
+  ...apolloClientParams,
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: "no-cache",
+    },
+  },
+})
+
+export { serverClient }
+
 export default client
