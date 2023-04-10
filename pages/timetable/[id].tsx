@@ -1,16 +1,16 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client"
 import type { NextPage } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
 import Layout from "../../components/Layout"
 import TitleMeta from "../../components/TitleMeta"
 import { GET_TIMETABLE_BY_ID } from "../../operations/queries/getTimetableById"
-import { apolloClientParams } from "../../src/apollo-client"
 import { PreferencesProvider } from "../../src/PreferencesContext"
 import Sqrl from "../../src/Sqrl"
 import { AppContextProvider } from "../../src/SqrlContext"
 import { SectionsProvider } from "../../src/useSections"
 import useSharePrefix from "../../src/useSharePrefix"
+
+import { serverClient as serverSideApolloClient } from "../../src/apollo-client"
 
 export const TimetableView: NextPage = (props: any) => {
   const [sharePrefix] = useSharePrefix()
@@ -49,17 +49,6 @@ export async function getServerSideProps({
   }
 
   const id = query.id
-
-  const serverSideApolloClient = new ApolloClient({
-    ssrMode: true,
-    ...apolloClientParams,
-    cache: new InMemoryCache(),
-    defaultOptions: {
-      query: {
-        fetchPolicy: "no-cache",
-      },
-    },
-  })
 
   try {
     const { data } = await serverSideApolloClient.query({
