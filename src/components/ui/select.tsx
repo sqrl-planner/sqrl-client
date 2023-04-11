@@ -27,7 +27,7 @@ const _SelectTrigger: ForwardRefRenderFunction<HTMLButtonElement> = (
     {...props}
     className={clsx(
       "inline-flex select-none items-center justify-start px-0 py-1 font-medium",
-      "py-1 inline-block transition",
+      "inline-block py-1 transition",
       "flex items-center gap-3",
       "focus:outline-none focus-visible:ring ",
       // Register all radix states
@@ -59,7 +59,7 @@ const Select = ({ options, value, onChange, trigger }: Props) => {
             <SelectPrimitive.Value />
             <SelectPrimitive.Icon className="-ml-1">
               <ChevronUpIcon className="relative" />
-              <ChevronDownIcon className="-mt-2 relative" />
+              <ChevronDownIcon className="relative -mt-2" />
             </SelectPrimitive.Icon>
           </>
         </Trigger>
@@ -68,14 +68,14 @@ const Select = ({ options, value, onChange, trigger }: Props) => {
         <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 ">
           <ChevronUpIcon />
         </SelectPrimitive.ScrollUpButton>
-        <SelectPrimitive.Viewport className="bg-white px-0 rounded-lg shadow-xl py-1 relative z-30">
+        <SelectPrimitive.Viewport className="relative z-30 rounded-lg bg-white px-0 py-1 shadow-xl">
           <SelectPrimitive.Group>
             {options.map((f, i) => (
               <SelectPrimitive.Item
                 key={`${f}-${i}`}
                 value={f[1]}
                 className={clsx(
-                  "flex cursor-default select-none items-center px-4 pl-8 py-2 ",
+                  "flex cursor-default select-none items-center px-4 py-2 pl-8 ",
                   "text-gray-800 focus:bg-gray-100",
                   "focus:outline focus:outline-2",
                   "hover:outline-none"
@@ -83,7 +83,7 @@ const Select = ({ options, value, onChange, trigger }: Props) => {
               >
                 <SelectPrimitive.ItemText>{f[0]}</SelectPrimitive.ItemText>
                 <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
-                  <CheckIcon className=" w-4 h-4" />
+                  <CheckIcon className=" h-4 w-4" />
                 </SelectPrimitive.ItemIndicator>
               </SelectPrimitive.Item>
             ))}

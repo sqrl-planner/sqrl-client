@@ -27,9 +27,7 @@ const variants: Variants = {
 
 const BigSlash = () => {
   return (
-    <motion.div layout>
-      <div className="opacity-50 mx-3 rotate-[30deg] w-[1px] h-6 bg-gray-800"></div>
-    </motion.div>
+    <div className="mx-3 h-6 w-[1px] rotate-[30deg] bg-gray-800 opacity-50"></div>
   )
 }
 
@@ -37,44 +35,56 @@ const Header = () => {
   const { t } = useTranslation("common")
   const pathname = usePathname()
   const router = useRouter()
+
+  const subpaths = pathname.split("/").filter((p) => p !== "")
+
+  // TODO: Implement a vercel-esque header
+
   return (
     <header
       className={clsx(
-        "w-full fixed border-b-[#80808080] border-b-[0.8px] flex flex-col justify-center h-14 px-4 bg-[#EBEBE4] z-10"
+        "fixed z-10 flex h-14 w-full flex-col justify-center border-b-[0.8px] border-b-[#80808080] bg-[#EBEBE4] px-4",
+        "bg-opacity-60 backdrop-blur"
       )}
     >
-      <div className="max-w-7xl w-full m-auto flex">
-        <div className="font-serif eng-font text-xl flex items-center gap-1">
+      <div className="m-auto flex w-full max-w-7xl">
+        <div className="eng-font flex items-center gap-1 font-serif text-xl">
           <Link href="/">
             <Logo />
           </Link>
-          <AnimatePresence mode="popLayout" initial={false}>
+          <AnimatePresence initial={false}>
             {pathname === "/" ? (
               <motion.div
                 key={pathname}
                 variants={variants}
                 animate="in"
                 initial="out"
-                exit="out"
-                className="relative font-serif eng-font"
+                className="eng-font relative font-serif"
               >
                 Sqrl Planner
               </motion.div>
             ) : (
               <>
-                <BigSlash />
-                {pathname !== "/" && (
-                  <>
-                    <motion.div
-                      key={pathname}
-                      variants={variants}
-                      animate="in"
-                      initial="out"
-                    >
-                      {t(`dashboard:${pathname.replace("/", "")}`)}
-                    </motion.div>
-                  </>
-                )}
+                {subpaths.map((subpath, index) => {
+                  return (
+                    <React.Fragment key={subpath}>
+                      <motion.div
+                        key={subpath}
+                        variants={variants}
+                        animate="in"
+                        initial="out"
+                        className="flex items-center"
+                      >
+                        <BigSlash />
+                        <Link
+                          href={`/${subpaths.slice(0, index + 1).join("/")}`}
+                        >
+                          {t(`dashboard:${subpath}`)}
+                        </Link>
+                      </motion.div>
+                    </React.Fragment>
+                  )
+                })}
               </>
             )}
           </AnimatePresence>

@@ -13,6 +13,8 @@ import clsx from "clsx"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 
+import { Timetable } from "@/types"
+
 import { Caption } from "../common"
 
 const DropdownItem = ({
@@ -44,18 +46,22 @@ const DropdownItem = ({
   )
 }
 
-const TimetableCard = () => {
+const TimetableCard = ({ timetable }: { timetable: Timetable }) => {
   const { t } = useTranslation("timetables")
+
+  const openInNewTab = () => {
+    window.open(`/timetables/${timetable.id}`, "_blank")
+  }
 
   return (
     <AspectRatio.Root ratio={2 / 1}>
       <Link
-        href="#"
-        className="w-full h-full bg-slate-50 rounded-lg shadow-md flex flex-col justify-between items-start text-left p-4 hover:outline-blue-500 focus:outline-blue-500 hover:shadow-xl focus:shadow-xl outline outline-2 outline-transparent transition-all relative"
+        href="/timetables/123"
+        className="relative flex h-full w-full flex-col items-start justify-between rounded-lg bg-slate-50 p-4 text-left shadow-md outline outline-2 outline-transparent transition-all focus:shadow-xl focus:outline-blue-500 hover:shadow-xl hover:outline-blue-500"
       >
         <div>
           <Caption>2022 Fall–2023 Winter</Caption>
-          <h1 className="text-xl font-serif">saved-frog</h1>
+          <h1 className="font-serif text-xl">saved-frog</h1>
         </div>
         <div>
           <DropdownMenu.Root modal={false}>
@@ -66,7 +72,7 @@ const TimetableCard = () => {
                 e.stopPropagation()
               }}
               className={clsx(
-                "flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                "flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 hover:bg-gray-200"
               )}
             >
               <button>
@@ -80,7 +86,7 @@ const TimetableCard = () => {
                 loop
                 sideOffset={5}
                 className={clsx(
-                  "radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down",
+                  "radix-side-bottom:animate-slide-down radix-side-top:animate-slide-up",
                   "w-48 rounded-lg px-0 py-1 shadow-xl md:w-56",
                   "font-medium",
                   "bg-white"
@@ -96,19 +102,19 @@ const TimetableCard = () => {
                   {t("share")}
                 </DropdownItem>
 
-                <DropdownItem>
+                <DropdownItem onClick={openInNewTab}>
                   <ExternalLinkIcon className="mr-2" />
                   {t("open-in-new-tab")}
                 </DropdownItem>
 
-                <DropdownMenu.Separator className="py-[0.4px] my-1.5 h-[0px] bg-gray-200" />
+                <DropdownMenu.Separator className="my-1.5 h-[0px] bg-gray-200 py-[0.4px]" />
 
                 <DropdownItem>
                   <StarIcon className="mr-2" />
                   {t("mark-as-main")}
                 </DropdownItem>
 
-                <DropdownMenu.Separator className="py-[0.4px] my-1.5 h-[0px] bg-gray-200" />
+                <DropdownMenu.Separator className="my-1.5 h-[0px] bg-gray-200 py-[0.4px]" />
 
                 <DropdownItem className="!text-red-600">
                   <TrashIcon className="mr-2" />

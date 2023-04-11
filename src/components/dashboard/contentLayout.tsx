@@ -14,8 +14,8 @@ function ErrorFallback({
 }) {
   return (
     <div role="alert">
-      <div className="p-8 gap-6 flex flex-col">
-        <h1 className="text-7xl font-serif">Something went wrong</h1>
+      <div className="flex flex-col gap-6 p-8">
+        <h1 className="font-serif text-7xl">Something went wrong</h1>
       </div>
     </div>
   )
@@ -55,8 +55,8 @@ const ContentLayout = ({ children }: Props) => {
           initial="out"
           exit="out"
           className={clsx(
-            "lg:pl-2 lg:ml-72 lg:mr-4",
-            "w-full p-4 pt-8 pb-10 gap-6 flex flex-col h-full"
+            "lg:ml-72 lg:mr-4 lg:pl-2",
+            "flex h-full w-full flex-col gap-6 p-4 pt-8 pb-10"
           )}
         >
           {children}

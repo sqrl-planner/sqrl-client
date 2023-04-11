@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { ReactElement, useEffect, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import * as ScrollArea from "@radix-ui/react-scroll-area"
 import clsx from "clsx"
+import { Header } from "../dashboard"
 
-import Header from "./header"
-import Sidebar from "./sidebar"
+// import Header from "./header"
+// import Sidebar from "./sidebar"
 
 function ErrorFallback({
   error,
@@ -15,8 +16,8 @@ function ErrorFallback({
 }) {
   return (
     <div role="alert">
-      <div className="p-8 ml-72 gap-6 flex flex-col h-full">
-        <h1 className="text-7xl font-serif">Something went wrong</h1>
+      <div className="ml-72 flex h-full flex-col gap-6 p-8">
+        <h1 className="font-sans text-4xl">Something went wrong.</h1>
       </div>
     </div>
   )
@@ -26,7 +27,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const Layout = ({ children }: Props) => {
+const HeaderLayout = ({ children }: Props) => {
   const [isiOSSafari, setIsiOSSafari] = useState(false)
 
   useEffect(() => {
@@ -37,12 +38,9 @@ const Layout = ({ children }: Props) => {
   }, [])
 
   const content = (
-    <div className={"w-full min-h-screen flex justify-center bg-[#EBEBE4]"}>
+    <div className={"flex min-h-screen w-full justify-center bg-[#EBEBE4]"}>
       <Header />
-      <div className="flex pt-14 w-full max-w-7xl lg:flex-row flex-col relative">
-        <Sidebar />
-        {children}
-      </div>
+      {children}
     </div>
   )
 
@@ -53,13 +51,13 @@ const Layout = ({ children }: Props) => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <ScrollArea.Root className="w-full h-screen">
-        <ScrollArea.Viewport className="w-full h-full">
+      <ScrollArea.Root className="h-screen w-full">
+        <ScrollArea.Viewport className="h-full w-full">
           {content}
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar
           className={clsx(
-            "z-20 p-1 w-4 flex",
+            "z-20 flex w-4 p-1",
             "bg-gray-300 bg-opacity-30",
             "hover:bg-opacity-100",
             "transition-all"
@@ -68,8 +66,8 @@ const Layout = ({ children }: Props) => {
         >
           <ScrollArea.Thumb
             className={clsx(
-              "bg-gray-600 rounded-full relative flex-1",
-              "before:absolute before:inset-0 before:bg-gray-300 before:bg-opacity-50 before:min-h-[44px] before:min-w-[44px]"
+              "relative flex-1 rounded-full bg-gray-600",
+              "before:absolute before:inset-0 before:min-h-[44px] before:min-w-[44px] before:bg-gray-300 before:bg-opacity-50"
             )}
           />
         </ScrollArea.Scrollbar>
@@ -79,4 +77,8 @@ const Layout = ({ children }: Props) => {
   )
 }
 
-export default Layout
+export default HeaderLayout
+
+export const headerPageLayout = (page: ReactElement) => (
+  <HeaderLayout>{page}</HeaderLayout>
+)

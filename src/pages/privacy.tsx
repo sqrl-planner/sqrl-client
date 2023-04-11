@@ -2,14 +2,15 @@ import React from "react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import { Anchor, Caption, Rule } from "@/components/common"
+import { Anchor, Caption } from "@/components/common"
+import { Rule } from "@/components/ui"
 import { pageLayout, Title } from "@/components/dashboard"
 
 import { NextPageWithLayout } from "./_app"
 
 const InShort = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="bg-white my-2 p-5 px-6 rounded-xl shadow-lg">
+    <div className="my-2 rounded-xl bg-white p-5 px-6 shadow-lg">
       {children}
     </div>
   )
@@ -33,7 +34,7 @@ const Privacy: NextPageWithLayout = () => {
     <>
       <Title>{t("dashboard:privacy")}</Title>
       <Caption>Last updated 2023-03-05</Caption>
-      <div className="text-xl flex flex-col gap-4 font-medium opacity-70 font-sans eng-font">
+      <div className="eng-font flex flex-col gap-4 font-sans text-xl font-medium opacity-70">
         <div>
           This privacy notice for Sqrl Planner (&quot;<strong>we</strong>
           ,&quot; &quot;<strong>us</strong>,&quot; or &quot;

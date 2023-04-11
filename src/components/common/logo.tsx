@@ -3,7 +3,7 @@ import React from "react"
 const Logo = () => {
   return (
     <div className="w-10">
-      <svg className="w-full h-full" viewBox="0 0 800 600">
+      <svg className="h-full w-full" viewBox="0 0 800 600">
         <path
           id="_Compound_Path_"
           data-name="&lt;Compound Path&gt;"

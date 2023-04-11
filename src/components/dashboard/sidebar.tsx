@@ -2,6 +2,7 @@ import React, { ComponentProps, forwardRef, Ref } from "react"
 import {
   ArchiveIcon,
   CalendarIcon,
+  DiscordLogoIcon,
   ExternalLinkIcon,
   GearIcon,
   GlobeIcon,
@@ -17,7 +18,13 @@ import { usePathname } from "next/navigation"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
-import { Rule, Select } from "@/components/common"
+import { Rule, Select } from "@/components/ui"
+import {
+  IconFocusCentered,
+  IconPointFilled,
+  IconShoppingBag,
+  IconShoppingCart,
+} from "@tabler/icons-react"
 
 const _LanguageSelectorContent = (
   { children, ...props }: ComponentProps<"button">,
@@ -26,13 +33,13 @@ const _LanguageSelectorContent = (
   return (
     <button
       className={clsx(
-        "inline-flex select-none items-center justify-start px-0 py-1 font-medium",
-        "py-1 inline-block transition",
+        "inline-flex select-none items-center justify-start px-0 py-1",
+        "inline-block py-1 transition",
         "flex items-center gap-3",
         "focus:outline-none focus-visible:ring ",
         // Register all radix states
         "focus:outline-none",
-        "hover:opacity-80 opacity-60",
+        "opacity-60 hover:opacity-80",
         "group"
       )}
       ref={ref}
@@ -64,11 +71,11 @@ const SidebarLink = ({
       href={href}
       scroll
       className={clsx(
-        "py-1 inline-block transition",
+        "inline-block py-1 transition",
         "flex items-center gap-3",
         "",
         {
-          "hover:opacity-80 opacity-60": pathname !== href,
+          "opacity-60 hover:opacity-80": pathname !== href,
           "opacity-100": pathname === href,
         }
       )}
@@ -91,23 +98,22 @@ const Sidebar = () => {
   return (
     <motion.nav
       className={clsx(
-        "lg:fixed z-0",
-        "lg:w-72 lg:inset-auto",
-        // "top-0 right-0",
-        "font-medium text-xl flex flex-col gap-4 p-4",
+        "z-0 lg:fixed lg:inset-auto lg:w-72",
+        "h-auto lg:max-h-[calc(100vh-theme(space.14))] lg:overflow-y-auto",
+        "flex flex-col gap-4 p-4 text-xl font-medium",
         "group"
       )}
     >
-      <ul className="flex flex-col mt-4">
+      <ul className="mt-4 flex flex-col">
         <li>
           <SidebarLink href="/">
-            <HomeIcon className="w-4 h-4" />
+            <HomeIcon className="h-4 w-4" />
             {t("for-you")}
           </SidebarLink>
         </li>
         <li>
           <SidebarLink href="/courses">
-            <ArchiveIcon className="w-4 h-4" />
+            <ArchiveIcon className="h-4 w-4" />
             {t("courses")}
           </SidebarLink>
         </li>
@@ -116,19 +122,19 @@ const Sidebar = () => {
       <ul className="flex flex-col">
         <li>
           <SidebarLink href="/timetables">
-            <CalendarIcon className="w-4 h-4" />
+            <CalendarIcon className="h-4 w-4" />
             {t("timetables")}
           </SidebarLink>
         </li>
         <li>
           <SidebarLink href="/shared">
-            <Share1Icon className="w-4 h-4" />
+            <Share1Icon className="h-4 w-4" />
             {t("shared")}
           </SidebarLink>
         </li>
         <li>
           <SidebarLink href="/settings">
-            <GearIcon className="w-4 h-4" />
+            <GearIcon className="h-4 w-4" />
             {t("settings")}
           </SidebarLink>
         </li>
@@ -137,40 +143,59 @@ const Sidebar = () => {
       <ul>
         <li>
           <SidebarLink href="/profile">
-            <PersonIcon className="w-4 h-4" />
+            <PersonIcon className="h-4 w-4" />
             {t("profile")}
           </SidebarLink>
         </li>
       </ul>
-      <Rule />
 
-      <Select
-        options={[
-          ["English", "en"],
-          ["Français", "fr"],
-          ["Esperanto", "eo"],
-          ["Pirate", "pirate"],
-          ["简体中文", "zh"],
-        ]}
-        value={i18n.language}
-        onChange={onChangeLanguage}
-        trigger={LanguageSelectorContent}
-      />
-
-      {/* <SidebarLink href="/profile">gay</SidebarLink> */}
       <Rule />
-      <div className="flex flex-col items-start text-xs font-semibold">
-        <SidebarLink href="/about">{t("about")}</SidebarLink>
-        <SidebarLink href="/privacy">{t("privacy")}</SidebarLink>
-        <SidebarLink href="/terms">{t("terms")}</SidebarLink>
-        <SidebarLink
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/sqrl-planner"
-        >
-          GitHub <ExternalLinkIcon className="w-3 h-3 -ml-2" />
-        </SidebarLink>
-        <SidebarLink href="/feedback">{t("feedback")}</SidebarLink>
+      <ul>
+        <li>
+          <SidebarLink target="_blank" rel="noopener noreferrer" href="/shop">
+            <IconShoppingBag size={16} />
+            {t("shop")}
+            <ExternalLinkIcon className="-ml-2 h-3 w-3" />
+          </SidebarLink>
+        </li>
+        <li>
+          <SidebarLink
+            target="_blank"
+            rel="noopener noreferrer"
+            href="/discord"
+          >
+            <DiscordLogoIcon />
+            {t("discord")}
+            <ExternalLinkIcon className="-ml-2 h-3 w-3" />
+          </SidebarLink>
+        </li>
+      </ul>
+
+      <Rule />
+      <div className="flex flex-col gap-4 text-xs font-semibold">
+        <div className="flex flex-col items-start">
+          <SidebarLink href="/about">{t("about")}</SidebarLink>
+          <SidebarLink href="/privacy">{t("privacy")}</SidebarLink>
+          <SidebarLink href="/terms">{t("terms")}</SidebarLink>
+          <SidebarLink target="_blank" rel="noopener noreferrer" href="/github">
+            GitHub <ExternalLinkIcon className="-ml-2 h-3 w-3" />
+          </SidebarLink>
+          <SidebarLink href="/feedback">{t("feedback")}</SidebarLink>
+        </div>
+
+        <Select
+          options={[
+            ["English", "en"],
+            ["Français", "fr"],
+            ["Esperanto", "eo"],
+            ["Pirate", "pirate"],
+            ["简体中文", "zh"],
+          ]}
+          value={i18n.language}
+          onChange={onChangeLanguage}
+          trigger={LanguageSelectorContent}
+        />
+
         <div className="mt-2 opacity-60">
           &copy; 2023 Sqrl Planner. {t("all-rights-reserved")}
         </div>
