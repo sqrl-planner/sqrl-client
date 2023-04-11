@@ -1,11 +1,10 @@
+import { ReactElement, ReactNode, useState } from "react"
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
+import { Session, SessionContextProvider } from "@supabase/auth-helpers-react"
 import { Analytics } from "@vercel/analytics/react"
 import { NextPage } from "next"
-import { appWithTranslation } from "next-i18next"
 import type { AppProps } from "next/app"
-import { ReactElement, ReactNode, useState } from "react"
-
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
-import { SessionContextProvider, Session } from "@supabase/auth-helpers-react"
+import { appWithTranslation } from "next-i18next"
 
 import "@/styles/globals.css"
 

@@ -3,9 +3,9 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import clsx from "clsx"
 import { useTranslation } from "next-i18next"
 
+import { Select } from "@/components/ui"
 import { Session, Timetable } from "@/types"
 
-import { Select } from "@/components/ui"
 import Title from "../common/title"
 
 import TimetableCard from "./timetableCard"

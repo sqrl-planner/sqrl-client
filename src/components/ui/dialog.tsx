@@ -1,9 +1,8 @@
+import React, { Fragment, ReactNode, useState } from "react"
 import { Transition } from "@headlessui/react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { Cross1Icon } from "@radix-ui/react-icons"
 import { clsx } from "clsx"
-import React, { Fragment, useState, ReactNode } from "react"
-import Button from "./shared/button"
 
 interface DialogProps {
   trigger: ReactNode

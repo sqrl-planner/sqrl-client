@@ -1,10 +1,10 @@
 import React from "react"
-import { NextPageWithLayout } from "@/pages/_app"
-import { Header } from "@/components/dashboard"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useTranslation } from "next-i18next"
-import { headerPageLayout } from "@/components/common/headerLayout"
 import { log } from "console"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+
+import { headerPageLayout } from "@/components/common/headerLayout"
+import { NextPageWithLayout } from "@/pages/_app"
 
 const TimetablePage: NextPageWithLayout = () => {
   const { t } = useTranslation("courses")

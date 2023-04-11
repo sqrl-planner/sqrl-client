@@ -3,8 +3,8 @@ import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import { Anchor, Caption } from "@/components/common"
-import { Rule } from "@/components/ui"
 import { pageLayout, Title } from "@/components/dashboard"
+import { Rule } from "@/components/ui"
 
 import { NextPageWithLayout } from "./_app"
 

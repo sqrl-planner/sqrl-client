@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react"
-import { ErrorBoundary } from "react-error-boundary"
-import * as ScrollArea from "@radix-ui/react-scroll-area"
-import clsx from "clsx"
+import React from "react"
 
-import Header from "./header"
-import Sidebar from "./sidebar"
 import { HeaderLayout } from "../common"
+
+import Sidebar from "./sidebar"
 
 type Props = {
   children: React.ReactNode

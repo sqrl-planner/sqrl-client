@@ -1,17 +1,15 @@
 import React, { useState } from "react"
-import { Dialog, Rule } from "../ui"
-import Button from "./button"
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
-import { usePathname } from "next/navigation"
-import { getUrl } from "@/utils"
 import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { Provider, SupabaseClient } from "@supabase/supabase-js"
-import {
-  IconBrandGoogle,
-  IconBrandGoogleAnalytics,
-  IconBrandGoogleOne,
-} from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
+import { usePathname } from "next/navigation"
+
+import { getUrl } from "@/utils"
+
+import { Dialog, Rule } from "../ui"
+
+import Button from "./button"
 
 const ProviderButton = ({
   provider,
@@ -115,7 +113,7 @@ const RegisterForm = () => {
         </div>
       </div>
       <Button type="submit" className="text-sm">
-      Register
+        Register
       </Button>
     </form>
   )

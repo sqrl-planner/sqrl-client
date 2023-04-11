@@ -10,6 +10,7 @@ import {
   PersonIcon,
   Share1Icon,
 } from "@radix-ui/react-icons"
+import { IconShoppingBag } from "@tabler/icons-react"
 // import * as Select from "@radix-ui/react-select"
 import clsx from "clsx"
 import { motion } from "framer-motion"
@@ -19,12 +20,6 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Rule, Select } from "@/components/ui"
-import {
-  IconFocusCentered,
-  IconPointFilled,
-  IconShoppingBag,
-  IconShoppingCart,
-} from "@tabler/icons-react"
 
 const _LanguageSelectorContent = (
   { children, ...props }: ComponentProps<"button">,

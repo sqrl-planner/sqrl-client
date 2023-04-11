@@ -1,34 +1,30 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
+import { AuthModal } from "@/components/common"
 import { pageLayout, Title } from "@/components/dashboard"
 
 import { NextPageWithLayout } from "./_app"
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
-
-import { Auth } from "@supabase/auth-ui-react"
-import { ThemeSupa } from "@supabase/auth-ui-shared"
-import { Dialog } from "@/components/ui"
-import { AuthModal, Button } from "@/components/common"
 
 const Profile: NextPageWithLayout = () => {
   const { t } = useTranslation("profile")
 
   const supabaseClient = useSupabaseClient()
   const user = useUser()
-  const [data, setData] = useState()
+  // const [data, setData] = useState()
 
-  console.log(user)
+  // console.log(user)
 
-  useEffect(() => {
-    async function loadData() {
-      const { data } = await supabaseClient.from("test").select("*")
-      setData(data)
-    }
-    // Only run query once user is logged in.
-    if (user) loadData()
-  }, [user])
+  // useEffect(() => {
+  //   async function loadData() {
+  //     const { data } = await supabaseClient.from("test").select("*")
+  //     setData(data)
+  //   }
+  //   // Only run query once user is logged in.
+  //   if (user) loadData()
+  // }, [user])
 
   if (!user) return <AuthModal />
 
