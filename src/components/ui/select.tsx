@@ -83,7 +83,7 @@ const Select = ({ options, value, onChange, trigger }: Props) => {
               >
                 <SelectPrimitive.ItemText>{f[0]}</SelectPrimitive.ItemText>
                 <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
-                  <CheckIcon className=" h-4 w-4" />
+                  <CheckIcon className="h-4 w-4" />
                 </SelectPrimitive.ItemIndicator>
               </SelectPrimitive.Item>
             ))}

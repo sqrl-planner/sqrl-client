@@ -30,7 +30,7 @@ const _LanguageSelectorContent = (
       className={clsx(
         "inline-flex select-none items-center justify-start px-0 py-1",
         "inline-block py-1 transition",
-        "flex items-center gap-3",
+        "flex items-center gap-1.5",
         "focus:outline-none focus-visible:ring ",
         // Register all radix states
         "focus:outline-none",
@@ -40,7 +40,7 @@ const _LanguageSelectorContent = (
       ref={ref}
       {...props}
     >
-      <GlobeIcon />
+      <GlobeIcon className="h-2.5 w-2.5" />
       {children}
     </button>
   )
@@ -68,7 +68,7 @@ const SidebarLink = ({
       className={clsx(
         "inline-block py-1 transition",
         "flex items-center gap-3",
-        "",
+        "select-none",
         {
           "opacity-60 hover:opacity-80": pathname !== href,
           "opacity-100": pathname === href,
@@ -190,8 +190,7 @@ const Sidebar = () => {
           onChange={onChangeLanguage}
           trigger={LanguageSelectorContent}
         />
-
-        <div className="mt-2 opacity-60">
+        <div className="-mt-4 opacity-60">
           &copy; 2023 Sqrl Planner. {t("all-rights-reserved")}
         </div>
       </div>

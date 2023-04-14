@@ -1,6 +1,4 @@
 import { ReactElement, ReactNode, useState } from "react"
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
-import { Session, SessionContextProvider } from "@supabase/auth-helpers-react"
 import { Analytics } from "@vercel/analytics/react"
 import { NextPage } from "next"
 import type { AppProps } from "next/app"
@@ -8,29 +6,13 @@ import { appWithTranslation } from "next-i18next"
 
 import "@/styles/globals.css"
 
-const App = ({
-  Component,
-  pageProps,
-}: AppPropsWithLayout<{ initialSession: Session }>) => {
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
-  const [supabaseClient] = useState(() =>
-    createBrowserSupabaseClient({
-      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_KEY,
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    })
-  )
-
-  const { initialSession, ...rest } = pageProps
 
   return (
     <>
-      <SessionContextProvider
-        supabaseClient={supabaseClient}
-        initialSession={initialSession}
-      >
-        {getLayout(<Component {...rest} />)}
-        <Analytics />
-      </SessionContextProvider>
+      {getLayout(<Component {...pageProps} />)}
+      <Analytics />
     </>
   )
 }
@@ -39,7 +21,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
-type AppPropsWithLayout<T> = AppProps<T> & {
+type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 

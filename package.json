@@ -16,16 +16,14 @@
   "dependencies": {
     "@apollo/client": "^3.7.9",
     "@headlessui/react": "^1.7.13",
+    "@ory/client": "^1.1.24",
+    "@ory/integrations": "^1.1.0",
     "@radix-ui/react-aspect-ratio": "^1.0.1",
     "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "^2.0.3",
     "@radix-ui/react-icons": "^1.2.0",
     "@radix-ui/react-scroll-area": "^1.0.2",
     "@radix-ui/react-select": "^1.2.0",
-    "@supabase/auth-helpers-nextjs": "^0.6.0",
-    "@supabase/auth-helpers-react": "^0.3.1",
-    "@supabase/auth-ui-react": "^0.3.5",
-    "@supabase/supabase-js": "^2.17.0",
     "@tabler/icons-react": "^2.15.0",
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
@@ -73,7 +71,6 @@
     "postcss": "^8.4.21",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.7",
-    "supabase": "^1.50.2",
     "tailwind-scrollbar": "^2.1.0",
     "tailwindcss": "^3.2.7"
   }

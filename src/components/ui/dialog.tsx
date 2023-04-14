@@ -6,7 +6,7 @@ import { clsx } from "clsx"
 
 interface DialogProps {
   trigger: ReactNode
-  title: string
+  title: ReactNode
   description?: string
   children: (closeDialog: () => void) => ReactNode
 }
@@ -59,7 +59,7 @@ const Dialog = ({ trigger, title, description, children }: DialogProps) => {
             >
               <DialogPrimitive.Title
                 className={clsx(
-                  "text-sm font-semibold text-gray-900 "
+                  "text-xl font-medium text-gray-900 "
                   //   "dark:text-gray-100"
                 )}
               >
