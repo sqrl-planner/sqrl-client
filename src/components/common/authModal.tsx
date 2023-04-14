@@ -1,14 +1,10 @@
 import React, { useState } from "react"
 import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
-import { AnimatePresence, motion } from "framer-motion"
 import { usePathname } from "next/navigation"
-
-import { getUrl } from "@/utils"
 
 import { Dialog, Rule } from "../ui"
 
 import Button from "./button"
-import Logo from "./logo"
 import Wordmark from "./wordmark"
 
 const ProviderButton = ({

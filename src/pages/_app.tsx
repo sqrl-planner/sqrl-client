@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useState } from "react"
+import { ReactElement, ReactNode } from "react"
 import { Analytics } from "@vercel/analytics/react"
 import { NextPage } from "next"
 import type { AppProps } from "next/app"

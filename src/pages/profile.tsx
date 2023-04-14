@@ -1,16 +1,13 @@
 import React from "react"
+import { useEffect, useState } from "react"
+import { Configuration, FrontendApi, Identity,Session } from "@ory/client"
+import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import { AuthModal } from "@/components/common"
 import { pageLayout, Title } from "@/components/dashboard"
 
 import { NextPageWithLayout } from "./_app"
-
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
-
-import { Configuration, FrontendApi, Session, Identity } from "@ory/client"
 // import { edgeConfig } from "@ory/integrations/next"
 
 // const ory = new FrontendApi(new Configuration(edgeConfig))
