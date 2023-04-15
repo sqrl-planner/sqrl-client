@@ -53,12 +53,18 @@ const Profile: NextPageWithLayout = () => {
       .then(({ data }) => {
         // User has a session!
         setSession(data)
+        console.log("has session")
+        console.log(data)
+
         // Create a logout url
         ory.createBrowserLogoutFlow().then(({ data }) => {
           setLogoutUrl(data.logout_url)
         })
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log("no session")
+        console.log(e)
+
         // Redirect to login page
         return router.push(SqrlIDPath + `/login?return_to=${hostname}/profile`)
       })
