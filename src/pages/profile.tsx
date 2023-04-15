@@ -1,6 +1,6 @@
 import React from "react"
 import { useEffect, useState } from "react"
-import { Configuration, FrontendApi, Identity,Session } from "@ory/client"
+import { Configuration, FrontendApi, Identity, Session } from "@ory/client"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -21,6 +21,11 @@ const SqrlIDPath =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001"
     : process.env.NEXT_PUBLIC_SQRL_ID_URL
+
+const hostname =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : process.env.NEXT_PUBLIC_HOSTNAME
 
 const ory = new FrontendApi(
   new Configuration({
@@ -55,7 +60,7 @@ const Profile: NextPageWithLayout = () => {
       })
       .catch(() => {
         // Redirect to login page
-        return router.push(SqrlIDPath + "/login")
+        return router.push(SqrlIDPath + `/login?return_to=${hostname}/profile`)
       })
   }, [router])
 
