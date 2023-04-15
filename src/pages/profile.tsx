@@ -53,18 +53,14 @@ const Profile: NextPageWithLayout = () => {
       .then(({ data }) => {
         // User has a session!
         setSession(data)
-        console.log("has session")
-        console.log(data)
-
         // Create a logout url
         ory.createBrowserLogoutFlow().then(({ data }) => {
+          console.log(data)
+
           setLogoutUrl(data.logout_url)
         })
       })
       .catch((e) => {
-        console.log("no session")
-        console.log(e)
-
         // Redirect to login page
         return router.push(SqrlIDPath + `/login?return_to=${hostname}/profile`)
       })
@@ -75,37 +71,24 @@ const Profile: NextPageWithLayout = () => {
     return null
   }
 
-  // const supabaseClient = useSupabaseClient()
-  // const user = useUser()
-  // const [data, setData] = useState()
-
-  // console.log(user)
-
-  // useEffect(() => {
-  //   async function loadData() {
-  //     const { data } = await supabaseClient.from("test").select("*")
-  //     setData(data)
-  //   }
-  //   // Only run query once user is logged in.
-  //   if (user) loadData()
-  // }, [user])
-
-  // if (!user) return <AuthModal />
-
   return (
     <>
       <Title>{t("dashboard:profile")}</Title>
-      <p>Hello, {getUserName(session?.identity)}</p>
+      <div>
+        <p>{getUserName(session?.identity)}</p>
+        <p>Hello, {session?.identity?.traits?.name}!</p>
+      </div>
+
+      <details>
+        <summary className="cursor-pointer">Session</summary>
+        <pre>{JSON.stringify(session, null, 2)}</pre>
+      </details>
+
       <div>
         <p>
           <a href={logoutUrl}>Log out</a>
         </p>
       </div>
-      {/* bello
-      <button onClick={() => supabaseClient.auth.signOut()}>Sign out</button>
-      <p>user:</p>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <p>client-side data fetching with RLS</p> */}
     </>
   )
 }

@@ -33,7 +33,7 @@ const Timetables = () => {
     <>
       <Title>{t("dashboard:timetables")}</Title>
 
-      <div className="flex items-center justify-between text-xl font-medium">
+      <div className="flex items-center justify-between text-xl">
         <div className="flex items-center">
           {t("sort-by")}
           <div className="ml-2 text-black text-opacity-70">

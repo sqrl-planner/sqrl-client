@@ -34,7 +34,7 @@ const Privacy: NextPageWithLayout = () => {
     <>
       <Title>{t("dashboard:privacy")}</Title>
       <Caption>Last updated 2023-03-05</Caption>
-      <div className="eng-font flex flex-col gap-4 font-sans text-xl font-medium opacity-70">
+      <div className="eng-font flex flex-col gap-4 font-sans text-xl opacity-70">
         <div>
           This privacy notice for Sqrl Planner (&quot;<strong>we</strong>
           ,&quot; &quot;<strong>us</strong>,&quot; or &quot;

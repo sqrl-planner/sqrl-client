@@ -88,7 +88,6 @@ const TimetableCard = ({ timetable }: { timetable: Timetable }) => {
                 className={clsx(
                   "radix-side-bottom:animate-slide-down radix-side-top:animate-slide-up",
                   "w-48 rounded-lg px-0 py-1 shadow-xl md:w-56",
-                  "font-medium",
                   "bg-white"
                 )}
               >
