@@ -9,7 +9,7 @@ type Props = {
 const Anchor = ({ href, children }: Props) => {
   return (
     <Link
-      className="break-all text-link-blue transition hover:text-link-dark-blue"
+      className="break-all text-blue-700 transition hover:text-blue-800"
       href={href}
     >
       {children}

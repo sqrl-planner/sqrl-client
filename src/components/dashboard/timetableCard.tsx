@@ -57,7 +57,7 @@ const TimetableCard = ({ timetable }: { timetable: Timetable }) => {
     <AspectRatio.Root ratio={2 / 1}>
       <Link
         href="/timetables/123"
-        className="relative flex h-full w-full flex-col items-start justify-between rounded-lg bg-slate-50 p-4 text-left shadow-md outline outline-2 outline-transparent transition-all focus:shadow-xl focus:outline-blue-500 hover:shadow-xl hover:outline-blue-500"
+        className="relative flex h-full w-full flex-col items-start justify-between rounded-xl bg-slate-50 p-4 text-left shadow-md outline outline-2 outline-transparent transition-all focus:shadow-xl focus:outline-blue-700 hover:shadow-xl hover:outline-blue-700"
       >
         <div>
           <Caption>2022 Fall–2023 Winter</Caption>

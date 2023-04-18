@@ -10,7 +10,7 @@ import { NextPageWithLayout } from "./_app"
 
 const InShort = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="my-2 rounded-xl bg-white p-5 px-6 shadow-lg">
+    <div className="my-2 rounded-xl border border-black/10 bg-slate-50 p-5 px-6 shadow-xl">
       {children}
     </div>
   )
@@ -152,11 +152,11 @@ const Privacy: NextPageWithLayout = () => {
           products and features you use. The personal information we collect may
           include the following:
         </div>
-        <ul>
-          <li>names</li>
-          <li>email addresses</li>
-          <li>usernames</li>
-          <li>passwords</li>
+        <ul className="ml-10 list-disc">
+          <li>Names</li>
+          <li>Email addresses</li>
+          <li>Usernames</li>
+          <li>Passwords</li>
         </ul>
         <div>
           <strong>Sensitive Information.</strong> We do not process sensitive

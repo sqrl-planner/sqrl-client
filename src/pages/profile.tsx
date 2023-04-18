@@ -81,7 +81,7 @@ const Profile: NextPageWithLayout = () => {
 
       <details>
         <summary className="cursor-pointer">Session</summary>
-        <pre>{JSON.stringify(session, null, 2)}</pre>
+        <pre className="overflow-auto">{JSON.stringify(session, null, 2)}</pre>
       </details>
 
       <div>

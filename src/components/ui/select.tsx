@@ -26,7 +26,7 @@ const _SelectTrigger: ForwardRefRenderFunction<HTMLButtonElement> = (
     ref={ref}
     {...props}
     className={clsx(
-      "inline-flex select-none items-center justify-start px-0 py-1 font-medium",
+      "inline-flex select-none items-center justify-start px-0 py-1",
       "inline-block py-1 transition",
       "flex items-center gap-3",
       "focus:outline-none focus-visible:ring ",

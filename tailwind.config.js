@@ -10,7 +10,15 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ["articulat-cf", "sans-serif"],
+      sans: [
+        // "neutronic",
+        // "colfax-web",
+        // "pragmatica",
+        "interstate",
+        // "articulat-cf",
+        // "sans-serif",
+        "ff-meta-web-pro",
+      ],
       serif: ["harfang-pro", "serif"],
       system: [
         "ui-sans-serif",

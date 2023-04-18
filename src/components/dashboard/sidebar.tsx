@@ -95,7 +95,7 @@ const Sidebar = () => {
       className={clsx(
         "z-0 lg:fixed lg:inset-auto lg:w-72",
         "h-auto lg:max-h-[calc(100vh-theme(space.14))] lg:overflow-y-auto",
-        "flex flex-col gap-4 p-4 text-xl font-medium",
+        "flex flex-col gap-4 p-4 text-lg",
         "group"
       )}
     >
@@ -167,7 +167,7 @@ const Sidebar = () => {
       </ul>
 
       <Rule />
-      <div className="flex flex-col gap-4 text-xs font-semibold">
+      <div className="flex flex-col gap-4 text-xs font-medium">
         <div className="flex flex-col items-start">
           <SidebarLink href="/about">{t("about")}</SidebarLink>
           <SidebarLink href="/privacy">{t("privacy")}</SidebarLink>

@@ -56,7 +56,7 @@ const ContentLayout = ({ children }: Props) => {
           exit="out"
           className={clsx(
             "lg:ml-72 lg:mr-4 lg:pl-2",
-            "flex h-full w-full flex-col gap-6 p-4 pt-8 pb-10"
+            "flex h-full w-full max-w-[100vw] flex-col gap-6 p-4 pt-8 pb-10"
           )}
         >
           {children}

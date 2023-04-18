@@ -137,3 +137,7 @@ input {
     @apply font-system;
   }
 }
+
+strong {
+  @apply font-medium;
+}

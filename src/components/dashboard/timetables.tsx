@@ -1,11 +1,11 @@
 import React from "react"
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
-import clsx from "clsx"
 import { useTranslation } from "next-i18next"
 
 import { Select } from "@/components/ui"
 import { Session, Timetable } from "@/types"
 
+import { Input } from "../common"
 import Title from "../common/title"
 
 import TimetableCard from "./timetableCard"
@@ -33,7 +33,7 @@ const Timetables = () => {
     <>
       <Title>{t("dashboard:timetables")}</Title>
 
-      <div className="flex items-center justify-between text-xl">
+      <div className="flex items-center justify-between text-lg">
         <div className="flex items-center">
           {t("sort-by")}
           <div className="ml-2 text-black text-opacity-70">
@@ -47,16 +47,13 @@ const Timetables = () => {
             />
           </div>
         </div>
-        <span className="relative">
-          <MagnifyingGlassIcon
-            className={clsx("absolute", "inset-y-0 left-3 m-auto", "h-5 w-5")}
-          />
-          <input
+
+        <Input icon={MagnifyingGlassIcon} type="text" placeholder="Search" />
+        {/* <input
             type="text"
             placeholder="Search"
-            className="rounded-full border p-1.5 py-1 pt-1.5 pl-10 text-base"
-          />
-        </span>
+            className="h-8 rounded-xl border pl-10 text-base"
+          /> */}
       </div>
 
       <div className="grid w-full gap-4 pb-8 sm:grid-cols-2">

@@ -6,7 +6,7 @@ type Props = {
 
 const Caption = ({ children }: Props) => {
   return (
-    <div className="text-xs font-semibold uppercase tracking-wide opacity-70">
+    <div className="text-xs font-medium uppercase tracking-wide opacity-70">
       {children}
     </div>
   )
