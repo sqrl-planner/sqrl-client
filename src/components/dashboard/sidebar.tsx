@@ -60,18 +60,27 @@ const SidebarLink = ({
   children: React.ReactNode
 } & ComponentProps<typeof Link>) => {
   const pathname = usePathname()
+  const router = useRouter()
+
+  const isCurrent = pathname === href
 
   return (
     <Link
       href={href}
-      scroll
+      onClick={(e) => {
+        if (isCurrent) {
+          // reload window
+          e.preventDefault()
+          router.reload()
+        }
+      }}
       className={clsx(
         "inline-block py-1 transition",
         "flex items-center gap-3",
         "select-none",
         {
-          "opacity-60 hover:opacity-80": pathname !== href,
-          "opacity-100": pathname === href,
+          "opacity-60 hover:opacity-80": !isCurrent,
+          "cursor-default opacity-100": isCurrent,
         }
       )}
       {...rest}
@@ -95,7 +104,7 @@ const Sidebar = () => {
       className={clsx(
         "z-0 lg:fixed lg:inset-auto lg:w-72",
         "h-auto lg:max-h-[calc(100vh-theme(space.14))] lg:overflow-y-auto",
-        "flex flex-col gap-4 p-4 text-lg",
+        "flex flex-col gap-4 p-4",
         "group"
       )}
     >

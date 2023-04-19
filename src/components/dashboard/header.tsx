@@ -43,8 +43,8 @@ const Header = () => {
   return (
     <header
       className={clsx(
-        "fixed z-10 flex h-14 w-full flex-col justify-center border-b-[0.8px] border-b-[#80808080] bg-[#EBEBE4] px-4",
-        "bg-opacity-60 backdrop-blur"
+        "fixed z-10 flex h-14 w-full flex-col justify-center border-b-[0.8px] border-b-black/20 px-4",
+        "bg-cream/50 backdrop-blur"
       )}
     >
       <div className="m-auto flex w-full max-w-7xl">

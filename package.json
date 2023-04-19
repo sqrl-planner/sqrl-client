@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.9",
+    "@approximant/next-progress": "^0.1.0",
     "@headlessui/react": "^1.7.13",
     "@ory/client": "^1.1.24",
     "@ory/integrations": "^1.1.0",
@@ -38,7 +39,6 @@
     "i18next": "^22.4.10",
     "next": "13.2.3",
     "next-i18next": "^13.2.1",
-    "nextjs-progressbar": "^0.0.16",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4",

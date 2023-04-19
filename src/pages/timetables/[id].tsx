@@ -32,6 +32,7 @@ export const getServerSideProps = async ({
   query,
 }: ServerSidePropsProps) => {
   log(query)
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [

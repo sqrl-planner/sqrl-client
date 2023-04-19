@@ -1,10 +1,10 @@
 import { ReactElement, ReactNode } from "react"
 import { Toaster } from "react-hot-toast"
+import NextProgress from "@approximant/next-progress"
 import { Analytics } from "@vercel/analytics/react"
 import { NextPage } from "next"
 import type { AppProps } from "next/app"
 import { appWithTranslation } from "next-i18next"
-import NextNProgress from "nextjs-progressbar"
 
 import "@/styles/globals.css"
 
@@ -27,7 +27,12 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           },
         }}
       />
-      <NextNProgress color="#0891b2" showOnShallow={false} />
+      <NextProgress
+        color="#0891b2"
+        height={2}
+        showOnShallow={false}
+        debounce={300}
+      />
       <Analytics />
     </>
   )

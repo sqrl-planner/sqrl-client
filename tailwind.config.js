@@ -56,6 +56,7 @@ module.exports = {
           900: "#164e63",
         },
         uoft: "#25355A",
+        cream: "#EBEBE4",
       },
       keyframes: {
         // Dropdown menu
