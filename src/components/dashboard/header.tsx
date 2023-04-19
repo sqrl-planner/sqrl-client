@@ -48,7 +48,7 @@ const Header = () => {
       )}
     >
       <div className="m-auto flex w-full max-w-7xl">
-        <div className="eng-font flex items-center gap-1 font-serif text-xl">
+        <div className="flex items-center gap-1 font-serif text-xl">
           <Link href="/">
             <Logo />
           </Link>

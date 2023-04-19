@@ -115,23 +115,10 @@ input {
 @tailwind utilities;
 
 @layer base {
-  /* Set Chinese sans-serif font to source-han-sans-simplified-c */
-  /* html[lang="zh"] .font-sans {
-    font-family: "source-han-sans-simplified-c", sans-serif !important;
-  }
-
-  html[lang="zh"] .font-seif {
-    font-family: "adobe-fangsong-std", serif !important;
-  } */
-
-  /* [lang="zh"] html {
-    @apply font-zh-sans;
-  } */
-
-  .font-sans:lang("zh"):not(.eng-font),
+  /* .font-sans:lang("zh"):not(.eng-font),
   .font-sans:lang("eo"):not(.eng-font) {
     @apply font-system;
-  }
+  } */
 
   .font-serif:lang("zh"):not(.eng-font) {
     @apply font-system;

@@ -11,12 +11,12 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: [
-        // "neutronic",
-        // "colfax-web",
-        // "pragmatica",
         "interstate",
+        // "neutronic",
+        // "pragmatica",
+        // "colfax-web",
         // "articulat-cf",
-        // "sans-serif",
+        "sans-serif",
         "ff-meta-web-pro",
       ],
       serif: ["harfang-pro", "serif"],

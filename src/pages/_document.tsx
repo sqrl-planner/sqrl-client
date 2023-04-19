@@ -38,7 +38,7 @@ export default function Document({ locale }: DocumentProps) {
 
         <meta name="theme-color" content="#ebebe4" />
       </Head>
-      <body className="">
+      <body className="text-lg">
         <Main />
         <NextScript />
       </body>

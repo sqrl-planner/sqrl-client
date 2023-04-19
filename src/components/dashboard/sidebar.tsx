@@ -1,6 +1,7 @@
 import React, { ComponentProps, forwardRef, Ref } from "react"
 import {
   ArchiveIcon,
+  BarChartIcon,
   CalendarIcon,
   DiscordLogoIcon,
   ExternalLinkIcon,
@@ -10,7 +11,6 @@ import {
   PersonIcon,
   Share1Icon,
 } from "@radix-ui/react-icons"
-import { IconShoppingBag } from "@tabler/icons-react"
 // import * as Select from "@radix-ui/react-select"
 import clsx from "clsx"
 import { motion } from "framer-motion"
@@ -148,7 +148,7 @@ const Sidebar = () => {
       <ul>
         <li>
           <SidebarLink target="_blank" rel="noopener noreferrer" href="/shop">
-            <IconShoppingBag size={16} />
+            <BarChartIcon />
             {t("shop")}
             <ExternalLinkIcon className="-ml-2 h-3 w-3" />
           </SidebarLink>
