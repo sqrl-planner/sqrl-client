@@ -182,7 +182,7 @@ const Sidebar = () => {
           <SidebarLink href="/privacy">{t("privacy")}</SidebarLink>
           <SidebarLink href="/terms">{t("terms")}</SidebarLink>
           <SidebarLink target="_blank" rel="noopener noreferrer" href="/github">
-            GitHub <ExternalLinkIcon className="-ml-2 h-3 w-3" />
+            {t("contribute")} <ExternalLinkIcon className="-ml-2 h-3 w-3" />
           </SidebarLink>
           <SidebarLink href="/feedback">{t("feedback")}</SidebarLink>
         </div>
