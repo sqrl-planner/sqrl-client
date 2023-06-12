@@ -116,6 +116,20 @@ export const SectionsProvider = ({
       onCompleted: (data) => {
         setSections(JSON.parse(data.setSectionsTimetable.timetable.sections))
       },
+      optimisticResponse: {
+        setSectionsTimetable: {
+          timetable: {
+            // id: "64339f7a13d4d9b533296f5d",
+            id,
+            sections: JSON.stringify({
+              ...sections,
+              [courseId]: nextSections,
+            }),
+            __typename: "_TimetableObject",
+          },
+          __typename: "SetSectionsTimetableMutation",
+        },
+      },
     })
   }
 
