@@ -6,6 +6,7 @@ import {
   CloseButton,
   Container,
   Flex,
+  Heading,
   Icon,
   Input,
   InputGroup,
@@ -172,6 +173,17 @@ const Dashboard = () => {
 
   const { t } = useTranslation("index")
 
+  useEffect(() => {
+    // prefetch the first 3 timetables
+    const firstThree = Object.keys(timetables).slice(0, 3)
+    firstThree.forEach((id) => {
+      router.prefetch(`/timetable/${id}`)
+      fetch(`/timetable/${id}`).then(() => {
+        console.log("Prefetched timetable", id)
+      })
+    })
+  }, [timetables])
+
   // Differences in the UI between light and dark mode
   // Mostly for icons/hover
   type ModeConfig = {
@@ -223,6 +235,14 @@ const Dashboard = () => {
           flexDirection="column"
           gap={6}
         >
+          <Box border="1px" rounded="xl" py="3" px="5">
+            <Heading size="lg">Sorry!</Heading>
+            <Box pt="2">
+              We&apos;re working on a big update for Sqrl Planner, and it&apos;s
+              taking a little longer than expected. We think you&apos;re gonna
+              love it.
+            </Box>
+          </Box>
           <Flex justifyContent="space-between">
             <Flex>
               <Select
@@ -278,7 +298,6 @@ const Dashboard = () => {
               </InputGroup>
             </Flex>
           </Flex>
-
           <SimpleGrid
             alignItems="start"
             // justifyContent="start"
